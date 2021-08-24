@@ -1,4 +1,9 @@
 # melees
+## How to start
+1. 選好資料夾的位置之後
+2. $ git clone https://github.com/gemini497586/melees.git
+3. 進行檢查，正確無誤之後
+4. 由Enzo統一新增分支
 
 ## git-flow
 實際有７個分支，依照功能性分成３類
