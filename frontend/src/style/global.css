@@ -175,4 +175,5 @@ h6 {
 
   .progressBar-text {
     color: var(--color-secondary);
+    padding-top: 10px;
   }
