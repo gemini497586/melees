@@ -1,10 +1,13 @@
-import './App.css'
+import './style/global.css'
+import './style/member.css'
 import OrderDetails from './pages/member/OrderDetails'
+import Register from './pages/member/Register'
 
 function App() {
   return (
     <div className="App">
-      <OrderDetails />
+      {/* <OrderDetails /> */}
+      <Register />
     </div>
   )
 }

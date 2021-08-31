@@ -1,0 +1,23 @@
+.minor-bar {
+  display: flex;
+  margin: -10px 0px 0px 210px;
+  font-size: 16px;
+}
+
+.minor-bar a {
+  text-decoration: none;
+  color: #606060;
+  line-height: 24px;
+}
+
+.minor-bar li {
+  border-right: 1px solid rgba(96, 96, 96, 0.5);
+  height: 24px;
+  margin: 10px 0px;
+}
+
+.sub-line {
+  width: 100%;
+  height: 1px;
+  background: rgba(96, 96, 96, 0.5);
+}
