@@ -20,14 +20,14 @@
   margin: 0px 20px 0px 80px;
 }
 
-ul {
+.header-bar ul {
   list-style: none;
   display: flex;
   font-size: 18px;
   margin-top: 15px;
 }
 
-ul li {
+.header-bar ul li {
   margin: 10px 5px;
   min-width: 100px;
   height: 40px;
