@@ -1,10 +1,11 @@
 import './style/global.css'
 import './style/header.css'
-import OrderDetails from './pages/member/OrderDetails'
-import Register from './pages/member/Register'
-import EditPassword from './pages/member/EditPassword'
-import EditMemberInfo from './pages/member/EditMemberInfo'
 import Login from './pages/member/Login'
+import Register from './pages/member/Register'
+import EditMemberInfo from './pages/member/EditMemberInfo'
+import EditPassword from './pages/member/EditPassword'
+import OrderList from './pages/member/OrderList'
+import OrderDetails from './pages/member/OrderDetails'
 
 function App() {
   return (
@@ -13,8 +14,9 @@ function App() {
       {/* <Login /> */}
       {/* <Register /> */}
       {/* <EditMemberInfo /> */}
-      <EditPassword />
+      {/* <EditPassword /> */}
       {/* 未完成分頁 */}
+      <OrderList />
       {/* <OrderDetails /> */}
     </div>
   )
