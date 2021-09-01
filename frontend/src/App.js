@@ -3,6 +3,9 @@ import './style/global.css'
 import Header from './component/Header'
 // footer
 import Footer from './component/Footer'
+import CardRecipe from './component/CardRecipe'
+import CardShopping from './component/CardShopping'
+import DropDown from './component/DropDown'
 
 // 次選單
 import MinorBar from './component/MinorBar'
@@ -31,17 +34,20 @@ function App() {
   return (
     <div className="App">
       <Header />
-      {/* <MinorBar /> */}
+      <MinorBar />
       {/* <SortingBar /> */}
       {/* <div className="t60"></div> */}
-      {/* <div className="container">
+      <CardRecipe />
+      <CardShopping />
+      <DropDown />
+      <div className="container">
         <MarketMainPage />
         <MarketMainPage />
         <MarketMainPage />
         {array.map((v, i) => {
           return <Paging value={v} />
         })}
-      </div> */}
+      </div>
       {/* <ProductDetails /> */}
       {/* <CartDetail /> */}
       {/* <CheckoutPersonalData /> */}
