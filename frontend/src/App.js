@@ -1,4 +1,5 @@
 import './style/global.css'
+
 import Header from './component/Header.js'
 import MinorBar from './component/MinorBar.js'
 import Tables from './component/Tables.js'
@@ -31,6 +32,13 @@ import CheckoutPersonalData from './pages/market/CheckoutPersonalData'
 
 // 結帳-資料確認頁面
 import CheckoutConfirm from './pages/market/CheckoutConfirm'
+
+import Login from './pages/member/Login'
+import Register from './pages/member/Register'
+import EditMemberInfo from './pages/member/EditMemberInfo'
+import EditPassword from './pages/member/EditPassword'
+import OrderList from './pages/member/OrderList'
+import OrderDetails from './pages/member/OrderDetails'
 
 const array = [1, 2, 3]
 
@@ -69,6 +77,14 @@ function App() {
       {/* <CheckoutPersonalData /> */}
       {/* <CheckoutConfirm /> */}
       <Footer />
+      {/* 完成分頁 */}
+      <Login />
+      {/* <Register /> */}
+      {/* <EditMemberInfo /> */}
+      {/* <EditPassword /> */}
+      {/* <OrderList /> */}
+      {/* 未完成分頁 */}
+      {/* <OrderDetails /> */}
     </div>
   )
 }
