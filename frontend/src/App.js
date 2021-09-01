@@ -1,14 +1,18 @@
 import './style/global.css'
-// header
-import Header from './component/Header'
-// footer
-import Footer from './component/Footer'
-import CardRecipe from './component/CardRecipe'
-import CardShopping from './component/CardShopping'
-import DropDown from './component/DropDown'
+import Header from './component/Header.js'
+import MinorBar from './component/MinorBar.js'
+import Tables from './component/Tables.js'
+import Footer from './component/Footer.js'
+import Box from './pages/box/Box.js'
+import Home from './pages/home/Home.js'
+import SearchMarket from './pages/search/SearchMarket.js'
+import SearchRecipe from './pages/search/SearchRecipe.js'
+import MemberBox from './pages/member/MemberBox'
+import CardRecipe from './component/CardRecipe.js'
+import DropDown from './component/DropDown.js'
+import CardShopping from './component/CardShopping.js'
+import CardPrivateRecipe from './pages/private/component/CardPrivateRecipe.js'
 
-// 次選單
-import MinorBar from './component/MinorBar'
 // 排序
 import SortingBar from './pages/market/SortingBar'
 
@@ -34,7 +38,19 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <MinorBar />
+
+      {/* <MinorBar /> */}
+      {/* <Home /> */}
+      <Box />
+      {/* <Tables /> */}
+      {/* <SearchMarket /> */}
+      {/* <SearchRecipe /> */}
+      {/* <MemberBox /> */}
+      {/* <DropDown />
+      <CardRecipe />
+      <CardShopping />
+      <CardPrivateRecipe /> */}
+
       {/* <SortingBar /> */}
       {/* <div className="t60"></div> */}
       <CardRecipe />
@@ -51,7 +67,7 @@ function App() {
       {/* <ProductDetails /> */}
       {/* <CartDetail /> */}
       {/* <CheckoutPersonalData /> */}
-      <CheckoutConfirm />
+      {/* <CheckoutConfirm /> */}
       <Footer />
     </div>
   )

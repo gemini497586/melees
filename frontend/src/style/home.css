@@ -1,0 +1,99 @@
+/* 共同 */
+.home-height {
+  height: calc(100vh - 104px);
+  overflow: hidden;
+  position: relative;
+}
+.h-btn {
+  background: var(--color-primary);
+  color: var(--color-white);
+  border-radius: 8px;
+  padding: 7px 40px;
+  height: 42px;
+}
+.h-btn:hover {
+  color: var(--color-white);
+  background: var(--color-primary-A);
+}
+
+/* 便當 */
+.page1 {
+  height: calc(100vh - 104px);
+  background: url('../images/home_bg1.png') center center no-repeat;
+  background-size: cover;
+}
+.p1-dialog {
+  color: var(--color-grey-800);
+  position: absolute;
+  top: 50px;
+  left: 57%;
+}
+.p1-title {
+  color: var(--color-secondary);
+  position: absolute;
+  top: 200px;
+  left: 65%;
+}
+.p1-entitle {
+  color: var(--color-white);
+  position: absolute;
+  top: 330px;
+  left: 67%;
+}
+.p1-btn {
+  position: absolute;
+  top: 510px;
+  left: 63%;
+}
+
+/* 精選食譜 */
+.page2 {
+  height: calc(100vh - 104px);
+  background: linear-gradient(transparent 50%, rgba(0, 0, 0, 0.7)),
+    url('../images/home_bg2.png') top center no-repeat;
+  background-size: cover;
+}
+
+/* 私藏食譜 */
+.page3 {
+  height: calc(100vh - 104px);
+  background: url('../images/home_bg3.png') bottom left no-repeat;
+  background-size: cover;
+}
+.plate {
+  height: 500px;
+  background: url('../images/home_plate.png') top center no-repeat;
+  background-size: 500px;
+}
+
+/* 商城 */
+.page4 {
+  position: absolute;
+  left: -300px;
+  top: -35%;
+  background: var(--color-primary);
+  border-radius: 100%;
+  height: 150vh;
+  width: 150vh;
+}
+.p4-content {
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.p4-rect {
+  /* border: 1px solid var(--color-white); */
+  border: 1px solid var(--color-secondary);
+  height: 500px;
+  width: 600px;
+}
+.p4-text {
+  text-align: end;
+}
+.p4-subtitle {
+  color: var(--color-grey-800);
+}
+.p4-title {
+  color: var(--color-primary);
+}
