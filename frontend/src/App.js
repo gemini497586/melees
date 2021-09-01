@@ -1,6 +1,7 @@
 import './style/global.css'
 import Header from './component/Header.js'
 import MinorBar from './component/MinorBar.js'
+
 import Tables from './component/Tables.js'
 import Footer from './component/Footer.js'
 import Box from './pages/box/Box.js'
@@ -38,6 +39,7 @@ function App() {
   return (
     <div className="App">
       <Header />
+
       {/* <MinorBar /> */}
       {/* <Home /> */}
       <Box />
