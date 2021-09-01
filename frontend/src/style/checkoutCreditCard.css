@@ -1,0 +1,116 @@
+.checkout-credit-card-area {
+  top: 449px;
+  left: 76px;
+  width: 799px;
+  height: 327px;
+  position: relative;
+}
+
+.checkout-credit-card-area div,
+.checkout-credit-card-area label,
+.checkout-credit-card-area input {
+  position: absolute;
+}
+
+/* 全部的input */
+.checkout-credit-card-area input {
+  height: 45px;
+  border-radius: 4px;
+  border: 1px solid #555;
+  padding: 20px;
+}
+
+/* 全部的label */
+.checkout-credit-card-label {
+  top: 14px;
+  left: 69px;
+}
+
+/* 卡號部分 */
+.credit-area {
+  width: 450px;
+  height: 45px;
+}
+
+.checkout-credit-card-num,
+.expiration-period input,
+.last3num input {
+  width: 72px;
+}
+
+.credit1 {
+  left: 144px;
+}
+
+.credit2 {
+  left: 222px;
+}
+
+.credit3 {
+  left: 300px;
+}
+
+.credit4 {
+  left: 378px;
+}
+
+/* 有效期限部分 */
+.expiration-period {
+  width: 450px;
+  height: 45px;
+  top: 80px;
+  left: -28px;
+}
+
+.ep1 {
+  left: 172px;
+}
+
+.ep2 {
+  left: 250px;
+}
+
+/* 末三碼部分 */
+.last3num {
+  width: 156px;
+  height: 45px;
+  top: 80px;
+  left: 298px;
+}
+
+.last3num label {
+  left: 13px;
+}
+
+.last3num input {
+  left: 80px;
+}
+
+/* 地址部分 */
+.checkout-credit-card-address {
+  width: 799px;
+  height: 239px;
+  top: 168px;
+  left: 69px;
+  /* background: #000; */
+}
+
+.checkout-credit-card-address label {
+  left: 0px;
+}
+
+.address1 {
+  left: 74px;
+  width: 306px;
+}
+
+.address2 {
+  left: 423px;
+  width: 306px;
+}
+
+.address3 {
+  left: 74px;
+  top: 80px;
+  width: 655px;
+}

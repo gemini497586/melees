@@ -1,0 +1,88 @@
+.cardPrivateRecipe {
+  position: relative;
+  width: 306px;
+  height: 488px;
+  border-radius: 8px;
+  margin: auto;
+}
+.cardPrivateRecipe-img {
+  width: 306px;
+  height: 250px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  overflow: hidden;
+}
+.cardPrivateRecipe-bookmark {
+  position: absolute;
+  right: 28px;
+  top: 21px;
+  color: var(--color-white);
+  transform: scale(1, 0.85);
+}
+
+.cardPrivateRecipe-avatar {
+  position: absolute;
+  top: 173px;
+  right: 238px;
+  width: 54px;
+  height: 54px;
+  border-radius: 30px;
+  border: 3px solid var(--color-white);
+  overflow: hidden;
+  z-index: 1;
+}
+.cardPrivateRecipe-box {
+  position: absolute;
+  width: 113px;
+  height: 33px;
+  left: 40px;
+  top: 186px;
+  border-radius: 14px;
+  background: var(--color-primary);
+}
+.cardPrivateRecipe-type {
+  position: absolute;
+  margin-left: 36px;
+  margin-top: 6px;
+  color: var(--color-white);
+}
+.cardPrivateRecipe-name {
+  font-weight: 700;
+  margin-top: 67px;
+  text-align: center;
+  color: var(--color-secondary);
+}
+.cardPrivateRecipe-star {
+  text-align: center;
+  color: var(--color-primary-A);
+}
+.cardPrivateRecipe-star-num {
+  margin-left: 10px;
+  color: var(--color-grey-800);
+}
+.cardPrivateRecipe-like {
+  position: absolute;
+  right: 20px;
+  color: var(--color-grey-800);
+  transform: scale(1.5);
+}
+.cardPrivateRecipe-stat {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+  color: var(--color-grey-800);
+}
+.cardPrivateRecipe-stat i {
+  margin-top: 5px;
+  margin-right: 12px;
+  margin-left: 20px;
+}
+.cardPrivateRecipe-stat div {
+  width: 1px;
+  margin: auto 0;
+  height: 18px;
+  background: var(--color-grey-500);
+}
+.cardPrivateRecipe-stat span {
+  margin-right: 20px;
+}
