@@ -1,5 +1,4 @@
 import './style/global.css'
-// import './style/header.css'
 import Login from './pages/member/Login'
 import Register from './pages/member/Register'
 import EditMemberInfo from './pages/member/EditMemberInfo'
