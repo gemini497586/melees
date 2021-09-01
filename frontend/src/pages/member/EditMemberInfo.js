@@ -5,6 +5,7 @@ import '../../style/member.css'
 import avatar from '../../images/Avatar.png'
 import Header from '../../component/Header'
 import MinorBar from './component/MinorBar'
+import Footer from '../../component/Footer'
 
 function EditMemberInfo() {
   return (
@@ -127,6 +128,7 @@ function EditMemberInfo() {
         </div>
         <button className="member-form-submitBtn">送出</button>
       </form>
+      <Footer />
     </>
   )
 }

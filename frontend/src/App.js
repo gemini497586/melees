@@ -12,10 +12,10 @@ function App() {
       {/* 完成分頁 */}
       {/* <Login /> */}
       {/* <Register /> */}
+      {/* <EditMemberInfo /> */}
+      <EditPassword />
       {/* 未完成分頁 */}
       {/* <OrderDetails /> */}
-      {/* <EditPassword /> */}
-      <EditMemberInfo />
     </div>
   )
 }

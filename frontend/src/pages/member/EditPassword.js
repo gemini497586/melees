@@ -1,11 +1,16 @@
 import React from 'react'
 import '../../style/global.css'
 import '../../style/member.css'
+import Header from '../../component/Header'
+import MinorBar from './component/MinorBar'
+import Footer from '../../component/Footer'
 
 function EditPassword() {
   return (
     <>
-      <form className="member-form">
+      <Header />
+      <MinorBar />
+      <form className="member-form member-form-forEditMemberInfo">
         <div className="member-form-title">
           <div className="member-form-title-icon">
             <svg
@@ -58,6 +63,7 @@ function EditPassword() {
         </div>
         <button className="member-form-submitBtn">送出</button>
       </form>
+      <Footer />
     </>
   )
 }
