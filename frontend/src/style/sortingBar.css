@@ -1,0 +1,17 @@
+.sorting-bar {
+  margin-top: 20px;
+  position: absolute;
+  right: 20px;
+}
+
+.sorting-btn:focus {
+  box-shadow: 0px 0px 5px rgba(96, 96, 96, 0.5);
+}
+
+.sorting-btn {
+  border: 1px solid var(--color-secondary);
+}
+
+/* .sorting-group .btn-dropdown .show {
+  transform: translate(0px, 0px);
+} */

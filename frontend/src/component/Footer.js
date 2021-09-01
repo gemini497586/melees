@@ -114,10 +114,10 @@ function Footer() {
 
         <div className="footer-bottom">
           <div className="d-flex align-items-center justify-content-between">
-            <div className="font-400SS col-5 pe-2">
+            <div className="font-400SS col-6 pe-2">
               本網站所有內容及資料全部來自網路，僅供學術交流使用，若有侵權請告知
             </div>
-            <ul className="font-400SS list-unstyled col-7">
+            <ul className="font-400SS list-unstyled col-6">
               {bottom.map((v, i) => {
                 return (
                   <li key={i}>
