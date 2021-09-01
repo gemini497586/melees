@@ -1,0 +1,78 @@
+.cardRecipe {
+  position: relative;
+  width: 306px;
+  height: 379px;
+  border-radius: 8px;
+  margin: auto;
+}
+.cardRecipe-img {
+  width: 306px;
+  height: 250px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  overflow: hidden;
+}
+.cardRecipe-bookmark {
+  position: absolute;
+  right: 28px;
+  top: 21px;
+  color: var(--color-white);
+  transform: scale(1, 0.85);
+}
+.cardRecipe-bookmark-stat-box {
+  position: absolute;
+  width: 113px;
+  height: 33px;
+  left: 12px;
+  top: 207px;
+  border-radius: 14px;
+  background: #f0f0f0;
+}
+.cardRecipe-bookmark-stat-icon i {
+  position: absolute;
+  transform: scaleX(24px);
+  left: 21px;
+  top: 8px;
+  color: var(--color-blue-C);
+}
+.cardRecipe-bookmark-num {
+  position: absolute;
+  width: 46px;
+  height: 20px;
+  margin-top: 6px;
+  margin-left: 46px;
+  color: var(--color-secondary);
+}
+.cardRecipe-type {
+  position: relative;
+  margin-left: 12px;
+  color: var(--color-grey-500);
+}
+.cardRecipe-name {
+  font-weight: 700;
+  position: relative;
+  margin-top: 10px;
+  margin-left: 12px;
+  color: var(--color-grey-900);
+}
+.cardRecipe-ig {
+  position: relative;
+  margin-left: 12px;
+  margin-top: 12px;
+}
+.cardRecipe-ig span {
+  color: var(--color-grey-800);
+  margin-left: 10px;
+}
+.cardRecipe-ig i {
+  padding: 2px;
+  background: radial-gradient(
+    120.67% 120.67% at 16.13% 98.65%,
+    #fec053 0%,
+    #f2203e 32.73%,
+    #b729a8 64.85%,
+    #5342d6 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
