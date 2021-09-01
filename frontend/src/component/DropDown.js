@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-
-import '../style/dropdown.css'
+import '../style/dropDown.css'
 
 function DropDown() {
   const [isDropDown, setIsDropDown] = useState(false)
@@ -8,35 +7,35 @@ function DropDown() {
   const [itemList, setItemList] = useState([
     {
       name: '時間由新至舊',
-      value: 'apple',
+      value: '1',
     },
     {
       name: '時間由舊至新',
-      value: 'banana',
+      value: '2',
     },
     {
       name: '按讚數由多至少',
-      value: 'orange',
+      value: '3',
     },
     {
       name: '按讚數由少至多',
-      value: 'apple',
+      value: '4',
     },
     {
       name: '瀏覽數由多至少',
-      value: 'banana',
+      value: '5',
     },
     {
       name: '瀏覽數由少至多',
-      value: 'orange',
+      value: '6',
     },
     {
       name: '評論數由多至少',
-      value: 'apple',
+      value: '7',
     },
     {
       name: '評論數由少至多',
-      value: 'banana',
+      value: '8',
     },
   ])
 
