@@ -114,3 +114,49 @@
 .orderList-table tbody td .icon-info {
   color: var(--color-primary);
 }
+
+/* 訂單明細的客製版 */
+.member-form-forOrderDetail {
+  margin-top: 30px;
+}
+/* 付款方式與寄送資料 */
+.member-form-group-content-forPayInfo {
+  margin: 0 0 30px 0;
+}
+.member-form-forOrderDetail .orderDetail-payInfo {
+  list-style: none;
+  color: var(--color-grey-800);
+  margin-left: 16px;
+}
+.member-form-forOrderDetail .orderDetail-payInfo li {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--color-grey-500);
+}
+.member-form-forOrderDetail .orderDetail-payInfo li strong {
+  margin-right: 26px;
+}
+/* 注意事項 */
+.member-form-forOrderDetail .orderDetail-notes {
+  color: var(--color-grey-800);
+  margin-left: 40px;
+}
+.member-form-forOrderDetail .orderDetail-notes li {
+  line-height: 36px;
+}
+.member-form-forOrderDetail .orderDetail-notes li a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+.member-form-forOrderDetail .orderDetail-notes li strong {
+  color: var(--color-red-C);
+  font-weight: 400;
+}
+
+.member-form-forOrderDetail .sumGroup {
+  width: 100%;
+  text-align: right;
+}
+.member-form-forOrderDetail .sumGroup-item {
+  display: flex;
+  justify-content: right;
+}

@@ -13,38 +13,38 @@ function OrderList() {
     <>
       <Header />
       <MinorBar />
-      <div class="orderList-container">
-        <div class="orderList-title">
+      <div className="orderList-container">
+        <div className="orderList-title">
           <h6>共：25 筆訂單</h6>
-          <button class="orderList-refundBtn font-700M">
+          <button className="orderList-refundBtn font-700M">
             退款帳戶查詢/結清
           </button>
         </div>
-        <table class="orderList-table">
+        <table className="orderList-table">
           <thead>
             <tr>
-              <th class="font-400SL" scope="col">
+              <th className="font-400SL" scope="col">
                 訂購日期
               </th>
-              <th class="font-400SL" scope="col">
+              <th className="font-400SL" scope="col">
                 訂單編號
               </th>
-              <th class="font-400SL" scope="col">
+              <th className="font-400SL" scope="col">
                 付款方式
               </th>
-              <th class="font-400SL" scope="col">
+              <th className="font-400SL" scope="col">
                 處理進度
               </th>
-              <th class="font-400SL" scope="col">
+              <th className="font-400SL" scope="col">
                 預計出貨日期
               </th>
-              <th class="font-400SL" scope="col">
+              <th className="font-400SL" scope="col">
                 應付金額
               </th>
-              <th class="font-400SL" scope="col">
+              <th className="font-400SL" scope="col">
                 訂單取消/退貨詳情
               </th>
-              <th class="font-400SL" scope="col">
+              <th className="font-400SL" scope="col">
                 問與答
               </th>
             </tr>

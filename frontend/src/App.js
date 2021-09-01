@@ -1,5 +1,5 @@
 import './style/global.css'
-import './style/header.css'
+// import './style/header.css'
 import Login from './pages/member/Login'
 import Register from './pages/member/Register'
 import EditMemberInfo from './pages/member/EditMemberInfo'
@@ -15,9 +15,9 @@ function App() {
       {/* <Register /> */}
       {/* <EditMemberInfo /> */}
       {/* <EditPassword /> */}
+      {/* <OrderList /> */}
       {/* 未完成分頁 */}
-      <OrderList />
-      {/* <OrderDetails /> */}
+      <OrderDetails />
     </div>
   )
 }
