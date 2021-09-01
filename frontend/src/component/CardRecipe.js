@@ -1,156 +1,31 @@
 import React from 'react'
-import '../style/cardrecipe.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart, faBookmark } from '@fortawesome/free-solid-svg-icons'
-import food from '../images/1.jpg'
+import '../style/cardRecipe.css'
+import food from '../images/default_food1.jpg'
 
 function CardRecipe() {
   return (
     <>
-      <div class="container">
-        <div class="row">
-          <div class="col-12 col-md-3">
-            <div class="card-recipe">
-              <figure class="card-recipe-img">
-                <img src={food} class="w-100" alt="" />
+      <div className="container">
+        <div className="row">
+          <div className="col-12 col-md-3">
+            <div className="cardRecipe">
+              <figure className="cardRecipe-img">
+                <img src={food} className="w-100" alt="" />
               </figure>
-              <span class="bookmark">
-                {/* <FontAwesomeIcon icon={faBookmark} /> */}
-                <i class="fas fa-bookmark fa-2x"></i>
+              <span className="cardRecipe-bookmark">
+                <i className="fas fa-bookmark fa-2x"></i>
               </span>
-              <span class="bookmark-stat-box">
-                <div class="bookmark-stat-icon">
-                  {/* <FontAwesomeIcon
-                    className="bookmark-icon"
-                    icon={faBookmark}
-                  /> */}
-                  <i class="fas fa-bookmark fa-1x"></i>
+              <span className="cardRecipe-bookmark-stat-box">
+                <div className="cardRecipe-bookmark-stat-icon">
+                  <i className="fas fa-bookmark fa-1x"></i>
                 </div>
-                <span class="book-mark-num font-400S">1000</span>
+                <span className="cardRecipe-bookmark-num font-400S">1000</span>
               </span>
-              <span class="font-700S card-recipe-type">健康長肉肉</span>
-              <h6 class="card-recipe-name">鮭魚鮮蝦溫沙拉</h6>
-              <div class="f-flex card-recipe-ig">
-                {/* <FontAwesomeIcon className="heart-icon" icon={faHeart} /> */}
-                <i class="fab fa-instagram-square fa-lg"></i>
-
-                <span class="font-700S">謝戎宥- LON YO</span>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-md-3">
-            <div class="card-recipe">
-              <figure class="card-recipe-img">
-                <img src={food} class="w-100" alt="" />
-              </figure>
-              <span class="bookmark">
-                {/* <FontAwesomeIcon icon={faBookmark} /> */}
-                <i class="fas fa-bookmark fa-2x"></i>
-              </span>
-              <span class="bookmark-stat-box">
-                <div class="bookmark-stat-icon">
-                  <FontAwesomeIcon
-                    className="bookmark-icon"
-                    icon={faBookmark}
-                  />
-                  {/* <i class="fas fa-bookmark fa-1x"></i> */}
-                </div>
-                <span class="book-mark-num font-400S">1000</span>
-              </span>
-              <span class="font-700S card-recipe-type">健康長肉肉</span>
-              <h6 class="card-recipe-name">鮭魚鮮蝦溫沙拉</h6>
-              <div class="f-flex card-recipe-ig">
-                {/* <FontAwesomeIcon className="heart-icon" icon={faHeart} /> */}
-                <i class="fab fa-instagram-square fa-lg"></i>
-
-                <span class="font-700S">謝戎宥- LON YO</span>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-md-3">
-            <div class="card-recipe">
-              <figure class="card-recipe-img">
-                <img src={food} class="w-100" alt="" />
-              </figure>
-              <span class="bookmark">
-                {/* <FontAwesomeIcon icon={faBookmark} /> */}
-                <i class="fas fa-bookmark fa-2x"></i>
-              </span>
-              <span class="bookmark-stat-box">
-                <div class="bookmark-stat-icon">
-                  <FontAwesomeIcon
-                    className="bookmark-icon"
-                    icon={faBookmark}
-                  />
-                  {/* <i class="fas fa-bookmark fa-1x"></i> */}
-                </div>
-                <span class="book-mark-num font-400S">1000</span>
-              </span>
-              <span class="font-700S card-recipe-type">健康長肉肉</span>
-              <h6 class="card-recipe-name">鮭魚鮮蝦溫沙拉</h6>
-              <div class="f-flex card-recipe-ig">
-                {/* <FontAwesomeIcon className="heart-icon" icon={faHeart} /> */}
-                <i class="fab fa-instagram-square fa-lg"></i>
-
-                <span class="font-700S">謝戎宥- LON YO</span>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-md-3">
-            <div class="card-recipe">
-              <figure class="card-recipe-img">
-                <img src={food} class="w-100" alt="" />
-              </figure>
-              <span class="bookmark">
-                {/* <FontAwesomeIcon icon={faBookmark} /> */}
-                <i class="fas fa-bookmark fa-2x"></i>
-              </span>
-              <span class="bookmark-stat-box">
-                <div class="bookmark-stat-icon">
-                  <FontAwesomeIcon
-                    className="bookmark-icon"
-                    icon={faBookmark}
-                  />
-                  {/* <i class="fas fa-bookmark fa-1x"></i> */}
-                </div>
-                <span class="book-mark-num font-400S">1000</span>
-              </span>
-              <span class="font-700S card-recipe-type">健康長肉肉</span>
-              <h6 class="card-recipe-name">鮭魚鮮蝦溫沙拉</h6>
-              <div class="f-flex card-recipe-ig">
-                {/* <FontAwesomeIcon className="heart-icon" icon={faHeart} /> */}
-                <i class="fab fa-instagram-square fa-lg"></i>
-
-                <span class="font-700S">謝戎宥- LON YO</span>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-md-3">
-            <div class="card-recipe">
-              <figure class="card-recipe-img">
-                <img src={food} class="w-100" alt="" />
-              </figure>
-              <span class="bookmark">
-                {/* <FontAwesomeIcon icon={faBookmark} /> */}
-                <i class="fas fa-bookmark fa-2x"></i>
-              </span>
-              <span class="bookmark-stat-box">
-                <div class="bookmark-stat-icon">
-                  <FontAwesomeIcon
-                    className="bookmark-icon"
-                    icon={faBookmark}
-                  />
-                  {/* <i class="fas fa-bookmark fa-1x"></i> */}
-                </div>
-                <span class="book-mark-num font-400S">1000</span>
-              </span>
-              <span class="font-700S card-recipe-type">健康長肉肉</span>
-              <h6 class="card-recipe-name">鮭魚鮮蝦溫沙拉</h6>
-              <div class="f-flex card-recipe-ig">
-                {/* <FontAwesomeIcon className="heart-icon" icon={faHeart} /> */}
-                <i class="fab fa-instagram-square fa-lg"></i>
-
-                <span class="font-700S">謝戎宥- LON YO</span>
+              <span className="font-700S cardRecipe-type">健康長肉肉</span>
+              <h6 className="cardRecipe-name">鮭魚鮮蝦溫沙拉</h6>
+              <div className="f-flex cardRecipe-ig">
+                <i className="fab fa-instagram-square fa-lg"></i>
+                <span className="font-700S">謝戎宥- LON YO</span>
               </div>
             </div>
           </div>

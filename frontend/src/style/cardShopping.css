@@ -1,25 +1,25 @@
-.cardRecipe {
+.cardShopping {
   position: relative;
   width: 306px;
   height: 379px;
   border-radius: 8px;
   margin: auto;
 }
-.cardRecipe-img {
+.cardShopping-img {
   width: 306px;
   height: 250px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   overflow: hidden;
 }
-.cardRecipe-bookmark {
+.cardShopping-bookmark {
   position: absolute;
   right: 28px;
   top: 21px;
   color: var(--color-white);
   transform: scale(1, 0.85);
 }
-.cardRecipe-bookmark-stat-box {
+.cardShopping-bookmark-stat-box {
   position: absolute;
   width: 113px;
   height: 33px;
@@ -28,51 +28,37 @@
   border-radius: 14px;
   background: #f0f0f0;
 }
-.cardRecipe-bookmark-stat-icon i {
+.cardShopping-bookmark-stat-icon i {
   position: absolute;
   transform: scaleX(24px);
   left: 21px;
   top: 8px;
   color: var(--color-blue-C);
 }
-.cardRecipe-bookmark-num {
+.cardShopping-book-mark-num {
   position: absolute;
   width: 46px;
   height: 20px;
+  margin-left: 50px;
   margin-top: 6px;
-  margin-left: 46px;
   color: var(--color-secondary);
 }
-.cardRecipe-type {
+.cardShopping-type {
   position: relative;
   margin-left: 12px;
   color: var(--color-grey-500);
 }
-.cardRecipe-name {
+.cardShopping-name {
   font-weight: 700;
   position: relative;
-  margin-top: 10px;
+  margin-top: 12px;
   margin-left: 12px;
   color: var(--color-grey-900);
 }
-.cardRecipe-ig {
+.cardShopping-price {
   position: relative;
+  margin-top: 24px;
   margin-left: 12px;
-  margin-top: 12px;
-}
-.cardRecipe-ig span {
+  margin-bottom: 33px;
   color: var(--color-grey-800);
-  margin-left: 10px;
-}
-.cardRecipe-ig i {
-  padding: 2px;
-  background: radial-gradient(
-    120.67% 120.67% at 16.13% 98.65%,
-    #fec053 0%,
-    #f2203e 32.73%,
-    #b729a8 64.85%,
-    #5342d6 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
