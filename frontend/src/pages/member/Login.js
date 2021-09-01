@@ -22,7 +22,9 @@ function Login() {
             <form>
               <input type="text" placeholder="請輸入帳號" />
               <input type="text" placeholder="請輸入6-12位舊密碼" />
-              <p className="font-400S login-form-errorMsg">預留錯誤訊息的位置</p>
+              <p className="font-400S login-form-errorMsg">
+                預留錯誤訊息的位置
+              </p>
               <button className="login-form-loginBtn">登入</button>
               <div className="login-setting">
                 <a href="#/">忘記密碼?</a>
