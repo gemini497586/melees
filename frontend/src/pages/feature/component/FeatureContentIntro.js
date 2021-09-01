@@ -34,18 +34,13 @@ function FeatureContentIntro() {
                 fintro-avatar-bg
               "
               >
-                <img
-                  className="f-cover-fit fintro-avatar"
-                  src={avatar}
-                  alt=""
-                />
+                <img className="fintro-avatar" src={avatar} alt="" />
               </figure>
               <div
                 className="
                 d-flex
                 justify-content-center
-                align-items-center
-                f-cover-fit
+                align-items-center                
                 fintro-link
               "
               >
