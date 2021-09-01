@@ -6,7 +6,6 @@ body {
 }
 
 /* 顏色變數 */
-
 :root {
   --color-primary: #fe9900;
   --color-secondary: #413d3c;
@@ -26,7 +25,6 @@ body {
 }
 
 /* 標題字大小 */
-
 h1 {
   font-size: 56px;
   line-height: 61.6px;
