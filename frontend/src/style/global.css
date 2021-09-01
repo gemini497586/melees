@@ -1,113 +1,110 @@
 /* 字體用 */
-
-/* <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet"> */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 body {
-    font-family: "Noto Sans TC", Roboto, sans-serif;
+  font-family: 'Noto Sans TC', Roboto, sans-serif;
 }
 
 /* 顏色變數 */
 
 :root {
-    --color-primary: #fe9900;
-    --color-secondary: #413d3c;
-    --color-primary-A: #ffcf0d;
-    --color-primary-E: #ff590d;
-    --color-red-C: #f5524f;
-    --color-orange-lee: #ffdda9;
-    --color-blue-B: #0c4fe8;
-    --color-blue-C: #199cff;
-    --color-brown-D: #574c4b;
-    --color-FBblue: #1877f2;
-    --color-grey-300: #f0f0f0;
-    --color-grey-500: #c2c2c2;
-    --color-grey-800: #606060;
-    --color-grey-900: #3c3c3c;
+  --color-primary: #fe9900;
+  --color-secondary: #413d3c;
+  --color-primary-A: #ffcf0d;
+  --color-primary-E: #ff590d;
+  --color-red-C: #f5524f;
+  --color-orange-lee: #ffdda9;
+  --color-blue-B: #0c4fe8;
+  --color-blue-C: #199cff;
+  --color-brown-D: #574c4b;
+  --color-FBblue: #1877f2;
+  --color-grey-300: #f0f0f0;
+  --color-grey-500: #c2c2c2;
+  --color-grey-800: #606060;
+  --color-grey-900: #3c3c3c;
 }
 
 /* 標題字大小 */
 
 h1 {
-    font-size: 56px;
-    line-height: 61.6px;
+  font-size: 56px;
+  line-height: 61.6px;
 }
 h2 {
-    font-size: 48px;
-    line-height: 52.8px;
+  font-size: 48px;
+  line-height: 52.8px;
 }
 h3 {
-    font-size: 40px;
-    line-height: 44px;
+  font-size: 40px;
+  line-height: 44px;
 }
 h4 {
-    font-size: 32px;
-    line-height: 35.2px;
+  font-size: 32px;
+  line-height: 35.2px;
 }
 h5 {
-    font-size: 24px;
-    line-height: 26.4px;
+  font-size: 24px;
+  line-height: 26.4px;
 }
 h6 {
-    font-size: 20px;
-    line-height: 22px;
+  font-size: 20px;
+  line-height: 22px;
 }
 
 /* 內文字體大小 */
 
-.font-700L{
-    font-size: 20px;
-    line-height: 28px;
-    letter-spacing: 3px;
-    font-weight: 700;
+.font-700L {
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: 3px;
+  font-weight: 700;
 }
-.font-400L{
-    font-size: 20px;
-    line-height: 28px;
-    letter-spacing: 3px;
+.font-400L {
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: 3px;
 }
-.font-700M{
-    font-size: 18px;
-    line-height: 25.2px;
-    letter-spacing: 3px;
-    font-weight: 700;
+.font-700M {
+  font-size: 18px;
+  line-height: 25.2px;
+  letter-spacing: 3px;
+  font-weight: 700;
 }
-.font-400M{
-    font-size: 18px;
-    line-height: 25.2px;
-    letter-spacing: 3px;
+.font-400M {
+  font-size: 18px;
+  line-height: 25.2px;
+  letter-spacing: 3px;
 }
-.font-700SL{
-    font-size: 16px;
-    line-height: 22.4px;
-    letter-spacing: 3px;
-    font-weight: 700;
+.font-700SL {
+  font-size: 16px;
+  line-height: 22.4px;
+  letter-spacing: 3px;
+  font-weight: 700;
 }
-.font-400SL{
-    font-size: 16px;
-    line-height: 22.4px;
-    letter-spacing: 3px;
+.font-400SL {
+  font-size: 16px;
+  line-height: 22.4px;
+  letter-spacing: 3px;
 }
-.font-700S{
-    font-size: 14px;
-    line-height: 19.6px;
-    letter-spacing: 3px;
-    font-weight: 700;
+.font-700S {
+  font-size: 14px;
+  line-height: 19.6px;
+  letter-spacing: 3px;
+  font-weight: 700;
 }
-.font-400S{
-    font-size: 14px;
-    line-height: 19.6px;
-    letter-spacing: 3px;
+.font-400S {
+  font-size: 14px;
+  line-height: 19.6px;
+  letter-spacing: 3px;
 }
-.font-700SS{
-		font-size: 12px;
-		line-height: 20px;
-    letter-spacing: 3px;
-    font-weight: 700;
+.font-700SS {
+  font-size: 12px;
+  line-height: 20px;
+  letter-spacing: 3px;
+  font-weight: 700;
 }
-.font-400SS{
-		font-size: 12px;
-		line-height: 20px;
-    letter-spacing: 3px;
+.font-400SS {
+  font-size: 12px;
+  line-height: 20px;
+  letter-spacing: 3px;
 }

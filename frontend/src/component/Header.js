@@ -2,14 +2,14 @@ import React from 'react'
 import '../style/header.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './FontawsomeIcons'
-import pic from './meleesLogo.svg'
+import meleesLogo from './meleesLogo.svg'
 
 function Header() {
   return (
     <>
       <div className="header-bar">
         <div className="logo">
-          <img src={pic} alt="logo" />
+          <img src={meleesLogo} alt="logo" />
         </div>
         <ul>
           <li class="active">
