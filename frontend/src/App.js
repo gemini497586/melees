@@ -14,9 +14,9 @@ function App() {
       {/* <Register /> */}
       {/* <EditMemberInfo /> */}
       {/* <EditPassword /> */}
-      {/* <OrderList /> */}
+      <OrderList />
       {/* 未完成分頁 */}
-      <OrderDetails />
+      {/* <OrderDetails /> */}
     </div>
   )
 }
