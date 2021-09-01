@@ -41,7 +41,7 @@ function App() {
       <Header />
       {/* <MinorBar /> */}
       {/* <Home /> */}
-      {/* <Box /> */}
+      <Box />
       {/* <Tables /> */}
       {/* <SearchMarket /> */}
       {/* <SearchRecipe /> */}
@@ -64,7 +64,7 @@ function App() {
       {/* <ProductDetails /> */}
       {/* <CartDetail /> */}
       {/* <CheckoutPersonalData /> */}
-      <CheckoutConfirm />
+      {/* <CheckoutConfirm /> */}
       <Footer />
     </div>
   )
