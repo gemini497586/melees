@@ -2,7 +2,7 @@ import React from 'react'
 import '../../style/marketMainPage.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
-import productImg from './005.jpg'
+import productImg from '../../images/005.jpg'
 
 function MarketMainPage() {
   return (

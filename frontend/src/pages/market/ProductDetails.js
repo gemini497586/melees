@@ -1,6 +1,6 @@
 import React from 'react'
 import '../../style/productDetails.css'
-import img from './005.jpg'
+import img from '../../images/005.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
 

@@ -1,6 +1,10 @@
-import './App.css'
 import './style/global.css'
+
+// header
 import Header from './component/Header'
+// footer
+import Footer from './component/Footer'
+
 // 次選單
 import MinorBar from './component/MinorBar'
 // 排序
@@ -19,8 +23,8 @@ import CartDetail from './pages/market/CartDetail'
 // 結帳-基本資料頁面
 import CheckoutPersonalData from './pages/market/CheckoutPersonalData'
 
-// 結帳-信用卡頁面
-import CheckoutCreditCard from './pages/market/CheckoutCreditCard'
+// 結帳-資料確認頁面
+import CheckoutConfirm from './pages/market/CheckoutConfirm'
 
 const array = [1, 2, 3]
 
@@ -41,7 +45,9 @@ function App() {
       </div> */}
       {/* <ProductDetails /> */}
       {/* <CartDetail /> */}
-      <CheckoutPersonalData />
+      {/* <CheckoutPersonalData /> */}
+      <CheckoutConfirm />
+      <Footer />
     </div>
   )
 }

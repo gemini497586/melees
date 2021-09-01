@@ -10,6 +10,12 @@ function CartDetail() {
   return (
     <div className="container">
       <div className="cart-detail">
+        <div className="d-flex cart-detail-title">
+          <p className="font-400L cart-detail-title-info">商品介紹</p>
+          <p className="font-400L cart-detail-title-price">單價</p>
+          <p className="font-400L cart-detail-title-amount">數量</p>
+          <p className="font-400L cart-detail-title-total">總價</p>
+        </div>
         {cartArray.map((v, i) => {
           return <CartDetailRow />
         })}

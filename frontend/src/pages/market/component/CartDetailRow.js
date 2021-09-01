@@ -1,5 +1,5 @@
 import React from 'react'
-import img from '../../market/005.jpg'
+import img from '../../../images/005.jpg'
 import '../../../style/cartDetailRow.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'

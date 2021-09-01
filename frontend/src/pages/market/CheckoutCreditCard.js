@@ -26,9 +26,21 @@ function CheckoutCreditCard() {
       </div>
       <div className="checkout-credit-card-address">
         <label className="checkout-credit-card-label">地址*</label>
-        <input type="text" className="checkout-credit-card-input address1" />
-        <input type="text" className="checkout-credit-card-input address2" />
-        <input type="text" className="checkout-credit-card-input address3" />
+        <input
+          type="text"
+          className="checkout-credit-card-input address1"
+          placeholder="縣市"
+        />
+        <input
+          type="text"
+          className="checkout-credit-card-input address2"
+          placeholder="鄉鎮區"
+        />
+        <input
+          type="text"
+          className="checkout-credit-card-input address3"
+          placeholder="XX路 / 街 / 巷"
+        />
       </div>
     </>
   )

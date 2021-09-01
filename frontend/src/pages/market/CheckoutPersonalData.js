@@ -25,18 +25,26 @@ function CheckoutPersonalData() {
           <FontAwesomeIcon icon="file-alt" />
         </div>
         <h5 className="checkout-personal-data-title">確認購買資料</h5>
-        <div className="w1100"></div>
+        <div className="checkout-personal-data-w1100"></div>
         <div className="checkout-personal-data-name">
           <label className="checkout-personal-data-label">名字*</label>
           <input className="checkout-personal-data-input" type="text" />
         </div>
         <div className="checkout-personal-data-phone">
           <label className="checkout-personal-data-label">手機號碼*</label>
-          <input className="checkout-personal-data-input" type="text" />
+          <input
+            className="checkout-personal-data-input"
+            type="text"
+            placeholder="0912xxxxxx"
+          />
         </div>
         <div className="checkout-personal-data-email">
           <label className="checkout-personal-data-label">電子信箱*</label>
-          <input className="checkout-personal-data-input" type="email" />
+          <input
+            className="checkout-personal-data-input"
+            type="email"
+            placeholder="abc@gmail.com"
+          />
         </div>
         <div className="checkout-personal-data-paying">
           <label className="checkout-personal-data-label">付款方式*</label>

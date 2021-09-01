@@ -2,7 +2,7 @@ import React from 'react'
 import '../style/header.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './FontawsomeIcons'
-import meleesLogo from './meleesLogo.svg'
+import meleesLogo from '../images/meleesLogo.svg'
 
 function Header() {
   return (
