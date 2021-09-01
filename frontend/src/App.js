@@ -20,13 +20,11 @@ function App() {
       {/* <MinorBar /> */}
       {/* <Home /> */}
       {/* <Box /> */}
-      <Tables />
+      {/* <Tables /> */}
       {/* <SearchMarket /> */}
       {/* <SearchRecipe /> */}
       {/* <MemberBox /> */}
       <DropDown />
-      <CardRecipe />
-      <CardRecipe />
       <CardRecipe />
       <CardShopping />
       <CardPrivateRecipe />
