@@ -1,5 +1,4 @@
 import './style/global.css'
-import './style/member.css'
 import './style/header.css'
 import OrderDetails from './pages/member/OrderDetails'
 import Register from './pages/member/Register'
@@ -10,11 +9,13 @@ import Login from './pages/member/Login'
 function App() {
   return (
     <div className="App">
+      {/* 完成分頁 */}
+      {/* <Login /> */}
+      <Register />
+      {/* 未完成分頁 */}
       {/* <OrderDetails /> */}
-      {/* <Register /> */}
       {/* <EditPassword /> */}
       {/* <EditMemberInfo /> */}
-      <Login />
     </div>
   )
 }

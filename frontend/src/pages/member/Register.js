@@ -2,11 +2,14 @@ import React from 'react'
 import '../../style/global.css'
 import '../../style/member.css'
 import avatar from '../../images/Avatar.png'
+import '../../style/header.css'
+import Header from '../../component/Header'
 
 function Register() {
   return (
     <>
-      <form className="member-form">
+      <Header />
+      <form className="member-form member-form-forRegister">
         <div className="member-form-title">
           <div className="member-form-title-icon">
             <svg
