@@ -1,0 +1,119 @@
+/* 食譜 */
+.s-recipe-top {
+  color: var(--color-grey-900);
+  padding: 20px 0;
+}
+
+.s-recipe-bottom {
+  padding: 20px 0;
+}
+/* searchbar出來的card */
+.s-recipe-image {
+  width: 190px;
+  height: 150px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 0;
+}
+.s-recipe-classify {
+  color: var(--color-secondary);
+}
+.s-recipe-title {
+  color: var(--color-grey-900);
+}
+.s-recipe-text ul {
+  display: block;
+}
+.s-recipe-text li {
+  height: 20px;
+  margin: 10px;
+  text-align: center;
+}
+.s-recipe-title {
+  color: var(--color-grey-900);
+}
+.s-recipe-subtitle {
+  color: var(--color-grey-800);
+}
+.s-recipe-line {
+  border: 1px solid var(--color-grey-500);
+}
+.s-recipe-count {
+  text-align: center;
+}
+.s-recipe-count a {
+  padding: 0 20px;
+  cursor: pointer;
+}
+.s-recipe-count-bottom {
+  width: 315px;
+  height: 40px;
+  margin-top: 10px;
+  border-radius: 10px;
+  /* background: #000; */
+  background: linear-gradient(
+    243.35deg,
+    #3542e0 -1.42%,
+    #3841df 16.37%,
+    #403fda 27.17%,
+    #4e3cd2 36.13%,
+    #6337c7 44.06%,
+    #7d31b9 51.33%,
+    #9e2aa8 58.09%,
+    #c32193 64.36%,
+    #c82091 65.05%,
+    #f62b37 79.97%,
+    #ffc658 105.87%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.s-recipe-count-bottom .fab {
+  font-size: 24px;
+  color: var(--color-white);
+}
+.s-recipe-count-ig {
+  width: 262px;
+  height: 28px;
+  background-color: var(--color-white);
+  border-radius: 0px 10px 10px 0px;
+}
+.s-recipe-count-ig p {
+  color: var(--color-secondary);
+  padding-left: 10px;
+  margin: 0;
+  line-height: 28px;
+  text-align: left;
+}
+.s-recipe-btn {
+  background: var(--color-primary);
+  color: var(--color-white);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 0 40px;
+  height: 42px;
+}
+.s-recipe-btn:hover {
+  background: var(--color-primary-A);
+}
+
+/* 私藏食譜 */
+.s-recipe-count-user {
+  width: 315px;
+  padding-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.s-recipe-count-user p {
+  margin: 0;
+  padding-left: 40px;
+}
+.s-recipe-count-circle {
+  width: 50px;
+  height: 50px;
+  background: #000;
+  border-radius: 100%;
+  overflow: hidden;
+}

@@ -1,0 +1,63 @@
+/* 商城 */
+.s-market-top {
+  color: var(--color-grey-900);
+  padding: 20px 0;
+}
+.s-market-bottom {
+  padding: 20px 0;
+}
+.s-market-image {
+  width: 190px;
+  height: 150px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 0;
+}
+.s-market-title {
+  color: var(--color-grey-900);
+}
+.s-market-text ul {
+  display: block;
+}
+.s-market-text li {
+  color: var(--color-grey-800);
+  font-size: 14px;
+  line-height: 19.6px;
+  letter-spacing: 3px;
+  height: 20px;
+  margin: 0;
+  text-align: left;
+}
+.s-market-price {
+  color: var(--color-grey-900);
+}
+.s-market-count {
+  background: var(--color-grey-300);
+  color: var(--color-grey-900);
+  padding: 5px 10px;
+  border-radius: 50px;
+}
+.s-market-count span{
+  margin: 0 10px;
+}
+.s-market-count a {
+  cursor: pointer;
+  color: var(--color-grey-900);
+  padding: 5px 5px;
+}
+.s-market-count a:hover {
+  color: var(--color-grey-800);
+}
+.s-market-btn {
+  background: var(--color-white);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: 8px;
+  padding: 0 40px;
+  height: 42px;
+}
+
+.s-market-btn:hover {
+  color: var(--color-primary-A);
+  border: 1px solid var(--color-primary-A);
+}

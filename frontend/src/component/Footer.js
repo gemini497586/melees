@@ -20,13 +20,13 @@ function Footer() {
                 <div className="font-700M footer-title">關於MELLEs</div>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="/">關於我們</a>
+                    <a href="#/">關於我們</a>
                   </li>
                   <li>
-                    <a href="/">加入MELEEs</a>
+                    <a href="#/">加入MELEEs</a>
                   </li>
                   <li>
-                    <a href="/">異業合作</a>
+                    <a href="#/">異業合作</a>
                   </li>
                 </ul>
               </div>
@@ -35,10 +35,10 @@ function Footer() {
                 <div className="font-700M footer-title">客製化便當</div>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="/">代謝率計算</a>
+                    <a href="#/">代謝率計算</a>
                   </li>
                   <li>
-                    <a href="/">熱量計算</a>
+                    <a href="#/">熱量計算</a>
                   </li>
                 </ul>
               </div>
@@ -47,19 +47,19 @@ function Footer() {
                 <div className="font-700M footer-title">客戶服務</div>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="/">進度查詢</a>
+                    <a href="#/">進度查詢</a>
                   </li>
                   <li>
-                    <a href="/">取消訂單</a>
+                    <a href="#/">取消訂單</a>
                   </li>
                   <li>
-                    <a href="/">追蹤清單</a>
+                    <a href="#/">追蹤清單</a>
                   </li>
                   <li>
-                    <a href="/">常見問答</a>
+                    <a href="#/">常見問答</a>
                   </li>
                   <li>
-                    <a href="/">聯絡我們</a>
+                    <a href="#/">聯絡我們</a>
                   </li>
                 </ul>
               </div>
@@ -68,13 +68,13 @@ function Footer() {
                 <div className="font-700M footer-title">購物商城</div>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="/">生鮮食材</a>
+                    <a href="#/">生鮮食材</a>
                   </li>
                   <li>
-                    <a href="/">調味料</a>
+                    <a href="#/">調味料</a>
                   </li>
                   <li>
-                    <a href="/">廚房器具</a>
+                    <a href="#/">廚房器具</a>
                   </li>
                 </ul>
               </div>
@@ -83,16 +83,16 @@ function Footer() {
                 <div className="font-700M footer-title">精選食譜</div>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="/">健康長肉肉</a>
+                    <a href="#/">健康長肉肉</a>
                   </li>
                   <li>
-                    <a href="/">健康不吃肉</a>
+                    <a href="#/">健康不吃肉</a>
                   </li>
                   <li>
-                    <a href="/">一周不煩惱</a>
+                    <a href="#/">一周不煩惱</a>
                   </li>
                   <li>
-                    <a href="/">家常好手藝</a>
+                    <a href="#/">家常好手藝</a>
                   </li>
                 </ul>
               </div>
@@ -101,10 +101,10 @@ function Footer() {
                 <div className="font-700M footer-title">私藏食譜</div>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="/">熱門食譜</a>
+                    <a href="#/">熱門食譜</a>
                   </li>
                   <li>
-                    <a href="/">上傳食譜</a>
+                    <a href="#/">上傳食譜</a>
                   </li>
                 </ul>
               </div>
@@ -121,7 +121,7 @@ function Footer() {
               {bottom.map((v, i) => {
                 return (
                   <li key={i}>
-                    <a href="/">{v}</a>
+                    <a href="#/">{v}</a>
                   </li>
                 )
               })}
