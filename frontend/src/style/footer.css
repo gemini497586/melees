@@ -22,6 +22,7 @@
 }
 .footer-title {
   color: var(--color-grey-900);
+  text-align: start;
 }
 .footer-top ul {
   display: block;
@@ -41,8 +42,19 @@
   margin: 0 auto;
   padding: 10px 0;
 }
+
+.footer-bottom ul {
+  display: flex;
+}
+
 .footer-bottom li {
   border-right: 1px solid var(--color-grey-500);
   height: 20px;
-  margin: 5px 0;
+  margin: 15px 5px;
+  min-width: 100px;
+  text-align: center;
+}
+
+.footer {
+  margin-top: 200px;
 }
