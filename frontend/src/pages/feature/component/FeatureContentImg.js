@@ -21,13 +21,13 @@ function FeatureContentImg() {
               "
         >
           <a href="#/">
-            <img className="fimg-img-size f-cover-fit" src={food} alt="" />
+            <img className="fimg-img-size" src={food} alt="" />
           </a>
           <a href="#/">
-            <img className="fimg-img-size f-cover-fit" src={food} alt="" />
+            <img className="fimg-img-size" src={food} alt="" />
           </a>
           <a href="#/">
-            <img className="fimg-img-size f-cover-fit" src={food} alt="" />
+            <img className="fimg-img-size" src={food} alt="" />
           </a>
 
           <button className="fimg-btn-fontawesome">
