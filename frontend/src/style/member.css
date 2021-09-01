@@ -1,74 +1,9 @@
-/* 訂單進度條 */
-.progressBar {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  list-style: none;
-  padding: 0;
-}
-
-.progressBar li {
-  width: 70px;
-  /* height: 140px; */
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-.progressBar li + li {
-  margin-left: 70px;
-}
-
-.progressBar li + li::before {
-  content: '';
-  position: absolute;
-  width: 150px;
-  height: 6px;
-  background-color: var(--color-secondary);
-  z-index: -1;
-  top: 18px;
-  bottom: 0;
-  left: -110px;
-  /* margin: auto; */
-}
-
-.progressBar li.active ~ li .progressBar-icon {
-  background-color: var(--color-primary);
-}
-
-.progressBar li.active ~ li .progressBar-text {
-  color: var(--color-primary);
-}
-
-.progressBar li.active ~ li::before {
-  background-color: var(--color-primary);
-}
-
-.progressBar-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: var(--color-secondary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-white);
-}
-
-.progressBar-text {
-  color: var(--color-secondary);
-  padding-top: 10px;
-}
-
-/* 會員專區表單 */
+/* 會員專區共用的表單 */
 .member-form {
-  width: 90%;
+  /* width: 90%; */
   max-width: 1320px;
   margin: auto;
-  margin-top: 72px;
+  /* margin-top: 72px; */
   padding: 30px 60px;
   border: 1px solid var(--color-secondary);
   border-radius: 5px;
@@ -128,7 +63,6 @@
   margin: 0 10px;
 }
 
-/* 表單錯誤訊息 */
 .member-form-errorMsg {
   color: var(--color-grey-800);
   margin: 0 0 0 5px;
@@ -151,7 +85,6 @@
   align-items: center;
 }
 
-/* 表單大頭貼 */
 .member-form-group-picture {
   width: 160px;
   height: 160px;
@@ -170,15 +103,7 @@
   height: 100%;
 }
 
-/* 表單修改密碼 */
-.member-form-editPasswordBtn {
-  width: 100px;
-  height: 26px;
-  background-color: var(--color-white);
-  color: var(--color-primary);
-  border-radius: 8px;
-  border: none;
-  position: absolute;
-  top: -68px;
-  right: 0;
+/* 註冊頁面的客製版 */
+.member-form-forRegister {
+  margin-top: 72px;
 }
