@@ -11,11 +11,11 @@ function App() {
     <div className="App">
       {/* 完成分頁 */}
       {/* <Login /> */}
-      <Register />
+      {/* <Register /> */}
       {/* 未完成分頁 */}
       {/* <OrderDetails /> */}
       {/* <EditPassword /> */}
-      {/* <EditMemberInfo /> */}
+      <EditMemberInfo />
     </div>
   )
 }

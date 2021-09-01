@@ -2,7 +2,6 @@ import React from 'react'
 import '../../style/global.css'
 import '../../style/member.css'
 import avatar from '../../images/Avatar.png'
-import '../../style/header.css'
 import Header from '../../component/Header'
 
 function Register() {

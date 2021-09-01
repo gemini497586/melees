@@ -2,7 +2,6 @@ import React from 'react'
 import '../../style/global.css'
 import '../../style/member.css'
 import '../../style/login.css'
-import '../../style/header.css'
 import logo from '../../images/logo.png'
 import Header from '../../component/Header'
 

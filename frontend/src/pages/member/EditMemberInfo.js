@@ -1,12 +1,17 @@
 import React from 'react'
 import '../../style/global.css'
 import '../../style/member.css'
+import '../../style/member.css'
 import avatar from '../../images/Avatar.png'
+import Header from '../../component/Header'
+import MinorBar from './component/MinorBar'
 
 function EditMemberInfo() {
   return (
     <>
-      <form className="member-form">
+      <Header />
+      <MinorBar />
+      <form className="member-form member-form-forEditMemberInfo">
         <div className="member-form-title">
           <div className="member-form-title-icon">
             <svg
