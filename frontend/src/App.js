@@ -9,6 +9,7 @@ import Header from './component/Header'
 import MinorBar from './pages/member/component/MinorBar'
 import Footer from './component/Footer'
 import MemberSaveProdcut from './pages/member/MemberSaveProduct'
+import MemberRecipeComment from './pages/member/MemberRecipeComment'
 
 function App() {
   return (
@@ -22,9 +23,10 @@ function App() {
       {/* 其餘分頁-組合式 */}
       <Header />
       <MinorBar />
-      {/* <MemberSaveProdcut /> */}
+      {/* <OrderDetails /> */}
       {/* 未完成分頁 */}
-      <OrderDetails />
+      {/* <MemberSaveProdcut /> */}
+      <MemberRecipeComment />
       <Footer />
     </div>
   )

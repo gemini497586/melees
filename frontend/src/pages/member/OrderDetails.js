@@ -7,6 +7,9 @@ import '../../style/member.css'
 import '../../style/orderList.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
+import OrderDetailRow from './component/OrderDetailRow'
+
+const cartArray = [1, 2, 3]
 
 function OrderDetails() {
   return (
@@ -53,37 +56,22 @@ function OrderDetails() {
             </div>
             <h5>訂單查詢</h5>
           </div>
-          <div className="member-form-group-content">
-            <table>
-              <thead>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
+          <div className="member-form-group-content member-form-group-content-forOrderDetail">
+            <div className="d-flex orderDetail-title">
+              <p className="font-400L orderDetail-title-info">商品介紹</p>
+              <p className="font-400L orderDetail-title-price">單價</p>
+              <p className="font-400L orderDetail-title-amount">數量</p>
+              <p className="font-400L orderDetail-title-total">總價</p>
+            </div>
+            {cartArray.map((v, i) => {
+              return <OrderDetailRow />
+            })}
+            {/* 總金額計算 */}
             <div className="sumGroup">
               <div className="sumGroup-item">
-                <div className="sumGroup-item-subtitle">商品金額總計</div>
+                <div className="sumGroup-item-subtitle font-400S">
+                  商品金額總計
+                </div>
                 <div className="sumGroup-item-money">
                   <strong>
                     NT$ <span>3,930</span>
@@ -91,7 +79,7 @@ function OrderDetails() {
                 </div>
               </div>
               <div className="sumGroup-item">
-                <div className="sumGroup-item-subtitle">折扣金額</div>
+                <div className="sumGroup-item-subtitle font-400S">折扣金額</div>
                 <div className="sumGroup-item-money">
                   <strong>
                     NT$ <span>0</span>
@@ -99,17 +87,17 @@ function OrderDetails() {
                 </div>
               </div>
               <div className="sumGroup-item">
-                <div className="sumGroup-item-subtitle">物流費用</div>
+                <div className="sumGroup-item-subtitle font-400S">物流費用</div>
                 <div className="sumGroup-item-money">
                   <strong>
                     NT$ <span>0</span>
                   </strong>
                 </div>
               </div>
-              <div className="sumGroup-item">
-                <div className="sumGroup-item-subtitle">總計</div>
+              <div className="sumGroup-item sumGroup-item-total">
+                <div className="sumGroup-item-subtitle font-400S">總計</div>
                 <div className="sumGroup-item-money">
-                  <strong>
+                  <strong className="h6">
                     NT$ <span>3,930</span>
                   </strong>
                 </div>
