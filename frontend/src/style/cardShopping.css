@@ -1,3 +1,21 @@
+.cardShopping-others {
+  color: var(--color-grey-900);
+}
+.cardShopping-others-hr {
+  display: block;
+  height: 1px;
+  background: var(--color-grey-900);
+  margin-bottom: 20px;
+}
+.cardShopping-others h5 {
+  font-weight: 700;
+}
+.cardShopping-others-more {
+  margin-right: 60px;
+}
+.cardShopping-others-more i {
+  margin-right: 18px;
+}
 .cardShopping {
   position: relative;
   width: 306px;
@@ -61,4 +79,9 @@
   margin-left: 12px;
   margin-bottom: 33px;
   color: var(--color-grey-800);
+}
+@media only screen and (min-width: 321px) and (max-width: 768px) {
+  .cardShopping-others-more {
+      margin-right: 0px;
+  }
 }
