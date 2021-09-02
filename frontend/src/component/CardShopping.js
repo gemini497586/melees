@@ -2,11 +2,21 @@ import React from 'react'
 import '../style/cardShopping.css'
 import food from '../images/default_food3.jpg'
 
-function CardRecipe() {
+function CardShopping() {
   return (
     <>
       <div className="container">
         <div className="row">
+          <div class="cardShopping-others">
+            <div class="d-flex justify-content-between">
+              <h5>推薦商品</h5>
+              <div class="cardShopping-others-more">
+                <i class="fas fa-chevron-right"></i>
+                <span class="font-700M">看更多</span>
+              </div>
+            </div>
+            <div class="cardShopping-others-hr w-100"></div>
+          </div>
           <div className="col-12 col-md-3">
             <div className="cardShopping">
               <figure className="cardShopping-img">
@@ -34,4 +44,4 @@ function CardRecipe() {
   )
 }
 
-export default CardRecipe
+export default CardShopping

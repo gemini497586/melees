@@ -1,4 +1,5 @@
 import './style/global.css'
+
 import Header from './component/Header.js'
 import MinorBar from './component/MinorBar.js'
 
@@ -9,7 +10,7 @@ import Home from './pages/home/Home.js'
 import SearchMarket from './pages/search/SearchMarket.js'
 import SearchRecipe from './pages/search/SearchRecipe.js'
 import MemberBox from './pages/member/MemberBox'
-import OrderDetails from './pages/member/OrderDetails'
+
 import CardRecipe from './component/CardRecipe.js'
 import DropDown from './component/DropDown.js'
 import CardShopping from './component/CardShopping.js'
@@ -33,8 +34,18 @@ import CheckoutPersonalData from './pages/market/CheckoutPersonalData'
 
 // 結帳-資料確認頁面
 import CheckoutConfirm from './pages/market/CheckoutConfirm'
-import Table from './component/Table'
+
+import FeatureIndex from './pages/feature/FeatureIndex'
+import FeatureContentImg from './pages/feature/component/FeatureContentImg'
+import FeatureContentIntro from './pages/feature/component/FeatureContentIntro'
+import FeatureWeek from './pages/feature/component/FeatureWeek'
+import Login from './pages/member/Login'
+import Register from './pages/member/Register'
+import EditMemberInfo from './pages/member/EditMemberInfo'
+import EditPassword from './pages/member/EditPassword'
 import OrderList from './pages/member/OrderList'
+
+import OrderDetails from './pages/member/OrderDetails'
 
 const array = [1, 2, 3]
 
@@ -45,7 +56,7 @@ function App() {
 
       {/* <MinorBar /> */}
       {/* <Home /> */}
-      {/* <Box /> */}
+
       {/* <Tables /> */}
       {/* <SearchMarket /> */}
       {/* <SearchRecipe /> */}
@@ -57,6 +68,7 @@ function App() {
 
       {/* <SortingBar /> */}
       {/* <div className="t60"></div> */}
+
       {/* <div className="container">
         <MarketMainPage />
         <MarketMainPage />
@@ -64,11 +76,13 @@ function App() {
         {array.map((v, i) => {
           return <Paging value={v} />
         })}
+
       </div> */}
       {/* <ProductDetails /> */}
       {/* <CartDetail /> */}
       {/* <CheckoutPersonalData /> */}
       <CheckoutConfirm />
+
       <Footer />
     </div>
   )
