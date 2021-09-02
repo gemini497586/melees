@@ -21,7 +21,7 @@ import SortingBar from './pages/market/SortingBar'
 
 // 商城主頁
 import MarketMainPage from './pages/market/MarketMainPage'
-import Paging from './pages/market/Paging'
+import Paging from './component/Paging'
 
 // 商品詳細頁面
 import ProductDetails from './pages/market/ProductDetails'
@@ -70,22 +70,21 @@ function App() {
       <CardShopping />
       <CardPrivateRecipe /> */}
 
-      {/* <SortingBar /> */}
-      {/* <div className="t60"></div> */}
+      <SortingBar />
 
-      {/* <div className="container">
+      <div className="container t60">
         <MarketMainPage />
         <MarketMainPage />
         <MarketMainPage />
         {array.map((v, i) => {
           return <Paging value={v} />
         })}
+      </div>
 
-      </div> */}
       {/* <ProductDetails /> */}
       {/* <CartDetail /> */}
       {/* <CheckoutPersonalData /> */}
-      <CheckoutConfirm />
+      {/* <CheckoutConfirm /> */}
 
       <Footer />
     </div>

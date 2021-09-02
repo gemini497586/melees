@@ -1,6 +1,6 @@
 import React from 'react'
 import '../../style/memberBox.css'
-import SaveBox from './compenent/SaveBox'
+import SaveBox from './component/SaveBox'
 
 function MemberBox() {
   return (
@@ -20,7 +20,6 @@ function MemberBox() {
           </div>
           <div className="member-box-bottom">
             <div className="row">
-
               <SaveBox />
               <SaveBox />
               <SaveBox />
