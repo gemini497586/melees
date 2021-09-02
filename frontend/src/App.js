@@ -3,9 +3,8 @@ import Header from './component/Header.js'
 import MinorBar from './component/MinorBar.js'
 import Footer from './component/Footer.js'
 import FeatureIndex from './pages/feature/FeatureIndex'
-import FeatureContentImg from './pages/feature/component/FeatureContentImg'
-import FeatureContentIntro from './pages/feature/component/FeatureContentIntro'
-import FeatureWeek from './pages/feature/component/FeatureWeek'
+import FeatureIndexWeek from './pages/feature/FeatureIndexWeek'
+import FeatureStep from './pages/feature/FeatureStep'
 import Login from './pages/member/Login'
 import Register from './pages/member/Register'
 import EditMemberInfo from './pages/member/EditMemberInfo'
@@ -18,13 +17,12 @@ function App() {
     <div className="App">
       <Header />
       <MinorBar />
-      <FeatureIndex />
-      <FeatureContentImg />
-      <FeatureContentIntro />
-      <FeatureWeek />
+      {/* <FeatureIndex /> */}
+      <FeatureIndexWeek />
+      {/* <FeatureStep /> */}
       <Footer />
       {/* 完成分頁 */}
-      <Login />
+      {/* <Login /> */}
       {/* <Register /> */}
       {/* <EditMemberInfo /> */}
       {/* <EditPassword /> */}

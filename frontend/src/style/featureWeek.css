@@ -1,26 +1,26 @@
-/* Img模組 */
-.f-cover-fit {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
 .fw-list {
-  max-width: 1302px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0px 20px 0px;
 }
 /*img*/
 .fw-img {
-  max-width: 190px;
+  max-width: 160px;
   height: 150px;
 }
 /*日期選擇*/
 .fw-date {
-  width: 1080px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: nowrap;
 }
-/*btn*/
-/* .fw-cards {
-    max-width: 180px;
-    max-height: 210px;
-  } */
+.fw-cards {
+  width: 210px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
 .fw-btn {
   width: 100%;
   cursor: pointer;
@@ -29,25 +29,12 @@
   border-radius: 8px;
   padding: 8.5px 62.5px 8.5px 62.5px;
   color: var(--color-primary);
+  text-decoration: none;
+  text-align: center;
 }
 .fw-cards p {
   height: 100px;
 }
 .fw-cards a:hover {
   color: var(--color-primary);
-}
-/*瀏覽數*/
-.fw-content-down {
-  width: 100%;
-  color: var(--color-grey-800);
-}
-.fw-icon-num {
-  padding: 10px;
-}
-.fw-icon-line {
-  border: 1px solid var(--color-grey-500);
-}
-
-.fw-line {
-  border: 1px solid var(--color-grey-500);
 }

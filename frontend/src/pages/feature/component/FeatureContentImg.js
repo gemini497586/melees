@@ -12,14 +12,7 @@ function FeatureContentImg() {
           <img className="f-cover-fit" src={food} alt="" />
         </figure>
         {/* 很多縮圖 */}
-        <div
-          className="
-                fimg-small-img
-                d-flex
-                justify-content-between
-                align-items-center
-              "
-        >
+        <div className="fimg-small-img">
           <a href="#/">
             <img className="fimg-img-size" src={food} alt="" />
           </a>
@@ -29,9 +22,8 @@ function FeatureContentImg() {
           <a href="#/">
             <img className="fimg-img-size" src={food} alt="" />
           </a>
-
           <button className="fimg-btn-fontawesome">
-            <i className="fas fa-chevron-right fimg-btn-iconcolor"></i>
+            <i className="fas fa-chevron-right fcolor-grey-800"></i>
           </button>
         </div>
       </div>

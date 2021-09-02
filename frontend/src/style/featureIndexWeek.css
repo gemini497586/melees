@@ -1,0 +1,10 @@
+.findexw-title {
+  width: 190px;
+  display: inline-block;
+  color: var(--color-grey-800);
+}
+.findexw-date {
+  width: 1080px;
+  color: var(--color-grey-800);
+  padding-left: 0px;
+}
