@@ -11,6 +11,10 @@ import EditMemberInfo from './pages/member/EditMemberInfo'
 import EditPassword from './pages/member/EditPassword'
 import OrderList from './pages/member/OrderList'
 import OrderDetails from './pages/member/OrderDetails'
+import MemberSaveProdcut from './pages/member/MemberSaveProduct'
+import MemberRecipeComment from './pages/member/MemberRecipeComment'
+
+const array = [1, 2, 3]
 
 function App() {
   return (
@@ -27,8 +31,14 @@ function App() {
       {/* <EditMemberInfo /> */}
       {/* <EditPassword /> */}
       {/* <OrderList /> */}
-      {/* 未完成分頁 */}
+      {/* 其餘分頁-組合式 */}
+      <Header />
+      <MinorBar />
       {/* <OrderDetails /> */}
+      {/* 未完成分頁 */}
+      {/* <MemberSaveProdcut /> */}
+      <MemberRecipeComment />
+      <Footer />
     </div>
   )
 }
