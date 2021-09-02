@@ -12,7 +12,7 @@ function Table(props) {
             <th className="table-right">食材份量</th>
           </tr>
         </thead>
-        <tbody className="font-400M">
+        <tbody className="font-400M fcolor-grey-900">
           <tr>
             <td className="table-left">蝦子</td>
             <td className="table-right">五隻</td>
