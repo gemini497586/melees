@@ -1,0 +1,45 @@
+/*IG-Link*/
+.fintro-link {
+  width: 320px;
+  min-height: 50px;
+  padding: 5px 0px 5px 0px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    243.35deg,
+    #3542e0 -1.42%,
+    #3841df 16.37%,
+    #403fda 27.17%,
+    #4e3cd2 36.13%,
+    #6337c7 44.06%,
+    #7d31b9 51.33%,
+    #9e2aa8 58.09%,
+    #c32193 64.36%,
+    #c82091 65.05%,
+    #f62b37 79.97%,
+    #ffc658 105.87%
+  );
+}
+.fintro-linkcontent {
+  width: 290px;
+  min-height: 34px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.fintro-icon {
+  color: var(--color-white);
+  font-size: 27px;
+  padding-right: 15px;
+}
+.fintro-linkfont {
+  width: 280px;
+  min-height: 34px;
+  background-color: var(--color-white);
+  border-radius: 0px 10px 10px 0px;
+  display: flex;
+  align-items: center;
+  padding-left: 5px;
+}
