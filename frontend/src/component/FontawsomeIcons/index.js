@@ -14,6 +14,8 @@ import {
   faFileAlt,
   faInfoCircle,
   faPen,
+  faStar,
+  faStarHalfAlt,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -30,5 +32,7 @@ library.add(
   faCreditCard,
   faFileAlt,
   faInfoCircle,
-  faPen
+  faPen,
+  faStar,
+  faStarHalfAlt
 )

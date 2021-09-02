@@ -15,11 +15,15 @@ function MemberRecipeCommentRow() {
           <figcaption className="font-400SL">麻油蝦</figcaption>
         </figure>
         <div className="col-6 col-md-2 memberRecipeComment-score">
-          <i className="fas fa-star icon-star"></i>
-          <i className="fas fa-star icon-star"></i>
-          <i className="fas fa-star icon-star"></i>
-          <i className="fas fa-star icon-star"></i>
-          <i className="fas fa-star icon-star"></i>
+          <FontAwesomeIcon icon="star" size="1x" className="icon-star" />
+          <FontAwesomeIcon icon="star" size="1x" className="icon-star" />
+          <FontAwesomeIcon icon="star" size="1x" className="icon-star" />
+          <FontAwesomeIcon icon="star" size="1x" className="icon-star" />
+          <FontAwesomeIcon
+            icon="star-half-alt"
+            size="1x"
+            className="icon-star"
+          />
           <span className="font-400S">4.5</span>
           <p className="font-400S"> 2021/08/02</p>
         </div>
