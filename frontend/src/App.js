@@ -11,6 +11,8 @@ import Footer from './component/Footer'
 import MemberSaveProdcut from './pages/member/MemberSaveProduct'
 import MemberRecipeComment from './pages/member/MemberRecipeComment'
 
+const array = [1, 2, 3]
+
 function App() {
   return (
     <div className="App">
