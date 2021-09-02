@@ -9,17 +9,22 @@ import Home from './pages/home/Home.js'
 import SearchMarket from './pages/search/SearchMarket.js'
 import SearchRecipe from './pages/search/SearchRecipe.js'
 import MemberBox from './pages/member/MemberBox'
+
+// 冠霖的
 import CardRecipe from './component/CardRecipe.js'
 import DropDown from './component/DropDown.js'
 import CardShopping from './component/CardShopping.js'
+import RecipeStep from './component/RecipeStep.js'
+import PrivateRecipeBanner from './pages/private/component/PrivateRecipeBanner.js'
 import CardPrivateRecipe from './pages/private/component/CardPrivateRecipe.js'
+import PrivateRecipePhotoIntro from './pages/private/component/PrivateRecipePhotoIntro.js'
 
 // 排序
 import SortingBar from './pages/market/SortingBar'
 
 // 商城主頁
 import MarketMainPage from './pages/market/MarketMainPage'
-import Paging from './pages/market/Paging'
+import Paging from './component/Paging'
 
 // 商品詳細頁面
 import ProductDetails from './pages/market/ProductDetails'
@@ -53,7 +58,7 @@ function App() {
 
       {/* <MinorBar /> */}
       {/* <Home /> */}
-      <Box />
+      {/* <Box /> */}
       {/* <Tables /> */}
       {/* <SearchMarket /> */}
       {/* <SearchRecipe /> */}
@@ -65,29 +70,29 @@ function App() {
 
       {/* <SortingBar /> */}
       {/* <div className="t60"></div> */}
+      {/* <PrivateRecipeBanner /> */}
+      <PrivateRecipePhotoIntro />
+      <DropDown />
+      <CardPrivateRecipe />
       <CardRecipe />
       <CardShopping />
-      <DropDown />
-      <div className="container">
-        <MarketMainPage />
-        <MarketMainPage />
-        <MarketMainPage />
-        {array.map((v, i) => {
-          return <Paging value={v} />
-        })}
-      </div>
+      <CardShopping />
+
+      <CardShopping />
+
+      <RecipeStep />
       {/* <ProductDetails /> */}
       {/* <CartDetail /> */}
       {/* <CheckoutPersonalData /> */}
       {/* <CheckoutConfirm /> */}
-      <MinorBar />
-      <FeatureIndex />
-      <FeatureContentImg />
-      <FeatureContentIntro />
-      <FeatureWeek />
-      <Footer />
+      {/* <MinorBar /> */}
+      {/* <FeatureIndex /> */}
+      {/* <FeatureContentImg /> */}
+      {/* <FeatureContentIntro /> */}
+      {/* <FeatureWeek /> */}
+      {/* <Footer /> */}
       {/* 完成分頁 */}
-      <Login />
+      {/* <Login /> */}
       {/* <Register /> */}
       {/* <EditMemberInfo /> */}
       {/* <EditPassword /> */}
