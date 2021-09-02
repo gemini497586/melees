@@ -1,17 +1,9 @@
-/* table */
 .table-food {
   width: 100%;
 }
 .table-food thead {
   background: var(--color-primary);
   color: var(--color-white);
-}
-/* 上方圓角 */
-.table-food th:first-child {
-  border-top-left-radius: 10px;
-}
-.table-food th:last-child {
-  border-top-right-radius: 10px;
 }
 .table-food tbody {
   color: var(--color-secondary);

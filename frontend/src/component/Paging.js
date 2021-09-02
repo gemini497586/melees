@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../style/paging.css'
+import '../style/paging.css'
 
 function Paging(props) {
   const { value } = props

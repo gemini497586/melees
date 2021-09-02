@@ -12,25 +12,25 @@ import EditMemberInfo from './pages/member/EditMemberInfo'
 import EditPassword from './pages/member/EditPassword'
 import OrderList from './pages/member/OrderList'
 import OrderDetails from './pages/member/OrderDetails'
+import MemberFeature from './pages/member/MemberFeature'
+import Tables from './component/Tables'
+import Box from './pages/box/Box'
+import Home from './pages/home/Home'
+import SearchRecipe from './pages/search/SearchRecipe'
+import SearchMarket from './pages/search/SearchMarket'
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <MinorBar />
-      <FeatureIndex />
-      <FeatureContentImg />
-      <FeatureContentIntro />
-      <FeatureWeek />
+      {/* <Home /> */}
+      <SearchRecipe />
+      {/* <SearchMarket /> */}
+      {/* <Box /> */}
+      {/* <Tables /> */}
+
+      {/* <MemberFeature /> */}
       <Footer />
-      {/* 完成分頁 */}
-      <Login />
-      {/* <Register /> */}
-      {/* <EditMemberInfo /> */}
-      {/* <EditPassword /> */}
-      {/* <OrderList /> */}
-      {/* 未完成分頁 */}
-      {/* <OrderDetails /> */}
     </div>
   )
 }

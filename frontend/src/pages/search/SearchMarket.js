@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import '../../style/searchMarket.css'
-import CardMarket from './component/CardMarket'
+import SearchCardMarket from './component/SearchCardMarket'
 
 function SearchMarket() {
   const [orderby, setOderby] = useState('')
@@ -33,10 +33,10 @@ function SearchMarket() {
             </div>
           </div>
           <div className="s-market-bottom">
-            <CardMarket />
-            <CardMarket />
-            <CardMarket />
-            <CardMarket />
+            <SearchCardMarket />
+            <SearchCardMarket />
+            <SearchCardMarket />
+            <SearchCardMarket />
           </div>
         </div>
       </section>

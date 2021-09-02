@@ -1,7 +1,7 @@
 import React from 'react'
 import Product01 from '../../../images/product_01.jpg'
 
-function CardShop() {
+function SearchCardShop() {
   return (
     <>
       <div className="s-market-card">
@@ -39,4 +39,4 @@ function CardShop() {
   )
 }
 
-export default CardShop
+export default SearchCardShop

@@ -13,12 +13,6 @@ function Tables() {
           <div className="col-6 g-0">
             <Table />
           </div>
-          <div className="col-6 g-0">
-            <Table />
-          </div>
-          <div className="col-6 g-0">
-            <Table />
-          </div>
         </div>
       </div>
     </>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import '../../style/searchRecipe.css'
-import CardRecipe from './component/CardRecipe.js'
-import CardPrivate from './component/CardPrivate.js'
+import SearchCardFeature from './component/SearchCardFeature.js'
+import SearchCardPrivate from './component/SearchCardPrivate.js'
 import CheckBox from './component/CheckBox'
 
 function SearchRecipe() {
@@ -55,11 +55,11 @@ function SearchRecipe() {
             </div>
           </div>
           <div className="s-recipe-bottom">
-            <CardRecipe />
-            <CardPrivate />
-            <CardRecipe />
-            <CardRecipe />
-            <CardRecipe />
+            <SearchCardFeature />
+            <SearchCardPrivate />
+            <SearchCardFeature />
+            <SearchCardFeature />
+            <SearchCardFeature />
           </div>
         </div>
       </section>
