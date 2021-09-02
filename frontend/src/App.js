@@ -12,6 +12,7 @@ import EditMemberInfo from './pages/member/EditMemberInfo'
 import EditPassword from './pages/member/EditPassword'
 import OrderList from './pages/member/OrderList'
 import OrderDetails from './pages/member/OrderDetails'
+import MemberBox from './pages/member/MemberBox'
 import MemberFeature from './pages/member/MemberFeature'
 import Tables from './component/Tables'
 import Box from './pages/box/Box'
@@ -28,8 +29,10 @@ function App() {
       {/* <SearchMarket /> */}
       {/* <Box /> */}
       {/* <Tables /> */}
-
+      {/* <MemberBox /> */}
       {/* <MemberFeature /> */}
+      <FeatureIndex />
+
       <Footer />
     </div>
   )

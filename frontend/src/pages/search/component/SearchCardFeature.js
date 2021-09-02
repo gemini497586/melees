@@ -1,5 +1,7 @@
 import React from 'react'
 import Recipe01 from '../../../images/recipe_01.jpg'
+import Ig from '../../../component/Ig'
+import HeartViewNum from '../../../component/HeartViewNum'
 
 function SearchCardFeature() {
   return (
@@ -19,6 +21,8 @@ function SearchCardFeature() {
             </ul>
           </div>
           <div className="s-recipe-count font-400M">
+            {/* <HeartViewNum />
+            <Ig /> */}
             <div className="s-recipe-count-top">
               <a>
                 <i className="fas fa-heart"></i>

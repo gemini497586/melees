@@ -3,12 +3,37 @@ import '../../style/searchRecipe.css'
 import SearchCardFeature from './component/SearchCardFeature.js'
 import SearchCardPrivate from './component/SearchCardPrivate.js'
 import CheckBox from './component/CheckBox'
+import DropDown2 from '../../component/DropDown2'
 
 function SearchRecipe() {
   const [checked, setChecked] = useState('')
-
   const checkList = ['全部', '精選食譜', '私藏食譜']
-
+  const itemList = [
+    {
+      name: '時間由新至舊',
+      value: '1',
+    },
+    {
+      name: '時間由舊至新',
+      value: '2',
+    },
+    {
+      name: '按讚數由多至少',
+      value: '3',
+    },
+    {
+      name: '按讚數由少至多',
+      value: '4',
+    },
+    {
+      name: '瀏覽數由多至少',
+      value: '5',
+    },
+    {
+      name: '瀏覽數由少至多',
+      value: '6',
+    },
+  ]
   // const orderByList = [
   //   '時間由新至舊',
   //   '時間由舊至新',
@@ -41,8 +66,8 @@ function SearchRecipe() {
                   )
                 })}
               </div>
-
-              <div className="col-3">
+              <DropDown2 itemList={itemList} />
+              {/* <div className="col-3">
                 <select className="form-select font-400SL" value="">
                   <option value="1">時間由新至舊</option>
                   <option value="2">時間由舊至新</option>
@@ -51,7 +76,7 @@ function SearchRecipe() {
                   <option value="5">瀏覽數由多至少</option>
                   <option value="6">瀏覽數由少至多</option>
                 </select>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="s-recipe-bottom">

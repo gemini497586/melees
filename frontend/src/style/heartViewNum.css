@@ -1,0 +1,13 @@
+/*愛心瀏覽數*/
+.fcolor-grey-800 {
+  color: var(--color-grey-800);
+}
+.hvn-size {
+  max-width: 250px;
+  height: 50px;
+}
+.hvn-flex {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}

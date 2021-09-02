@@ -7,10 +7,10 @@ function Tables() {
     <>
       <div className="container">
         <div className="row">
-          <div className="col-6 g-0">
+          <div className="col-12 col-md-6 g-0">
             <Table />
           </div>
-          <div className="col-6 g-0">
+          <div className="col-12 col-md-6 g-0">
             <Table />
           </div>
         </div>
