@@ -2,7 +2,7 @@ import React from 'react'
 import '../style/cardShopping.css'
 import food from '../images/default_food3.jpg'
 
-function CardRecipe() {
+function CardShopping() {
   return (
     <>
       <div className="container">
@@ -44,4 +44,4 @@ function CardRecipe() {
   )
 }
 
-export default CardRecipe
+export default CardShopping
