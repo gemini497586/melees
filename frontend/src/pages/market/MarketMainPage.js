@@ -8,7 +8,7 @@ function MarketMainPage() {
   return (
     <div className="market-main-page">
       <div className="row">
-        <div className="col-12 ">
+        
           <div className="product-card col-md-6">
             <div className="product-img">
               <img src={productImg} alt="好想吃威靈頓牛排" />
@@ -25,7 +25,7 @@ function MarketMainPage() {
               加入購物車
             </button>
           </div>
-          {/* <div className="product-card">
+          <div className="product-card">
             <div className="product-img">
               <img src={productImg} alt="好想吃威靈頓牛排" />
               <FontAwesomeIcon icon="bookmark" className="bookmark" />
@@ -40,8 +40,8 @@ function MarketMainPage() {
               <FontAwesomeIcon icon="cart-plus" className="cart-plus" />
               加入購物車
             </button>
-          </div> */}
-        </div>
+          </div>
+        
       </div>
     </div>
   )

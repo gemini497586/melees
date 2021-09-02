@@ -40,7 +40,7 @@ function App() {
       <Header />
       {/* <MinorBar /> */}
       {/* <Home /> */}
-      <Box />
+      {/* <Box /> */}
       {/* <Tables /> */}
       {/* <SearchMarket /> */}
       {/* <SearchRecipe /> */}
@@ -51,15 +51,15 @@ function App() {
       <CardPrivateRecipe /> */}
 
       {/* <SortingBar /> */}
-      {/* <div className="t60"></div> */}
-      {/* <div className="container">
+      <div className="t60"></div>
+      <div className="container">
         <MarketMainPage />
         <MarketMainPage />
         <MarketMainPage />
         {array.map((v, i) => {
           return <Paging value={v} />
         })}
-      </div> */}
+      </div>
       {/* <ProductDetails /> */}
       {/* <CartDetail /> */}
       {/* <CheckoutPersonalData /> */}
