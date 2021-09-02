@@ -12,6 +12,10 @@ import {
   faLongArrowAltLeft,
   faCreditCard,
   faFileAlt,
+  faInfoCircle,
+  faPen,
+  faStar,
+  faStarHalfAlt,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -26,5 +30,9 @@ library.add(
   faTrashAlt,
   faLongArrowAltLeft,
   faCreditCard,
-  faFileAlt
+  faFileAlt,
+  faInfoCircle,
+  faPen,
+  faStar,
+  faStarHalfAlt
 )

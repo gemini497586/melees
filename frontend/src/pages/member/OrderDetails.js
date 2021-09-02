@@ -5,6 +5,11 @@ import React from 'react'
 import '../../style/global.css'
 import '../../style/member.css'
 import '../../style/orderList.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import '../../component/FontawsomeIcons'
+import OrderDetailRow from './component/OrderDetailRow'
+
+const cartArray = [1, 2, 3]
 
 function OrderDetails() {
   return (
@@ -43,51 +48,30 @@ function OrderDetails() {
         <div className="member-form member-form-forOrderDetail">
           <div className="member-form-title">
             <div className="member-form-title-icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                className="bi bi-file-earmark-text"
-                viewBox="0 0 16 16"
-              >
-                <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z" />
-                <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-              </svg>
+              <FontAwesomeIcon
+                icon="file-alt"
+                size="lg"
+                className="icon-file"
+              />
             </div>
             <h5>訂單查詢</h5>
           </div>
-          <div className="member-form-group-content">
-            <table>
-              <thead>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
+          <div className="member-form-group-content member-form-group-content-forOrderDetail">
+            <div className="d-flex orderDetail-title">
+              <p className="font-400L orderDetail-title-info">商品介紹</p>
+              <p className="font-400L orderDetail-title-price">單價</p>
+              <p className="font-400L orderDetail-title-amount">數量</p>
+              <p className="font-400L orderDetail-title-total">總價</p>
+            </div>
+            {cartArray.map((v, i) => {
+              return <OrderDetailRow />
+            })}
+            {/* 總金額計算 */}
             <div className="sumGroup">
               <div className="sumGroup-item">
-                <div className="sumGroup-item-subtitle">商品金額總計</div>
+                <div className="sumGroup-item-subtitle font-400S">
+                  商品金額總計
+                </div>
                 <div className="sumGroup-item-money">
                   <strong>
                     NT$ <span>3,930</span>
@@ -95,7 +79,7 @@ function OrderDetails() {
                 </div>
               </div>
               <div className="sumGroup-item">
-                <div className="sumGroup-item-subtitle">折扣金額</div>
+                <div className="sumGroup-item-subtitle font-400S">折扣金額</div>
                 <div className="sumGroup-item-money">
                   <strong>
                     NT$ <span>0</span>
@@ -103,17 +87,17 @@ function OrderDetails() {
                 </div>
               </div>
               <div className="sumGroup-item">
-                <div className="sumGroup-item-subtitle">物流費用</div>
+                <div className="sumGroup-item-subtitle font-400S">物流費用</div>
                 <div className="sumGroup-item-money">
                   <strong>
                     NT$ <span>0</span>
                   </strong>
                 </div>
               </div>
-              <div className="sumGroup-item">
-                <div className="sumGroup-item-subtitle">總計</div>
+              <div className="sumGroup-item sumGroup-item-total">
+                <div className="sumGroup-item-subtitle font-400S">總計</div>
                 <div className="sumGroup-item-money">
-                  <strong>
+                  <strong className="h6">
                     NT$ <span>3,930</span>
                   </strong>
                 </div>
@@ -125,17 +109,11 @@ function OrderDetails() {
         <div className="member-form member-form-forOrderDetail">
           <div className="member-form-title">
             <div className="member-form-title-icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                className="bi bi-file-earmark-text"
-                viewBox="0 0 16 16"
-              >
-                <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z" />
-                <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-              </svg>
+              <FontAwesomeIcon
+                icon="file-alt"
+                size="lg"
+                className="icon-file"
+              />
             </div>
             <h5>付款方式與寄送資料</h5>
           </div>
@@ -161,17 +139,11 @@ function OrderDetails() {
         <div className="member-form member-form-forOrderDetail">
           <div className="member-form-title">
             <div className="member-form-title-icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                className="bi bi-file-earmark-text"
-                viewBox="0 0 16 16"
-              >
-                <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z" />
-                <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
-              </svg>
+              <FontAwesomeIcon
+                icon="file-alt"
+                size="lg"
+                className="icon-file"
+              />
             </div>
             <h5>注意事項</h5>
           </div>

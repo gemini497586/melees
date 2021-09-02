@@ -39,6 +39,7 @@ import FeatureIndex from './pages/feature/FeatureIndex'
 import FeatureContentImg from './pages/feature/component/FeatureContentImg'
 import FeatureContentIntro from './pages/feature/component/FeatureContentIntro'
 import FeatureWeek from './pages/feature/component/FeatureWeek'
+
 import Login from './pages/member/Login'
 import Register from './pages/member/Register'
 import EditMemberInfo from './pages/member/EditMemberInfo'
@@ -46,6 +47,9 @@ import EditPassword from './pages/member/EditPassword'
 import OrderList from './pages/member/OrderList'
 
 import OrderDetails from './pages/member/OrderDetails'
+
+import MemberSaveProdcut from './pages/member/MemberSaveProduct'
+import MemberRecipeComment from './pages/member/MemberRecipeComment'
 
 const array = [1, 2, 3]
 
