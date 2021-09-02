@@ -9,7 +9,10 @@
 
 .checkout-confirm div,
 .checkout-confirm h5,
-.checkout-confirm p {
+.checkout-confirm p,
+.checkout-confirm table,
+.checkout-confirm tr,
+.checkout-confirm tr {
   position: absolute;
 }
 
@@ -80,4 +83,25 @@
   left: 112px;
   width: 500px;
   height: 25px;
+}
+
+.checkout-confirm-detail {
+  top: 372px;
+  left: 112px;
+  width: 650px;
+  height: 212px;
+  background: pink;
+}
+
+.checkout-confirm-table {
+  top: 0px;
+  left: 116px;
+}
+
+.checkout-confirm-table tr {
+  top: 15px;
+  margin: 15px;
+  background: #fff;
+  width: 500px;
+  /* padding: 15px; */
 }
