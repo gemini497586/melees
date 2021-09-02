@@ -1,0 +1,13 @@
+.recipeStep span {
+    color: var(--color-grey-800);
+}
+.recipeStep-num {
+    width: 30px;
+    padding-right: 10px;
+}
+.recipeStep-content {
+    margin-left: 26px;
+}
+.recipeStep-divider {
+    color: var(--color-grey-500);
+}
