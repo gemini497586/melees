@@ -35,6 +35,10 @@
   /* margin: auto; */
 }
 
+.progressBar li.active {
+  border: none;
+}
+
 .progressBar li.active ~ li .progressBar-icon {
   background-color: var(--color-primary);
 }
@@ -66,12 +70,11 @@
 /* 訂單查詢 */
 .orderList-container {
   max-width: 1320px;
-  margin: 0 auto 40px;
+  margin: 32px auto 40px;
 }
 .orderList-title {
   display: flex;
   justify-content: space-between;
-  margin-top: 32px;
 }
 
 .orderList-refundBtn {
