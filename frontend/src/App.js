@@ -33,6 +33,10 @@ import CheckoutPersonalData from './pages/market/CheckoutPersonalData'
 // 結帳-資料確認頁面
 import CheckoutConfirm from './pages/market/CheckoutConfirm'
 
+import FeatureIndex from './pages/feature/FeatureIndex'
+import FeatureContentImg from './pages/feature/component/FeatureContentImg'
+import FeatureContentIntro from './pages/feature/component/FeatureContentIntro'
+import FeatureWeek from './pages/feature/component/FeatureWeek'
 import Login from './pages/member/Login'
 import Register from './pages/member/Register'
 import EditMemberInfo from './pages/member/EditMemberInfo'
@@ -76,6 +80,11 @@ function App() {
       {/* <CartDetail /> */}
       {/* <CheckoutPersonalData /> */}
       {/* <CheckoutConfirm /> */}
+      <MinorBar />
+      <FeatureIndex />
+      <FeatureContentImg />
+      <FeatureContentIntro />
+      <FeatureWeek />
       <Footer />
       {/* 完成分頁 */}
       <Login />
