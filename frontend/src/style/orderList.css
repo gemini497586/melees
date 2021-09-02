@@ -35,6 +35,10 @@
   /* margin: auto; */
 }
 
+.progressBar li.active {
+  border: none;
+}
+
 .progressBar li.active ~ li .progressBar-icon {
   background-color: var(--color-primary);
 }
@@ -66,12 +70,11 @@
 /* 訂單查詢 */
 .orderList-container {
   max-width: 1320px;
-  margin: 0 auto 40px;
+  margin: 32px auto 40px;
 }
 .orderList-title {
   display: flex;
   justify-content: space-between;
-  margin-top: 32px;
 }
 
 .orderList-refundBtn {
@@ -153,10 +156,135 @@
 }
 
 .member-form-forOrderDetail .sumGroup {
-  width: 100%;
-  text-align: right;
+  width: 250px;
+  /* background-color: #e0e0e0; */
+  margin-left: auto;
+  padding-top: 20px;
 }
 .member-form-forOrderDetail .sumGroup-item {
   display: flex;
   justify-content: right;
+  text-align: right;
+  padding-bottom: 16px;
+}
+
+.member-form-forOrderDetail .sumGroup-item-subtitle{
+  width: 110px;
+  /* margin-right: 20px; */
+  color: var(--color-grey-800);
+}
+
+.member-form-forOrderDetail .sumGroup-item-total {
+  color: var(--color-red-C);
+  border-top: 1px solid var(--color-grey-800);
+  padding-top: 16px;
+}
+
+.member-form-forOrderDetail .sumGroup-item-money {
+  margin-left: auto;
+}
+
+.member-form-group-content-forOrderDetail{
+  padding-left: 48px;
+}
+
+.orderDetail-row {
+  width: 100%;
+  /* width: 1318px; */
+  height: 176px;
+  position: relative;
+  border-bottom: 1px solid var(--color-grey-500);
+}
+
+.orderDetail-row img,
+.orderDetail-row p,
+.orderDetail-row h6,
+.orderDetail-row h5,
+.orderDetail-row div,
+.orderDetail-row .btn {
+  position: absolute;
+}
+
+.orderDetail-row img {
+  width: 193px;
+  height: 152px;
+  border-radius: 4px;
+  top: 12px;
+  left: 30px;
+}
+
+.orderDetail-name {
+  font-weight: bold;
+  color: var(--color-grey-900);
+  top: 40px;
+  left: 308px;
+}
+
+.orderDetail-activity {
+  text-align: start;
+  color: var(--color-grey-800);
+  top: 76px;
+  left: 308px;
+}
+
+.orderDetail-price {
+  font-weight: bold;
+  color: var(--color-grey-900);
+  top: 74px;
+  left: 700.2px;
+}
+
+.orderDetail-amount {
+  background: var(--color-grey-300);
+  width: 125px;
+  height: 43px;
+  line-height: 43px;
+  border-radius: 100px;
+  top: 66.5px;
+  left: 835.8px;
+  text-align: center;
+}
+
+.orderDetail-total {
+  font-weight: bold;
+  color: var(--color-grey-900);
+  top: 74.5px;
+  left: 1010px;
+}
+
+.orderDetail {
+  width: 1320px;
+  height: 900px;
+  border: 1px solid var(--color-secondary);
+  border-radius: 4px;
+  margin-top: 120px;
+}
+
+.orderDetail-title {
+  height: 38px;
+  width: 100%;
+  position: relative;
+  border-bottom: 2px solid var(--color-grey-500);
+}
+
+.orderDetail-title p {
+  position: absolute;
+  color: var(--color-grey-800);
+  line-height: 38px;
+}
+
+.orderDetail-title-info {
+  left: 31px;
+}
+
+.orderDetail-title-price {
+  left: 700px;
+}
+
+.orderDetail-title-amount {
+  left: 875px;
+}
+
+.orderDetail-title-total {
+  left: 1040px;
 }

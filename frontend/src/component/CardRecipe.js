@@ -7,6 +7,16 @@ function CardRecipe() {
     <>
       <div className="container">
         <div className="row">
+          <div class="cardRecipe-others">
+            <div class="d-flex justify-content-between">
+              <h5>查看其他食譜</h5>
+              <div class="cardRecipe-others-more">
+                <i class="fas fa-chevron-right"></i>
+                <span class="font-700M">看更多</span>
+              </div>
+            </div>
+            <div class="cardRecipe-others-hr w-100"></div>
+          </div>
           <div className="col-12 col-md-3">
             <div className="cardRecipe">
               <figure className="cardRecipe-img">

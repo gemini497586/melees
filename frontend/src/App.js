@@ -1,11 +1,4 @@
 import './style/global.css'
-import Header from './component/Header.js'
-import MinorBar from './component/MinorBar.js'
-import Footer from './component/Footer.js'
-import FeatureIndex from './pages/feature/FeatureIndex'
-import FeatureContentImg from './pages/feature/component/FeatureContentImg'
-import FeatureContentIntro from './pages/feature/component/FeatureContentIntro'
-import FeatureWeek from './pages/feature/component/FeatureWeek'
 import Login from './pages/member/Login'
 import Register from './pages/member/Register'
 import EditMemberInfo from './pages/member/EditMemberInfo'
@@ -19,6 +12,10 @@ import Box from './pages/box/Box'
 import Home from './pages/home/Home'
 import SearchRecipe from './pages/search/SearchRecipe'
 import SearchMarket from './pages/search/SearchMarket'
+import Header from './component/Header'
+import MinorBar from './pages/member/component/MinorBar'
+import Footer from './component/Footer'
+
 
 function App() {
   return (
