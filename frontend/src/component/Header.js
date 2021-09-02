@@ -12,7 +12,7 @@ function Header() {
           <img src={meleesLogo} alt="logo" />
         </div>
         <ul className="header-bar-main-ul">
-          <li className="active  font-700SL">
+          <li className="header-active  font-700SL">
             <a href="/">客製化便當</a>
           </li>
           <li className="font-400M">

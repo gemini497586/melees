@@ -9,6 +9,7 @@ import Home from './pages/home/Home.js'
 import SearchMarket from './pages/search/SearchMarket.js'
 import SearchRecipe from './pages/search/SearchRecipe.js'
 import MemberBox from './pages/member/MemberBox'
+import OrderDetails from './pages/member/OrderDetails'
 import CardRecipe from './component/CardRecipe.js'
 import DropDown from './component/DropDown.js'
 import CardShopping from './component/CardShopping.js'
@@ -32,6 +33,8 @@ import CheckoutPersonalData from './pages/market/CheckoutPersonalData'
 
 // 結帳-資料確認頁面
 import CheckoutConfirm from './pages/market/CheckoutConfirm'
+import Table from './component/Table'
+import OrderList from './pages/member/OrderList'
 
 const array = [1, 2, 3]
 
@@ -53,19 +56,19 @@ function App() {
       <CardPrivateRecipe /> */}
 
       {/* <SortingBar /> */}
-      <div className="t60"></div>
-      <div className="container">
+      {/* <div className="t60"></div> */}
+      {/* <div className="container">
         <MarketMainPage />
         <MarketMainPage />
         <MarketMainPage />
         {array.map((v, i) => {
           return <Paging value={v} />
         })}
-      </div>
+      </div> */}
       {/* <ProductDetails /> */}
       {/* <CartDetail /> */}
       {/* <CheckoutPersonalData /> */}
-      {/* <CheckoutConfirm /> */}
+      <CheckoutConfirm />
       <Footer />
     </div>
   )

@@ -111,11 +111,11 @@
 }
 
 /* 選取(當前頁面)開始 */
-.active a {
+.header-active a {
   color: var(--color-primary);
 }
 
-.active {
+.header-active {
   border-bottom: 2px solid var(--color-primary);
 }
 /* 選取(當前頁面)結束 */
