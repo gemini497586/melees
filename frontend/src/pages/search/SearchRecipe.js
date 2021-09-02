@@ -34,14 +34,6 @@ function SearchRecipe() {
       value: '6',
     },
   ]
-  // const orderByList = [
-  //   '時間由新至舊',
-  //   '時間由舊至新',
-  //   '按讚數由多至少',
-  //   '按讚數由少至多',
-  //   '瀏覽數由多至少',
-  //   '瀏覽數由少至多',
-  // ]
   return (
     <>
       <section>
@@ -67,16 +59,6 @@ function SearchRecipe() {
                 })}
               </div>
               <DropDown2 itemList={itemList} />
-              {/* <div className="col-3">
-                <select className="form-select font-400SL" value="">
-                  <option value="1">時間由新至舊</option>
-                  <option value="2">時間由舊至新</option>
-                  <option value="3">按讚數由多至少</option>
-                  <option value="4">按讚數由少至多</option>
-                  <option value="5">瀏覽數由多至少</option>
-                  <option value="6">瀏覽數由少至多</option>
-                </select>
-              </div> */}
             </div>
           </div>
           <div className="s-recipe-bottom">

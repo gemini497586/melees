@@ -4,6 +4,7 @@ import SearchCardMarket from './component/SearchCardMarket'
 import DropDown2 from '../../component/DropDown2'
 
 function SearchMarket() {
+  const [counts, setCounts] = useState(10)
   const itemList = [
     {
       name: '時間由新至舊',
@@ -22,6 +23,29 @@ function SearchMarket() {
       value: '4',
     },
   ]
+  const marketList = [
+    {
+      image: 'Product01',
+      name: '美國Choice嫩肩里肌肉片',
+      intro: '重量：100g±5%,原產地：美國,保存方式：請置於冷凍-18℃保存',
+      price: 3100,
+      count: counts,
+    },
+    {
+      image: 'Product01',
+      name: '美國Choice嫩肩里肌肉片',
+      intro: '保存方式',
+      price: 310,
+      count: counts,
+    },
+    {
+      image: 'Product01',
+      name: '美國Choice嫩肩里肌肉片',
+      intro: '保存方式',
+      price: 310,
+      count: counts,
+    },
+  ]
   return (
     <>
       <section>
@@ -37,10 +61,11 @@ function SearchMarket() {
             </div>
           </div>
           <div className="s-market-bottom">
-            <SearchCardMarket />
-            <SearchCardMarket />
-            <SearchCardMarket />
-            <SearchCardMarket />
+            <SearchCardMarket
+              marketList={marketList}
+              counts={counts}
+              setCounts={setCounts}
+            />
           </div>
         </div>
       </section>

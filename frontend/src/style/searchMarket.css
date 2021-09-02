@@ -16,6 +16,9 @@
 .s-market-title {
   color: var(--color-grey-900);
 }
+.s-market-text {
+  width: 300px;
+}
 .s-market-text ul {
   display: block;
 }
@@ -30,20 +33,23 @@
 }
 .s-market-price {
   color: var(--color-grey-900);
+  width: 100px;
 }
 .s-market-count {
   background: var(--color-grey-300);
   color: var(--color-grey-900);
-  padding: 5px 10px;
+  padding: 5px 20px;
   border-radius: 50px;
+  width: 150px;
+  display: flex;
+  justify-content: space-between;
 }
-.s-market-count span{
+.s-market-count span {
   margin: 0 10px;
 }
 .s-market-count a {
   cursor: pointer;
   color: var(--color-grey-900);
-  padding: 5px 5px;
 }
 .s-market-count a:hover {
   color: var(--color-grey-800);

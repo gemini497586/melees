@@ -20,11 +20,15 @@
 .s-recipe-title {
   color: var(--color-grey-900);
 }
+.s-recipe-text{
+  width: 200px;
+  align-self: center;
+}
 .s-recipe-text ul {
   display: block;
 }
 .s-recipe-text li {
-  height: 20px;
+  /* height: 20px; */
   margin: 10px;
   text-align: center;
 }
@@ -40,7 +44,9 @@
 .s-recipe-count {
   display: flex;
   flex-direction: column;
+  align-items: center;
   text-align: center;
+  width: 320px;
 }
 .s-recipe-count a {
   padding: 0 20px;
