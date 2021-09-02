@@ -23,7 +23,11 @@
 }
 
 .memberRecipeComment-table-title p {
-  padding: 20px 0 20px 30px;
+  padding: 20px 12px;
+}
+
+.memberRecipeComment-table-title p:first-child {
+  padding-left: 30px;
 }
 
 /* 表格內容-食譜照片 */
