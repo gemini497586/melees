@@ -7,7 +7,7 @@ function Food(props) {
     <>
       {foodList.map((v, i) => {
         return (
-          <div className="b-page2-card">
+          <div className="b-page2-card" key={i}>
             <p className="font-400M b-page2-foodtext">{v.name}</p>
             <div className="b-page2-food">
               <img src={v.image} alt="Egg" className="b-contain-fit" />

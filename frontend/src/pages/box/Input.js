@@ -10,10 +10,10 @@ function Input(props) {
   return (
     <>
       <div className="mb-3 row">
-        <label htmlFor="weight" className="col-sm-3 col-form-label">
+        <label htmlFor="weight" className="col-md-3 col-form-label">
           性別
         </label>
-        <div className="col-sm-9">
+        <div className="col-md-9">
           <select
             className="form-select"
             value={gender}

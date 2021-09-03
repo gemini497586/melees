@@ -4,6 +4,8 @@ import Input from './Input'
 import Food from './Food'
 import Modal from './Modal.js'
 import Table from '../../component/Table'
+import CardRecipe from '../../component/CardRecipe'
+import CardShopping from '../../component/CardShopping'
 import BoxUp from '../../images/box_up.png'
 import Woman from '../../images/box_woman.png'
 import Man from '../../images/box_man.png'
@@ -43,7 +45,13 @@ const foodList = [
     cal: 1234,
   },
 ]
-
+const unitList = [
+  { name: '雞蛋', unit: '100大卡' },
+  { name: '雞蛋', unit: '100大卡' },
+  { name: '雞蛋', unit: '100大卡' },
+  { name: '雞蛋', unit: '100大卡' },
+  { name: '雞蛋', unit: '100大卡' },
+]
 function Box() {
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -112,7 +120,7 @@ function Box() {
         {/* 第三段 */}
         <div className="container b-step">
           <h4 className="b-title">3. 計算便當卡路里</h4>
-          <div className="d-flex justify-content-between ">
+          <div className="d-flex justify-content-between b-page3">
             {/* 左邊 */}
             <div className="col-12 col-md-6 b-page3-left">
               <div className="b-page3-image">
@@ -138,11 +146,14 @@ function Box() {
             </div>
 
             {/* 右邊 */}
-            <div className="col-12 col-md-5">
-              <Table />
+            <div className="col-12 col-md-5 b-page3-right">
+              <Table unitList={unitList} />
             </div>
           </div>
         </div>
+        <CardRecipe />
+        {/* <br /> */}
+        <CardShopping />
       </section>
     </>
   )

@@ -120,6 +120,9 @@
 }
 
 /* 第三段 */
+.b-page3 {
+  padding-bottom: 100px;
+}
 .b-page3-left {
   position: relative;
 }
@@ -138,6 +141,9 @@
   position: absolute;
   bottom: 0px;
   left: 200px;
+}
+.b-page3-right {
+  height: 320px;
 }
 
 /* Modal */
