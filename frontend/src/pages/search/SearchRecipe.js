@@ -34,6 +34,28 @@ function SearchRecipe() {
       value: '6',
     },
   ]
+  const featureList = [
+    {
+      classify: '精選食譜',
+      image: '',
+      type: '健康長肉肉',
+      name: '三杯雞',
+      auth: '便當調色盤 | Della & Joey',
+      like: 123,
+      view: 222,
+    },
+  ]
+  const privateList = [
+    {
+      classify: '精選食譜',
+      image: '',
+      date: '2021/09/03',
+      name: '無水番茄牛肋無水番茄牛肋無水番茄牛肋',
+      auth: '小深藍',
+      like: 123,
+      view: 222,
+    },
+  ]
   return (
     <>
       <section>
@@ -62,10 +84,8 @@ function SearchRecipe() {
             </div>
           </div>
           <div className="s-recipe-bottom">
-            <SearchCardFeature />
-            <SearchCardPrivate />
-            <SearchCardFeature />
-            <SearchCardFeature />
+            <SearchCardFeature featureList={featureList} />
+            <SearchCardPrivate privateList={privateList} />
             <SearchCardFeature />
           </div>
         </div>

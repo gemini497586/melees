@@ -4,7 +4,7 @@ import Register from './pages/member/Register'
 import EditMemberInfo from './pages/member/EditMemberInfo'
 import EditPassword from './pages/member/EditPassword'
 import OrderList from './pages/member/OrderList'
-import OrderDetails from './pages/member/OrderDetails'
+import FeatureIndex from './pages/feature/FeatureIndex'
 import MemberBox from './pages/member/MemberBox'
 import MemberFeature from './pages/member/MemberFeature'
 import Tables from './component/Tables'
@@ -28,7 +28,7 @@ function App() {
       {/* <Tables /> */}
       {/* <MemberBox /> */}
       {/* <MemberFeature /> */}
-      <FeatureIndex />
+      {/* <FeatureIndex /> */}
 
       <Footer />
     </div>

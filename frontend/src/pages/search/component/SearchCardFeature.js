@@ -3,7 +3,8 @@ import Recipe01 from '../../../images/recipe_01.jpg'
 import Ig from '../../../component/Ig'
 import HeartViewNum from '../../../component/HeartViewNum'
 
-function SearchCardFeature() {
+function SearchCardFeature(props) {
+  const { featureList } = props
   return (
     <>
       <div className="s-recipe-card">
