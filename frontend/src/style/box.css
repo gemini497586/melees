@@ -1,10 +1,10 @@
 /* 共同使用 */
-.cover-fit {
+.b-cover-fit {
   height: 100%;
   width: 100%;
   object-fit: cover;
 }
-.contain-fit {
+.b-contain-fit {
   height: 100%;
   width: 100%;
   object-fit: contain;
@@ -32,7 +32,7 @@
   border: 1px solid transparent;
   border-radius: 8px;
 }
-.b-btnhover,
+.b-btn:hover,
 .b-btnblue:hover {
   background: var(--color-primary-A);
 }
@@ -47,108 +47,124 @@
 
 /* 第一段 */
 
-.b-calc {
+.b-page1-calc {
   margin-bottom: 30px;
   padding: 0 40px;
 }
-.b-woman {
-  background: url('../images/box_woman.png') right bottom no-repeat;
-  background-size: auto 370px;
+.b-page1-right {
   position: relative;
-  margin-bottom: 30px;
+  padding-left: 30px;
 }
-.b-text1 {
+.b-page1-note {
   color: var(--color-grey-800);
-  display: inline-block;
   position: absolute;
-  top: 35px;
-  left: 280px;
+  top: 30px;
+  left: 40px;
 }
-.b-text2 {
+.b-page1-image {
+  position: absolute;
+  right: 0;
+  height: 370px;
+}
+.b-page1-text {
   color: var(--color-grey-900);
   position: absolute;
-  bottom: 0;
+  bottom: 80px;
 }
 
 /* 第二段 */
 /* .customized {
   height: calc(100vh - 104px);
 } */
-.b-text3 {
-  color: var(--color-grey-800);
+.b-page2-image {
+  position: absolute;
+  top: 0;
+  right: 50px;
+  width: 320px;
+  height: 150px;
 }
-.b-bento {
+.b-page2-note {
+  color: var(--color-grey-800);
+  position: absolute;
+  top: 45px;
+  left: 45px;
+}
+.b-page2-bento {
   margin: 0 auto;
   width: 560px;
   background: url('../images/box_down.png') no-repeat;
   background-size: 559px auto;
 }
-.b-menu {
+.b-page2-menu {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  padding-bottom: 30px;
+  padding-bottom: 20px;
 }
-.b-menu .fas {
+.b-page2-menu > .chevron {
   display: block;
-  font-size: 50px;
+  font-size: 40px;
   cursor: pointer;
   margin: 0 20px;
   color: var(--color-grey-800);
 }
-
-.b-food {
+.b-page2-menu > .chevron:hover {
+  color: var(--color-grey-900);
+}
+.b-page2-food {
   width: 200px;
   height: 150px;
-  margin: 5px 20px;
 }
-.b-foodtext {
+.b-page2-foodtext {
   text-align: center;
 }
 
 /* 第三段 */
-.b-man {
-  height: 350px;
-  background: url('../images/box_man.png') left bottom no-repeat;
-  background-size: auto 350px;
+.b-page3-left {
   position: relative;
 }
-.b-text4 {
+.b-page3-image {
+  position: absolute;
+  height: 350px;
+  left: 0;
+}
+.b-page3-text {
   color: var(--color-grey-900);
   position: absolute;
-  top: 50px;
   left: 250px;
+  top: 45px;
 }
-.b-btngroup {
+.b-page3-btn {
   position: absolute;
-  top: 220px;
-  left: 250px;
+  bottom: 0px;
+  left: 200px;
 }
 
 /* Modal */
 .b-modal {
   position: relative;
   margin: 30px auto;
-  z-index: 500;
   width: 50%;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-grey-500);
   padding: 20px;
-  transition: all 0.3s ease-out;
 }
-.b-savename {
+.b-modal-left {
+  height: 400px;
+  position: relative;
+}
+.b-modal-name {
   position: absolute;
   top: 50%;
-  left: 15%;
-  transform: rotate(23deg);
+  left: 20%;
+  transform: rotate(24deg);
   color: var(--color-secondary);
 }
-.b-btnclose {
+.b-modal-close {
   color: var(--color-grey-800);
   position: absolute;
   top: 0;
-  right: 20px;
   font-size: 40px;
 }
-.b-btnclose:hover {
+.b-modal-close:hover {
   color: var(--color-grey-900);
 }

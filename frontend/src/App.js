@@ -9,6 +9,7 @@ import MemberBox from './pages/member/MemberBox'
 import MemberFeature from './pages/member/MemberFeature'
 import Tables from './component/Tables'
 import Box from './pages/box/Box'
+import Modal from './pages/box/Modal'
 import Home from './pages/home/Home'
 import SearchRecipe from './pages/search/SearchRecipe'
 import SearchMarket from './pages/search/SearchMarket'
@@ -16,15 +17,16 @@ import Header from './component/Header'
 import MinorBar from './pages/member/component/MinorBar'
 import Footer from './component/Footer'
 
-
 function App() {
   return (
     <div className="App">
       <Header />
+      {/* <Register/> */}
       {/* <Home /> */}
-      <SearchRecipe />
+      {/* <SearchRecipe /> */}
       {/* <SearchMarket /> */}
       {/* <Box /> */}
+      <Modal />
       {/* <Tables /> */}
       {/* <MemberBox /> */}
       {/* <MemberFeature /> */}
