@@ -44,16 +44,34 @@ function SearchRecipe() {
       like: 123,
       view: 222,
     },
+    {
+      classify: '精選食譜',
+      image: '',
+      type: '健康長肉肉',
+      name: '三杯雞',
+      auth: '便當調色盤 | Della & Joey',
+      like: 123,
+      view: 222,
+    },
   ]
   const privateList = [
     {
-      classify: '精選食譜',
+      classify: '私藏食譜',
       image: '',
       date: '2021/09/03',
       name: '無水番茄牛肋無水番茄牛肋無水番茄牛肋',
       auth: '小深藍',
       like: 123,
       view: 222,
+    },
+    {
+      classify: '私藏食譜',
+      image: '',
+      date: '2021/09/93',
+      name: '無水番茄牛肋',
+      auth: '小深藍小深藍',
+      like: 20000,
+      view: 2000000,
     },
   ]
   return (
@@ -86,7 +104,6 @@ function SearchRecipe() {
           <div className="s-recipe-bottom">
             <SearchCardFeature featureList={featureList} />
             <SearchCardPrivate privateList={privateList} />
-            <SearchCardFeature />
           </div>
         </div>
       </section>

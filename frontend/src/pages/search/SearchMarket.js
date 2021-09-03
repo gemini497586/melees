@@ -4,7 +4,7 @@ import SearchCardMarket from './component/SearchCardMarket'
 import DropDown2 from '../../component/DropDown2'
 
 function SearchMarket() {
-  const [counts, setCounts] = useState(10)
+  const [counts, setCounts] = useState(100)
   const itemList = [
     {
       name: '時間由新至舊',

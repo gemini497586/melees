@@ -26,8 +26,8 @@ function App() {
       {/* <SearchRecipe /> */}
       {/* <SearchMarket /> */}
       {/* <Box /> */}
-      <Modal />
-      {/* <Tables /> */}
+      {/* <Modal /> */}
+      <Tables />
       {/* <MemberBox /> */}
       {/* <MemberFeature /> */}
       {/* <FeatureIndex /> */}
