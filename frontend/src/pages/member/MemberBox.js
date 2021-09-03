@@ -22,6 +22,20 @@ function MemberBox() {
       value: '4',
     },
   ]
+  const saveBoxList = [
+    {
+      food: '雞肉、花椰菜、番茄、白飯、玉米筍',
+      cal: 1200,
+      name: 'Ruby',
+      date: '2021/09/03',
+    },
+    {
+      food: '雞肉、花椰菜、番茄、白飯、玉米筍雞肉、花椰菜、番茄、白飯、玉米筍',
+      cal: 1200,
+      name: 'Ruby',
+      date: '2021/09/03',
+    },
+  ]
   return (
     <>
       <section>
@@ -31,12 +45,9 @@ function MemberBox() {
           </div>
           <div className="member-box-bottom">
             <div className="row">
-              <SaveBox />
-              <SaveBox />
-              <SaveBox />
-              <SaveBox />
-              <SaveBox />
-              <SaveBox />
+              <SaveBox saveBoxList={saveBoxList} />
+              <SaveBox saveBoxList={saveBoxList} />
+              <SaveBox saveBoxList={saveBoxList} />
             </div>
           </div>
         </div>

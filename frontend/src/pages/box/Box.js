@@ -128,7 +128,7 @@ function Box() {
               </div>
               <div className="b-page3-btn">
                 <button className="b-btn font-700M me-2" onClick={handleSubmit}>
-                  <FontAwesomeIcon icon="bookmark" className="bookmark me-2" />
+                  <FontAwesomeIcon icon="bookmark" className="me-2" />
                   收藏便當
                 </button>
                 <button className="b-btnblue font-700M" onClick={handleSubmit}>
