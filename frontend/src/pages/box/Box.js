@@ -7,6 +7,7 @@ import Table from '../../component/Table'
 import CardRecipe from '../../component/CardRecipe'
 import CardShopping from '../../component/CardShopping'
 import BoxUp from '../../images/box_up.png'
+import BoxDown from '../../images/box_down.png'
 import Woman from '../../images/box_woman.png'
 import Man from '../../images/box_man.png'
 import dialog from '../../images/dialog_1.png'
@@ -63,29 +64,34 @@ function Box() {
         {/* 第一段 */}
         <div className="container b-step">
           <h4 className="b-title">1. 計算個人每日總消耗熱量</h4>
-          <div className="d-flex ">
+          <p className="font-700L b-note">請填入資料並按下開始計算</p>
+          <div className="b-page1">
             {/* 左邊表單 */}
-            <div className="col-md-5 b-page1-calc">
-              <form>
+            <div className="col-12 col-md-5 b-page1-calc">
+              <form className="d-flex flex-column">
                 <Input />
-                <button className="font-700M b-btn" onClick={handleSubmit}>
+                {/* <button className="font-700M b-btn" onClick={handleSubmit}>
                   開始計算
-                </button>
+                </button> */}
               </form>
             </div>
             {/* 右邊介紹 */}
-            <div className="col-md-7 b-page1-right">
-              <div className="b-page1-image">
-                <p className="font-700L b-page1-note">
-                  請填入資料並按下開始計算
-                </p>
-                <img className="b-contain-fit" src={Woman} alt="woman" />
-              </div>
+            <div className="col-12 col-md-7 b-page1-right">
               <div className="b-page1-text">
+                <div className="b-page1-image">
+                  <p className="font-700L b-page1-note">
+                    請填入資料並按下開始計算
+                  </p>
+                  <img
+                    className="b-contain-fit b-page1-woman"
+                    src={Woman}
+                    alt="woman"
+                  />
+                </div>
                 <h5 className="pb-2">
                   你的基礎代謝率: <span>1000</span>
                 </h5>
-                <h4>
+                <h4 className="b-page1-cal">
                   你的每日總消耗熱量: <span>1000</span> 大卡
                 </h4>
               </div>
@@ -96,7 +102,8 @@ function Box() {
         {/* 第二段 */}
         <div className="b-customized b-step">
           <div className="container position-relative">
-            <h4>2. 客製屬於你的便當</h4>
+            <h4 className="b-title">2. 客製屬於你的便當</h4>
+            <p className="font-700L b-note">請將食材拖拉至便當盒，最多五樣</p>
             <div className="b-page2-image">
               <p className="font-700L b-page2-note">
                 請將食材拖拉至便當盒
@@ -105,8 +112,13 @@ function Box() {
               </p>
               <img className="b-contain-fit" src={dialog} alt="dialog" />
             </div>
-            <div className="b-page2-bento">
-              <img src={BoxUp} alt="BoxUp" class="b-cover-fit" />
+            <div className="col-12">
+              <div className="b-page2-box">
+                <div className="b-page2-box-up">
+                  <img src={BoxUp} alt="BoxUp" class="b-cover-fit" />
+                </div>
+                <img src={BoxDown} alt="BoxDown" class="b-cover-fit" />
+              </div>
             </div>
             <div className="b-page2-menu">
               <FontAwesomeIcon icon="chevron-left" className="chevron" />
@@ -120,18 +132,18 @@ function Box() {
         {/* 第三段 */}
         <div className="container b-step">
           <h4 className="b-title">3. 計算便當卡路里</h4>
-          <div className="d-flex justify-content-between b-page3">
+          <div className="b-page3">
             {/* 左邊 */}
             <div className="col-12 col-md-6 b-page3-left">
-              <div className="b-page3-image">
-                <div className="b-page3-text">
-                  <h6 className="pb-2">
-                    便當總卡路里: <span>1000</span> 大卡
-                  </h6>
-                  <h5>
-                    你的每日總消耗熱量: <span>1000</span> 大卡
-                  </h5>
-                </div>
+              <div className="b-page3-text">
+                <h6 className="pb-2">
+                  便當總卡路里: <span>1000</span> 大卡
+                </h6>
+                <h5>
+                  你的每日總消耗熱量: <span>1000</span> 大卡
+                </h5>
+              </div>
+              <div className="b-page3-image b-page3-man">
                 <img className="b-contain-fit" src={Man} alt="Man" />
               </div>
               <div className="b-page3-btn">
@@ -151,6 +163,7 @@ function Box() {
             </div>
           </div>
         </div>
+        {/* 最下面推薦食譜 商品 */}
         <CardRecipe />
         {/* <br /> */}
         <CardShopping />

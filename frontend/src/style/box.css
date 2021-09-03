@@ -22,12 +22,11 @@
   padding-bottom: 30px;
   margin: 0;
 }
-
 /* 按鈕們 */
 .b-btn {
   background: var(--color-primary);
   color: var(--color-white);
-  padding: 0 40px;
+  padding: 0 20px;
   height: 42px;
   border: 1px solid transparent;
   border-radius: 8px;
@@ -39,21 +38,61 @@
 .b-btnblue {
   background: var(--color-FBblue);
   color: var(--color-white);
-  padding: 0 40px;
+  padding: 0 20px;
   height: 42px;
   border: 1px solid transparent;
   border-radius: 8px;
 }
-
+@media screen and (max-width: 414px) {
+  .b-title,
+  .b-page1-cal {
+    display: block;
+    font-size: 24px;
+    line-height: 26.4px;
+    font-weight: 700;
+  }
+}
 /* 第一段 */
-
+.b-page1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 30px;
+}
+.b-note {
+  color: var(--color-grey-800);
+  margin-top: -20px;
+  display: none;
+}
 .b-page1-calc {
-  margin-bottom: 30px;
   padding: 0 40px;
+  white-space: nowrap;
+}
+.b-page1-calc label {
+  text-align: end;
+}
+.b-page1-calc select,
+.b-page1-calc input {
+  width: 100%;
+  height: 45px;
+}
+.b-page1-calc button {
+  width: 50%;
+  margin: 0 auto;
 }
 .b-page1-right {
   position: relative;
-  padding-left: 30px;
+  margin-left: 30px;
+}
+.b-page1-text {
+  color: var(--color-grey-900);
+  position: relative;
+}
+.b-page1-image {
+  position: absolute;
+  bottom: 0px;
+  right: 100px;
+  height: 370px;
 }
 .b-page1-note {
   color: var(--color-grey-800);
@@ -61,15 +100,22 @@
   top: 30px;
   left: 40px;
 }
-.b-page1-image {
-  position: absolute;
-  right: 0;
-  height: 370px;
-}
-.b-page1-text {
-  color: var(--color-grey-900);
-  position: absolute;
-  bottom: 80px;
+@media screen and (max-width: 414px) {
+  .b-page1 {
+    display: block;
+  }
+  .b-page1-image {
+    display: none;
+  }
+  .b-note {
+    display: block;
+    font-size: 18px;
+    line-height: 25.2px;
+    letter-spacing: 3px;
+  }
+  .b-page1-right {
+    margin-top: 30px;
+  }
 }
 
 /* 第二段 */
@@ -89,11 +135,13 @@
   top: 45px;
   left: 45px;
 }
-.b-page2-bento {
+.b-page2-box {
+  position: relative;
   margin: 0 auto;
-  width: 560px;
-  background: url('../images/box_down.png') no-repeat;
-  background-size: 559px auto;
+  width: 40%;
+}
+.b-page2-box-up {
+  position: absolute;
 }
 .b-page2-menu {
   display: flex;
@@ -119,33 +167,67 @@
   text-align: center;
 }
 
+@media screen and (max-width: 414px) {
+  .b-page2-image {
+    display: none;
+  }
+  .b-page2-menu {
+    overflow: hidden;
+  }
+  .b-page2-box {
+    width: 100%;
+  }
+}
 /* 第三段 */
 .b-page3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
   padding-bottom: 100px;
 }
 .b-page3-left {
+  justify-content: center;
   position: relative;
 }
 .b-page3-image {
-  position: absolute;
-  height: 350px;
-  left: 0;
+  height: 300px;
 }
 .b-page3-text {
   color: var(--color-grey-900);
   position: absolute;
-  left: 250px;
-  top: 45px;
+  left: 240px;
+  top: 28px;
 }
 .b-page3-btn {
-  position: absolute;
-  bottom: 0px;
-  left: 200px;
+  display: flex;
+  justify-content: flex-end;
 }
 .b-page3-right {
   height: 320px;
 }
 
+@media screen and (max-width: 414px) {
+  .b-page3 {
+    display: block;
+  }
+  .b-page3-man {
+    display: none;
+  }
+  .b-page3-image {
+    position: relative;
+    height: auto;
+  }
+  .b-page3-text {
+    position: relative;
+    left: 0;
+    top: 0;
+    text-align: center;
+  }
+  .b-page3-btn {
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+}
 /* Modal */
 .b-modal {
   position: relative;

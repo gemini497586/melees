@@ -9,13 +9,12 @@ function Input(props) {
   const [active, setActive] = useState('')
   return (
     <>
-      <div className="mb-3 row">
-        <label htmlFor="weight" className="col-md-3 col-form-label">
+      <div className="mb-3 row align-items-center">
+        <label htmlFor="weight" className="col-4 font-700M">
           性別
         </label>
-        <div className="col-md-9">
+        <div className="col-8">
           <select
-            className="form-select"
             value={gender}
             onChange={(e) => {
               setGender(e.target.value)
@@ -27,16 +26,15 @@ function Input(props) {
           </select>
         </div>
       </div>
-      <div className="mb-3 row">
-        <label htmlFor="age" className="col-sm-3 col-form-label">
+      <div className="mb-3 row align-items-center">
+        <label htmlFor="age" className="col-4 font-700M">
           年齡
         </label>
-        <div className="col-sm-9">
+        <div className="col-8">
           <input
             type="number"
             name="age"
             value={age}
-            className="form-control"
             placeholder="請輸入年齡"
             min="0"
             onChange={(e) => {
@@ -45,16 +43,15 @@ function Input(props) {
           />
         </div>
       </div>
-      <div className="mb-3 row">
-        <label htmlFor="heigh" className="col-sm-3 col-form-label">
+      <div className="mb-3 row align-items-center">
+        <label htmlFor="heigh" className="col-4 font-700M">
           身高
         </label>
-        <div className="col-sm-9">
+        <div className="col-8">
           <input
             type="number"
             name="heigh"
             value={height}
-            className="form-control"
             placeholder="請輸入身高(公分)"
             min="0"
             onChange={(e) => {
@@ -63,16 +60,15 @@ function Input(props) {
           />
         </div>
       </div>
-      <div className="mb-3 row">
-        <label htmlFor="weight" className="col-sm-3 col-form-label">
+      <div className="mb-3 row align-items-center">
+        <label htmlFor="weight" className="col-4 font-700M">
           體重
         </label>
-        <div className="col-sm-9">
+        <div className="col-8">
           <input
             type="number"
             name="weight"
             value={weight}
-            className="form-control"
             placeholder="請輸入體重(公斤)"
             min="0"
             onChange={(e) => {
@@ -81,13 +77,12 @@ function Input(props) {
           />
         </div>
       </div>
-      <div className="mb-3 row">
-        <label htmlFor="Active" className="col-sm-3 col-form-label">
+      <div className="mb-3 row align-items-center">
+        <label htmlFor="Active" className="col-4 font-700M">
           活動量
         </label>
-        <div className="col-sm-9">
+        <div className="col-8">
           <select
-            className="form-select"
             value={active}
             onChange={(e) => {
               setActive(e.target.value)
@@ -101,6 +96,9 @@ function Input(props) {
             <option value="1.9">無時無刻都在運動</option>
           </select>
         </div>
+      </div>
+      <div className="row">
+        <button className="font-700M b-btn">開始計算</button>
       </div>
     </>
   )
