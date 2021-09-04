@@ -1,0 +1,110 @@
+.cart-checkout-box {
+  position: absolute;
+  bottom: 0px;
+  height: 300px;
+  width: 100%;
+}
+
+.cart-checkout-area {
+  position: relative;
+}
+
+.cart-checkout-area p,
+.cart-checkout-area h6,
+.cart-checkout-area h5,
+.cart-checkout-area div,
+.cart-checkout-area .btn {
+  position: absolute;
+}
+
+.cart-checkout-area .btn {
+  width: 205px;
+  height: 43px;
+  border-radius: 100px;
+}
+
+.cart-checkout-continue-btn {
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  top: 217px;
+  left: 50px;
+}
+
+/* 選取優惠券 */
+.cart-checkout-coupon-btn {
+  color: var(--color-primary-A);
+  border: 1px solid var(--color-primary-A);
+  top: -30px;
+  left: 1065px;
+}
+
+.cart-checkout-area p,
+.cart-checkout-area h6 {
+  width: 100px;
+  height: 20px;
+  letter-spacing: 0px;
+  /* background: red; */
+}
+
+/* 商品總金額 */
+.cart-checkout-price-amount {
+  top: 37px;
+  left: 1018px;
+}
+
+.cart-checkout-price-amount-num {
+  top: 37px;
+  left: 1198px;
+}
+
+/* 優惠券 */
+.cart-checkout-coupon-txt {
+  top: 79px;
+  left: 1018px;
+}
+
+.cart-checkout-coupon-num {
+  top: 79px;
+  left: 1166px;
+  text-align: end;
+}
+
+/* 運費 */
+.cart-checkout-freight-txt {
+  top: 121px;
+  left: 1018px;
+}
+
+.cart-checkout-freight-num {
+  top: 121px;
+  left: 1166px;
+  text-align: end;
+}
+
+.w244 {
+  top: 163px;
+  left: 1026px;
+  width: 244px;
+  height: 1px;
+  background: var(--color-grey-500);
+}
+
+.cart-checkout-total-amount {
+  top: 179px;
+  left: 1018px;
+  color: var(--color-red-C);
+}
+
+.cart-checkout-total-amount-num {
+  top: 179px;
+  left: 1183px;
+  font-weight: bold;
+  color: var(--color-red-C);
+}
+
+.cart-checkout-btn {
+  color: #fff;
+  background: var(--color-primary);
+  top: 217px;
+  left: 1065px;
+}

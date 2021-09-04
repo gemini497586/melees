@@ -1,40 +1,65 @@
-import React from 'react'
-import { withRouter, Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+
 import '../style/header.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './FontawsomeIcons'
 import meleesLogo from '../images/meleesLogo.svg'
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import Box from '../pages/box/Box'
+import MarketMainPage from '../pages/market/MarketMainPage'
+import ProductDetails from '../pages/market/ProductDetails'
+import CardPrivateRecipe from '../pages/private/component/CardPrivateRecipe'
+import EditMemberInfo from '../pages/member/EditMemberInfo'
+import FeatureIndex from '../pages/feature/FeatureIndex'
+import Home from '../pages/home/Home'
 
 function Header() {
+  // 讓header-active隨著點擊的頁面切換
+  useEffect(() => {
+    let header = document.getElementById('header')
+    header.addEventListener('click', (e) => {
+      if (e.target.children.length === 0) {
+        for (let i = 0; i < header.children.length; i++) {
+          header.children[i].classList.remove('header-active', 'font-700SL')
+        }
+        e.target.parentElement.classList.add('header-active', 'font-700SL')
+      }
+      // console.log(e.target.parentElement)
+    })
+  }, [])
+
   return (
-    <>
+    <Router>
       <div className="header-bar">
         <div className="logo">
           <Link to="/">
             <img src={meleesLogo} alt="logo" />
           </Link>
         </div>
-        <ul className="header-bar-main-ul">
-          <li className="active  font-700SL">
+
+        <ul className="header-bar-main-ul" id="header">
+          <li className="font-700SL header-active" id="headerToBox">
             <Link to="/box">客製化便當</Link>
           </li>
-          <li className="font-400M">
-            <Link to="/featureIndex">精選食譜</Link>
+          <li className="font-400M" id="headerToFeature">
+            <Link to="/feature">精選食譜</Link>
           </li>
-          <li className="font-400M">
-            <Link to="/cardPrivateRecipe">私藏食譜</Link>
+          <li className="font-400M" id="headerToPrivate">
+            <Link to="/private">私藏食譜</Link>
           </li>
-          <li className="font-400M">
-            <Link to="/marketMainPage">購物商城</Link>
+          <li className="font-400M" id="headerToMarket">
+            <Link to="/market">購物商城</Link>
           </li>
-          <li className="font-400M">
+          <li className="font-400M" id="headerToMember">
             <Link to="/member">會員專區</Link>
           </li>
-          <div className="box"></div>
+        </ul>
+        <div className="box"></div>
+        <ul className="header-bar-main-ul">
           <li>
-            <div className="input-group">
+            <div className="header-search-input-group">
               <button
-                className="font-400SL btn btn-outline-secondary dropdown-toggle"
+                className="font-400SL btn dropdown-toggle header-search-dropdown-btn"
                 type="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
@@ -55,12 +80,12 @@ function Header() {
               </ul>
               <input
                 type="text"
-                className="font-400SL form-control input-sm search-input"
+                className="font-400SL header-search-input"
                 placeholder="請輸入搜尋關鍵字"
               />
-              <button className="btn btn-outline-secondary">
+              <div className="header-search-btn">
                 <FontAwesomeIcon icon="search" />
-              </button>
+              </div>
             </div>
           </li>
           <li className="cart-btn">
@@ -125,7 +150,16 @@ function Header() {
         </ul>
       </div>
       <div className="h104"></div>
-    </>
+      <Switch>
+        <Route path="/market" component={MarketMainPage}></Route>
+        <Route path="/box" component={Box}></Route>
+        <Route path="/private" component={CardPrivateRecipe}></Route>
+        <Route path="/member" component={EditMemberInfo}></Route>
+        <Route path="/feature" component={FeatureIndex}></Route>
+        <Route path="/" component={Home}></Route>
+        {/* <Route path="/product" component={ProductDetails}></Route> */}
+      </Switch>
+    </Router>
   )
 }
 
