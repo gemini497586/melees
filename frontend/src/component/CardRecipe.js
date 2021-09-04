@@ -31,7 +31,7 @@ function CardRecipe(props) {
   const id = props.match.params.id
 
   return (
-    <>
+    <div className="card-recipe">
       <div className="container">
         <div className="row">
           <div class="cardRecipe-others">
@@ -78,7 +78,7 @@ function CardRecipe(props) {
           })}
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

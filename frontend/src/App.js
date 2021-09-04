@@ -32,6 +32,26 @@ import MemberCoupon from './pages/member/MemberFeature'
 function App() {
   return (
     <div className="App">
+      {/* <Header />
+
+      {/* <Home /> */}
+
+      {/* <Tables /> */}
+      {/* <SearchMarket /> */}
+      {/* <SearchRecipe /> */}
+      {/* <MemberBox /> */}
+      {/* <DropDown />
+      <CardRecipe />
+      <CardShopping />
+      <CardPrivateRecipe /> */}
+      {/* <MarketMainPage /> */}
+      {/* <ProductDetails /> */}
+      {/* <CartDetail /> */}
+      {/* <CheckoutPersonalData /> */}
+      {/* <CheckoutConfirm /> */}
+      {/* <OrdersComplete /> */}
+      {/* <Footer />  */}
+
       <Router>
         <Header />
 

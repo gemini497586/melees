@@ -1,0 +1,36 @@
+.orders-complete {
+  width: 629px;
+  height: 448px;
+  margin: 56px auto 0px;
+  text-align: center;
+}
+
+.orders-complete-icon {
+  width: 147px;
+  height: 147px;
+  margin: 0px auto 30px;
+  color: var(--color-primary);
+}
+
+.orders-complete-title {
+  color: var(--color-grey-900);
+}
+
+.orders-complete-btn {
+  color: var(--color-white);
+  background: var(--color-primary);
+  border-radius: 100px;
+  width: 205px;
+  height: 43px;
+  margin-top: 106px;
+}
+
+.orders-complete-btn:hover {
+  box-shadow: 0px 0px 10px rgba(255, 153, 0, 0.5);
+  background: var(--color-white);
+  color: var(--color-primary);
+}
+
+.orders-complete-btn:focus {
+  box-shadow: 0px 0px 15px rgba(255, 153, 0, 0.8);
+}

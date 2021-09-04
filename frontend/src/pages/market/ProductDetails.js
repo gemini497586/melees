@@ -4,16 +4,25 @@ import img from '../../images/005.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
 
-function ProductDetails() {
+import productData from '../../data/Products.json'
+import { useParams } from 'react-router'
+
+function ProductDetails(props) {
+  const { id } = useParams()
   return (
     <div className="container">
       <div className="product-detail">
+        {id}
         <img src={img} alt="商品" />
-        <p className="product-detail-category">食材</p>
-        <h2 className="product-detail-name">紐西蘭小羔羊薄切片</h2>
+        <p className="product-detail-category">
+          {productData.products[id - 1].category}
+        </p>
+        <h2 className="product-detail-name">
+          {productData.products[id - 1].name}
+        </h2>
         <h2 className="product-detail-price">
           <FontAwesomeIcon icon="dollar-sign" />
-          190
+          {productData.products[id - 1].price}
         </h2>
         <button className="font-700M product-detail-add-to-cart-btn btn">
           <FontAwesomeIcon icon="cart-plus" className="cart-plus" />
@@ -21,14 +30,12 @@ function ProductDetails() {
         </button>
         <div className="w507"></div>
         <p className="font-400L product-detail-specs">
-          重量：300g±5% <br />
-          原產地：紐西蘭 <br />
-          保存方式：請置於冷凍-18℃保存
+          {productData.products[id - 1].specs}
         </p>
         <div className="info-shadow"></div>
         <h3 className="product-detail-info">商品介紹</h3>
         <p className="font-400L product-detail-information">
-          在純淨大自然中成長的樂活羊隻，以天然牧草孕育出更豐富的營養成分，精選六個月大的小羔羊，部位取自於小羔羊隻的肩背肉塊，限定0.2cm的薄度，更能呈現肉質的鮮美嫩度，不論是火鍋、熱炒、烹煮皆適宜。
+          {productData.products[id - 1].info}
         </p>
       </div>
     </div>
