@@ -27,7 +27,7 @@
   background: var(--color-primary);
   color: var(--color-white);
   padding: 0 20px;
-  height: 42px;
+  height: 43px;
   border: 1px solid transparent;
   border-radius: 8px;
 }
@@ -39,9 +39,12 @@
   background: var(--color-FBblue);
   color: var(--color-white);
   padding: 0 20px;
-  height: 42px;
+  height: 43px;
   border: 1px solid transparent;
   border-radius: 8px;
+}
+.b-btnblue:hover {
+  background: var(--color-blue-B);
 }
 @media screen and (max-width: 414px) {
   .b-title,

@@ -1,6 +1,7 @@
 import React from 'react'
 import '../../style/memberBox.css'
 import SaveBox from './component/SaveBox'
+import MinorBar from './component/MinorBar'
 import DropDown2 from '../../component/DropDown2'
 
 function MemberBox() {
@@ -38,6 +39,8 @@ function MemberBox() {
   ]
   return (
     <>
+      <MinorBar />
+
       <section>
         <div className="container">
           <div className="member-box-top d-flex justify-content-end">

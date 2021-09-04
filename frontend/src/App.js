@@ -1,50 +1,90 @@
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import './style/global.css'
 import Header from './component/Header'
 import Home from './pages/home/Home'
+import Footer from './component/Footer'
 import CardRecipe from './component/CardRecipe'
 import CardShopping from './component/CardShopping'
-import Login from './pages/member/Login'
-import Register from './pages/member/Register'
-import EditMemberInfo from './pages/member/EditMemberInfo'
-import EditPassword from './pages/member/EditPassword'
-import OrderList from './pages/member/OrderList'
-import MemberBox from './pages/member/MemberBox'
-import MemberFeature from './pages/member/MemberFeature'
-import FeatureIndex from './pages/feature/FeatureIndex'
-import MinorBar from './pages/member/component/MinorBar'
-import Tables from './component/Tables'
-import Box from './pages/box/Box'
-import Modal from './pages/box/Modal'
-import SearchRecipe from './pages/search/SearchRecipe'
-import SearchMarket from './pages/search/SearchMarket'
-import ProductDetails from './pages/market/ProductDetails'
+import MarketMainPage from './pages/market/MarketMainPage'
 import CartDetail from './pages/market/CartDetail'
 import CardPrivateRecipe from './pages/private/component/CardPrivateRecipe'
 import PrivateRecipePhotoIntro from './pages/private/component/PrivateRecipePhotoIntro'
-import Footer from './component/Footer'
+import FeatureIndex from './pages/feature/FeatureIndex'
+// 客製化便當
+import Box from './pages/box/Box'
+import Modal from './pages/box/Modal'
+// 搜尋
+import SearchRecipe from './pages/search/SearchRecipe'
+import SearchMarket from './pages/search/SearchMarket'
+// 會員相關
+import MemberLogin from './pages/member/Login'
+import EditMemberInfo from './pages/member/EditMemberInfo'
+import MemberOrderList from './pages/member/OrderList'
+import MemberSaveBox from './pages/member/MemberBox'
+import MemberMyRecipe from './pages/member/MemberFeature'
+import MemberSaveRecipe from './pages/member/MemberFeature'
+import MemberRecipeComment from './pages/member/MemberFeature'
+import MemberSaveProduct from './pages/member/MemberFeature'
+import MemberCoupon from './pages/member/MemberFeature'
 
 function App() {
   return (
     <div className="App">
-      <Header />
-      {/* <Home /> */}
-      {/* <CardRecipe />
-      <CardShopping /> */}
-      {/* <Register/> */}
-      {/* <SearchRecipe /> */}
-      {/* <SearchMarket /> */}
-      <Box />
-      {/* <Modal /> */}
-      {/* <Tables /> */}
-      {/* <CartDetail /> */}
-      {/* <CardPrivateRecipe />
-      <PrivateRecipePhotoIntro /> */}
-      {/* <ProductDetails /> */}
-      {/* <MemberBox /> */}
-      {/* <MemberFeature /> */}
-      {/* <FeatureIndex /> */}
+      <Router>
+        <Header />
 
-      <Footer />
+        <Switch>
+          <Route path="/member/edit">
+            <EditMemberInfo />
+          </Route>
+          <Route path="/member/orderlist">
+            <MemberOrderList />
+          </Route>
+          <Route path="/member/savebox">
+            <MemberSaveBox />
+          </Route>
+          <Route path="/member/myrecipe">
+            <MemberMyRecipe />
+          </Route>
+          <Route path="/member/saverecipe">
+            <MemberSaveRecipe />
+          </Route>
+          <Route path="/member/saveproduct">
+            <MemberSaveProduct />
+          </Route>
+          <Route exact path="/member/recipecomment">
+            <MemberRecipeComment />
+          </Route>
+          <Route path="/member/coupon">
+            <MemberCoupon />
+          </Route>
+          <Route exact path="/member">
+            <MemberOrderList />
+          </Route>
+
+          <Route path="/marketMainPage">
+            <MarketMainPage />
+          </Route>
+          <Route path="/feature/:id?">
+            <CardRecipe />
+          </Route>
+          <Route path="/featureIndex">
+            <FeatureIndex />
+          </Route>
+          <Route path="/box/modal">
+            <Modal />
+          </Route>
+          <Route path="/box">
+            <Box />
+          </Route>
+
+          <Route exact path="/">
+            <Home />
+          </Route>
+        </Switch>
+        {/* 頁尾 */}
+        <Footer />
+      </Router>
     </div>
   )
 }

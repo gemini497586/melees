@@ -6,50 +6,50 @@ function Footer() {
     {
       header: '關於MELLEs',
       content: [
-        { link: '/a', title: '關於我們' },
-        { link: '/b', title: '加入MELEEs' },
-        { link: '/c', title: '異業合作' },
+        { url: '/a', title: '關於我們' },
+        { url: '/b', title: '加入MELEEs' },
+        { url: '/c', title: '異業合作' },
       ],
     },
     {
       header: '客製化便當',
       content: [
-        { link: '/a', title: '代謝率計算' },
-        { link: '/b', title: '熱量計算' },
+        { url: '/a', title: '代謝率計算' },
+        { url: '/b', title: '熱量計算' },
       ],
     },
     {
       header: '客戶服務',
       content: [
-        { link: '/a', title: '進度查詢' },
-        { link: '/b', title: '取消訂單' },
-        { link: '/c', title: '追蹤清單' },
-        { link: '/d', title: '常見問答' },
-        { link: '/e', title: '聯絡我們' },
+        { url: '/a', title: '進度查詢' },
+        { url: '/b', title: '取消訂單' },
+        { url: '/c', title: '追蹤清單' },
+        { url: '/d', title: '常見問答' },
+        { url: '/e', title: '聯絡我們' },
       ],
     },
     {
       header: '購物商城',
       content: [
-        { link: '/a', title: '生鮮食材' },
-        { link: '/a', title: '調味料' },
-        { link: '/b', title: '廚房器具' },
+        { url: '/a', title: '生鮮食材' },
+        { url: '/a', title: '調味料' },
+        { url: '/b', title: '廚房器具' },
       ],
     },
     {
       header: '精選食譜',
       content: [
-        { link: '/a', title: '健康長肉肉' },
-        { link: '/b', title: '健康不吃肉' },
-        { link: '/c', title: '一周不煩惱' },
-        { link: '/d', title: '家常好手藝' },
+        { url: '/a', title: '健康長肉肉' },
+        { url: '/b', title: '健康不吃肉' },
+        { url: '/c', title: '一周不煩惱' },
+        { url: '/d', title: '家常好手藝' },
       ],
     },
     {
       header: '私藏食譜',
       content: [
-        { link: '/a', title: '熱門食譜' },
-        { link: '/b', title: '上傳食譜' },
+        { url: '/a', title: '熱門食譜' },
+        { url: '/b', title: '上傳食譜' },
       ],
     },
   ]
@@ -81,7 +81,7 @@ function Footer() {
                     {v.content.map((v, i) => {
                       return (
                         <li className="font-400S" key={i}>
-                          <a href={v.link}>{v.title}</a>
+                          <a href={v.url}>{v.title}</a>
                         </li>
                       )
                     })}

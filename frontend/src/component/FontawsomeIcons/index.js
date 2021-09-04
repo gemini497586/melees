@@ -44,5 +44,5 @@ library.add(
   faChevronRight,
   faTimes,
   faHeart,
-  faEye,
+  faEye
 )
