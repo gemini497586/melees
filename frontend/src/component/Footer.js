@@ -2,6 +2,57 @@ import React from 'react'
 import '../style/footer.css'
 
 function Footer() {
+  const footerList = [
+    {
+      header: '關於MELLEs',
+      content: [
+        { url: '/a', title: '關於我們' },
+        { url: '/b', title: '加入MELEEs' },
+        { url: '/c', title: '異業合作' },
+      ],
+    },
+    {
+      header: '客製化便當',
+      content: [
+        { url: '/a', title: '代謝率計算' },
+        { url: '/b', title: '熱量計算' },
+      ],
+    },
+    {
+      header: '客戶服務',
+      content: [
+        { url: '/a', title: '進度查詢' },
+        { url: '/b', title: '取消訂單' },
+        { url: '/c', title: '追蹤清單' },
+        { url: '/d', title: '常見問答' },
+        { url: '/e', title: '聯絡我們' },
+      ],
+    },
+    {
+      header: '購物商城',
+      content: [
+        { url: '/a', title: '生鮮食材' },
+        { url: '/a', title: '調味料' },
+        { url: '/b', title: '廚房器具' },
+      ],
+    },
+    {
+      header: '精選食譜',
+      content: [
+        { url: '/a', title: '健康長肉肉' },
+        { url: '/b', title: '健康不吃肉' },
+        { url: '/c', title: '一周不煩惱' },
+        { url: '/d', title: '家常好手藝' },
+      ],
+    },
+    {
+      header: '私藏食譜',
+      content: [
+        { url: '/a', title: '熱門食譜' },
+        { url: '/b', title: '上傳食譜' },
+      ],
+    },
+  ]
   const bottom = [
     '隱私權政策',
     '使用者條款',
@@ -14,119 +65,46 @@ function Footer() {
       <footer className="footer">
         <div className="footer-mask">
           <div className="footer-top">
-            <div className="d-flex">
-              {/* Column1 */}
-              <div className="col">
-                <div className="font-700M footer-title">關於MELLEs</div>
-                <ul className="list-unstyled">
-                  <li>
-                    <a href="#/">關於我們</a>
-                  </li>
-                  <li>
-                    <a href="#/">加入MELEEs</a>
-                  </li>
-                  <li>
-                    <a href="#/">異業合作</a>
-                  </li>
-                </ul>
-              </div>
-              {/* Column2 */}
-              <div className="col">
-                <div className="font-700M footer-title">客製化便當</div>
-                <ul className="list-unstyled">
-                  <li>
-                    <a href="#/">代謝率計算</a>
-                  </li>
-                  <li>
-                    <a href="#/">熱量計算</a>
-                  </li>
-                </ul>
-              </div>
-              {/* Column3 */}
-              <div className="col">
-                <div className="font-700M footer-title">客戶服務</div>
-                <ul className="list-unstyled">
-                  <li>
-                    <a href="#/">進度查詢</a>
-                  </li>
-                  <li>
-                    <a href="#/">取消訂單</a>
-                  </li>
-                  <li>
-                    <a href="#/">追蹤清單</a>
-                  </li>
-                  <li>
-                    <a href="#/">常見問答</a>
-                  </li>
-                  <li>
-                    <a href="#/">聯絡我們</a>
-                  </li>
-                </ul>
-              </div>
-              {/* Column4 */}
-              <div className="col">
-                <div className="font-700M footer-title">購物商城</div>
-                <ul className="list-unstyled">
-                  <li>
-                    <a href="#/">生鮮食材</a>
-                  </li>
-                  <li>
-                    <a href="#/">調味料</a>
-                  </li>
-                  <li>
-                    <a href="#/">廚房器具</a>
-                  </li>
-                </ul>
-              </div>
-              {/* Column5 */}
-              <div className="col">
-                <div className="font-700M footer-title">精選食譜</div>
-                <ul className="list-unstyled">
-                  <li>
-                    <a href="#/">健康長肉肉</a>
-                  </li>
-                  <li>
-                    <a href="#/">健康不吃肉</a>
-                  </li>
-                  <li>
-                    <a href="#/">一周不煩惱</a>
-                  </li>
-                  <li>
-                    <a href="#/">家常好手藝</a>
-                  </li>
-                </ul>
-              </div>
-              {/* Column6 */}
-              <div className="col">
-                <div className="font-700M footer-title">私藏食譜</div>
-                <ul className="list-unstyled">
-                  <li>
-                    <a href="#/">熱門食譜</a>
-                  </li>
-                  <li>
-                    <a href="#/">上傳食譜</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
+            {/* 先跑大標題 */}
+            {footerList.map((v, i) => {
+              return (
+                <div className="col-12 col-md-2" key={i}>
+                  <label
+                    htmlFor={'tab' + (i + 1)}
+                    className="font-700M footer-title"
+                  >
+                    {v.header}
+                  </label>
+                  <input type="checkbox" name="tab" id={'tab' + (i + 1)} />
+                  <ul className="list-unstyled footer-top-content">
+                    {/* 再跑大標題裡面的小標題 */}
+                    {v.content.map((v, i) => {
+                      return (
+                        <li className="font-400S" key={i}>
+                          <a href={v.url}>{v.title}</a>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
+              )
+            })}
           </div>
         </div>
 
         <div className="footer-bottom">
-          <div className="d-flex align-items-center justify-content-between">
-            <div className="font-400SS col-6 pe-2">
-              本網站所有內容及資料全部來自網路，僅供學術交流使用，若有侵權請告知
-            </div>
-            <ul className="font-400SS list-unstyled col-6">
-              {bottom.map((v, i) => {
-                return (
-                  <li key={i}>
-                    <a href="#/">{v}</a>
-                  </li>
-                )
-              })}
-            </ul>
+          <div className="font-400SS col-12 col-md-6 p-0 footer-bottom-text">
+            本網站所有內容及資料全部來自網路，僅供學術交流使用，若有侵權請告知
           </div>
+          <ul className="font-400SS list-unstyled col-12 col-md-6">
+            {bottom.map((v, i) => {
+              return (
+                <li key={i}>
+                  <a href="#/">{v}</a>
+                </li>
+              )
+            })}
+          </ul>
         </div>
       </footer>
     </>

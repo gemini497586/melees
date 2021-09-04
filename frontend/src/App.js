@@ -1,53 +1,47 @@
-import './style/global.css'
-import Header from './component/Header.js'
-
-import Footer from './component/Footer.js'
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import './style/global.css'
 
-// 各主要分頁
-import Box from './pages/box/Box.js'
-import Home from './pages/home/Home.js'
-import PrivateRecipe from './pages/private/PrivateRecipeIntro'
-import Feature from './pages/feature/FeatureIndex'
+import Header from './component/Header'
+import Home from './pages/home/Home'
+import Footer from './component/Footer'
+import CardRecipe from './component/CardRecipe'
+import CardShopping from './component/CardShopping'
 import MarketMainPage from './pages/market/MarketMainPage'
-
-// member 的分頁
+import CartDetail from './pages/market/CartDetail'
+import CardPrivateRecipe from './pages/private/component/CardPrivateRecipe'
+import PrivateRecipePhotoIntro from './pages/private/component/PrivateRecipePhotoIntro'
+import FeatureIndex from './pages/feature/FeatureIndex'
+// 客製化便當
+import Box from './pages/box/Box'
+import Modal from './pages/box/Modal'
+// 搜尋
+import SearchRecipe from './pages/search/SearchRecipe'
+import SearchMarket from './pages/search/SearchMarket'
+// 會員相關
 import MemberLogin from './pages/member/Login'
+import EditMemberInfo from './pages/member/EditMemberInfo'
 import MemberOrderList from './pages/member/OrderList'
 import MemberSaveBox from './pages/member/MemberBox'
-import MemberMyRecipe from './pages/member/OrderList'
-import MemberSaveRecipe from './pages/member/OrderList'
-import MemberSaveProduct from './pages/member/OrderList'
-import MemberRecipeComment from './pages/member/OrderList'
-import MemberCoupon from './pages/member/OrderList'
+import MemberMyRecipe from './pages/member/MemberFeature'
+import MemberSaveRecipe from './pages/member/MemberFeature'
+import MemberRecipeComment from './pages/member/MemberFeature'
+import MemberSaveProduct from './pages/member/MemberFeature'
+import MemberCoupon from './pages/member/MemberFeature'
+
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Header />
+
+
         <Switch>
-          <Route exact path="/">
-            <Home />
+          <Route path="/member/edit">
+            <EditMemberInfo />
           </Route>
-          <Route path="/box">
-            <Box />
-          </Route>
-          <Route exact path="/member">
+          <Route path="/member/orderlist">
             <MemberOrderList />
-          </Route>
-          <Route path="/private">
-            <PrivateRecipe />
-          </Route>
-          <Route path="/market">
-            <MarketMainPage />
-          </Route>
-          <Route path="/feature">
-            <Feature />
-          </Route>
-          {/* member path */}
-          <Route path="/member/login">
-            <MemberLogin />
           </Route>
           <Route path="/member/savebox">
             <MemberSaveBox />
@@ -67,7 +61,32 @@ function App() {
           <Route path="/member/coupon">
             <MemberCoupon />
           </Route>
+
+          <Route exact path="/member">
+            <MemberOrderList />
+          </Route>
+
+          <Route path="/marketMainPage">
+            <MarketMainPage />
+          </Route>
+          <Route path="/feature/:id?">
+            <CardRecipe />
+          </Route>
+          <Route path="/featureIndex">
+            <FeatureIndex />
+          </Route>
+          <Route path="/box/modal">
+            <Modal />
+          </Route>
+          <Route path="/box">
+            <Box />
+          </Route>
+
+          <Route exact path="/">
+            <Home />
+          </Route>
         </Switch>
+        {/* 頁尾 */}
         <Footer />
       </Router>
     </div>

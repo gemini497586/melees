@@ -1,9 +1,10 @@
 import React from 'react'
+import { withRouter, Link } from 'react-router-dom'
 import '../style/header.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './FontawsomeIcons'
 import meleesLogo from '../images/meleesLogo.svg'
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 function Header() {
   return (
@@ -19,14 +20,14 @@ function Header() {
             <Link to="/box">客製化便當</Link>
           </li>
           <li className="font-400M">
-            <Link to="/feature">精選食譜</Link>
+
+            <Link to="/featureIndex">精選食譜</Link>
           </li>
           <li className="font-400M">
-            <Link to="/private">私藏食譜</Link>
+            <Link to="/cardPrivateRecipe">私藏食譜</Link>
           </li>
           <li className="font-400M">
-            <Link to="/market">購物商城</Link>
-            {/* <a href="/">購物商城</a> */}
+            <Link to="/marketMainPage">購物商城</Link>
           </li>
           <li className="font-400M">
             <Link to="/member">會員專區</Link>

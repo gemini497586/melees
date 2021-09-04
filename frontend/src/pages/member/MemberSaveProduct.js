@@ -1,7 +1,7 @@
 import React from 'react'
 import '../../style/member.css'
 import MemberSaveProdcutCard from './component/MemberSaveProductCard'
-import DropDown from '../../component/DropDown'
+import DropDown from '../../component/Dropdown'
 
 function MemberSaveProdcut() {
   return (

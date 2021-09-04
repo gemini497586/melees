@@ -16,6 +16,11 @@ import {
   faPen,
   faStar,
   faStarHalfAlt,
+  faChevronLeft,
+  faChevronRight,
+  faTimes,
+  faHeart,
+  faEye,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -34,5 +39,10 @@ library.add(
   faInfoCircle,
   faPen,
   faStar,
-  faStarHalfAlt
+  faStarHalfAlt,
+  faChevronLeft,
+  faChevronRight,
+  faTimes,
+  faHeart,
+  faEye
 )
