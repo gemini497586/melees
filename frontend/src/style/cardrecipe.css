@@ -26,6 +26,7 @@
   height: 379px;
   border-radius: 8px;
   margin: auto;
+  margin-bottom: 60px;
 }
 .cardRecipe-img {
   width: 306px;
@@ -99,6 +100,9 @@
   -webkit-text-fill-color: transparent;
 }
 @media only screen and (min-width: 321px) and (max-width: 768px) {
+  .cardRecipe-others {
+    padding: 0 35px;
+  }
   .cardRecipe-others-more {
     margin-right: 0px;
   }
