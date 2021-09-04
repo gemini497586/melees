@@ -1,4 +1,5 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
+import { fab } from '@fortawesome/free-brands-svg-icons'
 import {
   faShoppingCart,
   faUserCircle,
@@ -16,9 +17,13 @@ import {
   faPen,
   faStar,
   faStarHalfAlt,
+  faCheckCircle as fasCheckCircle,
 } from '@fortawesome/free-solid-svg-icons'
 
+import { faCheckCircle as farCheckCircle } from '@fortawesome/free-regular-svg-icons'
+
 library.add(
+  fab,
   faShoppingCart,
   faUserCircle,
   faSearch,
@@ -34,5 +39,7 @@ library.add(
   faInfoCircle,
   faPen,
   faStar,
-  faStarHalfAlt
+  faStarHalfAlt,
+  fasCheckCircle,
+  farCheckCircle
 )

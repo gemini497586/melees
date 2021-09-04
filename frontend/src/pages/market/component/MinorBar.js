@@ -1,13 +1,15 @@
 import React from 'react'
-import '../style/minorBar.css'
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import '../../../style/minorBar.css'
+import MarketMainPage from '../MarketMainPage'
 
-function MinorBar() {
-  const array = ['全部', '食材', '鍋具', '調味料']
+function MinorBar(props) {
+  // const minorBarArray = ['全部', '食材', '鍋具', '調味料']
   return (
-    <>
+    <Router>
       <ul className="minor-bar">
         {/* 原本的寫法 */}
-        {/* <li>
+        <li>
           <a href="/">全部</a>
         </li>
         <li>
@@ -18,19 +20,22 @@ function MinorBar() {
         </li>
         <li>
           <a href="/">調味料</a>
-        </li> */}
+        </li>
 
         {/* map寫法 */}
-        {array.map((v) => {
+        {/* {minorBarArray.map((v) => {
           return (
             <li>
               <a href="/">{v}</a>
             </li>
           )
-        })}
+        })} */}
       </ul>
       <div className="sub-line"></div>
-    </>
+      <Switch>
+        <Route path="/market/all"></Route>
+      </Switch>
+    </Router>
   )
 }
 

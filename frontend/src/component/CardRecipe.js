@@ -4,7 +4,7 @@ import food from '../images/default_food1.jpg'
 
 function CardRecipe() {
   return (
-    <>
+    <div className="card-recipe">
       <div className="container">
         <div className="row">
           <div class="cardRecipe-others">
@@ -41,7 +41,7 @@ function CardRecipe() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

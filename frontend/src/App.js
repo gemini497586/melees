@@ -1,7 +1,6 @@
 import './style/global.css'
 
 import Header from './component/Header.js'
-import MinorBar from './component/MinorBar.js'
 
 import Tables from './component/Tables.js'
 import Footer from './component/Footer.js'
@@ -16,12 +15,8 @@ import DropDown from './component/DropDown.js'
 import CardShopping from './component/CardShopping.js'
 import CardPrivateRecipe from './pages/private/component/CardPrivateRecipe.js'
 
-// 排序
-import SortingBar from './pages/market/SortingBar'
-
 // 商城主頁
 import MarketMainPage from './pages/market/MarketMainPage'
-import Paging from './component/Paging'
 
 // 商品詳細頁面
 import ProductDetails from './pages/market/ProductDetails'
@@ -34,6 +29,9 @@ import CheckoutPersonalData from './pages/market/CheckoutPersonalData'
 
 // 結帳-資料確認頁面
 import CheckoutConfirm from './pages/market/CheckoutConfirm'
+
+// 結帳完成頁面
+import OrdersComplete from './pages/market/OrdersComplete'
 
 import FeatureIndex from './pages/feature/FeatureIndex'
 import FeatureContentImg from './pages/feature/component/FeatureContentImg'
@@ -51,14 +49,11 @@ import OrderDetails from './pages/member/OrderDetails'
 import MemberSaveProdcut from './pages/member/MemberSaveProduct'
 import MemberRecipeComment from './pages/member/MemberRecipeComment'
 
-const array = [1, 2, 3]
-
 function App() {
   return (
     <div className="App">
       <Header />
 
-      {/* <MinorBar /> */}
       {/* <Home /> */}
 
       {/* <Tables /> */}
@@ -69,23 +64,12 @@ function App() {
       <CardRecipe />
       <CardShopping />
       <CardPrivateRecipe /> */}
-
-      <SortingBar />
-
-      <div className="container t60">
-        <MarketMainPage />
-        <MarketMainPage />
-        <MarketMainPage />
-        {array.map((v, i) => {
-          return <Paging value={v} />
-        })}
-      </div>
-
+      {/* <MarketMainPage /> */}
       {/* <ProductDetails /> */}
       {/* <CartDetail /> */}
       {/* <CheckoutPersonalData /> */}
       {/* <CheckoutConfirm /> */}
-
+      {/* <OrdersComplete /> */}
       <Footer />
     </div>
   )

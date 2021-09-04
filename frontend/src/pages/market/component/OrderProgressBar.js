@@ -7,23 +7,19 @@ function OrderProgressBar() {
       <ol className="orderProgressBar">
         <li>
           <div className="orderProgressBar-icon">1</div>
-          <p className="orderProgressBar-text font-400S">訂單成立</p>
+          <p className="orderProgressBar-text font-400S">購物車</p>
         </li>
         <li>
           <div className="orderProgressBar-icon">2</div>
-          <p className="orderProgressBar-text font-400S">處理中</p>
+          <p className="orderProgressBar-text font-400S">運送資訊</p>
         </li>
         <li className="active">
           <div className="orderProgressBar-icon">3</div>
-          <p className="orderProgressBar-text font-400S">已出貨</p>
+          <p className="orderProgressBar-text font-400S">付款資訊</p>
         </li>
         <li>
           <div className="orderProgressBar-icon">4</div>
-          <p className="orderProgressBar-text font-400S">派送中</p>
-        </li>
-        <li>
-          <div className="orderProgressBar-icon">5</div>
-          <p className="orderProgressBar-text font-400S">已送達</p>
+          <p className="orderProgressBar-text font-400S">訂單完成</p>
         </li>
       </ol>
     </>

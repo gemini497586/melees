@@ -4,7 +4,7 @@ import food from '../images/default_food3.jpg'
 
 function CardShopping() {
   return (
-    <>
+    <div className="card-shopping">
       <div className="container">
         <div className="row">
           <div class="cardShopping-others">
@@ -40,7 +40,7 @@ function CardShopping() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

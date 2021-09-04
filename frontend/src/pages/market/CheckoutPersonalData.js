@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
 import CheckoutCreditCard from './CheckoutCreditCard'
 import CheckoutArea from './CheckoutArea'
+import OrderProgressBar from './component/OrderProgressBar'
 
 function CheckoutPersonalData() {
   const [howToPay, setHowToPay] = useState('請選擇付款方式')
@@ -21,6 +22,7 @@ function CheckoutPersonalData() {
   }
   return (
     <div className="container">
+      <OrderProgressBar />
       <div className="checkout-personal-data">
         <div className="form-icon">
           <FontAwesomeIcon icon="file-alt" />
