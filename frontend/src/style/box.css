@@ -229,30 +229,75 @@
   }
 }
 /* Modal */
+
 .b-modal {
-  position: relative;
-  margin: 30px auto;
+  /* position: relative; */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 500;
   width: 50%;
-  border: 1px solid var(--color-grey-500);
-  padding: 20px;
+  background: var(--color-white);
+  padding: 30px;
+  transition: all 0.3s ease-out;
+}
+.b-modal-box {
+  display: flex;
+  align-items: flex-end;
 }
 .b-modal-left {
-  height: 400px;
   position: relative;
+  height: 400px;
 }
 .b-modal-name {
   position: absolute;
   top: 50%;
-  left: 20%;
+  left: 30%;
   transform: rotate(24deg);
   color: var(--color-secondary);
 }
 .b-modal-close {
   color: var(--color-grey-800);
   position: absolute;
+  right: 0;
   top: 0;
   font-size: 40px;
+  padding: 20px;
+  border: 1px solid transparent;
+  background: transparent;
 }
 .b-modal-close:hover {
   color: var(--color-grey-900);
+}
+
+@media screen and (max-width: 414px) {
+  .b-modal {
+    width: 90%;
+  }
+  .b-modal-box {
+    display: block;
+  }
+  .b-modal-right {
+    text-align: center;
+  }
+  .b-modal-name {
+    top: 50%;
+    left: 26%;
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: 3px;
+    font-weight: 700;
+  }
+}
+
+/* Modal 深色背景 */
+.b-blackbg {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.5);
 }

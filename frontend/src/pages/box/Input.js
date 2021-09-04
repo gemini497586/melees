@@ -7,6 +7,10 @@ function Input(props) {
   const [height, setHeight] = useState('')
   const [weight, setWeight] = useState('')
   const [active, setActive] = useState('')
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+  }
   return (
     <>
       <div className="mb-3 row align-items-center">
@@ -98,7 +102,9 @@ function Input(props) {
         </div>
       </div>
       <div className="row">
-        <button className="font-700M b-btn">開始計算</button>
+        <button className="font-700M b-btn" onClick={handleSubmit}>
+          開始計算
+        </button>
       </div>
     </>
   )

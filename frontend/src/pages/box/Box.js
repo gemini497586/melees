@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import '../../style/box.css'
 import Input from './Input'
 import Food from './Food'
@@ -13,9 +14,6 @@ import Man from '../../images/box_man.png'
 import dialog from '../../images/dialog_1.png'
 import Chicken from '../../images/box_chicken.png'
 import Egg from '../../images/box_egg.png'
-import Salmon from '../../images/box_salmon.png'
-import Shrimp from '../../images/box_shrimp.png'
-import Steak from '../../images/box_steak.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
 
@@ -32,17 +30,17 @@ const foodList = [
   },
   {
     name: '鮭魚',
-    image: Salmon,
+    image: Chicken,
     cal: 1234,
   },
   {
     name: '白蝦',
-    image: Shrimp,
+    image: Chicken,
     cal: 1234,
   },
   {
     name: '牛排',
-    image: Steak,
+    image: Chicken,
     cal: 1234,
   },
 ]
@@ -54,12 +52,15 @@ const unitList = [
   { name: '雞蛋', unit: '100大卡' },
 ]
 function Box() {
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const [modal, setModal] = useState(false)
+  const openModal = () => {
+    setModal(true)
+  }
+  const closeModal = () => {
+    setModal(false)
   }
   return (
     <>
-      {/* <Modal /> */}
       <section>
         {/* 第一段 */}
         <div className="container b-step">
@@ -147,21 +148,25 @@ function Box() {
                 <img className="b-contain-fit" src={Man} alt="Man" />
               </div>
               <div className="b-page3-btn">
-                <button className="b-btn font-700M me-2" onClick={handleSubmit}>
+                {/* <Link to="/box/modal"> */}
+                <button className="b-btn font-700M me-2" onClick={openModal}>
                   <FontAwesomeIcon icon="bookmark" className="me-2" />
                   收藏便當
                 </button>
-                <button className="b-btnblue font-700M" onClick={handleSubmit}>
-                  <i className="fab fa-facebook me-2"></i>分享便當
-                </button>
+                {/* </Link> */}
+                <Link to="#">
+                  <button className="b-btnblue font-700M">
+                    <i className="fab fa-facebook me-2"></i>分享便當
+                  </button>
+                </Link>
               </div>
             </div>
-
             {/* 右邊 */}
             <div className="col-12 col-md-5 b-page3-right">
               <Table unitList={unitList} />
             </div>
           </div>
+          <Modal modal={modal} closeModal={closeModal} />
         </div>
         {/* 最下面推薦食譜 商品 */}
         <CardRecipe />
