@@ -64,7 +64,7 @@
   object-fit: cover;
 }
 /* DropDowm模組*/
-.fdropdowm-mf {
+.fdropdown-mf {
   display: flex;
   justify-content: end;
   margin: 20px 0px 20px 0px;
@@ -74,4 +74,14 @@
   margin: 30px 0px 65px 0px;
   display: flex;
   justify-content: center;
+}
+/* CardShopping模組*/
+.fcardshop-mb {
+  margin-bottom: 65px;
+}
+.hb-100vh {
+  height: calc(100vh - 148px);
+  width: 100%;
+  /* overflow: hidden; */
+  position: relative;
 }

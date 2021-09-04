@@ -6,7 +6,7 @@ function FeatureContentImg() {
   return (
     <>
       {/* 食譜照片 */}
-      <div className="fimg-title-img d-flex flex-column align-items-start">
+      <div className="fimg-title-img">
         {/* 大圖 */}
         <figure className="fimg-big-img">
           <img className="f-cover-fit" src={food} alt="" />

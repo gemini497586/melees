@@ -23,21 +23,21 @@ function FeatureCards() {
           {/* 文案 */}
           <div className="fc-content">
             {/* 收藏和按讚 */}
-            <div className="d-flex ficon-size mb-1">
+            {/* <div className="d-flex ficon-size mb-1">
               <i className="far fa-bookmark me-3 fa-fw"></i>
               <i className="far fa-heart fa-fw"></i>
-            </div>
+            </div> */}
             {/* 分類 */}
             <p className="fcolor-grey-800 font-400S">健康長肉肉</p>
             {/* 食譜名稱和連結 */}
             <h5 className="fcolor-secondary">鮮蔬嫩豬溫沙拉</h5>
-            <a
+            <div
               className="d-flex text-decoration-none align-items-center"
               href="#/"
             >
               <img className="fc-logo me-2" src={iglogo} alt="" />
               <p className="fcolor-grey-800 font-400SL m-0">謝戎宥- LON YO</p>
-            </a>
+            </div>
           </div>
           {/* 瀏覽數和按讚數 */}
           <div className="fc-content-down">

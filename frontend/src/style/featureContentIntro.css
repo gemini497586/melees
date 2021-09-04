@@ -1,10 +1,9 @@
 /*外層容器*/
 .fintro-boxsize {
-  width: 600px;
-  height: 510px;
+  width: 650px;
+  max-height: 510px;
   display: flex;
   flex-direction: column;
-  align-content: space-between;
   justify-content: space-between;
 }
 
@@ -49,7 +48,20 @@
 }
 
 /*收藏btn*/
-.fintro-bmbtn {
+.fintro-btngroup {
+  display: flex;
+  flex-direction: column;
+}
+.fintro-btnlike {
+  width: 100%;
+  height: 45px;
+  border-radius: 8px;
+  border: 1px solid var(--color-red-C);
+  background-color: transparent;
+  color: var(--color-red-C);
+  margin-bottom: 15px;
+}
+.fintro-btnsave {
   width: 100%;
   height: 45px;
   border-radius: 8px;

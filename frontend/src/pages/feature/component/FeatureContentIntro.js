@@ -30,13 +30,15 @@ function FeatureContentIntro() {
           </div>
         </div>
         {/* 下面按鈕 */}
-        <div className="d-flex flex-column">
+        <div className="fintro-btngroup">
           {/* 愛心瀏覽數 */}
           <HeartViewNum />
           {/* 收藏btn */}
-          <button className="fintro-bmbtn d-flex justify-content-center align-items-center">
-            <i className="far fa-bookmark me-2 fa-fw"></i>
-            <p className="font-700M">加入收藏</p>
+          <button className="fintro-btnlike font-700M">
+            <i className="far fa-bookmark fa-fw me-2"></i>按讚
+          </button>
+          <button className="fintro-btnsave font-700M">
+            <i className="far fa-bookmark fa-fw me-2"></i>加入收藏
           </button>
         </div>
       </div>

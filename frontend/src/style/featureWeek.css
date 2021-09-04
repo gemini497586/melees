@@ -1,7 +1,6 @@
 .fw-list {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  align-items: flex-start;
   margin: 20px 0px 20px 0px;
 }
 /*img*/
@@ -11,14 +10,14 @@
 }
 /*日期選擇*/
 .fw-date {
+  width: 1200px;
   display: flex;
   justify-content: space-around;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 }
 .fw-cards {
-  width: 210px;
+  max-width: 210px;
   display: flex;
-  justify-content: center;
   flex-direction: column;
 }
 .fw-btn {

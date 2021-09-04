@@ -14,7 +14,7 @@ function FeatureWeek() {
         </figure>
         {/* button */}
         <div className="fw-date">
-          <div className="fw-cards me-2">
+          <div className="fw-cards">
             <a href="#/" role="button" className="fw-btn font-700M">
               07/05
             </a>
@@ -23,7 +23,7 @@ function FeatureWeek() {
             </p>
             <HeartViewNum />
           </div>
-          <div className="fw-cards me-3">
+          <div className="fw-cards">
             <a href="#/" role="button" className="fw-btn font-700M">
               07/05
             </a>
@@ -32,7 +32,7 @@ function FeatureWeek() {
             </p>
             <HeartViewNum />
           </div>
-          <div className="fw-cards me-3">
+          <div className="fw-cards">
             <a href="#/" role="button" className="fw-btn font-700M">
               07/05
             </a>
@@ -41,7 +41,7 @@ function FeatureWeek() {
             </p>
             <HeartViewNum />
           </div>
-          <div className="fw-cards me-3">
+          <div className="fw-cards">
             <a href="#/" role="button" className="fw-btn font-700M">
               07/05
             </a>
