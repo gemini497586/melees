@@ -1,9 +1,51 @@
 import React, { useState } from 'react'
 import '../../style/searchMarket.css'
-import CardMarket from './component/CardMarket'
+import SearchCardMarket from './component/SearchCardMarket'
+import DropDown2 from '../../component/DropDown2'
 
 function SearchMarket() {
-  const [orderby, setOderby] = useState('')
+  const [counts, setCounts] = useState(100)
+  const itemList = [
+    {
+      name: '時間由新至舊',
+      value: '1',
+    },
+    {
+      name: '時間由舊至新',
+      value: '2',
+    },
+    {
+      name: '按讚數由多至少',
+      value: '3',
+    },
+    {
+      name: '瀏覽數由少至多',
+      value: '4',
+    },
+  ]
+  const marketList = [
+    {
+      image: 'Product01',
+      name: '美國Choice嫩肩里肌肉片',
+      intro: '重量：100g±5%,原產地：美國,保存方式：請置於冷凍-18℃保存',
+      price: 3100,
+      count: counts,
+    },
+    {
+      image: 'Product01',
+      name: '美國Choice嫩肩里肌肉片',
+      intro: '保存方式',
+      price: 310,
+      count: counts,
+    },
+    {
+      image: 'Product01',
+      name: '美國Choice嫩肩里肌肉片',
+      intro: '保存方式',
+      price: 310,
+      count: counts,
+    },
+  ]
   return (
     <>
       <section>
@@ -15,28 +57,15 @@ function SearchMarket() {
                   關於 <span>000</span> 的商品共有 <span>00</span> 筆
                 </h4>
               </div>
-              <div className="col-3">
-                <select
-                  className="form-select"
-                  value={orderby}
-                  onChange={(e) => {
-                    setOderby(e.target.value)
-                  }}
-                >
-                  請選排序方式
-                  <option value="1">時間由新至舊</option>
-                  <option value="2">時間由舊至新</option>
-                  <option value="3">瀏覽數由多至少</option>
-                  <option value="4">瀏覽數由少至多</option>
-                </select>
-              </div>
+              <DropDown2 itemList={itemList} />
             </div>
           </div>
           <div className="s-market-bottom">
-            <CardMarket />
-            <CardMarket />
-            <CardMarket />
-            <CardMarket />
+            <SearchCardMarket
+              marketList={marketList}
+              counts={counts}
+              setCounts={setCounts}
+            />
           </div>
         </div>
       </section>
