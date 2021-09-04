@@ -2,12 +2,14 @@ import React from 'react'
 import '../../style/global.css'
 import '../../style/member.css'
 import '../../style/memberRecipeComment.css'
+import MinorBar from './component/MinorBar'
 import MemberRecipeCommentRow from './component/MemberRecipeCommentRow'
 import DropDown from '../../component/DropDown'
 
 function MemberRecipeComment() {
   return (
     <>
+      <MinorBar />
       <div className="memberRecipeComment-container">
         <div className="memberRecipeComment-filter">
           <DropDown />
