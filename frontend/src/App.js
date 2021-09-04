@@ -11,8 +11,7 @@ import MemberSaveProdcut from './pages/member/MemberSaveProduct'
 import MemberRecipeComment from './pages/member/MemberRecipeComment'
 import MemberBox from './pages/member/MemberBox'
 import MemberSaveRecipe from './pages/member/MemberSaveRecipe'
-
-// const array = [1, 2, 3]
+import TestModal from './pages/member/TestModal'
 
 function App() {
   return (
@@ -30,6 +29,7 @@ function App() {
       {/* <MemberSaveRecipe /> */}
       {/* 未完成分頁 */}
       {/* <MemberBox /> */}
+      <TestModal />
       <Footer />
     </div>
   )
