@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import '../style/dropDown.css'
+import '../style/dropdown.css'
 
 function DropDown2(props) {
   const [isDropDown, setIsDropDown] = useState(false)

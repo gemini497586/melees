@@ -1,8 +1,8 @@
-// 只有要放一個table
 import React from 'react'
 import '../style/table.css'
 
 function Table(props) {
+  const { unitList } = props
   return (
     <>
       <table className="table-food">
@@ -12,27 +12,15 @@ function Table(props) {
             <th className="table-right">食材份量</th>
           </tr>
         </thead>
-        <tbody className="font-400M fcolor-grey-900">
-          <tr>
-            <td className="table-left">蝦子</td>
-            <td className="table-right">五隻</td>
-          </tr>
-          <tr>
-            <td className="table-left">蝦子</td>
-            <td className="table-right">五隻</td>
-          </tr>
-          <tr>
-            <td className="table-left">蝦子</td>
-            <td className="table-right">五隻</td>
-          </tr>
-          <tr>
-            <td className="table-left">蝦子</td>
-            <td className="table-right">五隻</td>
-          </tr>
-          <tr>
-            <td className="table-left">蝦子</td>
-            <td className="table-right">五隻</td>
-          </tr>
+        <tbody className="font-400M">
+          {unitList.map((v, i) => {
+            return (
+              <tr key={i}>
+                <td className="table-left">{v.name}</td>
+                <td className="table-right">{v.unit}</td>
+              </tr>
+            )
+          })}
         </tbody>
       </table>
     </>

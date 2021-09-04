@@ -6,10 +6,13 @@ import '../../style/memberRecipeComment.css'
 // import '../../component/FontawsomeIcons'
 import MemberRecipeCommentRow from './component/MemberRecipeCommentRow'
 import DropDown from '../../component/DropDown'
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import MinorBar from './component/MinorBar.js'
 
 function MemberRecipeComment() {
   return (
     <>
+      <MinorBar />
       <div className="memberRecipeComment-container">
         <div className="memberRecipeComment-filter">
           <DropDown />

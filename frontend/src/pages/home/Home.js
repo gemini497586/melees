@@ -14,6 +14,7 @@ function Home() {
       </div>
       {/* 便當 */}
       {/* <section className="home-height">
+      <section className="home-height">
         <div className="home-page1">
           <div className="container">
             <div className="p1-dialog font-700L">卡路里幫你算好好</div>
@@ -33,6 +34,7 @@ function Home() {
       </section> */}
       {/* 精選食譜 */}
       {/* <section className="home-height">
+      <section className="home-height">
         <div className="home-page2">
           <div className="p2-top">
             <div className="d-flex justify-content-evenly">

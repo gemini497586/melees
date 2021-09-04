@@ -3,12 +3,14 @@ import '../../style/cartDetail.css'
 import CartDetailRow from './component/CartDetailRow'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
+import OrderProgressBar from './component/OrderProgressBar'
 
 const cartArray = [1, 2, 3]
 
 function CartDetail() {
   return (
     <div className="container">
+      <OrderProgressBar />
       <div className="cart-detail">
         <div className="d-flex cart-detail-title">
           <p className="font-400L cart-detail-title-info">商品介紹</p>
