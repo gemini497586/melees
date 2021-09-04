@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter, Link } from 'react-router-dom'
-import '../style/cardRecipe.css'
+import '../style/cardrecipe.css'
 import food from '../images/default_food1.jpg'
 
 const recipeList = [

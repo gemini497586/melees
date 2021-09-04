@@ -9,6 +9,7 @@ import CardShopping from './component/CardShopping'
 import MarketMainPage from './pages/market/MarketMainPage'
 import CartDetail from './pages/market/CartDetail'
 import CardPrivateRecipe from './pages/private/component/CardPrivateRecipe'
+import PrivateRecipe from './pages/private/PrivateRecipe'
 import PrivateRecipePhotoIntro from './pages/private/component/PrivateRecipePhotoIntro'
 import FeatureIndex from './pages/feature/FeatureIndex'
 // 客製化便當
@@ -79,10 +80,13 @@ function App() {
           <Route path="/member/coupon">
             <MemberCoupon />
           </Route>
+
           <Route exact path="/member">
             <MemberOrderList />
           </Route>
-
+          <Route exact path="/private">
+            <PrivateRecipe />
+          </Route>
           <Route path="/marketMainPage">
             <MarketMainPage />
           </Route>

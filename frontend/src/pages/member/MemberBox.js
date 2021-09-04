@@ -1,6 +1,7 @@
 import React from 'react'
 import '../../style/memberBox.css'
 import SaveBox from './component/SaveBox'
+
 import MinorBar from './component/MinorBar'
 import DropDown2 from '../../component/DropDown2'
 
