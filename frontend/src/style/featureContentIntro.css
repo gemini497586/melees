@@ -1,24 +1,28 @@
-/* Img模組 */
-.f-cover-fit {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
 /*外層容器*/
 .fintro-boxsize {
   width: 650px;
-  height: 500px;
+  max-height: 510px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
+
 /*IG-Link*/
 .fintro-ig {
-  width: 410px;
-  height: 60px;
+  max-width: 400px;
+  min-height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .fintro-avatar-bg {
   width: 55px;
   height: 55px;
   border-radius: 50%;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: linear-gradient(
     243.35deg,
     #3542e0 -1.42%,
@@ -42,74 +46,39 @@
   height: 49px;
   border-radius: 50%;
 }
-.fintro-link {
-  width: 340px;
-  height: 50px;
-  border-radius: 16px;
-  background: linear-gradient(
-    243.35deg,
-    #3542e0 -1.42%,
-    #3841df 16.37%,
-    #403fda 27.17%,
-    #4e3cd2 36.13%,
-    #6337c7 44.06%,
-    #7d31b9 51.33%,
-    #9e2aa8 58.09%,
-    #c32193 64.36%,
-    #c82091 65.05%,
-    #f62b37 79.97%,
-    #ffc658 105.87%
-  );
-}
-.fintro-linkcontent {
-  width: 315px;
-  height: 34px;
-}
-.fintro-icon {
-  color: var(--color-white);
-  font-size: 27px;
-}
-.fintro-linkfont {
-  width: 280px;
-  height: 34px;
-  background-color: var(--color-white);
-  border-radius: 0px 10px 10px 0px;
-}
-.fintro-linkfont p {
-  padding-left: 10px;
-  margin: 0;
-  color: var(--color-secondary);
-}
-
-/*愛心瀏覽數*/
-.fintro-content-down {
-  width: 250px;
-  height: 50px;
-}
-.fintro-icon-num {
-  padding: 10px;
-}
-.fintro-icon-line {
-  border: 1px solid var(--color-grey-500);
-}
 
 /*收藏btn*/
-.fintro-bmbtn button {
-  width: 650px;
+.fintro-btngroup {
+  display: flex;
+  flex-direction: column;
+}
+.fintro-btnlike {
+  width: 100%;
+  height: 45px;
+  border-radius: 8px;
+  border: 1px solid var(--color-red-C);
+  background-color: transparent;
+  color: var(--color-red-C);
+  margin-bottom: 15px;
+}
+.fintro-btnsave {
+  width: 100%;
   height: 45px;
   border-radius: 8px;
   border: 1px solid var(--color-secondary);
   background-color: transparent;
+  color: var(--color-secondary);
 }
-.fintro-bmbtn p {
+.fintro-bmbtn p,
+.fintro-bmbtn i {
   margin: 0;
 }
-.fintro-bmbtn button:hover {
+.fintro-bmbtn:hover {
   background-color: var(--color-primary-A);
   border: none;
   color: var(--color-white);
 }
-.fintro-bmbtn button:active {
+.fintro-bmbtn:active {
   background-color: var(--color-secondary);
   border: none;
   color: var(--color-white);
