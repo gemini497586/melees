@@ -5,6 +5,8 @@ import '../../style/memberRecipeComment.css'
 import MinorBar from './component/MinorBar'
 import MemberRecipeCommentRow from './component/MemberRecipeCommentRow'
 import DropDown from '../../component/DropDown'
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import MinorBar from './component/MinorBar.js'
 
 function MemberRecipeComment() {
   return (
