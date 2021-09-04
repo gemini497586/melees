@@ -1,0 +1,37 @@
+.fsw-btn-group {
+  display: flex;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.fsw-btn {
+  border: 1px solid var(--color-primary);
+  border-radius: 8px;
+  padding: 8.5px 62.5px 8.5px 62.5px;
+  color: var(--color-primary);
+  background-color: var(--color-white);
+  margin: 0px 20px 0px 20px;
+}
+
+/*一周準備食材*/
+.fsw-preptitle {
+  display: block;
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+  padding: 20px 0px 20px 0px;
+  text-align: center;
+}
+.fsw-prepfoodgroup {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.fsw-prepfood {
+  width: 250px;
+  padding: 20px;
+  display: flex;
+  margin: 0px 0px 10px 0px;
+  justify-content: space-around;
+  background-color: var(--color-grey-300);
+  color: var(--color-grey-900);
+}

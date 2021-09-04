@@ -2,12 +2,17 @@ import React from 'react'
 import '../../style/home.css'
 import '../../style/searchRecipe.css'
 import Recipe01 from '../../images/recipe_01.jpg'
-import Card2 from './component/Card2'
+import HomeBento from './component/HomeBento'
+import '../../style/featureComponent.css'
 
 function Home() {
   return (
     <>
+      <div className="hb-100vh">
+        <HomeBento />
+      </div>
       {/* 便當 */}
+      {/* <section className="home-height">
       <section className="home-height">
         <div className="home-page1">
           <div className="container">
@@ -25,8 +30,9 @@ function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       {/* 精選食譜 */}
+      {/* <section className="home-height">
       <section className="home-height">
         <div className="home-page2">
           <div className="p2-top">
@@ -57,17 +63,17 @@ function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       {/* 私藏食譜 */}
-      <section className="home-height">
+      {/* <section className="home-height">
         <div className="home-page3">
           <div className="plate"></div>
         </div>
-      </section>
+      </section> */}
       {/* 商城 */}
-      <section className="home-height">
+      {/* <section className="home-height">
         <div className="home-page4"></div>
-      </section>
+      </section> */}
     </>
   )
 }

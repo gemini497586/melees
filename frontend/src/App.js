@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import './style/global.css'
-
 import Header from './component/Header'
 import Home from './pages/home/Home'
 import Footer from './component/Footer'
@@ -32,26 +31,6 @@ import MemberCoupon from './pages/member/MemberFeature'
 function App() {
   return (
     <div className="App">
-      {/* <Header />
-
-      {/* <Home /> */}
-
-      {/* <Tables /> */}
-      {/* <SearchMarket /> */}
-      {/* <SearchRecipe /> */}
-      {/* <MemberBox /> */}
-      {/* <DropDown />
-      <CardRecipe />
-      <CardShopping />
-      <CardPrivateRecipe /> */}
-      {/* <MarketMainPage /> */}
-      {/* <ProductDetails /> */}
-      {/* <CartDetail /> */}
-      {/* <CheckoutPersonalData /> */}
-      {/* <CheckoutConfirm /> */}
-      {/* <OrdersComplete /> */}
-      {/* <Footer />  */}
-
       <Router>
         <Header />
 
