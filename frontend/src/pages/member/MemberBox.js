@@ -1,11 +1,8 @@
 import React from 'react'
 import '../../style/memberBox.css'
 import SaveBox from './component/SaveBox'
-<<<<<<< HEAD
-=======
 import MinorBar from './component/MinorBar'
 import DropDown2 from '../../component/DropDown2'
->>>>>>> develop
 
 function MemberBox() {
   const itemList = [
@@ -51,18 +48,9 @@ function MemberBox() {
           </div>
           <div className="member-box-bottom">
             <div className="row">
-<<<<<<< HEAD
-              <SaveBox />
-              <SaveBox />
-              <SaveBox />
-              <SaveBox />
-              <SaveBox />
-              <SaveBox />
-=======
               <SaveBox saveBoxList={saveBoxList} />
               <SaveBox saveBoxList={saveBoxList} />
               <SaveBox saveBoxList={saveBoxList} />
->>>>>>> develop
             </div>
           </div>
         </div>
