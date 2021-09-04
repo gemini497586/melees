@@ -3,12 +3,10 @@ import '../../style/global.css'
 import '../../style/member.css'
 import '../../style/login.css'
 import logo from '../../images/logo.png'
-import Header from '../../component/Header'
 
 function Login() {
   return (
     <>
-      <Header />
       <div className="login">
         <div className="login-container">
           <div className="login-logo">

@@ -2,8 +2,6 @@ import React from 'react'
 import '../../style/global.css'
 import '../../style/member.css'
 import '../../style/memberRecipeComment.css'
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import '../../component/FontawsomeIcons'
 import MemberRecipeCommentRow from './component/MemberRecipeCommentRow'
 import DropDown from '../../component/DropDown'
 

@@ -123,6 +123,14 @@
   right: 0;
 }
 
+.member-form-editPasswordBtn .icon-pen {
+  /* width: 16px; */
+  /* height: 16px; */
+  line-height: 26px;
+  vertical-align: middle; 
+  padding: 1px 8px 2px 0;
+}
+
 /* 註冊頁面的客製版 */
 .member-form-forRegister {
   margin-top: 72px;
