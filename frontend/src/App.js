@@ -5,7 +5,7 @@ import Login from './pages/member/Login'
 import Register from './pages/member/Register'
 import EditMemberInfo from './pages/member/EditMemberInfo'
 import EditPassword from './pages/member/EditPassword'
-import OrderList from './pages/member/OrderList'
+import OrderList from './pages/member/OrderQuery'
 import OrderDetails from './pages/member/OrderDetails'
 import MemberSaveProdcut from './pages/member/MemberSaveProduct'
 import MemberRecipeComment from './pages/member/MemberRecipeComment'
@@ -21,8 +21,8 @@ function App() {
       {/* <Login /> */}
       {/* <Register /> */}
       {/* <EditMemberInfo /> */}
-      <EditPassword />
-      {/* <OrderList /> */}
+      {/* <EditPassword /> */}
+      <OrderList />
       {/* <OrderDetails /> */}
       {/* 未完成分頁 */}
       {/* <MemberSaveProdcut /> */}
