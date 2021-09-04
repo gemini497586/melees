@@ -9,6 +9,7 @@ import CardShopping from './component/CardShopping'
 import MarketMainPage from './pages/market/MarketMainPage'
 import CartDetail from './pages/market/CartDetail'
 import CardPrivateRecipe from './pages/private/component/CardPrivateRecipe'
+import PrivateRecipe from './pages/private/PrivateRecipe'
 import PrivateRecipePhotoIntro from './pages/private/component/PrivateRecipePhotoIntro'
 import FeatureIndex from './pages/feature/FeatureIndex'
 // 客製化便當
@@ -28,13 +29,11 @@ import MemberRecipeComment from './pages/member/MemberFeature'
 import MemberSaveProduct from './pages/member/MemberFeature'
 import MemberCoupon from './pages/member/MemberFeature'
 
-
 function App() {
   return (
     <div className="App">
       <Router>
         <Header />
-
 
         <Switch>
           <Route path="/member/edit">
@@ -65,7 +64,9 @@ function App() {
           <Route exact path="/member">
             <MemberOrderList />
           </Route>
-
+          <Route exact path="/private">
+            <PrivateRecipe />
+          </Route>
           <Route path="/marketMainPage">
             <MarketMainPage />
           </Route>

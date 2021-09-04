@@ -24,7 +24,7 @@ function Header() {
             <Link to="/featureIndex">精選食譜</Link>
           </li>
           <li className="font-400M">
-            <Link to="/cardPrivateRecipe">私藏食譜</Link>
+            <Link to="/private">私藏食譜</Link>
           </li>
           <li className="font-400M">
             <Link to="/marketMainPage">購物商城</Link>
