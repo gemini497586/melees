@@ -3,8 +3,6 @@ import '../style/table.css'
 
 function Table(props) {
   const { unitList } = props
-  console.log(unitList)
-
   return (
     <>
       <table className="table-food">
