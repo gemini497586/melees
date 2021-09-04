@@ -1,10 +1,13 @@
+.findexw-titlegroup {
+  display: inline-flex;
+}
 .findexw-title {
-  width: 190px;
-  display: inline-block;
+  width: 160px;
   color: var(--color-grey-800);
+  margin-right: 20px;
 }
 .findexw-date {
-  width: 1080px;
+  width: 1200px;
   color: var(--color-grey-800);
   padding-left: 0px;
 }

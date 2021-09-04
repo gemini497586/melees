@@ -1,28 +1,47 @@
 import React from 'react'
 import '../../style/featureIndex.css'
+import '../../style/featureComponent.css'
 import FeatureCards from './component/FeatureCards'
-import DropDown from '../../component/DropDown'
+import DropDown2 from '../../component/DropDown2'
 import Paging from '../../component/Paging'
 import CardShopping from '../../component/CardShopping'
 
 function FeatureIndex() {
   return (
     <>
-      <div className="findex-list row align-items-start justify-content-between">
-        <div className="fdropdowm-mf">
-          <DropDown />
+      <div className="findex-box">
+        {/* dropdown */}
+        <div className="findex-dropdowm">
+          <DropDown2 />
         </div>
-        <FeatureCards />
-        <FeatureCards />
-        <FeatureCards />
-        <FeatureCards />
-        <FeatureCards />
-        <FeatureCards />
+        {/* cards */}
+        <div className="findex-list">
+          <a href="#/">
+            <FeatureCards />
+          </a>
+          <a href="#/">
+            <FeatureCards />
+          </a>
+          <a href="#/">
+            <FeatureCards />
+          </a>
+          <a href="#/">
+            <FeatureCards />
+          </a>
+          <a href="#/">
+            <FeatureCards />
+          </a>
+          <a href="#/">
+            <FeatureCards />
+          </a>
+        </div>
       </div>
+      {/* 分頁 */}
       <div className="fpaginf-mf">
         <Paging />
       </div>
-      <div className="fstep-mb50">
+      {/* 推薦商品 */}
+      <div className="fcardshop-mb">
         <CardShopping />
       </div>
     </>
