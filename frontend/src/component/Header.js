@@ -3,29 +3,33 @@ import '../style/header.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './FontawsomeIcons'
 import meleesLogo from '../images/meleesLogo.svg'
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 
 function Header() {
   return (
     <>
       <div className="header-bar">
         <div className="logo">
-          <img src={meleesLogo} alt="logo" />
+          <Link to="/">
+            <img src={meleesLogo} alt="logo" />
+          </Link>
         </div>
         <ul className="header-bar-main-ul">
           <li className="active  font-700SL">
-            <a href="/">客製化便當</a>
+            <Link to="/box">客製化便當</Link>
           </li>
           <li className="font-400M">
-            <a href="/">精選食譜</a>
+            <Link to="/feature">精選食譜</Link>
           </li>
           <li className="font-400M">
-            <a href="/">私藏食譜</a>
+            <Link to="/private">私藏食譜</Link>
           </li>
           <li className="font-400M">
-            <a href="/">購物商城</a>
+            <Link to="/market">購物商城</Link>
+            {/* <a href="/">購物商城</a> */}
           </li>
           <li className="font-400M">
-            <a href="/">會員專區</a>
+            <Link to="/member">會員專區</Link>
           </li>
           <div className="box"></div>
           <li>

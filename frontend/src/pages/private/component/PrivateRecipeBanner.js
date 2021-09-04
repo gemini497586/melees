@@ -8,7 +8,7 @@ function PrivateRecipeBanner() {
     <>
       <div class="privateRecipeBanner-img">
         <figure class="privateRecipeBanner-figure">
-          <img src={rwdbanner} class="w-100" alt="" />
+          <img src={banner} class="w-100" alt="" />
         </figure>
         <div class="privateRecipeBanner-slogan">
           <h1>
