@@ -1,10 +1,10 @@
 /* 共同使用 */
-.cover-fit {
+.b-cover-fit {
   height: 100%;
   width: 100%;
   object-fit: cover;
 }
-.contain-fit {
+.b-contain-fit {
   height: 100%;
   width: 100%;
   object-fit: contain;
@@ -22,133 +22,285 @@
   padding-bottom: 30px;
   margin: 0;
 }
-
 /* 按鈕們 */
 .b-btn {
   background: var(--color-primary);
   color: var(--color-white);
-  padding: 0 40px;
-  height: 42px;
+  padding: 0 20px;
+  height: 43px;
   border: 1px solid transparent;
   border-radius: 8px;
 }
-.b-btnhover,
+.b-btn:hover,
 .b-btnblue:hover {
   background: var(--color-primary-A);
 }
 .b-btnblue {
   background: var(--color-FBblue);
   color: var(--color-white);
-  padding: 0 40px;
-  height: 42px;
+  padding: 0 20px;
+  height: 43px;
   border: 1px solid transparent;
   border-radius: 8px;
 }
-
+.b-btnblue:hover {
+  background: var(--color-blue-B);
+}
+@media screen and (max-width: 414px) {
+  .b-title,
+  .b-page1-cal {
+    display: block;
+    font-size: 24px;
+    line-height: 26.4px;
+    font-weight: 700;
+  }
+}
 /* 第一段 */
-
-.b-calc {
-  margin-bottom: 30px;
-  padding: 0 40px;
+.b-page1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 30px;
 }
-.b-woman {
-  background: url('../images/box_woman.png') right bottom no-repeat;
-  background-size: auto 370px;
-  position: relative;
-  margin-bottom: 30px;
-}
-.b-text1 {
+.b-note {
   color: var(--color-grey-800);
-  display: inline-block;
-  position: absolute;
-  top: 35px;
-  left: 280px;
+  margin-top: -20px;
+  display: none;
 }
-.b-text2 {
+.b-page1-calc {
+  padding: 0 40px;
+  white-space: nowrap;
+}
+.b-page1-calc label {
+  text-align: end;
+}
+.b-page1-calc select,
+.b-page1-calc input {
+  width: 100%;
+  height: 45px;
+}
+.b-page1-calc button {
+  width: 50%;
+  margin: 0 auto;
+}
+.b-page1-right {
+  position: relative;
+  margin-left: 30px;
+}
+.b-page1-text {
   color: var(--color-grey-900);
+  position: relative;
+}
+.b-page1-image {
   position: absolute;
-  bottom: 0;
+  bottom: 0px;
+  right: 100px;
+  height: 370px;
+}
+.b-page1-note {
+  color: var(--color-grey-800);
+  position: absolute;
+  top: 30px;
+  left: 40px;
+}
+@media screen and (max-width: 414px) {
+  .b-page1 {
+    display: block;
+  }
+  .b-page1-image {
+    display: none;
+  }
+  .b-note {
+    display: block;
+    font-size: 18px;
+    line-height: 25.2px;
+    letter-spacing: 3px;
+  }
+  .b-page1-right {
+    margin-top: 30px;
+  }
 }
 
 /* 第二段 */
 /* .customized {
   height: calc(100vh - 104px);
 } */
-.b-text3 {
+.b-page2-image {
+  position: absolute;
+  top: 0;
+  right: 50px;
+  width: 320px;
+  height: 150px;
+}
+.b-page2-note {
   color: var(--color-grey-800);
+  position: absolute;
+  top: 45px;
+  left: 45px;
 }
-.b-bento {
+.b-page2-box {
+  position: relative;
   margin: 0 auto;
-  width: 560px;
-  background: url('../images/box_down.png') no-repeat;
-  background-size: 559px auto;
+  width: 40%;
 }
-.b-menu {
+.b-page2-box-up {
+  position: absolute;
+}
+.b-page2-menu {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  padding-bottom: 30px;
+  padding-bottom: 20px;
 }
-.b-menu .fas {
+.b-page2-menu > .chevron {
   display: block;
-  font-size: 50px;
+  font-size: 40px;
   cursor: pointer;
   margin: 0 20px;
   color: var(--color-grey-800);
 }
-
-.b-food {
+.b-page2-menu > .chevron:hover {
+  color: var(--color-grey-900);
+}
+.b-page2-food {
   width: 200px;
   height: 150px;
-  margin: 5px 20px;
 }
-.b-foodtext {
+.b-page2-foodtext {
   text-align: center;
 }
 
+@media screen and (max-width: 414px) {
+  .b-page2-image {
+    display: none;
+  }
+  .b-page2-menu {
+    overflow: hidden;
+  }
+  .b-page2-box {
+    width: 100%;
+  }
+}
 /* 第三段 */
-.b-man {
-  height: 350px;
-  background: url('../images/box_man.png') left bottom no-repeat;
-  background-size: auto 350px;
+.b-page3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 100px;
+}
+.b-page3-left {
+  justify-content: center;
   position: relative;
 }
-.b-text4 {
+.b-page3-image {
+  height: 300px;
+}
+.b-page3-text {
   color: var(--color-grey-900);
   position: absolute;
-  top: 50px;
-  left: 250px;
+  left: 240px;
+  top: 28px;
 }
-.b-btngroup {
-  position: absolute;
-  top: 220px;
-  left: 250px;
+.b-page3-btn {
+  display: flex;
+  justify-content: flex-end;
+}
+.b-page3-right {
+  height: 320px;
 }
 
+@media screen and (max-width: 414px) {
+  .b-page3 {
+    display: block;
+  }
+  .b-page3-man {
+    display: none;
+  }
+  .b-page3-image {
+    position: relative;
+    height: auto;
+  }
+  .b-page3-text {
+    position: relative;
+    left: 0;
+    top: 0;
+    text-align: center;
+  }
+  .b-page3-btn {
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+}
 /* Modal */
+
 .b-modal {
-  position: relative;
-  margin: 30px auto;
+  /* position: relative; */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 500;
   width: 50%;
-  border: 1px solid #ccc;
-  padding: 20px;
+  background: var(--color-white);
+  padding: 30px;
   transition: all 0.3s ease-out;
 }
-.b-savename {
+.b-modal-box {
+  display: flex;
+  align-items: flex-end;
+}
+.b-modal-left {
+  position: relative;
+  height: 400px;
+}
+.b-modal-name {
   position: absolute;
   top: 50%;
-  left: 15%;
-  transform: rotate(23deg);
+  left: 30%;
+  transform: rotate(24deg);
   color: var(--color-secondary);
 }
-.b-btnclose {
+.b-modal-close {
   color: var(--color-grey-800);
   position: absolute;
+  right: 0;
   top: 0;
-  right: 20px;
   font-size: 40px;
+  padding: 20px;
+  border: 1px solid transparent;
+  background: transparent;
 }
-.b-btnclose:hover {
+.b-modal-close:hover {
   color: var(--color-grey-900);
+}
+
+@media screen and (max-width: 414px) {
+  .b-modal {
+    width: 90%;
+  }
+  .b-modal-box {
+    display: block;
+  }
+  .b-modal-right {
+    text-align: center;
+  }
+  .b-modal-name {
+    top: 50%;
+    left: 26%;
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: 3px;
+    font-weight: 700;
+  }
+}
+
+/* Modal 深色背景 */
+.b-blackbg {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.5);
 }

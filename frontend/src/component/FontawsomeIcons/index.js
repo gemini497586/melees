@@ -18,6 +18,11 @@ import {
   faStar,
   faStarHalfAlt,
   faCheckCircle as fasCheckCircle,
+  faChevronLeft,
+  faChevronRight,
+  faTimes,
+  faHeart,
+  faEye,
 } from '@fortawesome/free-solid-svg-icons'
 
 import { faCheckCircle as farCheckCircle } from '@fortawesome/free-regular-svg-icons'
@@ -41,5 +46,10 @@ library.add(
   faStar,
   faStarHalfAlt,
   fasCheckCircle,
-  farCheckCircle
+  farCheckCircle,
+  faChevronLeft,
+  faChevronRight,
+  faTimes,
+  faHeart,
+  faEye
 )

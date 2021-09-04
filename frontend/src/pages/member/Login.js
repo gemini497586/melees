@@ -8,7 +8,7 @@ import Header from '../../component/Header'
 function Login() {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <div className="login">
         <div className="login-container">
           <div className="login-logo">

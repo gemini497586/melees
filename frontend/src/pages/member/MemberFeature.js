@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import '../../style/searchRecipe.css'
-import SearchCardFeature from './component/SearchCardFeature.js'
-import SearchCardPrivate from './component/SearchCardPrivate.js'
-import CheckBox from './component/CheckBox'
+import MinorBar from './component/MinorBar'
+import SearchCardFeature from '../search/component/SearchCardFeature.js'
+import SearchCardPrivate from '../search/component/SearchCardPrivate.js'
+
+import CheckBox from '../search/component/CheckBox'
 import DropDown2 from '../../component/DropDown2'
 
-function SearchRecipe() {
+function MemberFeature() {
   const [checked, setChecked] = useState('')
   const checkList = ['全部', '精選食譜', '私藏食譜']
   const itemList = [
@@ -76,34 +78,31 @@ function SearchRecipe() {
   ]
   return (
     <>
+      <MinorBar />
       <section>
-        <div className="container">
-          <div className="s-recipe-top">
-            <div className="col-6">
-              <h4>
-                關於 <span>000</span> 的食譜共有 <span>00</span> 筆
-              </h4>
+        <div className="container mt-2">
+          <div className="d-flex justify-content-between align-items-center">
+            <div className="col-4 d-flex">
+              {checkList.map((v, i) => {
+                return (
+                  <CheckBox
+                    key={i}
+                    name={'all'}
+                    value={v}
+                    checked={checked}
+                    setChecked={setChecked}
+                  />
+                )
+              })}
             </div>
-            <div className="d-flex justify-content-between align-items-center">
-              <div className="col-4 d-flex">
-                {checkList.map((v, i) => {
-                  return (
-                    <CheckBox
-                      key={i}
-                      name={'all'}
-                      value={v}
-                      checked={checked}
-                      setChecked={setChecked}
-                    />
-                  )
-                })}
-              </div>
-              <DropDown2 itemList={itemList} />
-            </div>
+            <DropDown2 itemList={itemList} />
           </div>
-          <div className="s-recipe-bottom">
-            <SearchCardFeature featureList={featureList} />
-            <SearchCardPrivate privateList={privateList} />
+
+          <div className="member-box-bottom">
+            <div className="row">
+              <SearchCardFeature featureList={featureList} />
+              <SearchCardPrivate privateList={privateList} />
+            </div>
           </div>
         </div>
       </section>
@@ -111,4 +110,4 @@ function SearchRecipe() {
   )
 }
 
-export default SearchRecipe
+export default MemberFeature

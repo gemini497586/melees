@@ -1,58 +1,37 @@
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import './style/global.css'
 
-import Header from './component/Header.js'
-
-import Tables from './component/Tables.js'
-import Footer from './component/Footer.js'
-import Box from './pages/box/Box.js'
-import Home from './pages/home/Home.js'
-import SearchMarket from './pages/search/SearchMarket.js'
-import SearchRecipe from './pages/search/SearchRecipe.js'
-import MemberBox from './pages/member/MemberBox'
-
-import CardRecipe from './component/CardRecipe.js'
-import DropDown from './component/DropDown.js'
-import CardShopping from './component/CardShopping.js'
-import CardPrivateRecipe from './pages/private/component/CardPrivateRecipe.js'
-
-// 商城主頁
+import Header from './component/Header'
+import Home from './pages/home/Home'
+import Footer from './component/Footer'
+import CardRecipe from './component/CardRecipe'
+import CardShopping from './component/CardShopping'
 import MarketMainPage from './pages/market/MarketMainPage'
-
-// 商品詳細頁面
-import ProductDetails from './pages/market/ProductDetails'
-
-// 購物車詳細頁面
 import CartDetail from './pages/market/CartDetail'
-
-// 結帳-基本資料頁面
-import CheckoutPersonalData from './pages/market/CheckoutPersonalData'
-
-// 結帳-資料確認頁面
-import CheckoutConfirm from './pages/market/CheckoutConfirm'
-
-// 結帳完成頁面
-import OrdersComplete from './pages/market/OrdersComplete'
-
+import CardPrivateRecipe from './pages/private/component/CardPrivateRecipe'
+import PrivateRecipePhotoIntro from './pages/private/component/PrivateRecipePhotoIntro'
 import FeatureIndex from './pages/feature/FeatureIndex'
-import FeatureContentImg from './pages/feature/component/FeatureContentImg'
-import FeatureContentIntro from './pages/feature/component/FeatureContentIntro'
-import FeatureWeek from './pages/feature/component/FeatureWeek'
-
-import Login from './pages/member/Login'
-import Register from './pages/member/Register'
+// 客製化便當
+import Box from './pages/box/Box'
+import Modal from './pages/box/Modal'
+// 搜尋
+import SearchRecipe from './pages/search/SearchRecipe'
+import SearchMarket from './pages/search/SearchMarket'
+// 會員相關
+import MemberLogin from './pages/member/Login'
 import EditMemberInfo from './pages/member/EditMemberInfo'
-import EditPassword from './pages/member/EditPassword'
-import OrderList from './pages/member/OrderList'
-
-import OrderDetails from './pages/member/OrderDetails'
-
-import MemberSaveProdcut from './pages/member/MemberSaveProduct'
-import MemberRecipeComment from './pages/member/MemberRecipeComment'
+import MemberOrderList from './pages/member/OrderList'
+import MemberSaveBox from './pages/member/MemberBox'
+import MemberMyRecipe from './pages/member/MemberFeature'
+import MemberSaveRecipe from './pages/member/MemberFeature'
+import MemberRecipeComment from './pages/member/MemberFeature'
+import MemberSaveProduct from './pages/member/MemberFeature'
+import MemberCoupon from './pages/member/MemberFeature'
 
 function App() {
   return (
     <div className="App">
-      <Header />
+      {/* <Header />
 
       {/* <Home /> */}
 
@@ -70,7 +49,63 @@ function App() {
       {/* <CheckoutPersonalData /> */}
       {/* <CheckoutConfirm /> */}
       {/* <OrdersComplete /> */}
-      <Footer />
+      {/* <Footer />  */}
+
+      <Router>
+        <Header />
+
+        <Switch>
+          <Route path="/member/edit">
+            <EditMemberInfo />
+          </Route>
+          <Route path="/member/orderlist">
+            <MemberOrderList />
+          </Route>
+          <Route path="/member/savebox">
+            <MemberSaveBox />
+          </Route>
+          <Route path="/member/myrecipe">
+            <MemberMyRecipe />
+          </Route>
+          <Route path="/member/saverecipe">
+            <MemberSaveRecipe />
+          </Route>
+          <Route path="/member/saveproduct">
+            <MemberSaveProduct />
+          </Route>
+          <Route exact path="/member/recipecomment">
+            <MemberRecipeComment />
+          </Route>
+          <Route path="/member/coupon">
+            <MemberCoupon />
+          </Route>
+          <Route exact path="/member">
+            <MemberOrderList />
+          </Route>
+
+          <Route path="/marketMainPage">
+            <MarketMainPage />
+          </Route>
+          <Route path="/feature/:id?">
+            <CardRecipe />
+          </Route>
+          <Route path="/featureIndex">
+            <FeatureIndex />
+          </Route>
+          <Route path="/box/modal">
+            <Modal />
+          </Route>
+          <Route path="/box">
+            <Box />
+          </Route>
+
+          <Route exact path="/">
+            <Home />
+          </Route>
+        </Switch>
+        {/* 頁尾 */}
+        <Footer />
+      </Router>
     </div>
   )
 }

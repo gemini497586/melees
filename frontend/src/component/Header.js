@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+
 import '../style/header.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './FontawsomeIcons'
@@ -35,6 +36,7 @@ function Header() {
             <img src={meleesLogo} alt="logo" />
           </Link>
         </div>
+
         <ul className="header-bar-main-ul" id="header">
           <li className="font-700SL header-active" id="headerToBox">
             <Link to="/box">客製化便當</Link>
