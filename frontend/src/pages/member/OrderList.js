@@ -11,7 +11,6 @@ import './FontawsomeIcons'
 function OrderList() {
   return (
     <>
-      <Header />
       <MinorBar />
       <div className="orderList-container">
         <div className="orderList-title">
