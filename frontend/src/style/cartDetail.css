@@ -3,7 +3,7 @@
   height: 900px;
   border: 1px solid var(--color-secondary);
   border-radius: 4px;
-  margin-top: 120px;
+  margin-top: 56px;
 }
 
 .cart-detail-title {
@@ -75,7 +75,6 @@
   width: 100px;
   height: 20px;
   letter-spacing: 0px;
-  /* background: red; */
 }
 
 .cart-detail-price-amount {

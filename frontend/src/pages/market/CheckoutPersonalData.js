@@ -3,6 +3,8 @@ import '../../style/checkoutPersonalData.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
 import CheckoutCreditCard from './CheckoutCreditCard'
+import CheckoutArea from './CheckoutArea'
+import OrderProgressBar from './component/OrderProgressBar'
 
 function CheckoutPersonalData() {
   const [howToPay, setHowToPay] = useState('請選擇付款方式')
@@ -20,6 +22,7 @@ function CheckoutPersonalData() {
   }
   return (
     <div className="container">
+      <OrderProgressBar />
       <div className="checkout-personal-data">
         <div className="form-icon">
           <FontAwesomeIcon icon="file-alt" />
@@ -78,7 +81,8 @@ function CheckoutPersonalData() {
           </ul>
         </div>
         <div className="checkout-credit-card-area">{showInfo}</div>
-        <div className="checkout-personal-data-checkout-area">
+        <CheckoutArea />
+        {/* <div className="checkout-personal-data-checkout-area">
           <button className="btn font-700M  checkout-personal-data-back-btn">
             <FontAwesomeIcon icon="long-arrow-alt-left" /> 返回
           </button>
@@ -90,7 +94,7 @@ function CheckoutPersonalData() {
           <button className="btn font-700M  checkout-personal-data-next-btn">
             <FontAwesomeIcon icon="credit-card" /> 下一頁
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   )

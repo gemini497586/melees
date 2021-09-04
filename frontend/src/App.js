@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import './style/global.css'
+
 import Header from './component/Header'
 import Home from './pages/home/Home'
 import Footer from './component/Footer'
