@@ -3,21 +3,30 @@ import '../../../style/memberModal.css'
 import CardPrivateRecipeforMember from './CardPrivateRecipeforMember'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
+import avatar from '../../../images/Avatar.png'
+import Black from '../../box/Black'
 
-function Modal(props) {
-  const { showModal, setShowModal } = props
+function EditModal(props) {
+  const { showEditModal, openEditModal } = props
   return (
     <>
-      {showModal ? (
+      <Black modal={showEditModal} closeModal={openEditModal} />
+      {showEditModal ? (
         <div class="modal-edit-recipeComment-wrapper">
+          <button className="b-modal-close " onClick={openEditModal}>
+            <FontAwesomeIcon icon="times" className="" />
+          </button>
           <CardPrivateRecipeforMember />
           <div className="modal-edit-recipeComment-comment">
-            <h3>評論</h3>
+            <div className="modal-edit-recipeComment-title">
+              <div className="modal-edit-recipeComment-title-shadow"></div>
+              <h3>評論</h3>
+            </div>
             <figure>
-              <img src="" alt="" />
+              <img src={avatar} alt="avatar" />
               <figcaption>weitung</figcaption>
             </figure>
-            <div>
+            <div className="modal-edit-recipeComment-starScore">
               <FontAwesomeIcon icon="star" size="1x" className="icon-star" />
               <FontAwesomeIcon icon="star" size="1x" className="icon-star" />
               <FontAwesomeIcon icon="star" size="1x" className="icon-star" />
@@ -25,8 +34,8 @@ function Modal(props) {
               <FontAwesomeIcon icon="star" size="1x" className="icon-star" />
               <span className="font-400S">5</span>
             </div>
-            <input type="textarea" />
-            <button>修改</button>
+            <input className="modal-edit-recipeComment-text" type="textarea" />
+            <button className="modal-edit-recipeComment-editBtn">修改</button>
           </div>
         </div>
       ) : null}
@@ -34,4 +43,4 @@ function Modal(props) {
   )
 }
 
-export default Modal
+export default EditModal

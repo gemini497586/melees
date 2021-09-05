@@ -24,12 +24,10 @@ import EditMemberInfo from './pages/member/EditMemberInfo'
 import MemberOrderList from './pages/member/OrderList'
 import MemberSaveBox from './pages/member/MemberBox'
 import MemberMyRecipe from './pages/member/MemberFeature'
-import MemberSaveRecipe from './pages/member/MemberFeature'
-import MemberRecipeComment from './pages/member/MemberFeature'
-import MemberSaveProduct from './pages/member/MemberFeature'
+import MemberSaveRecipe from './pages/member/MemberSaveRecipe'
+import MemberRecipeComment from './pages/member/MemberRecipeComment'
+import MemberSaveProduct from './pages/member/MemberSaveProduct'
 import MemberCoupon from './pages/member/MemberFeature'
-// 測試
-import TestModal from './pages/member/TestModal'
 
 function App() {
   return (
@@ -49,7 +47,6 @@ function App() {
         {/* <MemberSaveRecipe /> */}
         {/* 未完成分頁 */}
         {/* <MemberBox /> */}
-        <TestModal />
 
         <Switch>
           <Route path="/member/edit">
