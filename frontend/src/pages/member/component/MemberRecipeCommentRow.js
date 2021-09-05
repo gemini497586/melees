@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
 import recipePic from '../../../images/member-recipe-comment-ellipse-342.png'
 import EditModal from './EditModal'
+import DeleteModal from './DeleteModal'
 
 function MemberRecipeCommentRow() {
   const [showEditModal, setShowEditModal] = useState(false)
@@ -22,6 +23,11 @@ function MemberRecipeCommentRow() {
         showEditModal={showEditModal}
         setShowModal={setShowEditModal}
         openEditModal={openEditModal}
+      />
+      <DeleteModal
+        showDeleteModal={showDeleteModal}
+        setDeleteModal={setShowDeleteModal}
+        openDeleteModal={openDeleteModal}
       />
       <div className="row align-items-center">
         <figure className="col-6 col-md-2 memberRecipeComment-figure">
@@ -52,7 +58,7 @@ function MemberRecipeCommentRow() {
           <button onClick={openEditModal}>
             <FontAwesomeIcon icon="pen" size="1x" className="icon-item" />
           </button>
-          <button onClick={openEditModal}>
+          <button onClick={openDeleteModal}>
             <FontAwesomeIcon icon="trash-alt" size="1x" className="icon-item" />
           </button>
         </div>

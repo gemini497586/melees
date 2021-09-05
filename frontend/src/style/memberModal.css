@@ -26,9 +26,9 @@
 }
 
 .modal-edit-recipeComment-title h3 {
-    position: absolute;
-    top: 0;
-    left: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .modal-edit-recipeComment-title-shadow {
@@ -62,11 +62,11 @@
   margin-top: 13px;
 }
 
-.modal-edit-recipeComment-starScore .icon-star{
-    color: var(--color-primary-A);
+.modal-edit-recipeComment-starScore .icon-star {
+  color: var(--color-primary-A);
 }
-.modal-edit-recipeComment-starScore span{
-    margin-left: 10px;
+.modal-edit-recipeComment-starScore span {
+  margin-left: 10px;
 }
 
 .modal-edit-recipeComment-editBtn {
@@ -87,4 +87,46 @@
   position: absolute;
   bottom: -10px;
   left: 0;
+}
+
+.modal-edit-recipeComment-wrapper-forDelete {
+  width: 870px;
+  padding: 40px;
+  border-radius: 4px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--color-white);
+  z-index: 200;
+  text-align: center;
+}
+
+.modal-edit-recipeComment-wrapper-forDelete .icon-danger {
+  width: 157px;
+  height: 157px;
+  margin: 86px auto 51px;
+}
+
+.modal-edit-recipeComment-wrapper-forDelete p {
+  margin: 19px auto 50px;
+}
+
+.modal-edit-recipeComment-wrapper-forDelete button {
+  width: 205px;
+  height: 43px;
+  border: none;
+  border-radius: 4px;
+  /* 不能寫 color 否則會覆蓋掉右上角的Ｘ icon的顏色 */
+}
+
+.modal-edit-recipeComment-wrapper-forDelete .btn-cancel {
+  background-color: var(--color-grey-500);
+  color: var(--color-white);
+}
+
+.modal-edit-recipeComment-wrapper-forDelete .btn-delete {
+  background-color: var(--color-red-C);
+  color: var(--color-white);
+  margin-left: 44px;
 }
