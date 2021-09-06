@@ -1,10 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { API_URL } from '../../utils/config'
+import axios from 'axios'
 import '../../style/global.css'
 import '../../style/member.css'
 import '../../style/login.css'
 import logo from '../../images/logo.png'
 
 function Login() {
+  const [account, setAccount] = useState('meleesadmin')
+  const [password, setPassword] = useState('123456')
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    let result = await axios.post(`${API_URL}/auth/login`, {
+      account,
+      password,
+    })
+    console.log(result)
+  }
   return (
     <>
       <div className="login">
@@ -17,13 +29,33 @@ function Login() {
           </div>
           <div className="login-form">
             <h4>會員登入</h4>
-            <form>
-              <input type="text" placeholder="請輸入帳號" />
-              <input type="text" placeholder="請輸入6-12位舊密碼" />
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                id="account"
+                name="account"
+                value={account}
+                onChange={(e) => {
+                  setAccount(e.target.value)
+                }}
+                placeholder="請輸入帳號"
+              />
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value)
+                }}
+                placeholder="請輸入6-12位舊密碼"
+              />
               <p className="font-400S login-form-errorMsg">
                 預留錯誤訊息的位置
               </p>
-              <button className="login-form-loginBtn">登入</button>
+              <button className="login-form-loginBtn" type="submit">
+                登入
+              </button>
               <div className="login-setting">
                 <a href="#/">忘記密碼?</a>
                 <div>
