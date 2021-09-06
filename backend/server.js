@@ -12,7 +12,7 @@ app.use(
   cors({
     origin: ["http://localhost:3000"],
     // 跨源送 cookie
-    // 如果要把 credentials 設成 true, 那 origin 就不能是 * 
+    // 如果要把 credentials 設成 true, 那 origin 就不能是 *
     // 不然誰都可以跨源送 cookie
     credentials: true,
   })
@@ -49,18 +49,17 @@ app.get("/", (req, res, next) => {
 });
 
 app.get("/member", (req, res, next) => {
-    let sql = "SELECT * FROM member";
-    pool.query(sql, (err, result, fields) => {
-      if (err) throw err;
-      res.json(result);
-    });
+  let sql = "SELECT * FROM member";
+  pool.query(sql, (err, result, fields) => {
+    if (err) throw err;
+    res.json(result);
   });
+});
 
-// // 引入 auth router 中間件
-// let authRouter = require("./routers/auth");
-// // 使用這個路由中間件
-// app.use("/auth", authRouter);
-
+// 引入 auth router 中間件
+let authRouter = require("./routers/auth");
+// 使用這個路由中間件
+app.use("/auth", authRouter);
 
 app.use((req, res, next) => {
   console.log("啊啊啊啊，都沒有符合的路由");
@@ -72,34 +71,32 @@ app.use((req, res, next) => {
   res.status(404).json({ message: "NOT FOUND" });
 });
 
-// // 特殊的 middleware
-// // 用來捕捉錯誤 Exception 用的
-// const multer = require("multer");
-// app.use((err, req, res, next) => {
-//   // multer 丟出來的 exception 不符合我們制定的格式
-//   console.error("來自四個參數的錯誤處理", err);
-//   // 判斷這個 err 來自哪一個
-//   if (err instanceof multer.MulterError) {
-//     // 到這裡表示我們知道這一次來的 err 其實是 MulterError
-//     // 而且我們有觀察到 MulterError 有一個 code 可以辨別錯誤
-//     if (err.code === "LIMIT_FILE_SIZE") {
-//       return res.status(400).json({ code: 320001, message: "檔案太大啦" });
-//     }
-//     return res.status(400).json({ message: err.message });
-//   }
-//   // 如果不符合上述特殊的錯誤類別，那表示就是我們自訂的
-//   // 我們自己拋出的錯誤有自己制定的格式
-//   // {
-//   //   code: "330001",
-//   //   status: 401,
-//   //   message: "沒有登入不能用喔",
-//   // }
-//   res.status(err.status).json({ message: err.message });
-// });
+// 特殊的 middleware
+// 用來捕捉錯誤 Exception 用的
+const multer = require("multer");
+app.use((err, req, res, next) => {
+  // multer 丟出來的 exception 不符合我們制定的格式
+  console.error("來自四個參數的錯誤處理", err);
+  // 判斷這個 err 來自哪一個
+  if (err instanceof multer.MulterError) {
+    // 到這裡表示我們知道這一次來的 err 其實是 MulterError
+    // 而且我們有觀察到 MulterError 有一個 code 可以辨別錯誤
+    if (err.code === "LIMIT_FILE_SIZE") {
+      return res.status(400).json({ code: 320001, message: "檔案太大啦" });
+    }
+    return res.status(400).json({ message: err.message });
+  }
+  // 如果不符合上述特殊的錯誤類別，那表示就是我們自訂的
+  // 我們自己拋出的錯誤有自己制定的格式
+  // {
+  //   code: "330001",
+  //   status: 401,
+  //   message: "沒有登入不能用喔",
+  // }
+  res.status(err.status).json({ message: err.message });
+});
 
 const port = 3001;
 app.listen(port, async function () {
-  // 因為改成用 pool，所以不需要手動連線
-  // await connection.connectAsync();
   console.log(`我們的 web server: ${port} 啟動了～`);
 });

@@ -1,5 +1,6 @@
 const mysql = require("mysql");
 require("dotenv").config();
+const Promise = require("bluebird");
 
 //先確認是否如實抓到.env檔
 // console.log({
@@ -22,4 +23,5 @@ let pool = mysql.createPool({
   dateStrings: true,
 });
 
+pool = Promise.promisifyAll(pool);
 module.exports = pool;
