@@ -8,7 +8,6 @@ import Footer from '../../component/Footer'
 function EditPassword() {
   return (
     <>
-      <Header />
       <MinorBar />
       <form className="member-form member-form-forEditMemberInfo">
         <div className="member-form-title">

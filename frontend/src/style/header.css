@@ -7,7 +7,7 @@
   top: 0px;
   background: var(--color-white);
   width: 100%;
-  z-index: 2;
+  z-index: 10;
 }
 
 .header-bar a {

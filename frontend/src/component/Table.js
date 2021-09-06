@@ -2,7 +2,7 @@ import React from 'react'
 import '../style/table.css'
 
 function Table(props) {
-  const { unitList } = props
+  const { unitList, setUnitList } = props
   return (
     <>
       <table className="table-food">

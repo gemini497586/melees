@@ -7,7 +7,6 @@ import Header from '../../component/Header'
 function Register() {
   return (
     <>
-      <Header />
       <form className="member-form member-form-forRegister">
         <div className="member-form-title">
           <div className="member-form-title-icon">

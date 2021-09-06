@@ -2,7 +2,6 @@ import React from 'react'
 import '../../style/home.css'
 import '../../style/searchRecipe.css'
 import Recipe01 from '../../images/recipe_01.jpg'
-import Card2 from './component/Card2'
 import HomeBento from './component/HomeBento'
 import '../../style/featureComponent.css'
 

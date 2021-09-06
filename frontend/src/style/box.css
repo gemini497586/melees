@@ -22,6 +22,11 @@
   padding-bottom: 30px;
   margin: 0;
 }
+.b-note {
+  color: var(--color-grey-800);
+  margin-top: -20px;
+  display: none;
+}
 /* 按鈕們 */
 .b-btn {
   background: var(--color-primary);
@@ -47,12 +52,21 @@
   background: var(--color-blue-B);
 }
 @media screen and (max-width: 414px) {
-  .b-title,
-  .b-page1-cal {
-    display: block;
+  .b-step {
+    margin: 0 auto;
+  }
+  .b-title {
     font-size: 24px;
     line-height: 26.4px;
     font-weight: 700;
+    padding-left: 30px;
+  }
+  .b-note {
+    display: block;
+    font-size: 18px;
+    line-height: 25.2px;
+    letter-spacing: 3px;
+    padding-left: 30px;
   }
 }
 /* 第一段 */
@@ -61,11 +75,6 @@
   justify-content: space-between;
   align-items: flex-end;
   padding-bottom: 30px;
-}
-.b-note {
-  color: var(--color-grey-800);
-  margin-top: -20px;
-  display: none;
 }
 .b-page1-calc {
   padding: 0 40px;
@@ -110,14 +119,13 @@
   .b-page1-image {
     display: none;
   }
-  .b-note {
-    display: block;
-    font-size: 18px;
-    line-height: 25.2px;
-    letter-spacing: 3px;
-  }
   .b-page1-right {
     margin-top: 30px;
+  }
+  .b-page1-text {
+    display: block;
+    font-size: 20px;
+    line-height: 22px;
   }
 }
 
@@ -125,7 +133,7 @@
 /* .customized {
   height: calc(100vh - 104px);
 } */
-.b-page2-image {
+.b-page2-dialog {
   position: absolute;
   top: 0;
   right: 50px;
@@ -146,32 +154,9 @@
 .b-page2-box-up {
   position: absolute;
 }
-.b-page2-menu {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 20px;
-}
-.b-page2-menu > .chevron {
-  display: block;
-  font-size: 40px;
-  cursor: pointer;
-  margin: 0 20px;
-  color: var(--color-grey-800);
-}
-.b-page2-menu > .chevron:hover {
-  color: var(--color-grey-900);
-}
-.b-page2-food {
-  width: 200px;
-  height: 150px;
-}
-.b-page2-foodtext {
-  text-align: center;
-}
 
 @media screen and (max-width: 414px) {
-  .b-page2-image {
+  .b-page2-dialog {
     display: none;
   }
   .b-page2-menu {
@@ -224,7 +209,11 @@
     position: relative;
     left: 0;
     top: 0;
-    text-align: center;
+    padding-left: 30px;
+
+    font-size: 20px;
+    line-height: 22px;
+    /* text-align: center; */
   }
   .b-page3-btn {
     justify-content: center;
@@ -234,7 +223,6 @@
 /* Modal */
 
 .b-modal {
-  /* position: relative; */
   position: fixed;
   top: 50%;
   left: 50%;
@@ -243,7 +231,7 @@
   width: 50%;
   background: var(--color-white);
   padding: 30px;
-  transition: all 0.3s ease-out;
+  transition: all 0.3s;
 }
 .b-modal-box {
   display: flex;
@@ -303,4 +291,96 @@
   left: 0;
   top: 0;
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* slider bar */
+.b-page2 {
+  display: flex;
+  align-items: center;
+}
+.b-page2-menu {
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+.b-page2 > .chevron {
+  display: block;
+  font-size: 30px;
+  cursor: pointer;
+  width: 20px;
+  /* margin-left: 10px; */
+  color: var(--color-grey-800);
+}
+.b-page2 > .chevron:hover {
+  color: var(--color-grey-900);
+}
+.b-page2-slider {
+  position: relative;
+  overflow: hidden;
+  height: 250px;
+}
+.b-page2-slider-images {
+  display: flex;
+  position: absolute;
+  width: 4250px;
+  /* left: -250px; */
+}
+.b-page2-slider-images li {
+  height: 220px;
+  padding: 0 10px;
+  /* border: 1px solid red; */
+}
+.b-page2-slider-food {
+  /* border: 1px solid red; */
+  width: 230px;
+  height: 190px;
+  cursor: pointer;
+}
+.b-page2-slider-text {
+  text-align: center;
+}
+.b-slide-active {
+  transition: 1s ease;
+  transform: translateX(-250px);
+}
+
+/* test */
+/* .slider-wrap {
+  height: 100vh;
+} */
+.b-slider {
+  position: relative;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.b-image {
+  width: 200px;
+  height: 150px;
+  border: 1px solid #000;
+}
+.b-slider > .chevron-right {
+  position: absolute;
+  top: 50%;
+  font-size: 30px;
+  right: 32px;
+  cursor: pointer;
+}
+.b-slider > .chevron-left {
+  position: absolute;
+  top: 50%;
+  font-size: 30px;
+  left: 32px;
+  cursor: pointer;
+}
+.b-slide {
+  /* opacity: 0; */
+  transition: 1s ease;
+  /* width: 150px; */
+}
+.b-slide.active {
+  opacity: 1;
+  transition: 1s ease;
+  /* transform: scale(1.08); */
 }

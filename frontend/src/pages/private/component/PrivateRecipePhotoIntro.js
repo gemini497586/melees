@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import '../../../style/privateRecipePhotoIntro.css'
 import food from '../../../images/default_food3.jpg'
 import avatar from '../../../images/default_avatar1.jpg'
 
-function PrivateRecipePhotoIntro() {
+// json
+import PrivateRecipeCardData from '../../../data/PrivateRecipeCardData.json'
+
+function PrivateRecipePhotoIntro(props) {
+  const [recipe, serRecipe] = useState([])
+
   return (
     <>
       <div class="container">
@@ -50,7 +55,7 @@ function PrivateRecipePhotoIntro() {
                 </span>
               </div>
               <h2 class="PrivateRecipePhotoIntro-recipe-name">
-                椒鹽蟹管肉便當
+                椒鹽蟹管肉便當{recipe.name}
               </h2>
               <span class="font-400L PrivateRecipePhotoIntro-intro">
                 當然要來個特別一點的主菜─蟹管肉！說起蟹管肉大家可能既熟悉又陌生，蟹管肉是螃蟹腿的肉，和蟹肉棒是用魚漿做成的完全不同，在單價上也會略高一點！

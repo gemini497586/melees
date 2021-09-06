@@ -8,7 +8,6 @@ import Header from '../../component/Header'
 function Login() {
   return (
     <>
-      {/* <Header /> */}
       <div className="login">
         <div className="login-container">
           <div className="login-logo">

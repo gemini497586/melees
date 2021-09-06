@@ -41,7 +41,6 @@ function MemberBox() {
   return (
     <>
       <MinorBar />
-
       <section>
         <div className="container">
           <div className="member-box-top d-flex justify-content-end">

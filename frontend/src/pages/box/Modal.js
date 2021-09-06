@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import BoxExample from '../../images/box_example.png'
-import '../../style/box.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
 import Black from './Black'
@@ -15,7 +14,9 @@ function Modal(props) {
       <div
         className="b-modal "
         style={{
-          transform: modal ? 'translate(-50%,-50%)' : 'translateX(50%)',
+          transform: modal
+            ? 'translate(-50%,-50%)'
+            : 'translate(-1000px,-1000px)',
           opacity: modal ? '1' : '0',
         }}
       >

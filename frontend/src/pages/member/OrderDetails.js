@@ -1,7 +1,5 @@
 import React from 'react'
-// import Header from '../../component/Header'
-// import MinorBar from './component/MinorBar'
-// import Footer from '../../component/Footer'
+import MinorBar from './component/MinorBar'
 import '../../style/global.css'
 import '../../style/member.css'
 import '../../style/orderList.css'
@@ -14,8 +12,7 @@ const cartArray = [1, 2, 3]
 function OrderDetails() {
   return (
     <>
-      {/* <Header />
-      <MinorBar /> */}
+      <MinorBar />
       <div className="orderList-container">
         {/* <!-- 訂單進度條 --> */}
         <ol className="progressBar">
@@ -177,7 +174,6 @@ function OrderDetails() {
           </div>
         </div>
       </div>
-      {/* <Footer /> */}
     </>
   )
 }

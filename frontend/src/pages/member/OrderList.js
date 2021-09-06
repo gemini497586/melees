@@ -2,16 +2,13 @@ import React from 'react'
 import '../../style/global.css'
 // import '../../style/member.css'
 import '../../style/orderList.css'
-import Header from '../../component/Header'
 import MinorBar from './component/MinorBar'
-import Footer from '../../component/Footer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './FontawsomeIcons'
 
 function OrderList() {
   return (
     <>
-
       <MinorBar />
       <div className="orderList-container">
         <div className="orderList-title">
@@ -181,14 +178,13 @@ function OrderList() {
               <td>$1,989</td>
               <td>鑑賞期 2021-08-30</td>
               <td>
-                客服{' '}
+                客服
                 <FontAwesomeIcon icon="info-circle" className="icon-info" />
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <Footer />
     </>
   )
 }
