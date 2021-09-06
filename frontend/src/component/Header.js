@@ -151,7 +151,6 @@ function Header() {
           </li>
         </ul>
       </div>
-      <div className="h104"></div>
       <Switch>
         <Route path="/market" component={MarketMainPage}></Route>
         <Route path="/box" component={Box}></Route>
