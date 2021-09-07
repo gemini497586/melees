@@ -11,10 +11,17 @@ function Login() {
   const [password, setPassword] = useState('123456')
   const handleSubmit = async (e) => {
     e.preventDefault()
-    let result = await axios.post(`${API_URL}/auth/login`, {
-      account,
-      password,
-    })
+    let result = await axios.post(
+      `${API_URL}/auth/login`,
+      {
+        account,
+        password,
+      },
+      {
+        // 設定可以跨源送 cookie
+        withCredentials: true,
+      }
+    )
     console.log(result)
   }
   return (

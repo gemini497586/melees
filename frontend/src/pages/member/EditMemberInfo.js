@@ -1,16 +1,37 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import '../../style/global.css'
 import '../../style/member.css'
 import avatar from '../../images/Avatar.png'
 import MinorBar from './component/MinorBar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
+import { API_URL } from '../../utils/config'
+import axios from 'axios'
 
 function EditMemberInfo() {
+  const [errorMsg, setErrorMsg] = useState(null)
+  useEffect(() => {
+    const testLoginCheck = async () => {
+      try {
+        let result = await axios.get(`${API_URL}/member/editinfo`, {
+          // 設定可以跨源送 cookie
+          withCredentials: true,
+        })
+        console.log(result)
+        setErrorMsg(null)
+      } catch (e) {
+        console.log(e)
+        setErrorMsg(e.message)
+      }
+    }
+    testLoginCheck()
+  }, [])
+
   return (
     <>
       <div className="page-group">
         <MinorBar />
+        <div>{errorMsg}</div>
         <form className="member-form member-form-forEditMemberInfo">
           <div className="member-form-title">
             <div className="member-form-title-icon">
