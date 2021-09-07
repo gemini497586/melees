@@ -133,7 +133,8 @@
 
 /* 註冊頁面的客製版 */
 .member-form-forRegister {
-  margin-top: 72px;
+  /* margin-top: 72px; */
+  margin-top: 176px;
 }
 
 /* 會員資料修改頁面的客製版 */
