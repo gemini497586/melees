@@ -1,41 +1,40 @@
-import React from 'react'
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import '../../../style/minorBar.css'
-import MarketMainPage from '../MarketMainPage'
-
+import ProductData from '../../../data/Products.json'
 function MinorBar(props) {
-  // const minorBarArray = ['全部', '食材', '鍋具', '調味料']
+  // console.log(ProductData.productCategory)
+  const [product, setProduct] = useState([])
+  useEffect(() => {
+    setProduct(ProductData.productCategory)
+  }, [])
   return (
-    <Router>
+    <>
       <ul className="minor-bar">
-        {/* 原本的寫法 */}
-        <li>
-          <a href="/">全部</a>
-        </li>
-        <li>
-          <a href="/">食材</a>
-        </li>
-        <li>
-          <a href="/">鍋具</a>
-        </li>
-        <li>
-          <a href="/">調味料</a>
-        </li>
-
-        {/* map寫法 */}
-        {/* {minorBarArray.map((v) => {
+        {product.map((v) => {
           return (
             <li>
-              <a href="/">{v}</a>
+              <Link to={`/market/product/category/:${v.category}`}>
+                {v.text}
+              </Link>
             </li>
           )
-        })} */}
+        })}
+        {/* <li>
+          <Link to="/all">全部</Link>
+        </li>
+        <li>
+          <Link to="/market/product-category/:category">食材</Link>
+        </li>
+        <li>
+          <Link to="/market/product-category/:category">鍋具</Link>
+        </li>
+        <li>
+          <Link to="/market/product-category/:category">調味料</Link>
+        </li> */}
       </ul>
       <div className="sub-line"></div>
-      <Switch>
-        <Route path="/market/all"></Route>
-      </Switch>
-    </Router>
+    </>
   )
 }
 

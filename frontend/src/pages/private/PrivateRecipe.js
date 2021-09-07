@@ -7,18 +7,20 @@ import CardShopping from '../../component/CardShopping'
 function PrivateRecipe() {
   return (
     <>
-      <PrivateRecipeBanner />
-      <DropDown />
-      <CardPrivateRecipe />
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-1">
-            <Paging />
+      <div className="page-group">
+        <PrivateRecipeBanner />
+        <DropDown />
+        <CardPrivateRecipe />
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-1">
+              <Paging />
+            </div>
           </div>
         </div>
-      </div>
 
-      <CardShopping />
+        <CardShopping />
+      </div>
     </>
   )
 }

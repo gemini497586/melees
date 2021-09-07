@@ -1,18 +1,10 @@
 import React, { useEffect } from 'react'
-
 import '../style/header.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './FontawsomeIcons'
 import meleesLogo from '../images/meleesLogo.svg'
 
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
-import Box from '../pages/box/Box'
-import MarketMainPage from '../pages/market/MarketMainPage'
-import ProductDetails from '../pages/market/ProductDetails'
-import CardPrivateRecipe from '../pages/private/component/CardPrivateRecipe'
-import EditMemberInfo from '../pages/member/EditMemberInfo'
-import FeatureIndex from '../pages/feature/FeatureIndex'
-import Home from '../pages/home/Home'
+import { Link } from 'react-router-dom'
 
 function Header() {
   // 讓header-active隨著點擊的頁面切換
@@ -30,7 +22,7 @@ function Header() {
   }, [])
 
   return (
-    <Router>
+    <>
       <div className="header-bar">
         <div className="logo">
           <Link to="/">
@@ -151,17 +143,7 @@ function Header() {
           </li>
         </ul>
       </div>
-      <div className="h104"></div>
-      <Switch>
-        <Route path="/market" component={MarketMainPage}></Route>
-        <Route path="/box" component={Box}></Route>
-        <Route path="/private" component={CardPrivateRecipe}></Route>
-        <Route path="/member" component={EditMemberInfo}></Route>
-        <Route path="/feature" component={FeatureIndex}></Route>
-        <Route path="/" component={Home}></Route>
-        {/* <Route path="/product" component={ProductDetails}></Route> */}
-      </Switch>
-    </Router>
+    </>
   )
 }
 

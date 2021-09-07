@@ -18,18 +18,11 @@ function CartDetailRow(props) {
       <p className="cart-detail-price">
         <FontAwesomeIcon icon="dollar-sign" /> 310
       </p>
-      <div className="cart-detail-amount">
-        <FontAwesomeIcon icon="minus" className="operation" />
-        5
-        <FontAwesomeIcon icon="plus" className="operation" />
-      </div>
+      <div className="cart-detail-amount">5</div>
       <h5 className="cart-detail-total">
         NT <FontAwesomeIcon icon="dollar-sign" />
         1,550
       </h5>
-      <button className="btn cart-detail-delete">
-        <FontAwesomeIcon icon="trash-alt" />
-      </button>
     </div>
   )
 }
