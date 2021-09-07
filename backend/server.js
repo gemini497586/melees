@@ -24,14 +24,15 @@ app.use(
 // // 告訴 express 我們的樣板檔案放在哪裡
 // app.set("views", path.join(__dirname, "views"));
 
-// // 啟用 session 機制
-// const expressSession = require("express-session");
-// app.use(
-//   expressSession({
-//     secret: process.env.SESSION_SECRET,
-//     resave: false,
-//   })
-// );
+// 啟用 session 機制
+const expressSession = require("express-session");
+app.use(
+  expressSession({
+    // 設定session加密密碼
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+  })
+);
 
 // 使用這個中間件才可以讀到 body 的資料
 app.use(express.urlencoded({ extended: true }));
@@ -48,31 +49,26 @@ app.get("/", (req, res, next) => {
   res.send("Hello with nodemon");
 });
 
-app.get("/member", (req, res, next) => {
-  let sql = "SELECT * FROM member";
-  pool.query(sql, (err, result, fields) => {
-    if (err) throw err;
-    res.json(result);
-  });
-});
-
-// 引入 auth router 中間件
+// 引入 auth router 中間件，包含資料驗證、登入、註冊
 let authRouter = require("./routers/auth");
-// 使用這個路由中間件
 app.use("/auth", authRouter);
 
-app.use((req, res, next) => {
-  console.log("啊啊啊啊，都沒有符合的路由");
-  next();
-});
+// 引入 member router 中間件，包含會員專區功能
+let memberRouter = require("./routers/member");
+app.use("/member", memberRouter);
+
 
 // 前面都沒有任何符合的路由網址就進入這邊統一 404 來處理
+app.use((req, res, next) => {
+  console.log("都沒有符合的路由，請查明後再 keyin!");
+  next();
+});
 app.use((req, res, next) => {
   res.status(404).json({ message: "NOT FOUND" });
 });
 
-// 特殊的 middleware
-// 用來捕捉錯誤 Exception 用的
+
+// multer 用來處理 From-data 
 const multer = require("multer");
 app.use((err, req, res, next) => {
   // multer 丟出來的 exception 不符合我們制定的格式
