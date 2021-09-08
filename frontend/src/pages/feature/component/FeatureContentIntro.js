@@ -4,6 +4,8 @@ import Ig from '../../../component/Ig'
 import '../../../style/featureContentIntro.css'
 import '../../../style/featureComponent.css'
 import avatar from '../../../images/lonyo63.jpg'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import '../../../component/FontawsomeIcons'
 
 function FeatureContentIntro() {
   return (
@@ -35,10 +37,20 @@ function FeatureContentIntro() {
           <HeartViewNum />
           {/* 收藏btn */}
           <button className="fintro-btnlike font-700M">
-            <i className="far fa-bookmark fa-fw me-2"></i>按讚
+            <FontAwesomeIcon
+              className="me-2"
+              icon={['far', 'bookmark']}
+              fixedWidth
+            />
+            按讚
           </button>
           <button className="fintro-btnsave font-700M">
-            <i className="far fa-bookmark fa-fw me-2"></i>加入收藏
+            <FontAwesomeIcon
+              className="me-2"
+              icon={['far', 'bookmark']}
+              fixedWidth
+            />
+            加入收藏
           </button>
         </div>
       </div>
