@@ -1,83 +1,89 @@
 .checkout-confirm {
-  width: 1320px;
-  height: 904px;
-  border: 1px solid #000;
-  border-radius: 4px;
-  margin-top: 136px;
-  position: relative;
+    width: 1320px;
+    height: 904px;
+    border: 1px solid #000;
+    border-radius: 4px;
+    margin-top: 136px;
+    position: relative;
 }
 
 .checkout-confirm div,
 .checkout-confirm h5,
 .checkout-confirm p {
-  position: absolute;
+    position: absolute;
 }
 
 .checkout-confirm-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--color-secondary);
-  text-align: center;
-  line-height: 40px;
-  color: var(--color-white);
-  top: 32px;
-  left: 65px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--color-secondary);
+    text-align: center;
+    line-height: 40px;
+    color: var(--color-white);
+    top: 32px;
+    left: 65px;
 }
 
 .checkout-confirm-title {
-  top: 37px;
-  left: 112px;
-  font-weight: bold;
-  color: var(--color-grey-900);
+    top: 37px;
+    left: 112px;
+    font-weight: bold;
+    color: var(--color-grey-900);
 }
 
 .checkout-confirm-w1100 {
-  width: 1100px;
-  height: 1px;
-  top: 72px;
-  left: 112px;
-  background: var(--color-grey-900);
+    width: 1100px;
+    height: 1px;
+    top: 72px;
+    left: 112px;
+    background: var(--color-grey-900);
 }
 
-.checkout-confirm-label {
-}
+.checkout-confirm-label {}
 
 .checkout-confirm-input {
-  left: 100px;
+    left: 100px;
 }
 
 .checkout-confirm-way {
-  top: 97px;
-  left: 112px;
-  width: 500px;
-  height: 25px;
+    top: 97px;
+    left: 112px;
+    width: 500px;
+    height: 25px;
 }
 
 .checkout-confirm-name {
-  top: 152px;
-  left: 112px;
-  width: 500px;
-  height: 25px;
+    top: 152px;
+    left: 112px;
+    width: 500px;
+    height: 25px;
 }
 
 .checkout-confirm-address {
-  top: 207px;
-  left: 112px;
-  width: 500px;
-  height: 25px;
+    top: 207px;
+    left: 112px;
+    width: 500px;
+    height: 25px;
 }
 
 .checkout-confirm-phone {
-  top: 262px;
-  left: 112px;
-  width: 500px;
-  height: 25px;
+    top: 262px;
+    left: 112px;
+    width: 500px;
+    height: 25px;
 }
 
 .checkout-confirm-email {
-  top: 317px;
-  left: 112px;
-  width: 500px;
-  height: 25px;
+    top: 317px;
+    left: 112px;
+    width: 500px;
+    height: 25px;
+}
+
+.checkout-confirm-detail {
+    top: 317px;
+    left: 112px;
+    width: 500px;
+    height: 25px;
 }

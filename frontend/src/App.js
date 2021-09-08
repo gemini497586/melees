@@ -18,7 +18,7 @@ import SortingBar from './pages/market/SortingBar'
 
 // 商城主頁
 import MarketMainPage from './pages/market/MarketMainPage'
-import Paging from './pages/market/Paging'
+import Paging from './component/Paging'
 
 // 商品詳細頁面
 import ProductDetails from './pages/market/ProductDetails'
@@ -37,33 +37,24 @@ const array = [1, 2, 3]
 function App() {
   return (
     <div className="App">
-      <Header />
-      {/* <MinorBar /> */}
-      {/* <Home /> */}
-      <Box />
-      {/* <Tables /> */}
-      {/* <SearchMarket /> */}
-      {/* <SearchRecipe /> */}
-      {/* <MemberBox /> */}
+      <Header /> {/* <MinorBar /> */} {/* <Home /> */} {/* <Box /> */}{' '}
+      {/* <Tables /> */} {/* <SearchMarket /> */} {/* <SearchRecipe /> */}{' '}
+      {/* <MemberBox /> */}{' '}
       {/* <DropDown />
-      <CardRecipe />
-      <CardShopping />
-      <CardPrivateRecipe /> */}
-
-      {/* <SortingBar /> */}
-      {/* <div className="t60"></div> */}
+                  <CardRecipe />
+                  <CardShopping />
+                  <CardPrivateRecipe /> */}
+      {/* <SortingBar /> */} {/* <div className="t60"></div> */}{' '}
       {/* <div className="container">
-        <MarketMainPage />
-        <MarketMainPage />
-        <MarketMainPage />
-        {array.map((v, i) => {
-          return <Paging value={v} />
-        })}
-      </div> */}
-      {/* <ProductDetails /> */}
-      {/* <CartDetail /> */}
-      {/* <CheckoutPersonalData /> */}
-      {/* <CheckoutConfirm /> */}
+                    <MarketMainPage />
+                    <MarketMainPage />
+                    <MarketMainPage />
+                    {array.map((v, i) => {
+                      return <Paging value={v} />
+                    })}
+                  </div> */}{' '}
+      {/* <ProductDetails /> */} {/* <CartDetail /> */}{' '}
+      {/* <CheckoutPersonalData /> */} <CheckoutConfirm />
       <Footer />
     </div>
   )
