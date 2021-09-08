@@ -43,39 +43,33 @@ function CardRecipe(props) {
               </div>
             </div>
             <div class="cardRecipe-others-hr w-100"></div>
-          </div>
-          {recipeList.map((v, i) => {
-            return (
-              <Link to={'/feature/' + v.id}>
-                <div className="col-12 col-md-3" key={v.id}>
-                  <div className="cardRecipe">
-                    <figure className="cardRecipe-img">
-                      <img src={food} className="w-100" alt="" />
-                    </figure>
-                    <span className="cardRecipe-bookmark">
-                      <i className="fas fa-bookmark fa-2x"></i>
-                    </span>
-                    <span className="cardRecipe-bookmark-stat-box">
-                      <div className="cardRecipe-bookmark-stat-icon">
-                        <i className="fas fa-bookmark fa-1x"></i>
-                      </div>
-                      <span className="cardRecipe-bookmark-num font-400S">
-                        1000
-                      </span>
-                    </span>
-                    <span className="font-700S cardRecipe-type">
-                      健康長肉肉
-                    </span>
-                    <h6 className="cardRecipe-name">{v.name}</h6>
-                    <div className="f-flex cardRecipe-ig">
-                      <i className="fab fa-instagram-square fa-lg"></i>
-                      <span className="font-700S">謝戎宥- LON YO</span>
+            <Link to={'/feature/'}>
+              <div className="col-12 col-md-3">
+                <div className="cardRecipe">
+                  <figure className="cardRecipe-img">
+                    <img src={food} className="w-100" alt="" />
+                  </figure>
+                  <span className="cardRecipe-bookmark">
+                    <i className="fas fa-bookmark fa-2x"></i>
+                  </span>
+                  <span className="cardRecipe-bookmark-stat-box">
+                    <div className="cardRecipe-bookmark-stat-icon">
+                      <i className="fas fa-bookmark fa-1x"></i>
                     </div>
+                    <span className="cardRecipe-bookmark-num font-400S">
+                      1000
+                    </span>
+                  </span>
+                  <span className="font-700S cardRecipe-type">健康長肉肉</span>
+                  <h6 className="cardRecipe-name"></h6>
+                  <div className="f-flex cardRecipe-ig">
+                    <i className="fab fa-instagram-square fa-lg"></i>
+                    <span className="font-700S">謝戎宥- LON YO</span>
                   </div>
                 </div>
-              </Link>
-            )
-          })}
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

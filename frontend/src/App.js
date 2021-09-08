@@ -25,7 +25,7 @@ import Box from './pages/box/Box'
 // 私藏食譜
 import PrivateRecipe from './pages/private/PrivateRecipe'
 import PrivateRecipeIntro from './pages/private/PrivateRecipeIntro'
-// import PrivateRecipeUpload from './pages/private/PrivateRecipeUpload'
+import PrivateRecipeUpload from './pages/private/PrivateRecipeUpload'
 
 // 搜尋
 import SearchRecipe from './pages/search/SearchRecipe'
@@ -65,9 +65,9 @@ function App() {
           <Route exact path="/private">
             <PrivateRecipe />
           </Route>
-          {/* <Route exact path="/private/upload">
+          <Route exact path="/private/upload">
             <PrivateRecipeUpload />
-          </Route> */}
+          </Route>
           <Route exact path="/private/detail/:id">
             <PrivateRecipeIntro />
           </Route>
