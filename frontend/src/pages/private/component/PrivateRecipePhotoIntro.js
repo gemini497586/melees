@@ -72,7 +72,7 @@ function PrivateRecipePhotoIntro(props) {
                     </span>
                     <h2 class="PrivateRecipePhotoIntro-qty">份量</h2>
                     <span class="font-400L PrivateRecipePhotoIntro-qty-num">
-                      {value.qty} 人份
+                      {value.qty} 份
                     </span>
                   </>
                 )
