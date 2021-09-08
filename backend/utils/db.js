@@ -23,5 +23,5 @@ let connection = mysql.createPool({
   dateStrings: true,
 });
 
-pool = Promise.promisifyAll(connection);
+connection = Promise.promisifyAll(connection);
 module.exports = connection;
