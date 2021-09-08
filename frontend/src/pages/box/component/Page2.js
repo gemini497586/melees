@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
 
 function Page2(props) {
-  const { data, handleCheck, handleDelete, bento } = props
+  const { data, handleCheck, handleRemove, bento } = props
   return (
     <>
       <div className="container b-step position-relative">
@@ -34,7 +34,7 @@ function Page2(props) {
                         icon="times"
                         className="times"
                         onClick={() => {
-                          handleDelete(v)
+                          handleRemove(v)
                         }}
                       />
                     </div>

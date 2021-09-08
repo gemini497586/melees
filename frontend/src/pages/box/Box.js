@@ -28,60 +28,54 @@ function Box() {
 
   // 點選圖片
   const handleCheck = (v) => {
-    // 計算卡路里
-    let calories = 0
-    calories += v.cal
-    let newTotal = total + calories
-    setTotal(newTotal)
-    // console.log(newTotal)
+    // 先抓到便當裡面食材的名稱
+    let getName = bento.map((item) => {
+      return item.name
+    })
+    // console.log('新增之前 ', getName)
 
-    // 第六個的時候就不能再新增
-    // if (bento.length >= 5) {
-    //   alert(`最多只可挑選五樣食材`)
-    // }
-
-    // 先確認食材是否已存在便當裡
+    // 判斷食材是否已存在便當裡
     // 存在->不能新增
     // 不存在->可以新增
+    if (getName.includes(v.name)) {
+      // console.log('點過')
+      alert('每個食材僅可挑選一次')
+      return
+    } else {
+      const newBento = [
+        ...bento,
+        { name: v.name, inside_image: v.inside_image, id: v.id, cal: v.cal },
+      ]
+      // 第六個的時候就不能再新增
+      if (newBento.length > 5) {
+        alert('最多只可挑選五樣食材')
+        return
+      }
+      setBento(newBento)
+      console.log('新增之後', newBento)
 
-    const newBento = [
-      ...bento,
-      { name: v.name, inside_image: v.inside_image, id: v.id },
-    ]
-    setBento(newBento)
+      // 加到table
+      const newUnitList = [...unitList, { name: v.name, unit: `${v.cal} 大卡` }]
+      setUnitList(newUnitList)
 
-    // 加到table
-    const newUnitList = [...unitList, { name: v.name, unit: `${v.cal} 大卡` }]
-    setUnitList(newUnitList)
+      // 現在便當裡面食材的cal
+      let getCal = newBento.map((item) => {
+        return item.cal
+      })
 
-    // 變成checkbox的話
-    // 如果在陣列->移出 (先拷貝原本陣列，在陣列上處理)
-    // if (bento.includes(v.target.value)) {
-    //   const newBento = bento.filter((value, index) => {
-    //     return value !== v.target.value
-    //   })
-    //   return setBento(newBento)
-    // }
-    // // 如果沒在這陣列中 -> 加入
-    // setBento([...bento, v.target.value])
-
-    // // 加到table
-    // if (unitList.includes(v.target.value)) {
-    //   const newUnitList = unitList.filter((value, index) => {
-    //     return value !== v.target.value
-    //   })
-    // }
-    // setUnitList([
-    //   ...unitList,
-    //   { name: v.target.value, unit: `${v.target.value} 大卡` },
-    // ])
-    // console.log(v.target.value)
+      // 計算卡路里
+      const newTotal = getCal.reduce((acc, curr) => acc + curr)
+      setTotal(newTotal)
+      // console.log(newTotal)
+    }
   }
 
-  // 新增至便當盒後，把它刪除
-  const handleDelete = (v) => {
+  // 如果不要，把它刪除
+  const handleRemove = (v) => {
     // console.log(`再見 ${v.name}`)
     const name = v.name
+    const cal = v.cal
+    console.log(cal)
     setBento(bento.filter((v) => v.name !== name))
     setUnitList(unitList.filter((v) => v.name !== name))
   }
@@ -92,7 +86,7 @@ function Box() {
         <Page2
           data={data}
           handleCheck={handleCheck}
-          handleDelete={handleDelete}
+          handleRemove={handleRemove}
           bento={bento}
         />
         <Page3 total={total} tdee={tdee} unitList={unitList} bento={bento} />

@@ -33,7 +33,7 @@ function Page3(props) {
             </div>
             <div className="b-page3-btn">
               <button className="b-btn font-700M me-2" onClick={openModal}>
-                <FontAwesomeIcon icon={['fas', 'bookmark']} className="me-2" />
+                <FontAwesomeIcon icon={['far', 'bookmark']} className="me-2" />
                 收藏便當
               </button>
               <Link to="#">
