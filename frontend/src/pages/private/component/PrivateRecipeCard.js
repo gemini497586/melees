@@ -4,18 +4,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../style/cardPrivateRecipe.css'
 import food from '../../../images/default_food2.jpg'
 import avatar from '../../../images/default_avatar1.jpg'
-
-// 食譜內頁
-import PrivateRecipeIntro from '../PrivateRecipeIntro'
-
-// json 測試用
-import PrivateRecipeCardData from '../../../data/PrivateRecipeCardData.json'
+import Axios from 'axios'
 
 function PrivateRecipeCard(props) {
   const [itemInfo, setItemInfo] = useState([])
+  const [starRate, setstarRate] = useState([])
+  let star = starRate.length
+  console.log(star)
 
   useEffect(() => {
-    setItemInfo(PrivateRecipeCardData)
+    Axios.get('http://localhost:3001/api/private').then((res) => {
+      setItemInfo(res.data.result)
+      setstarRate(res.data.result2)
+    })
+    // setItemInfo(PrivateRecipeCardData)
+    console.log('123', itemInfo)
+    console.log('456', starRate)
   }, [])
   return (
     <>
@@ -51,11 +55,10 @@ function PrivateRecipeCard(props) {
                       <FontAwesomeIcon icon="star" />
                       <FontAwesomeIcon icon="star" />
                       <FontAwesomeIcon icon="star" />
-                      <FontAwesomeIcon icon="star" />
                       <FontAwesomeIcon icon="star-half-alt" />
 
                       <span className="font-400S cardPrivateRecipe-star-num">
-                        {value.star_qty}
+                        {value.star_rate}
                       </span>
                     </div>
                     <div className="cardPrivateRecipe-stat">

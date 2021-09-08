@@ -11,7 +11,7 @@ import MinorBar from './component/MinorBar'
 import { Link } from 'react-router-dom'
 
 // json 測試用
-import RecipeStepTest from '../../data/RecipeStepTest'
+// import RecipeStepTest from '../../data/RecipeStepTest'
 
 function FeatureStepWeek() {
   // 控制table裡的資料
@@ -112,7 +112,7 @@ function FeatureStepWeek() {
                 <h5 className="fcolor-grey-900">步驟</h5>
                 <div className="fline-g500 mb-3"></div>
               </div>
-              <RecipeStep RecipeStepTest={RecipeStepTest} />
+              <RecipeStep />
             </div>
             <CardRecipe />
             <CardShopping />

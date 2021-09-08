@@ -16,7 +16,6 @@ import CheckoutPersonalData from './pages/market/CheckoutPersonalData'
 
 // 精選食譜
 import FeatureIndex from './pages/feature/FeatureIndex'
-import FeatureStep from './pages/feature/FeatureStep'
 import FeatureStepWeek from './pages/feature/FeatureStepWeek'
 import FeatureIndexWeek from './pages/feature/FeatureIndexWeek'
 
@@ -56,12 +55,10 @@ function App() {
           <Route exact path="/">
             <Home />
           </Route>
-
           {/* 客製化 */}
           <Route exact path="/box">
             <Box />
           </Route>
-
           {/* 私藏 */}
           <Route exact path="/private">
             <PrivateRecipe />
@@ -72,21 +69,19 @@ function App() {
           <Route exact path="/private/detail/:id">
             <PrivateRecipeIntro />
           </Route>
-
           {/* 精選 */}
-          <Route path="/feature/step/:id?">
-            <FeatureStep />
+          <Route exact path="/feature">
+            <FeatureIndex />
           </Route>
           <Route path="/feature/week">
             <FeatureIndexWeek />
           </Route>
-          <Route path="/feature/stepweek/:id?">
+          <Route path="/feature/stepweek">
             <FeatureStepWeek />
           </Route>
           <Route exact path="/feature/:id?">
             <FeatureIndex />
           </Route>
-
           {/* 購物車 */}
           <Route path="/market/orderscomplete">
             <OrdersComplete />
@@ -109,7 +104,6 @@ function App() {
           <Route path="/market">
             <MarketMainPage />
           </Route>
-
           {/* 搜尋 */}
           <Route path="/search/recipe">
             <SearchRecipe />
@@ -117,7 +111,64 @@ function App() {
           <Route path="/search/market">
             <SearchMarket />
           </Route>
-
+          {/* 會員相關 */}
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/register">
+            <Register />
+          </Route>
+          <Route exact path="/member">
+            <MyRecipe />
+          </Route>
+          <Route path="/member/editinfo">
+            <EditMemberInfo />
+          </Route>
+          <Route path="/member/editpwd">
+            <EditPassword />
+          </Route>
+          <Route path="/member/orderdetail">
+            <OrderDetails />
+          </Route>
+          <Route path="/member/orderlist">
+            <OrderList />
+          </Route>
+          <Route path="/member/savebox">
+            <MemberBox />
+          </Route>
+          <Route path="/member/saverecipe">
+            <MemberFeature />
+          </Route>
+          =======
+          {/* 購物車 */}
+          <Route path="/market/orderscomplete">
+            <OrdersComplete />
+          </Route>
+          <Route path="/market/checkoutconfirm">
+            <CheckoutConfirm />
+          </Route>
+          <Route path="/market/shoppingcart">
+            <Shoppingcart />
+          </Route>
+          <Route path="/market/checkoutpersonaldata">
+            <CheckoutPersonalData />
+          </Route>
+          <Route path="/market/cartdetail">
+            <CartDetail />
+          </Route>
+          <Route path="/market/productdetails/:id?">
+            <ProductDetails />
+          </Route>
+          <Route path="/market">
+            <MarketMainPage />
+          </Route>
+          {/* 搜尋 */}
+          <Route path="/search/recipe">
+            <SearchRecipe />
+          </Route>
+          <Route path="/search/market">
+            <SearchMarket />
+          </Route>
           {/* 會員相關 */}
           <Route path="/login">
             <Login />

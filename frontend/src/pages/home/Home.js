@@ -9,7 +9,7 @@ import '../../component/FontawsomeIcons'
 // import desktop from '../../images/desktop.jpg'
 /* 客製化便當 */
 import homebento_bento from '../../images/homebento_bento.png'
-import homebento_fontbg from '../../images/homebento_fontbg.png'
+import homebento_fontbg from '../../images/homeBento_fontbg.png'
 import homebento_btnbg from '../../images/homebento_btnbg.png'
 import homebento_dialog from '../../images/homebento_dialog.png'
 /* 精選食譜 */

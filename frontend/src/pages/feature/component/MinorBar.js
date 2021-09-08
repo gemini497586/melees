@@ -1,12 +1,12 @@
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import '../../../style/minorBar.css'
 import React from 'react'
 
 function MinorBar() {
   const array = [
     { url: '/feature/', title: '健康長肉肉' },
-    { url: '/feature/FeatureIndex', title: '健康不吃肉' },
-    { url: '/feature/FeatureIndex', title: '家常好手藝' },
+    { url: '/feature/', title: '健康不吃肉' },
+    { url: '/feature/', title: '家常好手藝' },
     { url: '/feature/week', title: '上班不煩惱' },
   ]
   return (

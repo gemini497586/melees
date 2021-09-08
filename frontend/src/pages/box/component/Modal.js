@@ -1,21 +1,24 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import BoxExample from '../../images/box_example.png'
-import '../../style/box.css'
+import BoxExample from '../../../images/box_example.png'
+import BoxUp from '../../../images/box_up.png'
+import BoxDown from '../../../images/box_down.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import '../../component/FontawsomeIcons'
-import Black from './Black'
+import '../../../component/FontawsomeIcons'
+import Black from '../Black'
 
 function Modal(props) {
   const [name, setName] = useState('Ruby')
-  const { modal, closeModal } = props
+  const { modal, closeModal, bento } = props
   return (
     <>
       <Black modal={modal} closeModal={closeModal} />
       <div
         className="b-modal "
         style={{
-          transform: modal ? 'translate(-50%,-50%)' : 'translateX(50%)',
+          transform: modal
+            ? 'translate(-50%,-50%)'
+            : 'translate(-1000px,-1000px)',
           opacity: modal ? '1' : '0',
         }}
       >
@@ -24,8 +27,32 @@ function Modal(props) {
         </button>
         <div className="b-modal-box">
           <div className="col-md-8 b-modal-left">
-            <h4 className="b-modal-name">{name}</h4>
-            <img src={BoxExample} alt="BoxUp" class="b-contain-fit" />
+            <div className="b-modal-name">
+              <div className="font-700L text-center">{name}</div>
+            </div>
+            {/* <img src={BoxExample} alt="BoxUp" class="b-contain-fit" /> */}
+            <div className="b-page2-box">
+              <img src={BoxUp} alt="BoxUp" class="b-contain-fit b-page2-up" />
+              <div className="b-page2-indside">
+                {bento.map((v, i) => {
+                  return (
+                    <>
+                      <img
+                        key={v.id}
+                        className={`b-page2-box-${i}`}
+                        src={`http://localhost:3000/images/${v.inside_image}`}
+                        alt={v.name}
+                      />
+                    </>
+                  )
+                })}
+              </div>
+              <img
+                src={BoxDown}
+                alt="BoxDown"
+                class="b-contain-fit b-page2-down"
+              />
+            </div>
           </div>
 
           <div className="col-md-4 b-modal-right">
@@ -40,6 +67,7 @@ function Modal(props) {
                 value={name}
                 className="col-8 mb-3"
                 placeholder={name}
+                maxlength="6"
                 onChange={(e) => {
                   setName(e.target.value)
                 }}

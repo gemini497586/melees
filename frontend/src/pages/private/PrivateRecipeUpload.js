@@ -3,9 +3,6 @@ import React from 'react'
 function PrivateRecipeUpload(props) {
   return (
     <>
-      <div className="page-group"></div>
-      <div className="page-group"></div>
-      <div className="page-group"></div>
       <div className="page-group">
         <div className="container">
           <div className="row">
