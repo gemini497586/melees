@@ -1,100 +1,103 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import Axios from 'axios'
 import '../../style/box.css'
 import Page1 from './component/Page1'
+import Page2 from './component/Page2'
 import Page3 from './component/Page3'
-import Modal from './Modal'
-import Slider from './Slider'
-import Table from '../../component/Table'
 import CardRecipe from '../../component/CardRecipe'
 import CardShopping from '../../component/CardShopping'
-import BoxUp from '../../images/box_up.png'
-import BoxDown from '../../images/box_down.png'
-import Man from '../../images/box_man.png'
-import dialog from '../../images/dialog_1.png'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import '../../component/FontawsomeIcons'
-import BoxData from '../../data/Box.json'
+import BoxData from '../../data/box.json'
 
 function Box() {
-  const [list, setList] = useState([])
+  const [data, setData] = useState([])
   const [bmr, setBmr] = useState(0)
   const [tdee, setTdee] = useState(0)
   const [total, setTotal] = useState(0)
+  const [bento, setBento] = useState([])
+  // 控制table裡的資料
+  const [unitList, setUnitList] = useState([])
 
   // 從資料庫抓資料
-  // useEffect(() => {
-  //   Axios.get(`http://localhost:3001/box`).then((res) => {
-  //     console.log(res.data)
-  //     setList(res.data)
-  //   })
-  // }, [])
+  useEffect(() => {
+    setData(BoxData)
+    // Axios.get(`http://localhost:3001/box`).then((res) => {
+    //   console.log(res.data)
+    //   setData(res.data)
+    // })
+  }, [])
 
-  // 控制table裡的資料
-  const [unitList, setUnitList] = useState([
-    { name: '雞蛋', unit: '100大卡' },
-    { name: '雞蛋', unit: '100大卡' },
-  ])
-
-  // 圖片按下去，計算總卡路里
-  const handle = (v) => {
+  // 點選圖片
+  const handleCheck = (v) => {
+    // 計算卡路里
     let calories = 0
     calories += v.cal
     let newTotal = total + calories
     setTotal(newTotal)
     // console.log(newTotal)
+
+    // 第六個的時候就不能再新增
+    // if (bento.length >= 5) {
+    //   alert(`最多只可挑選五樣食材`)
+    // }
+
+    // 先確認食材是否已存在便當裡
+    // 存在->不能新增
+    // 不存在->可以新增
+
+    const newBento = [
+      ...bento,
+      { name: v.name, inside_image: v.inside_image, id: v.id },
+    ]
+    setBento(newBento)
+
+    // 加到table
+    const newUnitList = [...unitList, { name: v.name, unit: `${v.cal} 大卡` }]
+    setUnitList(newUnitList)
+
+    // 變成checkbox的話
+    // 如果在陣列->移出 (先拷貝原本陣列，在陣列上處理)
+    // if (bento.includes(v.target.value)) {
+    //   const newBento = bento.filter((value, index) => {
+    //     return value !== v.target.value
+    //   })
+    //   return setBento(newBento)
+    // }
+    // // 如果沒在這陣列中 -> 加入
+    // setBento([...bento, v.target.value])
+
+    // // 加到table
+    // if (unitList.includes(v.target.value)) {
+    //   const newUnitList = unitList.filter((value, index) => {
+    //     return value !== v.target.value
+    //   })
+    // }
+    // setUnitList([
+    //   ...unitList,
+    //   { name: v.target.value, unit: `${v.target.value} 大卡` },
+    // ])
+    // console.log(v.target.value)
   }
 
-  // 彈出視窗
-  const [modal, setModal] = useState(false)
-  const openModal = () => {
-    setModal(true)
+  // 新增至便當盒後，把它刪除
+  const handleDelete = (v) => {
+    // console.log(`再見 ${v.name}`)
+    const name = v.name
+    setBento(bento.filter((v) => v.name !== name))
+    setUnitList(unitList.filter((v) => v.name !== name))
   }
-  const closeModal = () => {
-    setModal(false)
-  }
-
   return (
     <>
       <section className="page-group">
-        {/* 第一段 */}
         <Page1 bmr={bmr} setBmr={setBmr} tdee={tdee} setTdee={setTdee} />
-        {/* 第二段 */}
-        <div className="b-customized b-step">
-          <div className="container position-relative">
-            <h4 className="b-title">2. 客製屬於你的便當</h4>
-            <p className="font-700L b-note">請將食材拖拉至便當盒，最多五樣</p>
-            <div className="b-page2-dialog">
-              <p className="font-700L b-page2-note">
-                請將食材拖拉至便當盒
-                <br />
-                最多五樣
-              </p>
-              <img className="b-contain-fit" src={dialog} alt="dialog" />
-            </div>
-            <div className="col-12">
-              <div className="b-page2-box">
-                <div className="b-page2-box-up">
-                  <img src={BoxUp} alt="BoxUp" class="b-cover-fit" />
-                </div>
-                <img src={BoxDown} alt="BoxDown" class="b-cover-fit" />
-              </div>
-            </div>
-            <Slider
-              list={BoxData}
-              total={total}
-              setTotal={setTotal}
-              handle={handle}
-            />
-            <hr />
-          </div>
-        </div>
-        {/* 第三段 */}
-        <Page3 total={total} tdee={tdee} unitList={unitList} />
+        <Page2
+          data={data}
+          handleCheck={handleCheck}
+          handleDelete={handleDelete}
+          bento={bento}
+        />
+        <Page3 total={total} tdee={tdee} unitList={unitList} bento={bento} />
         {/* 最下面推薦食譜 商品 */}
         <CardRecipe />
-        {/* <br /> */}
         <CardShopping />
       </section>
     </>

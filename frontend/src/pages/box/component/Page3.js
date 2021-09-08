@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import Modal from '../Modal'
-import Table from '../../../component/Table'
+import Modal from './Modal'
+import Table from './Table'
 import Man from '../../../images/box_man.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
 
 function Page3(props) {
-  const { total, tdee, unitList } = props
+  const { total, tdee, unitList, bento } = props
   // 彈出視窗
   const [modal, setModal] = useState(false)
   const openModal = () => {
@@ -24,18 +24,16 @@ function Page3(props) {
         <div className="b-page3">
           {/* 左邊 */}
           <div className="col-12 col-md-6 b-page3-left">
-            <div className="b-page3-text pb-2">
-              <h6 className="pb-2">
-                便當總卡路里: {total > 0 ? total + ' 大卡' : ''}
-              </h6>
-              <h5>你的每日總消耗熱量: {tdee > 0 ? tdee + ' 大卡' : ''} </h5>
+            <div className="b-page3-text font-700M pb-2">
+              <p>便當總卡路里: {total > 0 ? total + ' 大卡' : ''}</p>
+              <p>你的每日總消耗熱量: {tdee > 0 ? tdee + ' 大卡' : ''} </p>
             </div>
-            <div className="b-page3-image b-page3-man">
+            <div className="b-page3-man">
               <img className="b-contain-fit" src={Man} alt="Man" />
             </div>
             <div className="b-page3-btn">
               <button className="b-btn font-700M me-2" onClick={openModal}>
-                <FontAwesomeIcon icon="bookmark" className="me-2" />
+                <FontAwesomeIcon icon={['fas', 'bookmark']} className="me-2" />
                 收藏便當
               </button>
               <Link to="#">
@@ -55,7 +53,7 @@ function Page3(props) {
           </div>
         </div>
       </div>
-      <Modal modal={modal} closeModal={closeModal} />
+      <Modal modal={modal} closeModal={closeModal} bento={bento} />
     </>
   )
 }

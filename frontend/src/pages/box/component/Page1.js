@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Form from './Form'
 import Woman from '../../../images/box_woman.png'
 
@@ -19,12 +19,12 @@ function Page1(props) {
           <div className="col-12 col-md-7 b-page1-right">
             <div>
               {/* {tdee>0? :'' } */}
-              <h4 className="pb-2 b-page1-text">
+              <p className="font-700L">
                 你的基礎代謝率: {bmr > 0 ? bmr : ''}
-              </h4>
-              <h4 className="b-page1-text">
+              </p>
+              <p className="font-700L">
                 你的每日總消耗熱量: {tdee > 0 ? tdee + ' 大卡' : ''}
-              </h4>
+              </p>
               <div className="b-page1-image">
                 <p className="font-700L b-page1-note">
                   請填入資料並按下開始計算

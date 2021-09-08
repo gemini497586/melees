@@ -73,14 +73,14 @@ function App() {
           </Route>
 
           {/* 精選 */}
-          <Route exact path="/feature">
-            <FeatureIndex />
-          </Route>
           <Route path="/feature/week">
             <FeatureIndexWeek />
           </Route>
           <Route path="/feature/stepweek">
             <FeatureStepWeek />
+          </Route>
+          <Route exact path="/feature/:id?">
+            <FeatureIndex />
           </Route>
 
           {/* 購物車 */}
