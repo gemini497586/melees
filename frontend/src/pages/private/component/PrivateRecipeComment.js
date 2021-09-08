@@ -8,7 +8,7 @@ function PrivateRecipeComment(props) {
   const [comment, setComment] = useState([])
 
   useEffect(() => {
-    Axios.get(`http://localhost:3001/api/recipe/comment/${id}`).then((res) => {
+    Axios.get(`http://localhost:3001/api/private/comment/${id}`).then((res) => {
       setComment(res.data)
       console.log(comment)
     })

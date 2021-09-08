@@ -6,7 +6,7 @@ function RecipeStep(props) {
   const { id } = props
   const [stepList, setStepList] = useState([])
   useEffect(() => {
-    Axios.get(`http://localhost:3001/api/recipe/steps/${id}`).then((res) => {
+    Axios.get(`http://localhost:3001/api/private/steps/${id}`).then((res) => {
       setStepList(res.data)
     })
   }, [])

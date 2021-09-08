@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import '../../../style/privateRecipePhotoIntro.css'
 import food from '../../../images/default_food3.jpg'
 import avatar from '../../../images/default_avatar1.jpg'
-// import { useParams } from 'react-router'
 import Axios from 'axios'
 
 
@@ -11,7 +10,7 @@ function PrivateRecipePhotoIntro(props) {
   const [recipe, setRecipe] = useState([])
 
   useEffect(() => {
-    Axios.get(`http://localhost:3001/api/recipe/${id}`).then((res) => {
+    Axios.get(`http://localhost:3001/api/private/${id}`).then((res) => {
       setRecipe(res.data)
     })
   }, [])

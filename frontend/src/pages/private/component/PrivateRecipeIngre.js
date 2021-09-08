@@ -8,7 +8,7 @@ function PrivateRecipeIngre(props) {
   const [ingred, setIngred] = useState([])
 
   useEffect(() => {
-    Axios.get(`http://localhost:3001/api/recipe/ingred/${id}`).then((res) => {
+    Axios.get(`http://localhost:3001/api/private/ingred/${id}`).then((res) => {
       setIngred(res.data)
     })
   }, [])

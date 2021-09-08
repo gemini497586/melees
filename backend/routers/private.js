@@ -2,13 +2,6 @@ const express = require("express")
 const connection = require("../utils/db")
 const router = express.Router();
 
-
-
-
-router.get("/", async (req, res) => {
-    res.send("hi~")
-})
-
 router.get("/star", async function (req, res, next) {
     
     let sql = "SELECT * FROM private_comment";
@@ -34,7 +27,6 @@ router.get("/:id", async function (req, res, next) {
     let sql = "SELECT * FROM private_recipe WHERE id = ?"
     let data = await connection.queryAsync(sql, [req.params.id])
     
-
     // let sql2 = "SELECT * FROM private_like WHERE id = ?"
     // let like = await connection.queryAsync(sql2, [req.params.id])
 

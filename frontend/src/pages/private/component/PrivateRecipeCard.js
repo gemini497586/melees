@@ -6,9 +6,6 @@ import food from '../../../images/default_food2.jpg'
 import avatar from '../../../images/default_avatar1.jpg'
 import Axios from 'axios'
 
-// 食譜內頁
-import PrivateRecipeIntro from '../PrivateRecipeIntro'
-
 
 function PrivateRecipeCard(props) {
   const [itemInfo, setItemInfo] = useState([])
@@ -17,7 +14,7 @@ function PrivateRecipeCard(props) {
   console.log(star)
 
   useEffect(() => {
-    Axios.get('http://localhost:3001/api/recipe').then((res) => {
+    Axios.get('http://localhost:3001/api/private').then((res) => {
       setItemInfo(res.data.result)
       setstarRate(res.data.result2)
     })
