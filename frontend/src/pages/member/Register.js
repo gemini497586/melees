@@ -91,6 +91,7 @@ function Register() {
                 預留錯誤訊息的位置
               </p>
             </div>
+            <h5>註冊</h5>
           </div>
           <div className="member-form-group row">
             <label className="font-700SL col-2" htmlFor="password">
@@ -184,6 +185,22 @@ function Register() {
               <label className="font-700SL" htmlFor="女">
                 小姐
               </label>
+              <div className="col-4">
+                <input type="text" placeholder="" name="memberName" />
+                <p className="font-400S member-form-errorMsg">
+                  預留錯誤訊息的位置
+                </p>
+              </div>
+              <div className="col-4 member-form-group-gender">
+                <input type="radio" name="male" />
+                <label className="font-700SL" htmlFor="male">
+                  先生
+                </label>
+                <input type="radio" name="female" />
+                <label className="font-700SL" htmlFor="female">
+                  小姐
+                </label>
+              </div>
             </div>
           </div>
           <div className="member-form-group row">
@@ -293,8 +310,8 @@ function Register() {
               </p>
             </div>
           </div>
+          <button className="member-form-submitBtn">送出</button>
         </div>
-        <button className="member-form-submitBtn">送出</button>
       </form>
     </>
   )

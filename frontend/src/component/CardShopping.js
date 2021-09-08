@@ -3,10 +3,10 @@ import '../style/cardShopping.css'
 import food from '../images/default_food3.jpg'
 
 const marketList = [
-  { id: 1, name: '紐西蘭小羔羊薄切片' },
-  { id: 2, name: '紐西蘭小羔羊薄切片' },
-  { id: 3, name: '紐西蘭小羔羊薄切片' },
-  { id: 4, name: '紐西蘭小羔羊薄切片紐西蘭小羔羊薄切片' },
+  { id: 1, picture: '1.jpg', name: '紐西蘭小羔羊薄切片' },
+  { id: 2, picture: '1.jpg', name: '紐西蘭小羔羊薄切片' },
+  { id: 3, picture: '1.jpg', name: '紐西蘭小羔羊薄切片' },
+  { id: 4, picture: '1.jpg', name: '紐西蘭小羔羊薄切片' },
 ]
 function CardShopping() {
   return (
