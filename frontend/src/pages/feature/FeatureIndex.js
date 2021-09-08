@@ -5,10 +5,12 @@ import FeatureCards from './component/FeatureCards'
 import DropDown2 from '../../component/DropDown2'
 import Paging from '../../component/Paging'
 import CardShopping from '../../component/CardShopping'
+import MinorBar from './component/MinorBar'
 
 function FeatureIndex() {
   return (
     <>
+      <MinorBar />
       <div className="findex-box">
         {/* dropdown */}
         <div className="findex-dropdowm">

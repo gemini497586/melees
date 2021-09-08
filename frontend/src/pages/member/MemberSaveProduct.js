@@ -4,7 +4,6 @@ import MinorBar from './component/MinorBar'
 import Paging from '../../component/Paging'
 import MemberSaveProdcutCard from './component/MemberSaveProductCard'
 import DropDown from '../../component/DropDown'
-
 const pages = [1]
 
 function MemberSaveProdcut() {

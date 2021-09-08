@@ -27,20 +27,17 @@ const recipeList = [
 ]
 
 function CardRecipe(props) {
-  // console.log(props)
   const id = props.match.params.id
 
   return (
-    <div className="card-recipe">
-      <div className="container">
-        <div className="row">
-          <div class="cardRecipe-others">
-            <div class="d-flex justify-content-between">
-              <h5>查看其他食譜</h5>
-              <div class="cardRecipe-others-more">
-                <i class="fas fa-chevron-right"></i>
-                <span class="font-700M">看更多</span>
-              </div>
+    <div className="container">
+      <div className="row">
+        <div class="cardRecipe-others">
+          <div class="d-flex justify-content-between">
+            <h5>查看其他食譜</h5>
+            <div class="cardRecipe-others-more">
+              <i class="fas fa-chevron-right"></i>
+              <span class="font-700M">看更多</span>
             </div>
             <div class="cardRecipe-others-hr w-100"></div>
             <Link to={'/feature/'}>
@@ -66,6 +63,15 @@ function CardRecipe(props) {
                     <i className="fab fa-instagram-square fa-lg"></i>
                     <span className="font-700S">謝戎宥- LON YO</span>
                   </div>
+                  <span className="cardRecipe-bookmark-num font-400S">
+                    1000
+                  </span>
+                </div>
+                <span className="font-700S cardRecipe-type">健康長肉肉</span>
+                <h6 className="cardRecipe-name">name</h6>
+                <div className="f-flex cardRecipe-ig">
+                  <i className="fab fa-instagram-square fa-lg"></i>
+                  <span className="font-700S">謝戎宥- LON YO</span>
                 </div>
               </div>
             </Link>

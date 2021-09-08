@@ -1,7 +1,7 @@
 import React from 'react'
 import MinorBar from './component/MinorBar'
 
-function CouPon() {
+function Coupon() {
   return (
     <>
       <div className="page-group">
@@ -12,4 +12,4 @@ function CouPon() {
   )
 }
 
-export default CouPon
+export default Coupon
