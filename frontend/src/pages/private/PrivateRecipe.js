@@ -1,24 +1,22 @@
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import PrivateRecipeBanner from './component/PrivateRecipeBanner'
 import DropDown from '../../component/DropDown'
-import CardPrivateRecipe from './component/CardPrivateRecipe'
+import PrivateRecipeCard from './component/PrivateRecipeCard'
 import Paging from '../../component/Paging'
 import CardShopping from '../../component/CardShopping'
+import PrivateRecipeCardMore from './component/PrivateRecipeCardMore'
 
 function PrivateRecipe() {
   return (
     <>
-      <PrivateRecipeBanner />
-      <DropDown />
-      <CardPrivateRecipe />
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-1">
-            <Paging />
-          </div>
-        </div>
-      </div>
+      <div className="page-group">
+        <PrivateRecipeBanner />
+        <DropDown />
+        <PrivateRecipeCard />
 
-      <CardShopping />
+        <PrivateRecipeCardMore />
+        <CardShopping />
+      </div>
     </>
   )
 }
