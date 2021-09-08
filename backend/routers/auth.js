@@ -41,18 +41,37 @@ router.post("/register", dataValidation, async (req, res, next) => {
   console.log(req.body);
 
   // 帳號驗證 --> 1.不為空值  2.是否有重複註冊  3.max: 100;
-  let memberAccount = await connection.queryAsync("SELECT * FROM members WHERE account = ?", [req,body.account])
+  let memberAccount = await connection.queryAsync(
+    "SELECT * FROM members WHERE account = ?",
+    [req, body.account]
+  );
   if (memberAccount.length > 0) {
     return next({
       status: 400,
-      message: '此帳號已有人使用',
-    })
+      message: "此帳號已有人使用",
+    });
   }
 
   // 密碼加密 --> bcrypt.hash(明文, salt);
   let hashPassword = await bcrypt.hash(req.body.password, 10);
-
-  
+  let result = await connection.queryAsync(
+    "INSERT INTO member (account, password, name, nickname, gender, birthday, cellphone, email, picture, address) VALUES (?);",
+    [
+      [
+        req.body.account,
+        hashPassword,
+        req.body.name,
+        req.body.nickname,
+        req.body.gender,
+        req.body.birthday,
+        req.body.cellphone,
+        req.body.email,
+        req.body.picture,
+        // filename,
+        req.body.address,
+      ],
+    ]
+  );
 });
 
 // 登入
