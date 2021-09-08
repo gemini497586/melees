@@ -123,9 +123,18 @@
   right: 0;
 }
 
+.member-form-editPasswordBtn .icon-pen {
+  /* width: 16px; */
+  /* height: 16px; */
+  line-height: 26px;
+  vertical-align: middle; 
+  padding: 1px 8px 2px 0;
+}
+
 /* 註冊頁面的客製版 */
 .member-form-forRegister {
-  margin-top: 72px;
+  /* margin-top: 72px; */
+  margin-top: 176px;
 }
 
 /* 會員資料修改頁面的客製版 */
@@ -138,6 +147,7 @@
 .memberSaveProduct-container {
   max-width: 1320px;
   margin: 0 auto;
+  text-align: center;
 }
 
 /* .memberSaveProduct-filter{
@@ -147,4 +157,5 @@
 .memberSaveProduct-filter .melees-dropdown{
   z-index: 1;
   margin-left: auto;
+  text-align: left;
 }

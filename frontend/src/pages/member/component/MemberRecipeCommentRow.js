@@ -1,14 +1,34 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../../../style/global.css'
 import '../../../style/member.css'
 import '../../../style/memberRecipeComment.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
 import recipePic from '../../../images/member-recipe-comment-ellipse-342.png'
+import EditModal from './EditModal'
+import DeleteModal from './DeleteModal'
 
 function MemberRecipeCommentRow() {
+  const [showEditModal, setShowEditModal] = useState(false)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const openEditModal = () => {
+    setShowEditModal((prev) => !prev)
+  }
+  const openDeleteModal = () => {
+    setShowDeleteModal((prev) => !prev)
+  }
   return (
     <>
+      <EditModal
+        showEditModal={showEditModal}
+        setShowModal={setShowEditModal}
+        openEditModal={openEditModal}
+      />
+      <DeleteModal
+        showDeleteModal={showDeleteModal}
+        setDeleteModal={setShowDeleteModal}
+        openDeleteModal={openDeleteModal}
+      />
       <div className="row align-items-center">
         <figure className="col-6 col-md-2 memberRecipeComment-figure">
           <img src={recipePic} alt="麻油蝦" />
@@ -35,8 +55,12 @@ function MemberRecipeCommentRow() {
           perspiciatis aut, architecto possimus laboriosam magnam ullam fuga
         </p>
         <div className="col-4 col-md-2 memberRecipeComment-iconGroup">
-          <FontAwesomeIcon icon="pen" size="1x" className="icon-item" />
-          <FontAwesomeIcon icon="trash-alt" size="1x" className="icon-item" />
+          <button onClick={openEditModal}>
+            <FontAwesomeIcon icon="pen" size="1x" className="icon-item" />
+          </button>
+          <button onClick={openDeleteModal}>
+            <FontAwesomeIcon icon="trash-alt" size="1x" className="icon-item" />
+          </button>
         </div>
       </div>
     </>
