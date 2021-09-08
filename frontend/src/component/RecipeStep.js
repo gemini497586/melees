@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import '../style/recipeStep.css'
+import Axios from 'axios'
 
 function RecipeStep(props) {
-  const { RecipeStepTest } = props
+  const { id } = props
   const [stepList, setStepList] = useState([])
   useEffect(() => {
-    setStepList(RecipeStepTest)
-    console.log(stepList)
+    Axios.get(`http://localhost:3001/api/recipe/steps/${id}`).then((res) => {
+      setStepList(res.data)
+    })
   }, [])
   return (
     <>
@@ -21,7 +23,7 @@ function RecipeStep(props) {
                       {index + 1}.
                     </span>
                     <span className="font-400L recipeStep-content">
-                      {value.step}
+                      {value.steps}
                     </span>
                   </div>
                   <hr className="recipeStep-divider w-100" />
