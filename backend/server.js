@@ -28,7 +28,7 @@ app.use(
 const expressSession = require("express-session");
 app.use(
   expressSession({
-    // 設定session加密密碼
+    // 設定session加密密碼 --> 記得新增.env的設定(參考.example的SESSION_SECRET)
     secret: process.env.SESSION_SECRET,
     resave: false,
   })

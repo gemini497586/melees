@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
 import '../../style/global.css'
 import '../../style/member.css'
 import avatar from '../../images/Avatar.png'
@@ -31,7 +32,7 @@ function EditMemberInfo() {
     <>
       <div className="page-group">
         <MinorBar />
-        <div>{errorMsg}</div>
+        <div>後端訊息：{errorMsg}</div>
         <form className="member-form member-form-forEditMemberInfo">
           <div className="member-form-title">
             <div className="member-form-title-icon">
@@ -44,10 +45,10 @@ function EditMemberInfo() {
             <h5>會員資料修改</h5>
           </div>
           <div className="member-form-group-content">
-            <button className="member-form-editPasswordBtn">
+            <Link to="/member/editpwd" className="member-form-editPasswordBtn">
               <FontAwesomeIcon icon="pen" size="lg" className="icon-pen" />
               密碼修改
-            </button>
+            </Link>
             <div className="member-form-group-picture">
               <figure>
                 <img src={avatar} alt="Avatar" />
