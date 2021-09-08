@@ -1,0 +1,39 @@
+.fw-list {
+  display: flex;
+  align-items: flex-start;
+  margin: 20px 0px 20px 0px;
+}
+/*img*/
+.fw-img {
+  max-width: 160px;
+  height: 150px;
+}
+/*日期選擇*/
+.fw-date {
+  width: 1200px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.fw-cards {
+  max-width: 210px;
+  display: flex;
+  flex-direction: column;
+}
+.fw-btn {
+  width: 100%;
+  cursor: pointer;
+  display: block;
+  border: 1px solid var(--color-primary);
+  border-radius: 8px;
+  padding: 8.5px 62.5px 8.5px 62.5px;
+  color: var(--color-primary);
+  text-decoration: none;
+  text-align: center;
+}
+.fw-cards p {
+  height: 100px;
+}
+.fw-cards a:hover {
+  color: var(--color-primary);
+}

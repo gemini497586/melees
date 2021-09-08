@@ -1,22 +1,79 @@
 import React, { useState } from 'react'
 import '../../style/searchRecipe.css'
-import CardRecipe from './component/CardRecipe.js'
-import CardPrivate from './component/CardPrivate.js'
+import SearchCardFeature from './component/SearchCardFeature.js'
+import SearchCardPrivate from './component/SearchCardPrivate.js'
 import CheckBox from './component/CheckBox'
+import DropDown2 from '../../component/DropDown2'
 
 function SearchRecipe() {
   const [checked, setChecked] = useState('')
-
   const checkList = ['全部', '精選食譜', '私藏食譜']
-
-  // const orderByList = [
-  //   '時間由新至舊',
-  //   '時間由舊至新',
-  //   '按讚數由多至少',
-  //   '按讚數由少至多',
-  //   '瀏覽數由多至少',
-  //   '瀏覽數由少至多',
-  // ]
+  const itemList = [
+    {
+      name: '時間由新至舊',
+      value: '1',
+    },
+    {
+      name: '時間由舊至新',
+      value: '2',
+    },
+    {
+      name: '按讚數由多至少',
+      value: '3',
+    },
+    {
+      name: '按讚數由少至多',
+      value: '4',
+    },
+    {
+      name: '瀏覽數由多至少',
+      value: '5',
+    },
+    {
+      name: '瀏覽數由少至多',
+      value: '6',
+    },
+  ]
+  const featureList = [
+    {
+      classify: '精選食譜',
+      image: '',
+      type: '健康長肉肉',
+      name: '三杯雞',
+      auth: '便當調色盤 | Della & Joey',
+      like: 123,
+      view: 222,
+    },
+    {
+      classify: '精選食譜',
+      image: '',
+      type: '健康長肉肉',
+      name: '三杯雞',
+      auth: '便當調色盤 | Della & Joey',
+      like: 123,
+      view: 222,
+    },
+  ]
+  const privateList = [
+    {
+      classify: '私藏食譜',
+      image: '',
+      date: '2021/09/03',
+      name: '無水番茄牛肋無水番茄牛肋無水番茄牛肋',
+      auth: '小深藍',
+      like: 123,
+      view: 222,
+    },
+    {
+      classify: '私藏食譜',
+      image: '',
+      date: '2021/09/93',
+      name: '無水番茄牛肋',
+      auth: '小深藍小深藍',
+      like: 20000,
+      view: 2000000,
+    },
+  ]
   return (
     <>
       <section>
@@ -41,25 +98,12 @@ function SearchRecipe() {
                   )
                 })}
               </div>
-
-              <div className="col-3">
-                <select className="form-select font-400SL" value="">
-                  <option value="1">時間由新至舊</option>
-                  <option value="2">時間由舊至新</option>
-                  <option value="3">按讚數由多至少</option>
-                  <option value="4">按讚數由少至多</option>
-                  <option value="5">瀏覽數由多至少</option>
-                  <option value="6">瀏覽數由少至多</option>
-                </select>
-              </div>
+              <DropDown2 itemList={itemList} />
             </div>
           </div>
           <div className="s-recipe-bottom">
-            <CardRecipe />
-            <CardPrivate />
-            <CardRecipe />
-            <CardRecipe />
-            <CardRecipe />
+            <SearchCardFeature featureList={featureList} />
+            <SearchCardPrivate privateList={privateList} />
           </div>
         </div>
       </section>

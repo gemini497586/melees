@@ -10,8 +10,8 @@ import Footer from '../../component/Footer'
 function EditMemberInfo() {
   return (
     <>
-      <Header />
-      <MinorBar />
+      {/* <Header />
+      <MinorBar /> */}
       <form className="member-form member-form-forEditMemberInfo">
         <div className="member-form-title">
           <div className="member-form-title-icon">
@@ -128,7 +128,7 @@ function EditMemberInfo() {
         </div>
         <button className="member-form-submitBtn">送出</button>
       </form>
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }

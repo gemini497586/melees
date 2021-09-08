@@ -1,9 +1,32 @@
+.card-recipe {
+  margin-top: 70px;
+}
+
+.cardRecipe-others {
+  color: var(--color-grey-900);
+}
+.cardRecipe-others-hr {
+  display: block;
+  height: 1px;
+  background: var(--color-grey-900);
+  margin-bottom: 20px;
+}
+.cardRecipe-others h5 {
+  font-weight: 700;
+}
+.cardRecipe-others-more {
+  margin-right: 60px;
+}
+.cardRecipe-others-more i {
+  margin-right: 18px;
+}
 .cardRecipe {
   position: relative;
   width: 306px;
   height: 379px;
   border-radius: 8px;
   margin: auto;
+  margin-bottom: 60px;
 }
 .cardRecipe-img {
   width: 306px;
@@ -75,4 +98,12 @@
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+@media only screen and (min-width: 321px) and (max-width: 768px) {
+  .cardRecipe-others {
+    padding: 0 35px;
+  }
+  .cardRecipe-others-more {
+    margin-right: 0px;
+  }
 }

@@ -1,0 +1,59 @@
+.hb-100vh {
+  /* min-height: calc(100vh - 104px); */
+  width: 100%;
+  min-height: 100vh;
+  /* overflow: hidden; */
+  position: fixed;
+  top: 0px;
+}
+.hb-flowerbg {
+  background-image: url('../images/homeBento_flowerbg.png');
+  background-size: cover;
+}
+.hb-titlegroup {
+  display: flex;
+  height: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  margin: 0 auto;
+}
+.hb-titlefont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hb-titlefont img {
+  max-width: 600px;
+}
+
+.hb-fontbg {
+  position: absolute;
+}
+/*客製化便當文字*/
+.hb-fonttitle {
+  font-size: 80px;
+  line-height: 62px;
+  letter-spacing: 9.5px;
+  font-weight: 700;
+  color: var(--color-secondary);
+}
+/*便當圖片*/
+.hb-bento {
+  display: block;
+  max-width: 800px;
+  z-index: 1;
+}
+/*下面箭頭*/
+.hb-arrowdown {
+  font-size: 35px;
+  text-align: center;
+  position: absolute;
+  margin-right: auto;
+  margin-left: auto;
+  left: 0;
+  right: 0;
+  bottom: 30px;
+  z-index: 2;
+}

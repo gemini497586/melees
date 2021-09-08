@@ -1,14 +1,16 @@
 import React from 'react'
 import '../../style/cartDetail.css'
-import CartDetailRow from './component/CartDetailRow'
+import CartDetailRowBtn from './component/CartDetailRowBtn'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
+import OrderProgressBar from './component/OrderProgressBar'
 
 const cartArray = [1, 2, 3]
 
 function CartDetail() {
   return (
     <div className="container">
+      <OrderProgressBar />
       <div className="cart-detail">
         <div className="d-flex cart-detail-title">
           <p className="font-400L cart-detail-title-info">商品介紹</p>
@@ -17,7 +19,7 @@ function CartDetail() {
           <p className="font-400L cart-detail-title-total">總價</p>
         </div>
         {cartArray.map((v, i) => {
-          return <CartDetailRow />
+          return <CartDetailRowBtn />
         })}
         <div className="cart-detail-checkout-area">
           <button className="btn font-700M cart-detail-continue-btn">

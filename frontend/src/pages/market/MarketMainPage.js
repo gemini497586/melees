@@ -1,49 +1,34 @@
 import React from 'react'
 import '../../style/marketMainPage.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import '../../component/FontawsomeIcons'
-import productImg from '../../images/005.jpg'
+import ProductCard from './ProductCard'
 
-function MarketMainPage() {
+import SortingBar from './SortingBar'
+import Paging from '../../component/Paging'
+import MinorBar from './component/MinorBar'
+import CardRecipe from '../../component/CardRecipe'
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+
+// import productData from '../../data/Products.json'
+const pageArray = [1, 2, 3]
+
+function MarketMainPage(props) {
+  // console.log(props)
   return (
-    <div className="market-main-page">
-      <div className="row">
-        <div className="col-12 ">
-          <div className="product-card col-md-6">
-            <div className="product-img">
-              <img src={productImg} alt="好想吃威靈頓牛排" />
-              <FontAwesomeIcon icon="bookmark" className="bookmark" />
-            </div>
-            <p className="font-700S product-category">食材</p>
-            <h6 className="product-name">美國Choice嫩肩里肌牛排</h6>
-            <p className="product-price">
-              <FontAwesomeIcon icon="dollar-sign" />
-              135
-            </p>
-            <button className="btn font-700M product-add-to-cart-btn">
-              <FontAwesomeIcon icon="cart-plus" className="cart-plus" />
-              加入購物車
-            </button>
+    <>
+      <div className="page-group">
+        <MinorBar />
+        <div className="container">
+          <SortingBar />
+          <div className="market-main-page">
+            <ProductCard />
           </div>
-          {/* <div className="product-card">
-            <div className="product-img">
-              <img src={productImg} alt="好想吃威靈頓牛排" />
-              <FontAwesomeIcon icon="bookmark" className="bookmark" />
-            </div>
-            <p className="font-700S product-category">食材</p>
-            <h6 className="product-name">美國Choice嫩肩里肌牛排</h6>
-            <p className="product-price">
-              <FontAwesomeIcon icon="dollar-sign" />
-              135
-            </p>
-            <button className="btn font-700M product-add-to-cart-btn">
-              <FontAwesomeIcon icon="cart-plus" className="cart-plus" />
-              加入購物車
-            </button>
-          </div> */}
+          {pageArray.map((v, i) => {
+            return <Paging value={v} />
+          })}
+          <CardRecipe />
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
