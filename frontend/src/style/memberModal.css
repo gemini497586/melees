@@ -1,0 +1,132 @@
+.modal-edit-recipeComment-wrapper {
+  width: 870px;
+  padding: 40px;
+  border-radius: 4px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--color-white);
+  z-index: 200;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-edit-recipeComment-comment {
+  width: 420px;
+  position: relative;
+}
+
+.modal-edit-recipeComment-title {
+  width: 90px;
+  height: 50px;
+  position: relative;
+  color: var(--color-grey-900);
+}
+
+.modal-edit-recipeComment-title h3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.modal-edit-recipeComment-title-shadow {
+  position: absolute;
+  width: 66px;
+  height: 30px;
+  top: 20px;
+  left: 19px;
+  background: var(--color-orange-lee);
+}
+
+.modal-edit-recipeComment-comment figure {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  display: flex;
+  align-items: center;
+  margin: 36px 0 18px;
+}
+
+.modal-edit-recipeComment-comment figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin-right: 15px;
+}
+
+.modal-edit-recipeComment-text {
+  width: 414px;
+  height: 170px;
+  margin-top: 13px;
+}
+
+.modal-edit-recipeComment-starScore .icon-star {
+  color: var(--color-primary-A);
+}
+.modal-edit-recipeComment-starScore span {
+  margin-left: 10px;
+}
+
+.modal-edit-recipeComment-editBtn {
+  width: 414px;
+  height: 43px;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  border-radius: 4px;
+  padding: 0;
+  margin-top: 14px;
+}
+
+.modal-edit-recipeComment-editBtn::after {
+  content: '';
+  width: 414px;
+  border: 1px solid var(--color-grey-500);
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+}
+
+.modal-edit-recipeComment-wrapper-forDelete {
+  width: 870px;
+  padding: 40px;
+  border-radius: 4px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--color-white);
+  z-index: 200;
+  text-align: center;
+}
+
+.modal-edit-recipeComment-wrapper-forDelete .icon-danger {
+  width: 157px;
+  height: 157px;
+  margin: 86px auto 51px;
+}
+
+.modal-edit-recipeComment-wrapper-forDelete p {
+  margin: 19px auto 50px;
+}
+
+.modal-edit-recipeComment-wrapper-forDelete button {
+  width: 205px;
+  height: 43px;
+  border: none;
+  border-radius: 4px;
+  /* 不能寫 color 否則會覆蓋掉右上角的Ｘ icon的顏色 */
+}
+
+.modal-edit-recipeComment-wrapper-forDelete .btn-cancel {
+  background-color: var(--color-grey-500);
+  color: var(--color-white);
+}
+
+.modal-edit-recipeComment-wrapper-forDelete .btn-delete {
+  background-color: var(--color-red-C);
+  color: var(--color-white);
+  margin-left: 44px;
+}
