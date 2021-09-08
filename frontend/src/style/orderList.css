@@ -118,6 +118,17 @@
   color: var(--color-primary);
 }
 
+.orderList-table tbody td a:hover {
+  text-decoration: underline;
+  color: var(--color-primary-A);
+}
+
+.orderList-table tbody td a:hover .icon-info {
+  color: var(--color-primary-A);
+}
+
+
+
 /* 訂單明細的客製版 */
 .member-form-forOrderDetail {
   margin-top: 30px;
