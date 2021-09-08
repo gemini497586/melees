@@ -9,6 +9,7 @@ import axios from 'axios'
 
 function ProductCard() {
   const [product, setProduct] = useState([])
+  const [cart, setCart] = useState([])
 
   useEffect(() => {
     // console.log(API_URL)
@@ -20,10 +21,16 @@ function ProductCard() {
   // 查表法 --> O(1)
   let category = { 1: '食材', 2: '鍋具', 3: '調味料' }
 
+  // 新增至購物車(onClick)
+  const handleCart = (e) => {
+    setCart([...cart, e.target.id])
+    console.log(cart)
+  }
+
   const handleProductCard = product.map((e) => {
     return (
       <div className="product-card col-6" key={e.id}>
-        <Link to={`/market/product/${e.id}`}>
+        <Link to={{ pathname: `/market/product/${e.id}`, state: { product } }}>
           <div className="product-img">
             <img src={productImg} alt="好想吃威靈頓牛排" />
             <FontAwesomeIcon icon="bookmark" className="bookmark" />
@@ -35,10 +42,17 @@ function ProductCard() {
             {e.price}
           </p>
         </Link>
-        <button className="btn font-700M product-add-to-cart-btn">
+        <button
+          className="btn font-700M product-add-to-cart-btn"
+          id={e.id}
+          onClick={(e) => {
+            handleCart(e)
+          }}
+        >
           <FontAwesomeIcon icon="cart-plus" className="cart-plus" />
           加入購物車
         </button>
+        {cart}
       </div>
     )
   })

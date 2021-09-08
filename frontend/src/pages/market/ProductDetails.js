@@ -15,41 +15,36 @@ function ProductDetails(props) {
 
   useEffect(() => {
     axios.get(`${API_URL}/market`).then((response) => {
-      setProduct(response.data)
+      setProduct(response.data[id])
     })
   }, [])
 
   const handleProductDetail = () => {
-    console.log(product)
+    // console.log(product)
     return (
       <div className="product-detail">
         <img src={img} alt="商品" />
-        <p className="product-detail-category">{product[id - 1].category}</p>
-        <h2 className="product-detail-name">{product[id - 1].name}</h2>
+        <p className="product-detail-category">{product.category}</p>
+        <h2 className="product-detail-name">{product.name}</h2>
         <h2 className="product-detail-price">
           <FontAwesomeIcon icon="dollar-sign" />
-          {product[id - 1].price}
+          {product.price}
         </h2>
         <button className="font-700M product-detail-add-to-cart-btn btn">
           <FontAwesomeIcon icon="cart-plus" className="cart-plus" />
           加入購物車
         </button>
         <div className="w507"></div>
-        <p className="font-400L product-detail-specs">
-          {product[id - 1].specs}
-        </p>
+        <p className="font-400L product-detail-specs">{product.specs}</p>
         <div className="info-shadow"></div>
         <h3 className="product-detail-info">商品介紹</h3>
-        <p className="font-400L product-detail-information">
-          {product[id - 1].info}
-        </p>
+        <p className="font-400L product-detail-information">{product.info}</p>
       </div>
     )
   }
-
   return (
     <div className="page-group">
-      <div className="container">{handleProductDetail(product)}</div>
+      <div className="container">{handleProductDetail}</div>
     </div>
   )
 }
