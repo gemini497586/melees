@@ -1,5 +1,6 @@
 // 必要的
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import './style/global.css'
 
 import Header from './component/Header'
@@ -27,32 +28,32 @@ import Box from './pages/box/Box'
 // 私藏食譜
 import PrivateRecipe from './pages/private/PrivateRecipe'
 import PrivateRecipeIntro from './pages/private/PrivateRecipeIntro'
-import PrivateRecipeUpload from './pages/private/PrivateRecipeUpload'
+
+// import PrivateRecipeUpload from './pages/private/PrivateRecipeUpload'
 
 // 搜尋
 import SearchRecipe from './pages/search/SearchRecipe'
 import SearchMarket from './pages/search/SearchMarket'
 
 // 會員相關
-// import Login from './pages/member/Login'
-// import Register from './pages/member/Register'
-// import EditMemberInfo from './pages/member/EditMemberInfo'
-// import EditPassword from './pages/member/EditPassword'
-// import OrderDetails from './pages/member/OrderDetails'
-// import OrderList from './pages/member/OrderList'
-// import MemberBox from './pages/member/MemberBox'
-// import MemberFeature from './pages/member/MemberFeature'
-// import MemberSaveProduct from './pages/member/MemberSaveProduct'
-// import MemberRecipeComment from './pages/member/MemberRecipeComment'
-// import Coupon from './pages/member/Coupon'
-// import MyRecipe from './pages/member/MyRecipe'
+import Login from './pages/member/Login'
+import Register from './pages/member/Register'
+import EditMemberInfo from './pages/member/EditMemberInfo'
+import EditPassword from './pages/member/EditPassword'
+import OrderDetails from './pages/member/OrderDetails'
+import OrderList from './pages/member/OrderList'
+import MemberBox from './pages/member/MemberBox'
+import MemberFeature from './pages/member/MemberFeature'
+import MemberSaveProduct from './pages/member/MemberSaveProduct'
+import MemberRecipeComment from './pages/member/MemberRecipeComment'
+import Coupon from './pages/member/Coupon'
+import MyRecipe from './pages/member/MyRecipe'
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Header />
-
         <Switch>
           {/* 首頁 */}
           <Route exact path="/">
@@ -68,6 +69,7 @@ function App() {
           <Route exact path="/private">
             <PrivateRecipe />
           </Route>
+
           <Route exact path="/private/upload">
             <PrivateRecipeUpload />
           </Route>
@@ -135,6 +137,7 @@ function App() {
           </Route>
           <Route path="/member/editpwd">
             <EditPassword />
+
           </Route>
           <Route path="/member/orderdetail">
             <OrderDetails />

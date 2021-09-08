@@ -39,22 +39,23 @@ function MemberBox() {
   ]
   return (
     <>
-      <MinorBar />
-
-      <section>
-        <div className="container">
-          <div className="member-box-top d-flex justify-content-end">
-            <DropDown2 itemList={itemList} />
-          </div>
-          <div className="member-box-bottom">
-            <div className="row">
-              <SaveBox saveBoxList={saveBoxList} />
-              <SaveBox saveBoxList={saveBoxList} />
-              <SaveBox saveBoxList={saveBoxList} />
+      <div className="page-group">
+        <MinorBar />
+        <section>
+          <div className="container">
+            <div className="member-box-top d-flex justify-content-end">
+              <DropDown2 itemList={itemList} />
+            </div>
+            <div className="member-box-bottom">
+              <div className="row">
+                <SaveBox saveBoxList={saveBoxList} />
+                <SaveBox saveBoxList={saveBoxList} />
+                <SaveBox saveBoxList={saveBoxList} />
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </>
   )
 }

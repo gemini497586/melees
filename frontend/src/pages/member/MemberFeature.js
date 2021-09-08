@@ -78,34 +78,36 @@ function MemberFeature() {
   ]
   return (
     <>
-      <MinorBar />
-      <section>
-        <div className="container mt-2">
-          <div className="d-flex justify-content-between align-items-center">
-            <div className="col-4 d-flex">
-              {checkList.map((v, i) => {
-                return (
-                  <CheckBox
-                    key={i}
-                    name={'all'}
-                    value={v}
-                    checked={checked}
-                    setChecked={setChecked}
-                  />
-                )
-              })}
+      <div className="page-group">
+        <MinorBar />
+        <section>
+          <div className="container mt-2">
+            <div className="d-flex justify-content-between align-items-center">
+              <div className="col-4 d-flex">
+                {checkList.map((v, i) => {
+                  return (
+                    <CheckBox
+                      key={i}
+                      name={'all'}
+                      value={v}
+                      checked={checked}
+                      setChecked={setChecked}
+                    />
+                  )
+                })}
+              </div>
+              <DropDown2 itemList={itemList} />
             </div>
-            <DropDown2 itemList={itemList} />
-          </div>
 
-          <div className="member-box-bottom">
-            <div className="row">
-              <SearchCardFeature featureList={featureList} />
-              <SearchCardPrivate privateList={privateList} />
+            <div className="member-box-bottom">
+              <div className="row">
+                <SearchCardFeature featureList={featureList} />
+                <SearchCardPrivate privateList={privateList} />
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </>
   )
 }

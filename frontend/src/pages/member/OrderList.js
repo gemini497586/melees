@@ -1,14 +1,10 @@
 import React from 'react'
 import '../../style/global.css'
-// import '../../style/member.css'
 import '../../style/orderList.css'
-import Header from '../../component/Header'
 import MinorBar from './component/MinorBar'
-import Footer from '../../component/Footer'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import './FontawsomeIcons'
+import OrderListRow from './component/OrderListRow'
 
-function OrderList() {
+function OrderQuery() {
   return (
     <>
       <div className="page-group">
@@ -50,6 +46,7 @@ function OrderList() {
               </tr>
             </thead>
             <tbody>
+<<<<<<< HEAD
               <tr>
                 <td>2021-08-20</td>
                 <td>
@@ -185,6 +182,16 @@ function OrderList() {
                   <FontAwesomeIcon icon="info-circle" className="icon-info" />
                 </td>
               </tr>
+=======
+              <OrderListRow />
+              <OrderListRow />
+              <OrderListRow />
+              <OrderListRow />
+              <OrderListRow />
+              <OrderListRow />
+              <OrderListRow />
+              <OrderListRow />
+>>>>>>> develop
             </tbody>
           </table>
         </div>
@@ -193,4 +200,4 @@ function OrderList() {
   )
 }
 
-export default OrderList
+export default OrderQuery
