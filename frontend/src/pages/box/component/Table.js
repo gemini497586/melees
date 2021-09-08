@@ -1,8 +1,11 @@
-import React from 'react'
-import '../style/table.css'
+import React, { useEffect } from 'react'
+import '../../../style/table.css'
 
 function Table(props) {
   const { unitList, setUnitList } = props
+//   useEffect(() => {
+//     setUnitList(unitList)
+//   }, [])
   return (
     <>
       <table className="table-food">

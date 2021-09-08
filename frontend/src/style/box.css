@@ -22,6 +22,11 @@
   padding-bottom: 30px;
   margin: 0;
 }
+.b-note {
+  color: var(--color-grey-800);
+  margin-top: -20px;
+  display: none;
+}
 /* 按鈕們 */
 .b-btn {
   background: var(--color-primary);
@@ -47,12 +52,21 @@
   background: var(--color-blue-B);
 }
 @media screen and (max-width: 414px) {
-  .b-title,
-  .b-page1-cal {
-    display: block;
+  .b-step {
+    margin: 0 auto;
+  }
+  .b-title {
     font-size: 24px;
     line-height: 26.4px;
     font-weight: 700;
+    padding-left: 30px;
+  }
+  .b-note {
+    display: block;
+    font-size: 18px;
+    line-height: 25.2px;
+    letter-spacing: 3px;
+    padding-left: 30px;
   }
 }
 /* 第一段 */
@@ -61,11 +75,6 @@
   justify-content: space-between;
   align-items: flex-end;
   padding-bottom: 30px;
-}
-.b-note {
-  color: var(--color-grey-800);
-  margin-top: -20px;
-  display: none;
 }
 .b-page1-calc {
   padding: 0 40px;
@@ -89,7 +98,6 @@
 }
 .b-page1-text {
   color: var(--color-grey-900);
-  position: relative;
 }
 .b-page1-image {
   position: absolute;
@@ -104,17 +112,12 @@
   left: 40px;
 }
 @media screen and (max-width: 414px) {
-  .b-page1 {
+  .b-page1,
+  .b-page1-text {
     display: block;
   }
   .b-page1-image {
     display: none;
-  }
-  .b-note {
-    display: block;
-    font-size: 18px;
-    line-height: 25.2px;
-    letter-spacing: 3px;
   }
   .b-page1-right {
     margin-top: 30px;
@@ -122,10 +125,7 @@
 }
 
 /* 第二段 */
-/* .customized {
-  height: calc(100vh - 104px);
-} */
-.b-page2-image {
+.b-page2-dialog {
   position: absolute;
   top: 0;
   right: 50px;
@@ -138,40 +138,102 @@
   top: 45px;
   left: 45px;
 }
-.b-page2-box {
-  position: relative;
-  margin: 0 auto;
-  width: 40%;
+.b-page2-left {
+  width: 30%;
+  height: 100%;
 }
-.b-page2-box-up {
-  position: absolute;
+.b-page2-select {
+  border: 1px solid var(--color-grey-800);
+  color: var(--color-grey-900);
+  width: 50%;
+  height: 80%;
+  padding: 10px;
+  border-radius: 8px;
 }
-.b-page2-menu {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 20px;
-}
-.b-page2-menu > .chevron {
-  display: block;
-  font-size: 40px;
+.b-page2-select .times {
+  margin-left: 10px;
   cursor: pointer;
-  margin: 0 20px;
+}
+.b-page2-select .times:hover {
   color: var(--color-grey-800);
 }
-.b-page2-menu > .chevron:hover {
+.b-page2-image {
+  position: relative;
+  /* margin: 0 auto; */
+  width: 35%;
+  margin-bottom: 30px;
+}
+.b-page2-box {
+  position: relative;
+  height: 380px;
+}
+.b-page2-up {
+  position: absolute;
+  z-index: 2;
+}
+.b-page2-down {
+  position: absolute;
+  z-index: -1;
+}
+.b-page2-indside {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.b-page2-indside img {
+  width: 30%;
+}
+.b-page2-box-0 {
+  position: absolute;
+  left: 20%;
+}
+.b-page2-box-1 {
+  position: absolute;
+  left: 40%;
+  top: 5%;
+}
+.b-page2-box-2 {
+  position: absolute;
+  left: 65%;
+  top: 10%;
+}
+.b-page2-box-3 {
+  position: absolute;
+  left: 20%;
+  top: 15%;
+}
+.b-page2-box-4 {
+  position: absolute;
+  left: 45%;
+  top: 25%;
+}
+/* slider */
+.b-page2-slider {
+  margin-bottom: 30px;
+}
+.b-page2-chevron {
+  font-size: 30px;
+  cursor: pointer;
   color: var(--color-grey-900);
 }
-.b-page2-food {
-  width: 200px;
-  height: 150px;
+.b-page2-chevron:hover {
+  color: var(--color-grey-800);
 }
-.b-page2-foodtext {
+.b-page2-slider-image {
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+}
+.b-page2-slider-text {
   text-align: center;
 }
 
 @media screen and (max-width: 414px) {
+  .b-page2-left,
   .b-page2-image {
+    width: 100%;
+  }
+  .b-page2-dialog {
     display: none;
   }
   .b-page2-menu {
@@ -192,13 +254,13 @@
   justify-content: center;
   position: relative;
 }
-.b-page3-image {
+.b-page3-man {
   height: 300px;
 }
 .b-page3-text {
   color: var(--color-grey-900);
   position: absolute;
-  left: 240px;
+  left: 255px;
   top: 28px;
 }
 .b-page3-btn {
@@ -224,7 +286,7 @@
     position: relative;
     left: 0;
     top: 0;
-    text-align: center;
+    padding-left: 30px;
   }
   .b-page3-btn {
     justify-content: center;
@@ -234,7 +296,6 @@
 /* Modal */
 
 .b-modal {
-  /* position: relative; */
   position: fixed;
   top: 50%;
   left: 50%;
@@ -243,7 +304,7 @@
   width: 50%;
   background: var(--color-white);
   padding: 30px;
-  transition: all 0.3s ease-out;
+  transition: all 0.3s;
 }
 .b-modal-box {
   display: flex;
@@ -255,10 +316,12 @@
 }
 .b-modal-name {
   position: absolute;
-  top: 50%;
-  left: 30%;
+  top: 49%;
+  left: 24%;
   transform: rotate(24deg);
   color: var(--color-secondary);
+  width: 150px;
+  z-index: 3;
 }
 .b-modal-close {
   color: var(--color-grey-800);
@@ -285,8 +348,8 @@
     text-align: center;
   }
   .b-modal-name {
-    top: 50%;
-    left: 26%;
+    top: 48%;
+    left: 16%;
     font-size: 20px;
     line-height: 28px;
     letter-spacing: 3px;
