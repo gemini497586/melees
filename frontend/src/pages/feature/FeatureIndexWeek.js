@@ -5,10 +5,12 @@ import FeatureWeek from './component/FeatureWeek'
 import DropDown2 from '../../component/DropDown2'
 import Paging from '../../component/Paging'
 import CardShopping from '../../component/CardShopping'
+import MinorBar from './component/MinorBar'
 
 function FeatureIndexWeek() {
   return (
     <>
+      <MinorBar />
       <div>
         <div className="container">
           <div className="fdropdown-mf">

@@ -5,7 +5,7 @@ import {
   faUserCircle,
   faSearch,
   faDollarSign,
-  faBookmark,
+  faBookmark as fasBookmark,
   faCartPlus,
   faPlus,
   faMinus,
@@ -25,7 +25,10 @@ import {
   faEye,
 } from '@fortawesome/free-solid-svg-icons'
 
-import { faCheckCircle as farCheckCircle } from '@fortawesome/free-regular-svg-icons'
+import {
+  faCheckCircle as farCheckCircle,
+  faBookmark as farBookmark,
+} from '@fortawesome/free-regular-svg-icons'
 
 library.add(
   fab,
@@ -33,7 +36,8 @@ library.add(
   faUserCircle,
   faSearch,
   faDollarSign,
-  faBookmark,
+  fasBookmark,
+  farBookmark,
   faCartPlus,
   faPlus,
   faMinus,

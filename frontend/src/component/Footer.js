@@ -1,5 +1,6 @@
 import React from 'react'
 import '../style/footer.css'
+import { Link } from 'react-router-dom'
 
 function Footer() {
   const footerList = [
@@ -81,7 +82,7 @@ function Footer() {
                     {v.content.map((v, i) => {
                       return (
                         <li className="font-400S" key={i}>
-                          <a href={v.url}>{v.title}</a>
+                          <Link to={v.url}>{v.title}</Link>
                         </li>
                       )
                     })}
