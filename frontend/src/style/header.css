@@ -139,8 +139,3 @@
   border-bottom: 2px solid var(--color-primary);
 }
 /* 選取(當前頁面)結束 */
-
-/* 因為把header黏在最上面，放一個一樣高的box不讓下面的東西往上跑 */
-.h104 {
-  height: 104px;
-}

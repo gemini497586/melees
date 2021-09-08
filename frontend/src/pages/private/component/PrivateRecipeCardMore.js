@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { withRouter, Link } from 'react-router-dom'
-// import '../../../style/privateRecipeCardMore.css'
+import '../../../style/privateRecipeCardMore.css'
 import food from '../../../images/default_food1.jpg'
-import CardRecipeData from '../../../data/cardRecipeData.json'
 
 function PrivateRecipeCardMore() {
   const [recipeList, setRecipeList] = useState([])
   useEffect(() => {
-    setRecipeList(CardRecipeData)
+    // setRecipeList(CardRecipeData)
   }, [])
   return (
     <div className="card-recipe">

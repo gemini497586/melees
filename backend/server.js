@@ -28,7 +28,7 @@ app.use(
 const expressSession = require("express-session");
 app.use(
   expressSession({
-    // 設定session加密密碼
+    // 設定session加密密碼 --> 記得新增.env的設定(參考.example的SESSION_SECRET)
     secret: process.env.SESSION_SECRET,
     resave: false,
   })
@@ -56,6 +56,10 @@ app.use("/auth", authRouter);
 // 引入 member router 中間件，包含會員專區功能
 let memberRouter = require("./routers/member");
 app.use("/member", memberRouter);
+
+// 引入 member router 中間件，包含會員專區功能
+let privateRouter = require("./routers/private");
+app.use("/api/private", privateRouter);
 
 
 // 前面都沒有任何符合的路由網址就進入這邊統一 404 來處理

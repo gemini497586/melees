@@ -26,7 +26,6 @@ function PrivateRecipeBanner() {
               icon="plus"
               className="privateRecipeBanner-plus-icon"
             />
-            {/* <i className="fas fa-plus fa-lg"></i> */}
             <span className="font-700M">新增食譜</span>
           </div>
         </Link>

@@ -25,11 +25,17 @@
   background: var(--color-primary);
   text-decoration: none;
 }
-.privateRecipeBanner-btn i {
+.privateRecipeBanner-plus-icon {
+  margin: 13px;
+  margin-left: 91px;
+  color: var(--color-white);
+  transform: scale(1.5);
+}
+/* .privateRecipeBanner-btn i {
   margin: auto 0;
   margin-left: 91px;
   color: var(--color-white);
-}
+} */
 .privateRecipeBanner-btn span {
   margin-top: 7.5px;
   margin-left: 14px;
