@@ -11,7 +11,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/market", (req, res) => {
-  const sqlSelect = "SELECT * FROM product WHERE valid = 1";
+  const sqlSelect = "SELECT * FROM product";
   connection.query(sqlSelect, (err, result) => {
     res.json(result);
   });
