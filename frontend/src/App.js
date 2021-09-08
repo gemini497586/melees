@@ -124,7 +124,7 @@ function App() {
           </Route>
 
           {/* 會員相關 */}
-          {/* <Route path="/login">
+          <Route path="/login">
             <Login />
           </Route>
           <Route path="/register">
@@ -138,7 +138,6 @@ function App() {
           </Route>
           <Route path="/member/editpwd">
             <EditPassword />
-
           </Route>
           <Route path="/member/orderdetail">
             <OrderDetails />
@@ -160,7 +159,7 @@ function App() {
           </Route>
           <Route path="/member/coupon">
             <Coupon />
-          </Route> */}
+          </Route>
         </Switch>
 
         <Footer />

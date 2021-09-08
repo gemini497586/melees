@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import meleesLogo from '../images/meleesLogo.svg'
 import React, { useEffect } from 'react'
-import '../style/header.css'
+import '../style/headerMarket.css'
 import './FontawsomeIcons'
 
 function HeaderMarket() {
@@ -142,6 +142,13 @@ function HeaderMarket() {
           </ul>
         </li>
       </ul>
+      <div className="header-cart position-absolute">
+        <h5>豬肉</h5>
+        <p>110</p>
+        <div>
+          <FontAwesomeIcon icon="trash-alt" />
+        </div>
+      </div>
     </div>
   )
 }
