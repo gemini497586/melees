@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import './style/global.css'
 
 import Header from './component/Header'
+import HeaderMarket from './component/HeaderMarket'
+
 import Home from './pages/home/Home'
 import Footer from './component/Footer'
 
@@ -28,8 +30,7 @@ import Box from './pages/box/Box'
 // 私藏食譜
 import PrivateRecipe from './pages/private/PrivateRecipe'
 import PrivateRecipeIntro from './pages/private/PrivateRecipeIntro'
-
-// import PrivateRecipeUpload from './pages/private/PrivateRecipeUpload'
+import PrivateRecipeUpload from './pages/private/PrivateRecipeUpload'
 
 // 搜尋
 import SearchRecipe from './pages/search/SearchRecipe'
@@ -53,7 +54,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Header />
+        <HeaderMarket />
         <Switch>
           {/* 首頁 */}
           <Route exact path="/">

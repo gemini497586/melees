@@ -30,7 +30,7 @@ function ProductCard() {
   const handleProductCard = product.map((e) => {
     return (
       <div className="product-card col-6" key={e.id}>
-        <Link to={{ pathname: `/market/product/${e.id}`, state: { product } }}>
+        <Link to={{ pathname: `/market/product/${e.id}` }}>
           <div className="product-img">
             <img src={productImg} alt="好想吃威靈頓牛排" />
             <FontAwesomeIcon icon="bookmark" className="bookmark" />

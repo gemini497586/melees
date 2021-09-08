@@ -1,5 +1,5 @@
 const express = require("express");
-const pool = require("./utils/db");
+const connection = require("./utils/db");
 const path = require("path");
 require("dotenv").config();
 let app = express();
@@ -49,6 +49,13 @@ app.get("/", (req, res, next) => {
   res.send("Hello with nodemon");
 });
 
+app.get("/market", (req, res, next) => {
+  const sqlSelect = "SELECT * FROM product";
+  connection.query(sqlSelect, (err, result) => {
+    res.json(result);
+  });
+});
+
 // 引入 auth router 中間件，包含資料驗證、登入、註冊
 let authRouter = require("./routers/auth");
 app.use("/auth", authRouter);
@@ -91,6 +98,6 @@ app.use((err, req, res, next) => {
 });
 
 const port = 3001;
-app.listen(port, async function () {
+app.listen(port, () => {
   console.log(`我們的 web server: ${port} 啟動了～`);
 });

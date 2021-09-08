@@ -12,19 +12,20 @@ import axios from 'axios'
 function ProductDetails(props) {
   const { id } = useParams()
   const [product, setProduct] = useState([])
-
   useEffect(() => {
     axios.get(`${API_URL}/market`).then((response) => {
-      setProduct(response.data[id])
+      setProduct(response.data[id - 1])
     })
   }, [])
+
+  let category = { 1: '食材', 2: '鍋具', 3: '調味料' }
 
   const handleProductDetail = () => {
     // console.log(product)
     return (
       <div className="product-detail">
         <img src={img} alt="商品" />
-        <p className="product-detail-category">{product.category}</p>
+        <p className="product-detail-category">{category[product.category]}</p>
         <h2 className="product-detail-name">{product.name}</h2>
         <h2 className="product-detail-price">
           <FontAwesomeIcon icon="dollar-sign" />
@@ -44,7 +45,7 @@ function ProductDetails(props) {
   }
   return (
     <div className="page-group">
-      <div className="container">{handleProductDetail}</div>
+      <div className="container">{handleProductDetail(product)}</div>
     </div>
   )
 }
