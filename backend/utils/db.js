@@ -13,7 +13,7 @@ const Promise = require("bluebird");
 //   dateStrings: true,
 // });
 
-let pool = mysql.createPool({
+let connection = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   port: process.env.DB_PORT,
@@ -23,5 +23,5 @@ let pool = mysql.createPool({
   dateStrings: true,
 });
 
-pool = Promise.promisifyAll(pool);
-module.exports = pool;
+connection = Promise.promisifyAll(connection);
+module.exports = connection;
