@@ -19,7 +19,7 @@ function Box() {
   // 從資料庫抓資料
   useEffect(() => {
     setData(BoxData)
-    // Axios.get(`http://localhost:3001/box`).then((res) => {
+    // Axios.get(`${API_URL}/box`).then((res) => {
     //   console.log(res.data)
     //   setData(res.data)
     // })
