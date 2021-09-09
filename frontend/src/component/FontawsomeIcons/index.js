@@ -18,6 +18,7 @@ import {
   faStar,
   faStarHalfAlt,
   faCheckCircle as fasCheckCircle,
+  faChevronDown,
   faChevronLeft,
   faChevronRight,
   faTimes,
@@ -34,6 +35,7 @@ import {
 
 library.add(
   fab,
+  faChevronDown,
   faShoppingCart,
   faUserCircle,
   faSearch,

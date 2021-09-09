@@ -1,6 +1,8 @@
 import React from 'react'
 import '../../../style/featureContentImg.css'
 import food from '../../../images/1.jpg'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import '../../../component/FontawsomeIcons/'
 
 function FeatureContentImg() {
   return (
@@ -23,7 +25,11 @@ function FeatureContentImg() {
             <img className="fimg-img-size" src={food} alt="" />
           </a>
           <button className="fimg-btn-fontawesome">
-            <i className="fas fa-chevron-right fcolor-grey-800"></i>
+            <FontAwesomeIcon
+              className="fcolor-grey-800"
+              icon={['fas', 'chevron-right']}
+              fixedWidth
+            />
           </button>
         </div>
       </div>
