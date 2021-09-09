@@ -23,11 +23,13 @@ import {
   faTimes,
   faHeart,
   faEye,
+  faPencilAlt,
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
   faCheckCircle as farCheckCircle,
   faBookmark as farBookmark,
+  faHeart as farHeart,
 } from '@fortawesome/free-regular-svg-icons'
 
 library.add(
@@ -55,5 +57,7 @@ library.add(
   faChevronRight,
   faTimes,
   faHeart,
-  faEye
+  faEye,
+  farHeart,
+  faPencilAlt
 )
