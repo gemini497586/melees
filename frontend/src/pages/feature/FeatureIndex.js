@@ -6,44 +6,46 @@ import DropDown2 from '../../component/DropDown2'
 import Paging from '../../component/Paging'
 import CardShopping from '../../component/CardShopping'
 import MinorBar from './component/MinorBar'
+import { Link } from 'react-router-dom'
 
 function FeatureIndex() {
   return (
     <>
-      <MinorBar />
-      <div className="findex-box">
-        {/* dropdown */}
-        <div className="findex-dropdowm">
-          <DropDown2 />
+      <div className="page-group">
+        {/* minorbar */}
+        <MinorBar />
+        <div className="findex-box">
+          {/* dropdown */}
+          <div className="fdropdown-mf">
+            <DropDown2 />
+          </div>
+          {/* cards */}
+          <div className="findex-list">
+            <Link to="/feature/step/">
+              <FeatureCards />
+            </Link>
+            <Link to="/feature/step/">
+              <FeatureCards />
+            </Link>
+            <Link to="/feature/step/">
+              <FeatureCards />
+            </Link>
+            <Link to="/feature/step/">
+              <FeatureCards />
+            </Link>
+            <Link to="/feature/step/">
+              <FeatureCards />
+            </Link>
+            <Link to="/feature/step/">
+              <FeatureCards />
+            </Link>
+          </div>
         </div>
-        {/* cards */}
-        <div className="findex-list">
-          <a href="#/">
-            <FeatureCards />
-          </a>
-          <a href="#/">
-            <FeatureCards />
-          </a>
-          <a href="#/">
-            <FeatureCards />
-          </a>
-          <a href="#/">
-            <FeatureCards />
-          </a>
-          <a href="#/">
-            <FeatureCards />
-          </a>
-          <a href="#/">
-            <FeatureCards />
-          </a>
+        {/* 分頁 */}
+        <div className="fpaginf-mf">
+          <Paging />
         </div>
-      </div>
-      {/* 分頁 */}
-      <div className="fpaginf-mf">
-        <Paging />
-      </div>
-      {/* 推薦商品 */}
-      <div className="fcardshop-mb">
+        {/* 推薦商品 */}
         <CardShopping />
       </div>
     </>

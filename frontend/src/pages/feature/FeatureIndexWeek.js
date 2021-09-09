@@ -10,8 +10,9 @@ import MinorBar from './component/MinorBar'
 function FeatureIndexWeek() {
   return (
     <>
-      <MinorBar />
-      <div>
+      <div className="page-group">
+        {/* minorbar */}
+        <MinorBar />
         <div className="container">
           <div className="fdropdown-mf">
             <DropDown2 />
@@ -29,9 +30,7 @@ function FeatureIndexWeek() {
         <div className="fpaginf-mf">
           <Paging />
         </div>
-        <div className="fcardshop-mb">
-          <CardShopping />
-        </div>
+        <CardShopping />
       </div>
     </>
   )
