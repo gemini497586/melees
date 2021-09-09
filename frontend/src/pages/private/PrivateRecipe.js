@@ -3,8 +3,8 @@ import PrivateRecipeBanner from './component/PrivateRecipeBanner'
 import DropDown from '../../component/DropDown'
 import PrivateRecipeCard from './component/PrivateRecipeCard'
 import Paging from '../../component/Paging'
+import CardRecipe from '../../component/CardRecipe'
 import CardShopping from '../../component/CardShopping'
-import PrivateRecipeCardMore from './component/PrivateRecipeCardMore'
 
 function PrivateRecipe() {
   return (
@@ -14,9 +14,7 @@ function PrivateRecipe() {
         <DropDown />
 
         <PrivateRecipeCard />
-
-        <PrivateRecipeCardMore />
-
+        <CardRecipe />
         <CardShopping />
       </div>
     </>

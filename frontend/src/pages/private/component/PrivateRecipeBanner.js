@@ -21,12 +21,9 @@ function PrivateRecipeBanner() {
           </h1>
         </div>
         <Link to="/private/upload" className="privateRecipeBanner-btn">
-          <div className="d-flex">
-            <FontAwesomeIcon
-              icon="plus"
-              className="privateRecipeBanner-plus-icon"
-            />
-            <span className="font-700M">新增食譜</span>
+          <div className="d-flex justify-content-center privateRecipeBanner-plus-icon">
+            <FontAwesomeIcon icon="plus" className="plus-icon" />
+            <span className="font-700M">新增私藏食譜</span>
           </div>
         </Link>
       </div>

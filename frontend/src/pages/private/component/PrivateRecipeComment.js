@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import '../../../style/privateRecipeComment.css'
 import avatar from '../../../images/default_avatar1.jpg'
 import Axios from 'axios'
@@ -31,18 +33,18 @@ function PrivateRecipeComment(props) {
                     </span>
                   </div>
                   <div className="d-flex PrivateRecipeComment-star">
-                    <i className="fas fa-star fa-lg"></i>
-                    <i className="fas fa-star fa-lg"></i>
-                    <i className="fas fa-star fa-lg"></i>
-                    <i className="fas fa-star fa-lg"></i>
-                    <i className="fas fa-star fa-lg"></i>
+                    <FontAwesomeIcon icon="star" size="lg" />
+                    <FontAwesomeIcon icon="star" size="lg" />
+                    <FontAwesomeIcon icon="star" size="lg" />
+                    <FontAwesomeIcon icon="star" size="lg" />
+                    <FontAwesomeIcon icon="star" size="lg" />
                     <span className="font-700S PrivateRecipeComment-date">
                       {value.comment_time}
                     </span>
                   </div>
-                  <div className="PrivateRecipeComment">
-                    <span className="font-400SL">{value.comment}</span>
-                  </div>
+                  <span className="font-400SL PrivateRecipeComment">
+                    {value.comment}
+                  </span>
                   <div className="d-flex PrivateRecipeComment-more justify-content-end">
                     <span className="font-400SS">看更多→</span>
                   </div>
