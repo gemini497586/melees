@@ -161,7 +161,7 @@
 }
 .h-recipe-content {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: flex-start;
   padding: 100px 120px 0px 0px;
 }

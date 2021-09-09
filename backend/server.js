@@ -1,5 +1,5 @@
 const express = require("express");
-const pool = require("./utils/db");
+const connection = require("./utils/db");
 const path = require("path");
 require("dotenv").config();
 let app = express();
@@ -9,13 +9,13 @@ let app = express();
 // 這樣跨源的前端才不會被瀏覽器擋下來
 const cors = require("cors");
 app.use(
-  cors({
-    origin: ["http://localhost:3000"],
-    // 跨源送 cookie
-    // 如果要把 credentials 設成 true, 那 origin 就不能是 *
-    // 不然誰都可以跨源送 cookie
-    credentials: true,
-  })
+    cors({
+        origin: ["http://localhost:3000"],
+        // 跨源送 cookie
+        // 如果要把 credentials 設成 true, 那 origin 就不能是 *
+        // 不然誰都可以跨源送 cookie
+        credentials: true,
+    })
 );
 
 // // 告訴 express 我們用哪一種樣板語言
@@ -27,11 +27,11 @@ app.use(
 // 啟用 session 機制
 const expressSession = require("express-session");
 app.use(
-  expressSession({
-    // 設定session加密密碼 --> 記得新增.env的設定(參考.example的SESSION_SECRET)
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-  })
+    expressSession({
+        // 設定session加密密碼 --> 記得新增.env的設定(參考.example的SESSION_SECRET)
+        secret: process.env.SESSION_SECRET,
+        resave: false,
+    })
 );
 
 // 使用這個中間件才可以讀到 body 的資料
@@ -40,13 +40,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use((req, res, next) => {
-  let current = new Date();
-  console.log(`有人來訪問嚕 at ${current.toISOString()}`);
-  next();
+    let current = new Date();
+    console.log(`有人來訪問嚕 at ${current.toISOString()}`);
+    next();
 });
 
 app.get("/", (req, res, next) => {
-  res.send("Hello with nodemon");
+    res.send("Hello with nodemon");
+});
+
+app.get("/market", (req, res, next) => {
+    const sqlSelect = "SELECT * FROM product";
+    connection.query(sqlSelect, (err, result) => {
+        res.json(result);
+    });
 });
 
 // 引入 auth router 中間件，包含資料驗證、登入、註冊
@@ -57,46 +64,46 @@ app.use("/auth", authRouter);
 let memberRouter = require("./routers/member");
 app.use("/member", memberRouter);
 
-// 引入 member router 中間件，包含會員專區功能
+// 引入 private router 中間件，包含會員專區功能
 let privateRouter = require("./routers/private");
 app.use("/api/private", privateRouter);
 
-
 // 前面都沒有任何符合的路由網址就進入這邊統一 404 來處理
 app.use((req, res, next) => {
-  console.log("都沒有符合的路由，請查明後再 keyin!");
-  next();
+    console.log("都沒有符合的路由，請查明後再 keyin!");
+    next();
 });
 app.use((req, res, next) => {
-  res.status(404).json({ message: "NOT FOUND" });
+    res.status(404).json({ message: "NOT FOUND" });
 });
 
-
-// multer 用來處理 From-data 
+// multer 用來處理 From-data
 const multer = require("multer");
 app.use((err, req, res, next) => {
-  // multer 丟出來的 exception 不符合我們制定的格式
-  console.error("來自四個參數的錯誤處理", err);
-  // 判斷這個 err 來自哪一個
-  if (err instanceof multer.MulterError) {
-    // 到這裡表示我們知道這一次來的 err 其實是 MulterError
-    // 而且我們有觀察到 MulterError 有一個 code 可以辨別錯誤
-    if (err.code === "LIMIT_FILE_SIZE") {
-      return res.status(400).json({ code: 320001, message: "檔案太大啦" });
+    // multer 丟出來的 exception 不符合我們制定的格式
+    console.error("來自四個參數的錯誤處理", err);
+    // 判斷這個 err 來自哪一個
+    if (err instanceof multer.MulterError) {
+        // 到這裡表示我們知道這一次來的 err 其實是 MulterError
+        // 而且我們有觀察到 MulterError 有一個 code 可以辨別錯誤
+        if (err.code === "LIMIT_FILE_SIZE") {
+            return res
+                .status(400)
+                .json({ code: 320001, message: "檔案太大啦" });
+        }
+        return res.status(400).json({ message: err.message });
     }
-    return res.status(400).json({ message: err.message });
-  }
-  // 如果不符合上述特殊的錯誤類別，那表示就是我們自訂的
-  // 我們自己拋出的錯誤有自己制定的格式
-  // {
-  //   code: "330001",
-  //   status: 401,
-  //   message: "沒有登入不能用喔",
-  // }
-  res.status(err.status).json({ message: err.message });
+    // 如果不符合上述特殊的錯誤類別，那表示就是我們自訂的
+    // 我們自己拋出的錯誤有自己制定的格式
+    // {
+    //   code: "330001",
+    //   status: 401,
+    //   message: "沒有登入不能用喔",
+    // }
+    res.status(err.status).json({ message: err.message });
 });
 
 const port = 3001;
-app.listen(port, async function () {
-  console.log(`我們的 web server: ${port} 啟動了～`);
+app.listen(port, () => {
+    console.log(`我們的 web server: ${port} 啟動了～`);
 });

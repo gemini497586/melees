@@ -130,7 +130,7 @@
   width: 300px;
 }
 
-/* 選取(當前頁面)開始 */
+/* 選取(當前頁面) */
 .header-active a {
   color: var(--color-primary);
 }
@@ -139,3 +139,15 @@
   border-bottom: 2px solid var(--color-primary);
 }
 /* 選取(當前頁面)結束 */
+
+/* 購物車彈出視窗 */
+.header-cart {
+  width: 500px;
+  min-height: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  top: 80px;
+  right: 60px;
+  border-radius: 4px;
+  border: 1px solid var(--color-grey-300);
+  padding: 10px;
+}

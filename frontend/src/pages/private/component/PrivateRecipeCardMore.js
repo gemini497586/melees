@@ -7,8 +7,9 @@ import food from '../../../images/default_food1.jpg'
 function PrivateRecipeCardMore() {
   const [recipeList, setRecipeList] = useState([])
   useEffect(() => {
-    // setRecipeList(CardRecipeData)
+    // setRecipeList()
   }, [])
+
   return (
     <div className="card-recipe">
       <div className="container">
@@ -17,7 +18,7 @@ function PrivateRecipeCardMore() {
             <div class="d-flex justify-content-between">
               <h5>查看其他食譜</h5>
               <div class="privateRecipeCardMore-others-more">
-                <i class="fas fa-chevron-right"></i>
+                <FontAwesomeIcon icon="chevron-right" className="more-right" />
                 <span class="font-700M">看更多</span>
               </div>
             </div>

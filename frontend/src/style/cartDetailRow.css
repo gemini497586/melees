@@ -9,8 +9,7 @@
 .cart-detail-row p,
 .cart-detail-row h6,
 .cart-detail-row h5,
-.cart-detail-row div,
-.cart-detail-row .btn {
+.cart-detail-row div {
   position: absolute;
 }
 
@@ -60,24 +59,9 @@
   text-align: center;
 }
 
-.operation {
-  margin: 0px 15px;
-  cursor: pointer;
-}
-
 .cart-detail-total {
   font-weight: bold;
   color: var(--color-grey-900);
   top: 74.5px;
   left: 1046.4px;
-}
-
-.cart-detail-delete {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--color-primary);
-  color: #fff;
-  top: 68px;
-  left: 1249px;
 }

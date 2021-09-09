@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter, Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import '../style/cardrecipe.css'
 import food from '../images/default_food1.jpg'
+import instagram from '../images/instagramLogo.jpg'
 
 const recipeList = [
   {
@@ -22,7 +25,7 @@ const recipeList = [
   {
     id: 4,
     picture: '4.jpg',
-    name: '蜂蜜檸檬豬排',
+    name: '咖啡牛排',
   },
 ]
 
@@ -36,38 +39,46 @@ function CardRecipe(props) {
           <div class="d-flex justify-content-between">
             <h5>查看其他食譜</h5>
             <div class="cardRecipe-others-more">
-              <i class="fas fa-chevron-right"></i>
+              <FontAwesomeIcon
+                icon="chevron-right"
+                size="lg"
+                className="more-arrow"
+              />
               <span class="font-700M">看更多</span>
             </div>
           </div>
           <div class="cardRecipe-others-hr w-100"></div>
-          <Link to={'/feature/'}>
+        </div>
+        {recipeList.map((value, index) => {
+          return (
             <div className="col-12 col-md-3">
               <div className="cardRecipe">
-                <figure className="cardRecipe-img">
-                  <img src={food} className="w-100" alt="" />
-                </figure>
-                <span className="cardRecipe-bookmark">
-                  <i className="fas fa-bookmark fa-2x"></i>
-                </span>
-                <span className="cardRecipe-bookmark-stat-box">
-                  <div className="cardRecipe-bookmark-stat-icon">
-                    <i className="fas fa-bookmark fa-1x"></i>
-                  </div>
-                  <span className="cardRecipe-bookmark-num font-400S">
-                    1000
+                <Link to={'/feature/'}>
+                  <figure className="cardRecipe-img">
+                    <img src={food} className="w-100" alt="" />
+                  </figure>
+                  <span className="cardRecipe-bookmark">
+                    <FontAwesomeIcon icon="bookmark" size="2x" />
                   </span>
-                </span>
-                <span className="font-700S cardRecipe-type">健康長肉肉</span>
-                <h6 className="cardRecipe-name">紐西蘭小羔羊薄切片</h6>
-                <div className="f-flex cardRecipe-ig">
-                  <i className="fab fa-instagram-square fa-lg"></i>
-                  <span className="font-700S">謝戎宥- LON YO</span>
-                </div>
+                  <span className="cardRecipe-bookmark-stat-box">
+                    <div className="cardRecipe-bookmark-stat-icon">
+                      <FontAwesomeIcon icon="bookmark" size="lg" />
+                    </div>
+                    <span className="cardRecipe-bookmark-num font-400S">
+                      1000
+                    </span>
+                  </span>
+                  <span className="font-700S cardRecipe-type">健康長肉肉</span>
+                  <h6 className="cardRecipe-name">{value.name}</h6>
+                  <div className="f-flex cardRecipe-ig">
+                    <img src={instagram} alt="" />
+                    <span className="font-700S">謝戎宥- LON YO</span>
+                  </div>
+                </Link>
               </div>
             </div>
-          </Link>
-        </div>
+          )
+        })}
       </div>
     </div>
   )

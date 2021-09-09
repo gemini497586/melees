@@ -1,18 +1,22 @@
 // 必要的
+
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import './style/global.css'
+
 import Header from './component/Header'
+
 import Home from './pages/home/Home'
 import Footer from './component/Footer'
 
-// 購物車
+// 購物商城
 import MarketMainPage from './pages/market/MarketMainPage'
 import CartDetail from './pages/market/CartDetail'
-import Shoppingcart from './pages/market/CartDetail'
-import ProductDetails from './pages/market/ProductDetails'
-import OrdersComplete from './pages/market/OrdersComplete'
+import CheckOrder from './pages/market/CheckOrder'
 import CheckoutConfirm from './pages/market/CheckoutConfirm'
 import CheckoutPersonalData from './pages/market/CheckoutPersonalData'
+import OrdersComplete from './pages/market/OrdersComplete'
+import ProductDetails from './pages/market/ProductDetails'
+import Shoppingcart from './pages/market/CartDetail'
 
 // 精選食譜
 import FeatureIndex from './pages/feature/FeatureIndex'
@@ -26,6 +30,7 @@ import Box from './pages/box/Box'
 import PrivateRecipe from './pages/private/PrivateRecipe'
 import PrivateRecipeIntro from './pages/private/PrivateRecipeIntro'
 import PrivateRecipeUpload from './pages/private/PrivateRecipeUpload'
+import PrivateRecipeEdit from './pages/private/PrivateRecipeEdit'
 
 // 搜尋
 import SearchRecipe from './pages/search/SearchRecipe'
@@ -47,8 +52,8 @@ import MyRecipe from './pages/member/MyRecipe'
 
 function App() {
   return (
-    <div className="App">
-      <Router>
+    <Router>
+      <div className="App">
         <Header />
         <Switch>
           {/* 首頁 */}
@@ -66,6 +71,9 @@ function App() {
           <Route exact path="/private/upload">
             <PrivateRecipeUpload />
           </Route>
+          <Route exact path="/private/edit">
+            <PrivateRecipeEdit />
+          </Route>
           <Route exact path="/private/detail/:id">
             <PrivateRecipeIntro />
           </Route>
@@ -82,28 +90,7 @@ function App() {
           <Route exact path="/feature/:id?">
             <FeatureIndex />
           </Route>
-          {/* 購物車 */}
-          <Route path="/market/orderscomplete">
-            <OrdersComplete />
-          </Route>
-          <Route path="/market/checkoutconfirm">
-            <CheckoutConfirm />
-          </Route>
-          <Route path="/market/shoppingcart">
-            <Shoppingcart />
-          </Route>
-          <Route path="/market/checkoutpersonaldata">
-            <CheckoutPersonalData />
-          </Route>
-          <Route path="/market/cartdetail">
-            <CartDetail />
-          </Route>
-          <Route path="/market/productdetails/:id?">
-            <ProductDetails />
-          </Route>
-          <Route path="/market">
-            <MarketMainPage />
-          </Route>
+
           {/* 搜尋 */}
           <Route path="/search/recipe">
             <SearchRecipe />
@@ -139,7 +126,7 @@ function App() {
           <Route path="/member/saverecipe">
             <MemberFeature />
           </Route>
-          =======
+
           {/* 購物車 */}
           <Route path="/market/orderscomplete">
             <OrdersComplete />
@@ -153,11 +140,14 @@ function App() {
           <Route path="/market/checkoutpersonaldata">
             <CheckoutPersonalData />
           </Route>
-          <Route path="/market/cartdetail">
+          <Route path="/market/cart-detail">
             <CartDetail />
           </Route>
-          <Route path="/market/productdetails/:id?">
+          <Route path="/market/product/:id?">
             <ProductDetails />
+          </Route>
+          <Route path="/market/check-order">
+            <CheckOrder />
           </Route>
           <Route path="/market">
             <MarketMainPage />
@@ -207,9 +197,10 @@ function App() {
             <Coupon />
           </Route>
         </Switch>
+
         <Footer />
-      </Router>
-    </div>
+      </div>
+    </Router>
   )
 }
 
