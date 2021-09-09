@@ -39,6 +39,7 @@ function CardRecipe(props) {
               <i class="fas fa-chevron-right"></i>
               <span class="font-700M">看更多</span>
             </div>
+
             <div class="cardRecipe-others-hr w-100"></div>
             <Link to={'/feature/'}>
               <div className="col-12 col-md-3">

@@ -1,5 +1,5 @@
 const express = require("express");
-const pool = require("./utils/db");
+const connection = require("./utils/db");
 const path = require("path");
 require("dotenv").config();
 let app = express();
@@ -49,6 +49,13 @@ app.get("/", (req, res, next) => {
   res.send("Hello with nodemon");
 });
 
+app.get("/market", (req, res, next) => {
+  const sqlSelect = "SELECT * FROM product";
+  connection.query(sqlSelect, (err, result) => {
+    res.json(result);
+  });
+});
+
 // 引入 auth router 中間件，包含資料驗證、登入、註冊
 let authRouter = require("./routers/auth");
 app.use("/auth", authRouter);
@@ -57,10 +64,9 @@ app.use("/auth", authRouter);
 let memberRouter = require("./routers/member");
 app.use("/member", memberRouter);
 
-// 引入 member router 中間件，包含會員專區功能
+// 引入 private router 中間件，包含會員專區功能
 let privateRouter = require("./routers/private");
 app.use("/api/private", privateRouter);
-
 
 // 前面都沒有任何符合的路由網址就進入這邊統一 404 來處理
 app.use((req, res, next) => {
@@ -71,8 +77,7 @@ app.use((req, res, next) => {
   res.status(404).json({ message: "NOT FOUND" });
 });
 
-
-// multer 用來處理 From-data 
+// multer 用來處理 From-data
 const multer = require("multer");
 app.use((err, req, res, next) => {
   // multer 丟出來的 exception 不符合我們制定的格式
@@ -97,6 +102,6 @@ app.use((err, req, res, next) => {
 });
 
 const port = 3001;
-app.listen(port, async function () {
+app.listen(port, () => {
   console.log(`我們的 web server: ${port} 啟動了～`);
 });

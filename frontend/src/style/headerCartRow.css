@@ -1,0 +1,73 @@
+/* 購物車彈出視窗 */
+
+.header-cart-row {
+  position: relative;
+  height: 120px;
+  border-bottom: 1px solid var(--color-grey-500);
+}
+
+.header-cart-row div,
+.header-cart-row .header-cart-row-name {
+  position: absolute;
+}
+
+.header-cart-row-img {
+  width: 150px;
+  height: 100px;
+  top: 10px;
+  left: 22px;
+  text-align: center;
+}
+
+.header-cart-row-name {
+  width: 160px;
+  height: 27px;
+  top: 20px;
+  left: 228px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.header-cart-row-delete {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--color-primary);
+  border-radius: 50%;
+  color: var(--color-primary);
+  top: 15px;
+  left: 420px;
+  text-align: center;
+  line-height: 35px;
+}
+
+.header-cart-row-operation,
+.header-cart-row-operation span {
+  width: 115px;
+  height: 36px;
+  top: 70px;
+  left: 220px;
+  text-align: center;
+  margin: 0px 10px;
+  line-height: 35px;
+  background: var(--color-grey-500);
+  border-radius: 100px;
+}
+
+.header-cart-row-price {
+  width: 80px;
+  height: 27px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 26.4px;
+  top: 75px;
+  left: 380px;
+}
+
+/* 前往結帳按鈕 */
+.header-checkout-btn {
+  width: 100%;
+  background: var(--color-primary);
+  margin: 5px 0px 0px;
+  color: var(--color-white);
+}

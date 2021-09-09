@@ -12,9 +12,11 @@ function PrivateRecipe() {
       <div className="page-group">
         <PrivateRecipeBanner />
         <DropDown />
+
         <PrivateRecipeCard />
 
         <PrivateRecipeCardMore />
+
         <CardShopping />
       </div>
     </>
