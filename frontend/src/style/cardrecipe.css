@@ -17,7 +17,7 @@
 .cardRecipe-others-more {
   margin-right: 60px;
 }
-.cardRecipe-others-more i {
+.cardRecipe-others-more .more-arrow {
   margin-right: 18px;
 }
 .cardRecipe {
@@ -40,7 +40,6 @@
   right: 28px;
   top: 21px;
   color: var(--color-white);
-  transform: scale(1, 0.85);
 }
 .cardRecipe-bookmark-stat-box {
   position: absolute;
@@ -51,11 +50,10 @@
   border-radius: 14px;
   background: #f0f0f0;
 }
-.cardRecipe-bookmark-stat-icon i {
+.cardRecipe-bookmark-stat-icon {
   position: absolute;
-  transform: scaleX(24px);
-  left: 21px;
-  top: 8px;
+  left: 18px;
+  top: 5px;
   color: var(--color-blue-C);
 }
 .cardRecipe-bookmark-num {
@@ -83,22 +81,14 @@
   margin-left: 12px;
   margin-top: 12px;
 }
+.cardRecipe-ig img {
+  width: 25px;
+}
 .cardRecipe-ig span {
   color: var(--color-grey-800);
   margin-left: 10px;
 }
-.cardRecipe-ig i {
-  padding: 2px;
-  background: radial-gradient(
-    120.67% 120.67% at 16.13% 98.65%,
-    #fec053 0%,
-    #f2203e 32.73%,
-    #b729a8 64.85%,
-    #5342d6 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+
 @media only screen and (min-width: 321px) and (max-width: 768px) {
   .cardRecipe-others {
     padding: 0 35px;
