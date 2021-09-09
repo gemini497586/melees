@@ -52,8 +52,8 @@ function CardRecipe(props) {
         {recipeList.map((value, index) => {
           return (
             <div className="col-12 col-md-3">
-              <Link to={'/feature/'}>
-                <div className="cardRecipe">
+              <div className="cardRecipe">
+                <Link to={'/feature/'}>
                   <figure className="cardRecipe-img">
                     <img src={food} className="w-100" alt="" />
                   </figure>
@@ -74,8 +74,8 @@ function CardRecipe(props) {
                     <img src={instagram} alt="" />
                     <span className="font-700S">謝戎宥- LON YO</span>
                   </div>
-                </div>
-              </Link>
+                </Link>
+              </div>
             </div>
           )
         })}

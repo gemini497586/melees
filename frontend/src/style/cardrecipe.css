@@ -28,6 +28,9 @@
   margin: auto;
   margin-bottom: 60px;
 }
+.cardRecipe a {
+  text-decoration: none;
+}
 .cardRecipe-img {
   width: 306px;
   height: 250px;
