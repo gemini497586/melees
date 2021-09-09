@@ -1,6 +1,8 @@
 import React from 'react'
 import '../style/heartViewNum.css'
 import '../style/featureComponent.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import './FontawsomeIcons'
 
 function HeartViewNum() {
   return (
@@ -9,14 +11,22 @@ function HeartViewNum() {
         <div className="hvn-flex">
           <div className="hvn-icon-flex">
             <span>
-              <i className="fas fa-heart fa-fw ficon-size me-2"></i>
+              <FontAwesomeIcon
+                className="ficon-size me-2"
+                icon={['fas', 'heart']}
+                fixedWidth
+              />
             </span>
             <span className="font-400S">30322</span>
           </div>
           <div className="fline-g500"></div>
           <div className="hvn-icon-flex">
             <span>
-              <i className="fas fa-eye fa-fw ficon-size me-2"></i>
+              <FontAwesomeIcon
+                className="ficon-size me-2"
+                icon={['fas', 'eye']}
+                fixedWidth
+              />
             </span>
             <span className="font-400S">30322</span>
           </div>

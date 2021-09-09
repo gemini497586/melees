@@ -6,7 +6,6 @@ import food from '../../../images/default_food2.jpg'
 import avatar from '../../../images/default_avatar1.jpg'
 import Axios from 'axios'
 
-
 function PrivateRecipeCard(props) {
   const [itemInfo, setItemInfo] = useState([])
   const [starRate, setstarRate] = useState([])

@@ -70,19 +70,18 @@
   justify-content: end;
   margin: 20px 0px 20px 0px;
 }
+
 /* Paging模組 */
 .fpaginf-mf {
   margin: 30px 0px 65px 0px;
   display: flex;
   justify-content: center;
 }
-/* CardShopping模組*/
-.fcardshop-mb {
+/* CardSmb模組*/
+.fcard-mb65 {
   margin-bottom: 65px;
 }
-.hb-100vh {
-  height: calc(100vh - 148px);
-  width: 100%;
-  /* overflow: hidden; */
-  position: relative;
+/* step-mt模組 */
+.ftop-mt40 {
+  margin: 40px 0px 0px 0px;
 }

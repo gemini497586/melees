@@ -4,7 +4,6 @@ import food from '../../../images/default_food3.jpg'
 import avatar from '../../../images/default_avatar1.jpg'
 import Axios from 'axios'
 
-
 function PrivateRecipePhotoIntro(props) {
   const { id } = props
   const [recipe, setRecipe] = useState([])
