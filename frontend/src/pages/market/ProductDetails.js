@@ -4,7 +4,6 @@ import img from '../../images/005.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
 
-import productData from '../../data/Products.json'
 import { useParams } from 'react-router'
 import { API_URL } from '../../utils/config'
 import axios from 'axios'
@@ -21,7 +20,7 @@ function ProductDetails(props) {
   let category = { 1: '食材', 2: '鍋具', 3: '調味料' }
 
   const handleProductDetail = () => {
-    // console.log(product)
+    console.log(product)
     return (
       <div className="product-detail">
         <img src={img} alt="商品" />

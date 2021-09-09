@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import './style/global.css'
 
 import Header from './component/Header'
-import HeaderMarket from './component/HeaderMarket'
 
 import Home from './pages/home/Home'
 import Footer from './component/Footer'
@@ -54,7 +53,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <HeaderMarket />
+        <Header />
         <Switch>
           {/* 首頁 */}
           <Route exact path="/">
@@ -87,7 +86,7 @@ function App() {
           <Route exact path="/feature/:id?">
             <FeatureIndex />
           </Route>
-          {/* 購物車 */}
+          {/* 購物車
           <Route path="/market/orderscomplete">
             <OrdersComplete />
           </Route>
@@ -108,7 +107,7 @@ function App() {
           </Route>
           <Route path="/market">
             <MarketMainPage />
-          </Route>
+          </Route> */}
           {/* 搜尋 */}
           <Route path="/search/recipe">
             <SearchRecipe />
@@ -144,7 +143,7 @@ function App() {
           <Route path="/member/saverecipe">
             <MemberFeature />
           </Route>
-          =======
+
           {/* 購物車 */}
           <Route path="/market/orderscomplete">
             <OrdersComplete />
@@ -158,7 +157,7 @@ function App() {
           <Route path="/market/checkoutpersonaldata">
             <CheckoutPersonalData />
           </Route>
-          <Route path="/market/cartdetail">
+          <Route path="/market/cart-detail">
             <CartDetail />
           </Route>
           <Route path="/market/product/:id?">
