@@ -1,0 +1,128 @@
+[
+  {
+    "id": 1,
+    "name": "牛排",
+    "image": "steak.png",
+    "inside_image": "steak2.png",
+    "cal": 120,
+    "product_id": null,
+    "valid": "1"
+  },
+  {
+    "id": 2,
+    "name": "雞胸肉",
+    "image": "chicken.png",
+    "inside_image": "chicken2.png",
+    "cal": 165,
+    "product_id": null,
+    "valid": "1"
+  },
+  {
+    "id": 3,
+    "name": "豬肉",
+    "image": "pork.png",
+    "inside_image": "pork2.png",
+    "cal": 242,
+    "product_id": null,
+    "valid": "1"
+  },
+  {
+    "id": 4,
+    "name": "白蝦",
+    "image": "shrimp.png",
+    "inside_image": "shrimp2.png",
+    "cal": 103,
+    "product_id": null,
+    "valid": "1"
+  },
+  {
+    "id": 5,
+    "name": "白飯",
+    "image": "rice.png",
+    "inside_image": "rice2.png",
+    "cal": 280,
+    "product_id": null,
+    "valid": "1"
+  },
+  {
+    "id": 6,
+    "name": "水煮蛋",
+    "image": "egg.png",
+    "inside_image": "egg2.png",
+    "cal": 80,
+    "product_id": null,
+    "valid": "1"
+  },
+  {
+    "id": 7,
+    "name": "鴻喜菇",
+    "image": "mushroom.png",
+    "inside_image": "mushroom2.png",
+    "cal": 20,
+    "product_id": null,
+    "valid": "1"
+  },
+  {
+    "id": 8,
+    "name": "生菜",
+    "image": "lettuce.png",
+    "inside_image": "lettuce2.png",
+    "cal": 17,
+    "product_id": null,
+    "valid": "1"
+  },
+  {
+    "id": 9,
+    "name": "花椰菜",
+    "image": "broccoli.png",
+    "inside_image": "broccoli2.png",
+    "cal": 25,
+    "product_id": null,
+    "valid": "1"
+  },
+  {
+    "id": 10,
+    "name": "高麗菜",
+    "image": "cabbage.png",
+    "inside_image": "cabbage2.png",
+    "cal": 25,
+    "product_id": null,
+    "valid": "1"
+  },
+  {
+    "id": 11,
+    "name": "豆腐",
+    "image": "tofu.png",
+    "inside_image": "tofu2.png",
+    "cal": 76,
+    "product_id": null,
+    "valid": "1"
+  },
+  {
+    "id": 12,
+    "name": "鮭魚",
+    "image": "salmon.png",
+    "inside_image": "salmon2.png",
+    "cal": 208,
+    "product_id": null,
+    "valid": "1"
+  },
+  {
+    "id": 13,
+    "name": "義大利麵",
+    "image": "pasta.png",
+    "inside_image": "pasta2.png",
+    "cal": 131,
+    "product_id": null,
+    "valid": "1"
+  },
+  {
+    "id": 14,
+    "name": "玉米筍",
+    "image": "corn.png",
+    "inside_image": "corn2.png",
+    "cal": 31,
+    "product_id": null,
+    "valid": "1"
+  }
+]
