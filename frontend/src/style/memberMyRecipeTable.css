@@ -71,6 +71,7 @@
 }
 .MyRecipe-edit-icon {
   height: 100%;
+  color: var(--color-secondary);
 }
 
 .MyRecipe-delete {
@@ -81,4 +82,5 @@
 }
 .MyRecipe-delete-icon {
   height: 100%;
+  color: var(--color-secondary);
 }

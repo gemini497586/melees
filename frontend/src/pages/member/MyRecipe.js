@@ -146,14 +146,21 @@ function MyRecipe() {
                         <td>
                           <div className="d-flex justify-content-around">
                             <div className="MyRecipe-edit">
-                              <div className="d-flex justify-content-center align-items-center MyRecipe-edit-icon">
-                                <FontAwesomeIcon icon="pencil-alt" size="lg" />
-                              </div>
+                              <Link to={'/private/edit'}>
+                                <div className="d-flex justify-content-center align-items-center MyRecipe-edit-icon">
+                                  <FontAwesomeIcon
+                                    icon="pencil-alt"
+                                    size="lg"
+                                  />
+                                </div>
+                              </Link>
                             </div>
                             <div className="MyRecipe-delete">
-                              <div className="d-flex justify-content-center align-items-center MyRecipe-delete-icon">
-                                <FontAwesomeIcon icon="trash-alt" size="lg" />
-                              </div>
+                              <Link to={'/private/edit'}>
+                                <div className="d-flex justify-content-center align-items-center MyRecipe-delete-icon">
+                                  <FontAwesomeIcon icon="trash-alt" size="lg" />
+                                </div>
+                              </Link>
                             </div>
                           </div>
                         </td>

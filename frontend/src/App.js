@@ -26,6 +26,7 @@ import Box from './pages/box/Box'
 import PrivateRecipe from './pages/private/PrivateRecipe'
 import PrivateRecipeIntro from './pages/private/PrivateRecipeIntro'
 import PrivateRecipeUpload from './pages/private/PrivateRecipeUpload'
+import PrivateRecipeEdit from './pages/private/PrivateRecipeEdit'
 
 // 搜尋
 import SearchRecipe from './pages/search/SearchRecipe'
@@ -65,6 +66,9 @@ function App() {
           </Route>
           <Route exact path="/private/upload">
             <PrivateRecipeUpload />
+          </Route>
+          <Route exact path="/private/edit">
+            <PrivateRecipeEdit />
           </Route>
           <Route exact path="/private/detail/:id">
             <PrivateRecipeIntro />
