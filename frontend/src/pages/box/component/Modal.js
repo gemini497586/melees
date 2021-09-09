@@ -1,8 +1,5 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import BoxExample from '../../../images/box_example.png'
-import BoxUp from '../../../images/box_up.png'
-import BoxDown from '../../../images/box_down.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
 import Black from '../Black'
@@ -32,7 +29,11 @@ function Modal(props) {
             </div>
             {/* <img src={BoxExample} alt="BoxUp" class="b-contain-fit" /> */}
             <div className="b-page2-box">
-              <img src={BoxUp} alt="BoxUp" class="b-contain-fit b-page2-up" />
+              <img
+                src="http://localhost:3000/images/box_up.png"
+                alt="BoxUp"
+                class="b-contain-fit b-page2-up"
+              />
               <div className="b-page2-indside">
                 {bento.map((v, i) => {
                   return (
@@ -48,7 +49,7 @@ function Modal(props) {
                 })}
               </div>
               <img
-                src={BoxDown}
+                src="http://localhost:3000/images/box_down.png"
                 alt="BoxDown"
                 class="b-contain-fit b-page2-down"
               />

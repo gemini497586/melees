@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Modal from './Modal'
-import Table from './Table'
-import Man from '../../../images/box_man.png'
+import Table from '../../../component/Table'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
 
@@ -29,7 +28,11 @@ function Page3(props) {
               <p>你的每日總消耗熱量: {tdee > 0 ? tdee + ' 大卡' : ''} </p>
             </div>
             <div className="b-page3-man">
-              <img className="b-contain-fit" src={Man} alt="Man" />
+              <img
+                className="b-contain-fit"
+                src="http://localhost:3000/images/man.png"
+                alt="Man"
+              />
             </div>
             <div className="b-page3-btn">
               <button className="b-btn font-700M me-2" onClick={openModal}>

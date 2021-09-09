@@ -1,8 +1,5 @@
 import React from 'react'
 import Carousel from './Carousel'
-import BoxUp from '../../../images/box_up.png'
-import BoxDown from '../../../images/box_down.png'
-import dialog from '../../../images/dialog_1.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
 
@@ -19,7 +16,11 @@ function Page2(props) {
             <br />
             最多五樣
           </p>
-          <img className="b-contain-fit" src={dialog} alt="dialog" />
+          <img
+            className="b-contain-fit"
+            src="http://localhost:3000/images/dialog.png"
+            alt="dialog"
+          />
         </div>
         <div className="d-block d-md-flex">
           <div className="col-md-3 b-page2-left">
@@ -45,7 +46,11 @@ function Page2(props) {
           </div>
           <div className="col-md-6 b-page2-image">
             <div className="b-page2-box">
-              <img src={BoxUp} alt="BoxUp" class="b-contain-fit b-page2-up" />
+              <img
+                src="http://localhost:3000/images/box_up.png"
+                alt="BoxUp"
+                class="b-contain-fit b-page2-up"
+              />
               <div className="b-page2-indside">
                 {bento.map((v, i) => {
                   return (
@@ -61,7 +66,7 @@ function Page2(props) {
                 })}
               </div>
               <img
-                src={BoxDown}
+                src="http://localhost:3000/images/box_down.png"
                 alt="BoxDown"
                 class="b-contain-fit b-page2-down"
               />

@@ -10,7 +10,6 @@ const marketList = [
 ]
 function CardShopping() {
   return (
-    // <div className="card-shopping">
     <div className="container">
       <div className="row">
         <div class="cardShopping-others">
@@ -50,7 +49,6 @@ function CardShopping() {
         })}
       </div>
     </div>
-    // </div>
   )
 }
 

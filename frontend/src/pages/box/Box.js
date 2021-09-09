@@ -14,7 +14,6 @@ function Box() {
   const [tdee, setTdee] = useState(0)
   const [total, setTotal] = useState(0)
   const [bento, setBento] = useState([])
-  // 控制table裡的資料
   const [unitList, setUnitList] = useState([])
 
   // 從資料庫抓資料
@@ -39,7 +38,7 @@ function Box() {
     // 不存在->可以新增
     if (getName.includes(v.name)) {
       // console.log('點過')
-      alert('每個食材僅可挑選一次')
+      alert('每樣食材只可挑選一次')
       return
     } else {
       const newBento = [
@@ -52,32 +51,37 @@ function Box() {
         return
       }
       setBento(newBento)
-      console.log('新增之後', newBento)
+      // console.log('新增之後', newBento)
 
       // 加到table
       const newUnitList = [...unitList, { name: v.name, unit: `${v.cal} 大卡` }]
       setUnitList(newUnitList)
 
-      // 現在便當裡面食材的cal
-      let getCal = newBento.map((item) => {
+      // 現在便當裡面食材的卡路里，用reduce計算加總
+      const getCal = newBento.map((item) => {
         return item.cal
       })
-
-      // 計算卡路里
       const newTotal = getCal.reduce((acc, curr) => acc + curr)
       setTotal(newTotal)
-      // console.log(newTotal)
+      // console.log('現在的卡路里 ', newTotal)
     }
   }
 
-  // 如果不要，把它刪除
+  // 把食材刪除
   const handleRemove = (v) => {
-    // console.log(`再見 ${v.name}`)
     const name = v.name
-    const cal = v.cal
-    console.log(cal)
+
+    // 現在便當裡面食材的卡路里
+    const getCal = bento.map((item) => {
+      return item.cal
+    })
+    // 被點到的卡路里要被刪掉
+    let newTotal = getCal.reduce((acc, curr) => acc + curr)
+    newTotal = newTotal - v.cal
+
     setBento(bento.filter((v) => v.name !== name))
     setUnitList(unitList.filter((v) => v.name !== name))
+    setTotal(newTotal)
   }
   return (
     <>
