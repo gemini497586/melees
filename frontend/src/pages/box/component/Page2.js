@@ -2,6 +2,7 @@ import React from 'react'
 import Carousel from './Carousel'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
+import { API_URL } from '../../../utils/config'
 
 function Page2(props) {
   const { data, handleCheck, handleRemove, bento } = props
@@ -58,7 +59,7 @@ function Page2(props) {
                       <img
                         key={v.id}
                         className={`b-page2-box-${i}`}
-                        src={`http://localhost:3000/images/${v.inside_image}`}
+                        src={`${API_URL}/box/${v.inside_image}`}
                         alt={v.name}
                       />
                     </>

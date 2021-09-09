@@ -3,10 +3,32 @@ import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
 import Black from '../Black'
+import axios from 'axios'
+import { API_URL } from '../../../utils/config'
 
 function Modal(props) {
-  const [name, setName] = useState('Ruby')
-  const { modal, closeModal, bento } = props
+  const [name, setName] = useState('')
+  const { modal, closeModal, bento, cal } = props
+
+  // 抓到便當裡食材的id，陣列把它轉成字串
+  const bentoId = bento.map((v, i) => {
+    return v.id
+  })
+  const saveId = bentoId.toString()
+
+  const handleSubmit = async (e) => {
+    try {
+      let res = await axios.post(`${API_URL}/api/box/save`, {
+        saveId,
+        name,
+        cal,
+      })
+      // console.log(res)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   return (
     <>
       <Black modal={modal} closeModal={closeModal} />
@@ -15,7 +37,7 @@ function Modal(props) {
         style={{
           transform: modal
             ? 'translate(-50%,-50%)'
-            : 'translate(-1000px,-1000px)',
+            : 'translate(-2000px,-2000px)',
           opacity: modal ? '1' : '0',
         }}
       >
@@ -27,7 +49,6 @@ function Modal(props) {
             <div className="b-modal-name">
               <div className="font-700L text-center">{name}</div>
             </div>
-            {/* <img src={BoxExample} alt="BoxUp" class="b-contain-fit" /> */}
             <div className="b-page2-box">
               <img
                 src="http://localhost:3000/images/box_up.png"
@@ -57,7 +78,9 @@ function Modal(props) {
           </div>
 
           <div className="col-md-4 b-modal-right">
-            <form>
+            <form onSubmit={handleSubmit}>
+              <input type="hidden" value={bentoId} />
+              <input type="hidden" value={cal} />
               <label htmlFor="boxName" className="font-700M mb-3">
                 為你的便當命名
               </label>
@@ -73,9 +96,9 @@ function Modal(props) {
                   setName(e.target.value)
                 }}
               />
-              <Link to="/box">
-                <button className="b-btn font-700M">確認收藏</button>
-              </Link>
+              <button type="submit" className="b-btn font-700M">
+                確認收藏
+              </button>
             </form>
           </div>
         </div>

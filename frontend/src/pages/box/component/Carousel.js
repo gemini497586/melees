@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import ItemsCarousel from 'react-items-carousel'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
+import { API_URL } from '../../../utils/config'
 
 function Carousel(props) {
   const { data, handleCheck, bento } = props
 
   // 套件的控制項
   const [activeItemIndex, setActiveItemIndex] = useState(0)
-  const chevronWidth = 20
+  const chevronWidth = 100
   return (
     <>
       <div className="b-page2-slider">
@@ -37,7 +38,7 @@ function Carousel(props) {
                   }}
                 >
                   <img
-                    src={`http://localhost:3000/images/${v.image}`}
+                    src={`${API_URL}/box/${v.image}`}
                     alt={v.name}
                     className="b-contain-fit"
                   />

@@ -6,23 +6,23 @@ import Page2 from './component/Page2'
 import Page3 from './component/Page3'
 import CardRecipe from '../../component/CardRecipe'
 import CardShopping from '../../component/CardShopping'
-import BoxData from '../../data/box.json'
+import { API_URL } from '../../utils/config'
 
 function Box() {
   const [data, setData] = useState([])
   const [bmr, setBmr] = useState(0)
   const [tdee, setTdee] = useState(0)
-  const [total, setTotal] = useState(0)
+  const [cal, setCal] = useState(0)
   const [bento, setBento] = useState([])
   const [unitList, setUnitList] = useState([])
 
   // 從資料庫抓資料
   useEffect(() => {
-    setData(BoxData)
-    // Axios.get(`${API_URL}/box`).then((res) => {
-    //   console.log(res.data)
-    //   setData(res.data)
-    // })
+    // setData(BoxData)
+    Axios.get(`${API_URL}/api/box`).then((res) => {
+      // console.log(res.data)
+      setData(res.data)
+    })
   }, [])
 
   // 點選圖片
@@ -51,6 +51,7 @@ function Box() {
         return
       }
       setBento(newBento)
+      // console.log('新增之前', bento)
       // console.log('新增之後', newBento)
 
       // 加到table
@@ -61,9 +62,9 @@ function Box() {
       const getCal = newBento.map((item) => {
         return item.cal
       })
-      const newTotal = getCal.reduce((acc, curr) => acc + curr)
-      setTotal(newTotal)
-      // console.log('現在的卡路里 ', newTotal)
+      const newCal = getCal.reduce((acc, curr) => acc + curr)
+      setCal(newCal)
+      // console.log('現在的卡路里 ', newCal)
     }
   }
 
@@ -76,13 +77,14 @@ function Box() {
       return item.cal
     })
     // 被點到的卡路里要被刪掉
-    let newTotal = getCal.reduce((acc, curr) => acc + curr)
-    newTotal = newTotal - v.cal
+    let newCal = getCal.reduce((acc, curr) => acc + curr)
+    newCal = newCal - v.cal
 
-    setBento(bento.filter((v) => v.name !== name))
-    setUnitList(unitList.filter((v) => v.name !== name))
-    setTotal(newTotal)
+    setBento(bento.map((v) => v.name !== name))
+    setUnitList(unitList.map((v) => v.name !== name))
+    setCal(newCal)
   }
+
   return (
     <>
       <section className="page-group">
@@ -93,7 +95,13 @@ function Box() {
           handleRemove={handleRemove}
           bento={bento}
         />
-        <Page3 total={total} tdee={tdee} unitList={unitList} bento={bento} />
+        <Page3
+          cal={cal}
+          tdee={tdee}
+          unitList={unitList}
+          bento={bento}
+          cal={cal}
+        />
         {/* 最下面推薦食譜 商品 */}
         <CardRecipe />
         <CardShopping />

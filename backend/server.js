@@ -38,6 +38,8 @@ app.use(
 app.use(express.urlencoded({ extended: true }));
 // 使用這個中間件，才可以解析到 json 的資料
 app.use(express.json());
+// 使用這個中間件，才可以設定靜態檔案的位置
+app.use(express.static(path.join(__dirname, "images")));
 
 app.use((req, res, next) => {
     let current = new Date();
@@ -67,6 +69,10 @@ app.use("/member", memberRouter);
 // 引入 private router 中間件，包含會員專區功能
 let privateRouter = require("./routers/private");
 app.use("/api/private", privateRouter);
+
+// 引入 box router 中間件，包含會員專區功能
+let boxRouter = require("./routers/box");
+app.use("/api/box", boxRouter);
 
 // 前面都沒有任何符合的路由網址就進入這邊統一 404 來處理
 app.use((req, res, next) => {

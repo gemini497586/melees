@@ -6,11 +6,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
 
 function Page3(props) {
-  const { total, tdee, unitList, bento } = props
+  const { cal, tdee, unitList, bento } = props
   // 彈出視窗
   const [modal, setModal] = useState(false)
   const openModal = () => {
-    setModal(true)
+    if (bento.length > 0) {
+      setModal(true)
+    } else {
+      alert('請先至上方點選食材')
+    }
   }
   const closeModal = () => {
     setModal(false)
@@ -24,7 +28,7 @@ function Page3(props) {
           {/* 左邊 */}
           <div className="col-12 col-md-6 b-page3-left">
             <div className="b-page3-text font-700M pb-2">
-              <p>便當總卡路里: {total > 0 ? total + ' 大卡' : ''}</p>
+              <p>便當總卡路里: {cal > 0 ? cal + ' 大卡' : ''}</p>
               <p>你的每日總消耗熱量: {tdee > 0 ? tdee + ' 大卡' : ''} </p>
             </div>
             <div className="b-page3-man">
@@ -56,7 +60,7 @@ function Page3(props) {
           </div>
         </div>
       </div>
-      <Modal modal={modal} closeModal={closeModal} bento={bento} />
+      <Modal modal={modal} closeModal={closeModal} bento={bento} cal={cal} />
     </>
   )
 }
