@@ -7,7 +7,6 @@ import Paging from '../../component/Paging'
 import MinorBar from './component/MinorBar'
 import CardRecipe from '../../component/CardRecipe'
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
-import ProductDetails from './ProductDetails'
 
 // import productData from '../../data/Products.json'
 const pageArray = [1, 2, 3]
@@ -16,16 +15,18 @@ function MarketMainPage(props) {
   // console.log(props)
   return (
     <>
-      <MinorBar />
-      <div className="container">
-        <SortingBar />
-        <div className="market-main-page">
-          <ProductCard />
+      <div className="page-group">
+        <MinorBar />
+        <div className="container">
+          <SortingBar />
+          <div className="market-main-page">
+            <ProductCard />
+          </div>
+          {pageArray.map((v, i) => {
+            return <Paging value={v} />
+          })}
+          <CardRecipe />
         </div>
-        {pageArray.map((v, i) => {
-          return <Paging value={v} />
-        })}
-        {/* <CardRecipe /> */}
       </div>
     </>
   )

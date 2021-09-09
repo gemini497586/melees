@@ -13,8 +13,8 @@ function CheckoutConfirm() {
         <div className="checkout-confirm-icon">
           <FontAwesomeIcon icon="file-alt" size="lg" />
         </div>
-        <h5 className="checkout-confirm-title">付款資料確認</h5>
-        <div className="checkout-confirm-w1100"></div>
+        <h5 className="checkout-confirm-title"> 付款資料確認 </h5>
+        <div className="checkout-confirm-w1100"> </div>
         <div className="checkout-confirm-way">
           <p className="checkout-confirm-label font-700SL">付款方式</p>
           <p className="checkout-confirm-input font-400SL">信用卡付款</p>

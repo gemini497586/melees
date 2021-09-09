@@ -5,8 +5,9 @@ import RecipeStep from '../../component/RecipeStep'
 import CardShopping from '../../component/CardShopping'
 import PrivateRecipeComment from './component/PrivateRecipeComment'
 import PrivateRecipeIngre from './component/PrivateRecipeIngre'
-import PrivateRecipeCardMore from './component/PrivateRecipeCardMore'
 import PrivateRecipeHeading from './component/PrivateRecipeHeading'
+import CardRecipe from '../../component/CardRecipe'
+
 
 import { useParams } from 'react-router'
 
@@ -45,7 +46,9 @@ function PrivateRecipeIntro(props) {
         </div>
 
         <PrivateRecipeComment id={id} />
-        <PrivateRecipeCardMore />
+        <CardRecipe />
+
+        {/* <PrivateRecipeCardMore /> */}
         <CardShopping />
       </div>
     </>

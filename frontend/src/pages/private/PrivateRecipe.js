@@ -5,7 +5,6 @@ import PrivateRecipeCard from './component/PrivateRecipeCard'
 import Paging from '../../component/Paging'
 import CardRecipe from '../../component/CardRecipe'
 import CardShopping from '../../component/CardShopping'
-import PrivateRecipeCardMore from './component/PrivateRecipeCardMore'
 
 function PrivateRecipe() {
   return (
@@ -13,6 +12,7 @@ function PrivateRecipe() {
       <div className="page-group">
         <PrivateRecipeBanner />
         <DropDown />
+
         <PrivateRecipeCard />
         <CardRecipe />
         <CardShopping />
