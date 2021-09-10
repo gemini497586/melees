@@ -167,12 +167,13 @@ function App() {
           <Route path="/market/product/:id?">
             <ProductDetails />
           </Route>
-          <Route path="/market">
+          <Route path="/market/:category?">
             <MarketMainPage />
           </Route>
           <Route path="/market/check-order">
             <CheckOrder />
           </Route>
+
           {/* 搜尋 */}
           <Route path="/search/recipe">
             <SearchRecipe />

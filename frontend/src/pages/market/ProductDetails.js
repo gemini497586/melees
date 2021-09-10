@@ -11,19 +11,22 @@ import axios from 'axios'
 function ProductDetails(props) {
   const { id } = useParams()
   const [product, setProduct] = useState([])
+
   useEffect(() => {
-    axios.get(`${API_URL}/market`).then((response) => {
-      setProduct(response.data[id - 1])
+    axios.get(`${API_URL}/market/product/${id}`).then((response) => {
+      response.data[0].specs = response.data[0].specs.split('\n').join(' | ')
+      setProduct(response.data[0])
+      console.log(response.data[0])
     })
-  }, [])
+  }, [id])
 
   let category = { 1: '食材', 2: '鍋具', 3: '調味料' }
 
   const handleProductDetail = () => {
-    console.log(product)
     return (
       <div className="product-detail">
         <img src={img} alt="商品" />
+        <p className="font-400S product-detail-specs">{product.specs}</p>
         <p className="product-detail-category">{category[product.category]}</p>
         <h2 className="product-detail-name">{product.name}</h2>
         <h2 className="product-detail-price">
@@ -35,7 +38,6 @@ function ProductDetails(props) {
           加入購物車
         </button>
         <div className="w507"></div>
-        <p className="font-400L product-detail-specs">{product.specs}</p>
         <div className="info-shadow"></div>
         <h3 className="product-detail-info">商品介紹</h3>
         <p className="font-400L product-detail-information">{product.info}</p>

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Link, useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import meleesLogo from '../images/meleesLogo.svg'
 import React, { useEffect, useState } from 'react'
@@ -6,13 +6,41 @@ import '../style/header.css'
 import './FontawsomeIcons'
 import HeaderCart from './HeaderCart'
 
-function Header() {
+function Header(props) {
+  const history = useHistory()
+  useEffect(() => {
+    return history.listen((location) => {
+      let now = location.pathname
+      let header = document.getElementById('header')
+      let toBox = document.getElementById('toBox')
+      let toFeature = document.getElementById('toFeature')
+      let toPrivate = document.getElementById('toPrivate')
+      let toMarket = document.getElementById('toMarket')
+      let toMember = document.getElementById('toMember')
+      if (now.includes('member')) {
+        toMember.classList.add('header-active', 'font-700SL')
+      } else if (now.includes('market')) {
+        toMarket.classList.add('header-active', 'font-700SL')
+      } else if (now.includes('private')) {
+        toPrivate.classList.add('header-active', 'font-700SL')
+      } else if (now.includes('feature')) {
+        toFeature.classList.add('header-active', 'font-700SL')
+      } else if (now.includes('box')) {
+        toBox.classList.add('header-active', 'font-700SL')
+      } else {
+        for (let i = 0; i < header.childElementCount; i++) {
+          header.children[i].classList.remove('header-active', 'font-700SL')
+        }
+      }
+    })
+  }, [history])
+
   // 讓header-active隨著點擊的頁面切換
   useEffect(() => {
     let header = document.getElementById('header')
     header.addEventListener('click', (e) => {
       if (e.target.children.length === 0) {
-        for (let i = 0; i < header.children.length; i++) {
+        for (let i = 0; i < header.childElementCount; i++) {
           header.children[i].classList.remove('header-active', 'font-700SL')
         }
         e.target.parentElement.classList.add('header-active', 'font-700SL')
@@ -20,6 +48,7 @@ function Header() {
     })
   }, [])
 
+  // header購物車
   const [hidden, setHidden] = useState(false)
 
   return (
@@ -30,20 +59,20 @@ function Header() {
         </Link>
       </div>
       <ul className="header-bar-main-ul" id="header">
-        <li className="font-700SL header-active" id="headerToBox">
+        <li className="font-700SL header-active" id="toBox">
           <Link to="/box">客製化便當</Link>
         </li>
 
-        <li className="font-400M" id="headerToFeature">
+        <li className="font-400M" id="toFeature">
           <Link to="/feature">精選食譜</Link>
         </li>
-        <li className="font-400M" id="headerToPrivate">
+        <li className="font-400M" id="toPrivate">
           <Link to="/private">私藏食譜</Link>
         </li>
-        <li className="font-400M" id="headerToMarket">
+        <li className="font-400M" id="toMarket">
           <Link to="/market">購物商城</Link>
         </li>
-        <li className="font-400M" id="headerToMember">
+        <li className="font-400M" id="toMember">
           <Link to="/member">會員專區</Link>
         </li>
       </ul>
