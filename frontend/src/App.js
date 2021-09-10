@@ -90,28 +90,7 @@ function App() {
           <Route exact path="/feature/:id?">
             <FeatureIndex />
           </Route>
-          {/* 購物車
-          <Route path="/market/orderscomplete">
-            <OrdersComplete />
-          </Route>
-          <Route path="/market/checkoutconfirm">
-            <CheckoutConfirm />
-          </Route>
-          <Route path="/market/shoppingcart">
-            <Shoppingcart />
-          </Route>
-          <Route path="/market/checkoutpersonaldata">
-            <CheckoutPersonalData />
-          </Route>
-          <Route path="/market/cartdetail">
-            <CartDetail />
-          </Route>
-          <Route path="/market/productdetails/:id?">
-            <ProductDetails />
-          </Route>
-          <Route path="/market">
-            <MarketMainPage />
-          </Route> */}
+
           {/* 搜尋 */}
           <Route path="/search/recipe">
             <SearchRecipe />
