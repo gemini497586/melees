@@ -8,7 +8,7 @@ import { API_URL } from '../../utils/config'
 import axios from 'axios'
 
 function Register() {
-  const [picture, setPicture] = useState('')
+  const [picture, setPicture] = useState()
   const [account, setAccount] = useState('test123er')
   const [password, setPassword] = useState('123456')
   const [rePassword, setRePassword] = useState('123456')
