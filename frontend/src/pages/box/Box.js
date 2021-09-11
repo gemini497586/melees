@@ -18,11 +18,17 @@ function Box() {
 
   // 從資料庫抓資料
   useEffect(() => {
-    // setData(BoxData)
-    Axios.get(`${API_URL}/api/box`).then((res) => {
-      // console.log(res.data)
-      setData(res.data)
-    })
+    const getData = async () => {
+      try {
+        let res = await Axios.get(`${API_URL}/api/box`)
+        let data = res.data
+        setData(data)
+      } catch (e) {
+        console.log(e)
+        // alert(e.response.data.message)
+      }
+    }
+    getData()
   }, [])
 
   // 點選圖片
@@ -80,8 +86,8 @@ function Box() {
     let newCal = getCal.reduce((acc, curr) => acc + curr)
     newCal = newCal - v.cal
 
-    setBento(bento.map((v) => v.name !== name))
-    setUnitList(unitList.map((v) => v.name !== name))
+    setBento(bento.filter((v) => v.name !== name))
+    setUnitList(unitList.filter((v) => v.name !== name))
     setCal(newCal)
   }
 

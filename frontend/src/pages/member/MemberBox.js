@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import '../../style/memberBox.css'
 import SaveBox from './component/SaveBox'
 import MinorBar from './component/MinorBar'
 import DropDown2 from '../../component/DropDown2'
+import Axios from 'axios'
+import { API_URL } from '../../utils/config'
 
 function MemberBox() {
+  const [data, setData] = useState([])
+  const [prep, setPrep] = useState([])
   const itemList = [
     {
       name: '時間由新至舊',
@@ -23,20 +27,21 @@ function MemberBox() {
       value: '4',
     },
   ]
-  const saveBoxList = [
-    {
-      food: '雞肉、花椰菜、番茄、白飯、玉米筍',
-      cal: 1200,
-      name: 'Ruby',
-      date: '2021/09/03',
-    },
-    {
-      food: '雞肉、花椰菜、番茄、白飯、玉米筍雞肉、花椰菜、番茄、白飯、玉米筍',
-      cal: 1200,
-      name: 'Ruby',
-      date: '2021/09/03',
-    },
-  ]
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        let res = await Axios.get(`${API_URL}/api/box/boxsave`)
+        let data = res.data.result
+        let prep = res.data.result2
+        setData(data)
+        setPrep(prep)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    getData()
+  }, [])
+
   return (
     <>
       <div className="page-group">
@@ -48,9 +53,7 @@ function MemberBox() {
             </div>
             <div className="member-box-bottom">
               <div className="row">
-                <SaveBox saveBoxList={saveBoxList} />
-                <SaveBox saveBoxList={saveBoxList} />
-                <SaveBox saveBoxList={saveBoxList} />
+                <SaveBox data={data} />
               </div>
             </div>
           </div>

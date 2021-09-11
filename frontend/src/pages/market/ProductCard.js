@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react'
 import '../../style/productCard.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -7,25 +8,19 @@ import { Link } from 'react-router-dom'
 import { API_URL } from '../../utils/config'
 import axios from 'axios'
 
-function ProductCard() {
+function ProductCard(props) {
   const [product, setProduct] = useState([])
-  const [cart, setCart] = useState([])
 
+  console.log(props)
   useEffect(() => {
     // console.log(API_URL)
-    axios.get(`${API_URL}/market`).then((response) => {
+    axios.get(`${API_URL}/market/${props.category}`).then((response) => {
       setProduct(response.data)
     })
-  }, [])
+  }, [props.category])
 
   // 查表法 --> O(1)
   let category = { 1: '食材', 2: '鍋具', 3: '調味料' }
-
-  // 新增至購物車(onClick)
-  const handleCart = (e) => {
-    setCart([...cart, e.target.id])
-    console.log(cart)
-  }
 
   const handleProductCard = product.map((e) => {
     return (
@@ -46,13 +41,12 @@ function ProductCard() {
           className="btn font-700M product-add-to-cart-btn"
           id={e.id}
           onClick={(e) => {
-            handleCart(e)
+            props.setCart([...props.cart, e.target.id])
           }}
         >
           <FontAwesomeIcon icon="cart-plus" className="cart-plus" />
           加入購物車
         </button>
-        {cart}
       </div>
     )
   })

@@ -17,15 +17,21 @@ function Modal(props) {
   const saveId = bentoId.toString()
 
   const handleSubmit = async (e) => {
+    // e.preventDefault()
     try {
-      let res = await axios.post(`${API_URL}/api/box/save`, {
-        saveId,
-        name,
-        cal,
-      })
+      let res = await axios.post(
+        `${API_URL}/api/box/save`,
+        {
+          saveId,
+          name,
+          cal,
+        },
+        { withCredentials: true }
+      )
       // console.log(res)
-    } catch (err) {
-      console.log(err)
+    } catch (e) {
+      console.log(e)
+      alert(e.response.data.message)
     }
   }
 
@@ -62,7 +68,7 @@ function Modal(props) {
                       <img
                         key={v.id}
                         className={`b-page2-box-${i}`}
-                        src={`http://localhost:3000/images/${v.inside_image}`}
+                        src={`${API_URL}/box/${v.inside_image}`}
                         alt={v.name}
                       />
                     </>
@@ -81,9 +87,10 @@ function Modal(props) {
             <form onSubmit={handleSubmit}>
               <input type="hidden" value={bentoId} />
               <input type="hidden" value={cal} />
-              <label htmlFor="boxName" className="font-700M mb-3">
+              <label htmlFor="boxName" className="font-700M">
                 為你的便當命名
               </label>
+              <div className="b-modal-note font-400SS">*最長六個字</div>
               <input
                 type="text"
                 name="boxName"

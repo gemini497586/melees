@@ -184,25 +184,30 @@
   width: 30%;
 }
 .b-page2-box-0 {
+  /* border: 1px solid #000; */
   position: absolute;
   left: 20%;
 }
 .b-page2-box-1 {
+  /* border: 1px solid #000; */
   position: absolute;
   left: 40%;
   top: 5%;
 }
 .b-page2-box-2 {
+  /* border: 1px solid #000; */
   position: absolute;
   left: 65%;
   top: 10%;
 }
 .b-page2-box-3 {
+  /* border: 1px solid #000; */
   position: absolute;
   left: 20%;
   top: 15%;
 }
 .b-page2-box-4 {
+  /* border: 1px solid #000; */
   position: absolute;
   left: 45%;
   top: 25%;
@@ -337,6 +342,10 @@
   color: var(--color-grey-900);
 }
 
+.b-modal-note {
+  color: var(--color-grey-800);
+  margin-bottom: 10px;
+}
 @media screen and (max-width: 414px) {
   .b-modal {
     width: 90%;
