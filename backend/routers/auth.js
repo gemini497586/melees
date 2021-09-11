@@ -59,9 +59,10 @@ const uploader = multer({
   storage: storage,
   // 非常必要的檔案驗證
   fileFilter: function (req, file, callback) {
+    console.log(file);
     if (
       file.mimetype !== "imgae/jpeg" &&
-      file.mimetype !== "imgae/png" &&
+      file.mimetype !== "image/png" &&
       file.mimetype !== "imgae/jpg"
     ) {
       callback(new Error("不接受的檔案型態"), false);
@@ -108,7 +109,7 @@ router.post(
       });
     }
 
-    let filename = req.file ? "/uploads/" + req.file.filename : "";
+    let filename = req.file ? "/" + req.file.filename : "";
     // 密碼加密 --> bcrypt.hash(明文, salt);
     let hashPassword = await bcrypt.hash(req.body.password, 10);
     // let result = await connection.queryAsync(
