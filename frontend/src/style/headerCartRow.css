@@ -1,5 +1,4 @@
 /* 購物車彈出視窗 */
-
 .header-cart-row {
   position: relative;
   height: 120px;
@@ -7,7 +6,8 @@
 }
 
 .header-cart-row div,
-.header-cart-row .header-cart-row-name {
+.header-cart-row .header-cart-row-name,
+.header-cart-row-delete {
   position: absolute;
 }
 
@@ -33,6 +33,7 @@
   width: 40px;
   height: 40px;
   border: 1px solid var(--color-primary);
+  background: var(--color-white);
   border-radius: 50%;
   color: var(--color-primary);
   top: 15px;
@@ -41,27 +42,50 @@
   line-height: 35px;
 }
 
-.header-cart-row-operation,
-.header-cart-row-operation span {
+.header-cart-row-operation {
   width: 115px;
   height: 36px;
   top: 70px;
   left: 220px;
   text-align: center;
-  margin: 0px 10px;
-  line-height: 35px;
   background: var(--color-grey-500);
   border-radius: 100px;
 }
 
+.header-cart-row-operation p {
+  width: 20px;
+  padding: 0px 2px;
+  height: 36px;
+  line-height: 36px;
+}
+
+.operation-btn {
+  height: 36px;
+  line-height: 20px;
+}
+
+.operation-btn:focus {
+  box-shadow: none;
+}
+
+.minus {
+  margin-right: 5px;
+  border-radius: 100px 0px 0px 100px;
+}
+
+.plus {
+  margin-left: 10px;
+  border-radius: 0px 100px 100px 0px;
+}
+
 .header-cart-row-price {
-  width: 80px;
+  width: 100px;
   height: 27px;
   font-size: 24px;
   font-weight: 700;
   line-height: 26.4px;
   top: 75px;
-  left: 380px;
+  left: 370px;
 }
 
 /* 前往結帳按鈕 */
@@ -70,4 +94,8 @@
   background: var(--color-primary);
   margin: 5px 0px 0px;
   color: var(--color-white);
+}
+
+/* 購物車內沒商品的提示訊息 */
+.no-product-in-cart {
 }

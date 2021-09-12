@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Link, useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import meleesLogo from '../images/meleesLogo.svg'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import '../style/header.css'
 import './FontawsomeIcons'
 import HeaderCart from './HeaderCart'
@@ -48,8 +48,10 @@ function Header(props) {
     })
   }, [])
 
-  // header購物車
+  // 顯示header購物車
   const [hidden, setHidden] = useState(false)
+  // 傳資料到購物車
+  // const { cartArray, setCartArray } = useContext(CartContext)
 
   return (
     <div className="header-bar">

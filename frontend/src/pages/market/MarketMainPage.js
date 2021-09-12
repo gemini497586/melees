@@ -11,9 +11,8 @@ import { useParams } from 'react-router'
 
 const pageArray = [1, 2, 3]
 
-function MarketMainPage(props) {
+function MarketMainPage() {
   const { category } = useParams()
-  console.log(props)
 
   return (
     <>

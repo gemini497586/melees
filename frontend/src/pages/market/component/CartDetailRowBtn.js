@@ -1,22 +1,26 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import img from '../../../images/005.jpg'
 import '../../../style/cartDetailRowBtn.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
+import { HandleCart } from '../../../utils/HandleCart'
 
 function CartDetailRow(props) {
+  const { carts, addCart, removeCart, productsAll } = useContext(HandleCart)
+  const pID = props.value - 1
+
   return (
     <div className="cart-btn-detail-row">
       <img src={img} alt="商品圖片" />
-      <p className="font-400S cart-btn-detail-category">食材</p>
-      <h6 className="cart-btn-detail-name">美國Choice嫩肩里肌肉片</h6>
+      <p className="font-400S cart-btn-detail-category">
+        {productsAll[props.value].category}
+      </p>
+      <h6 className="cart-btn-detail-name">{productsAll[pID].name}</h6>
       <p className="font-400S cart-btn-detail-specs">
-        重量：100g±5% <br />
-        原產地：美國 <br />
-        保存方式：請置於冷凍-18℃保存
+        {productsAll[pID].specs}
       </p>
       <p className="cart-btn-detail-price">
-        <FontAwesomeIcon icon="dollar-sign" /> 310
+        <FontAwesomeIcon icon="dollar-sign" /> {productsAll[pID].price}
       </p>
       <div className="cart-btn-detail-amount">
         <FontAwesomeIcon icon="minus" className="operation" />
