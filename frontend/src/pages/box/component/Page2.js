@@ -25,25 +25,27 @@ function Page2(props) {
         </div>
         <div className="d-block d-md-flex">
           <div className="col-md-3 b-page2-left">
-            <div className="b-page2-select">
-              已選擇食材
-              {bento.map((v, i) => {
-                return (
-                  <>
-                    <div key={i}>
-                      {v.name}
-                      <FontAwesomeIcon
-                        icon="times"
-                        className="times"
-                        onClick={() => {
-                          handleRemove(v)
-                        }}
-                      />
-                    </div>
-                  </>
-                )
-              })}
-            </div>
+            {bento.length > 0 ? (
+              <div className="b-page2-select">
+                已選擇食材
+                {bento.map((v, i) => {
+                  return (
+                    <>
+                      <div key={i}>
+                        {v.name}
+                        <FontAwesomeIcon
+                          icon="times"
+                          className="times"
+                          onClick={() => {
+                            handleRemove(v)
+                          }}
+                        />
+                      </div>
+                    </>
+                  )
+                })}
+              </div>
+            ) : null}
           </div>
           <div className="col-md-6 b-page2-image">
             <div className="b-page2-box">

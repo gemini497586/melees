@@ -9,7 +9,7 @@ function Carousel(props) {
 
   // 套件的控制項
   const [activeItemIndex, setActiveItemIndex] = useState(0)
-  const chevronWidth = 100
+  const chevronWidth = 80
   return (
     <>
       <div className="b-page2-slider">

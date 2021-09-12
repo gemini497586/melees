@@ -92,6 +92,11 @@
   width: 50%;
   margin: 0 auto;
 }
+.b-page1-errorMsg {
+  height: 20px;
+  color: var(--color-red-C);
+  margin-bottom: 5px;
+}
 .b-page1-right {
   position: relative;
   margin-left: 30px;
@@ -111,6 +116,7 @@
   top: 30px;
   left: 40px;
 }
+
 @media screen and (max-width: 414px) {
   .b-page1,
   .b-page1-text {
@@ -148,6 +154,7 @@
   width: 50%;
   height: 80%;
   padding: 10px;
+  margin-left: 20px;
   border-radius: 8px;
 }
 .b-page2-select .times {
@@ -186,19 +193,20 @@
 .b-page2-box-0 {
   /* border: 1px solid #000; */
   position: absolute;
-  left: 20%;
+  left: 25%;
+  top: 2%;
 }
 .b-page2-box-1 {
   /* border: 1px solid #000; */
   position: absolute;
-  left: 40%;
-  top: 5%;
+  left: 45%;
+  top: 10%;
 }
 .b-page2-box-2 {
   /* border: 1px solid #000; */
   position: absolute;
-  left: 65%;
-  top: 10%;
+  left: 60%;
+  top: 18%;
 }
 .b-page2-box-3 {
   /* border: 1px solid #000; */
@@ -246,6 +254,9 @@
   }
   .b-page2-box {
     width: 100%;
+  }
+  .b-page2-slider {
+    margin-bottom: 0;
   }
 }
 /* 第三段 */
@@ -305,7 +316,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 500;
+  z-index: 110;
   width: 50%;
   background: var(--color-white);
   padding: 30px;
@@ -322,10 +333,10 @@
 .b-modal-name {
   position: absolute;
   top: 49%;
-  left: 24%;
-  transform: rotate(24deg);
+  left: 19%;
+  transform: rotate(25deg);
   color: var(--color-secondary);
-  width: 150px;
+  width: 200px;
   z-index: 3;
 }
 .b-modal-close {
@@ -357,7 +368,7 @@
     text-align: center;
   }
   .b-modal-name {
-    top: 48%;
+    top: 49%;
     left: 16%;
     font-size: 20px;
     line-height: 28px;

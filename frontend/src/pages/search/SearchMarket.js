@@ -48,7 +48,7 @@ function SearchMarket() {
   ]
   return (
     <>
-      <section>
+      <section className="page-group">
         <div className="container">
           <div className="s-market-top">
             <div className="d-flex justify-content-between align-items-center">

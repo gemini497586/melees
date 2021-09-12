@@ -30,7 +30,7 @@ function MemberBox() {
   useEffect(() => {
     const getData = async () => {
       try {
-        let res = await Axios.get(`${API_URL}/api/box/boxsave`)
+        let res = await Axios.get(`${API_URL}/api/box/boxsave/`)
         let data = res.data.result
         let prep = res.data.result2
         setData(data)
@@ -41,7 +41,7 @@ function MemberBox() {
     }
     getData()
   }, [])
-
+  // console.log(data)
   return (
     <>
       <div className="page-group">
@@ -53,7 +53,7 @@ function MemberBox() {
             </div>
             <div className="member-box-bottom">
               <div className="row">
-                <SaveBox data={data} />
+                <SaveBox data={data} prep={prep} />
               </div>
             </div>
           </div>

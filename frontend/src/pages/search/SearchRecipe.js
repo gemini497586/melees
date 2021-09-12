@@ -76,7 +76,7 @@ function SearchRecipe() {
   ]
   return (
     <>
-      <section>
+      <section className="page-group">
         <div className="container">
           <div className="s-recipe-top">
             <div className="col-6">
