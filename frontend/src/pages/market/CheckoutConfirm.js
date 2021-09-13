@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import '../../style/checkoutConfirm.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
 import CheckoutArea from './CheckoutArea'
 import OrderProgressBar from './component/OrderProgressBar'
+import { Link } from 'react-router-dom'
+import { HandleCart } from '../../utils/HandleCart'
+import CheckoutConfirmTable from './CheckoutConfirmTable'
 
 function CheckoutConfirm() {
+  const { carts, removeCart, amount, setAmount } = useContext(HandleCart)
+
   return (
     <div className="container">
       <OrderProgressBar />
@@ -40,37 +45,24 @@ function CheckoutConfirm() {
           </p>
         </div>
         <div className="checkout-confirm-detail">
+          <div className="checkout-confirm-detail-w1100"></div>
           <p className="checkout-confirm-label font-700SL">訂單明細</p>
           <table className="checkout-confirm-table">
             <tbody className="font-400SL">
-              <tr className="d-flex justify-content-between checkout-confirm-tr1">
-                <td>
-                  美國Choice嫩肩里肌肉片 <span>*5</span>
-                </td>
-                <td>
-                  <FontAwesomeIcon icon="dollar-sign" /> 1,550
-                </td>
-              </tr>
-              <tr className="d-flex justify-content-between checkout-confirm-tr2">
-                <td>
-                  紐西蘭小羔羊薄切片 <span>*4</span>
-                </td>
-                <td>
-                  <FontAwesomeIcon icon="dollar-sign" /> 760
-                </td>
-              </tr>
-              <tr className="d-flex justify-content-between checkout-confirm-tr3">
-                <td>
-                  大加燕米1kg <span>*1</span>
-                </td>
-                <td>
-                  <FontAwesomeIcon icon="dollar-sign" /> 510
-                </td>
-              </tr>
+              {carts.map((value) => (
+                <CheckoutConfirmTable value={value} />
+              ))}
             </tbody>
           </table>
         </div>
-        <CheckoutArea />
+        <div className="cart-checkout-box">
+          <CheckoutArea toGO="" />
+          <Link to="/market/orders-complete">
+            <button className="btn font-700M cart-checkout-btn">
+              <FontAwesomeIcon icon="credit-card" /> 確認送出
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   )

@@ -53,10 +53,15 @@ import MyRecipe from './pages/member/MyRecipe'
 import { useState } from 'react'
 
 function App() {
-  // 第二種
   const [carts, setCarts] = useState([]) //放入購物車的商品
   const addCart = (e) => {
-    setCarts([...carts, e])
+    if (carts.includes(e)) {
+      console.log(`已經有${e}了`)
+      alert('該商品已經加入購物車')
+      setCarts([...carts])
+    } else {
+      setCarts([...carts, e])
+    }
   }
   const removeCart = (e, id) => {
     id = id + 1
@@ -65,9 +70,22 @@ function App() {
   }
   const [productsAll, setProductsAll] = useState([]) //所有的商品
 
+  const [amount, setAmount] = useState(1) // 計算商品數量用
+
+  const [login, setLogin] = useState(false) //查看是否登入
   return (
     <HandleCart.Provider
-      value={{ carts, addCart, removeCart, productsAll, setProductsAll }}
+      value={{
+        carts,
+        addCart,
+        removeCart,
+        productsAll,
+        setProductsAll,
+        amount,
+        setAmount,
+        login,
+        setLogin,
+      }}
     >
       <Router>
         <div className="App">
@@ -145,28 +163,28 @@ function App() {
             </Route>
 
             {/* 購物車 */}
-            <Route path="/market/orderscomplete">
+            <Route exact path="/market/orders-complete">
               <OrdersComplete />
             </Route>
-            <Route path="/market/checkoutconfirm">
+            <Route exact path="/market/checkout-confirm">
               <CheckoutConfirm />
             </Route>
-            <Route path="/market/shoppingcart">
+            <Route exact path="/market/shoppingcart">
               <Shoppingcart />
             </Route>
-            <Route path="/market/checkoutpersonaldata">
+            <Route exact path="/market/checkout-personalData">
               <CheckoutPersonalData />
             </Route>
-            <Route path="/market/cart-detail">
+            <Route exact path="/market/cart-detail">
               <CartDetail />
             </Route>
-            <Route path="/market/product/:id?">
+            <Route exact path="/market/product/:id?">
               <ProductDetails />
             </Route>
-            <Route path="/market/:category?">
+            <Route exact path="/market/:category?">
               <MarketMainPage />
             </Route>
-            <Route path="/market/check-order">
+            <Route exact path="/market/check-order">
               <CheckOrder />
             </Route>
 

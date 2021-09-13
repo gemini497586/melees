@@ -5,6 +5,7 @@ import React, { useEffect, useState, useContext } from 'react'
 import '../style/header.css'
 import './FontawsomeIcons'
 import HeaderCart from './HeaderCart'
+import { HandleCart } from '../utils/HandleCart'
 
 function Header(props) {
   const history = useHistory()
@@ -50,8 +51,8 @@ function Header(props) {
 
   // 顯示header購物車
   const [hidden, setHidden] = useState(false)
-  // 傳資料到購物車
-  // const { cartArray, setCartArray } = useContext(CartContext)
+  // 檢查是否登入
+  const { login, setLogin } = useContext(HandleCart)
 
   return (
     <div className="header-bar">
@@ -128,56 +129,67 @@ function Header(props) {
             />
           </div>
         </li>
-        <li className="user-btn ">
-          <FontAwesomeIcon
-            icon="user-circle"
-            className="user"
-            data-bs-toggle="dropdown"
-          />
-          <ul className="dropdown-menu user-dropdown">
-            <li className="font-400SL">
-              <a className="dropdown-item" href="#/">
-                大頭貼
-              </a>
-            </li>
-            <hr />
-            <li className="font-400SL">
-              <a className="dropdown-item" href="#/">
-                個人資料
-              </a>
-            </li>
-            <li className="font-400SL">
-              <a className="dropdown-item" href="#/">
-                我的客製便當
-              </a>
-            </li>
-            <li className="font-400SL">
-              <a className="dropdown-item" href="#/">
-                我的私藏食譜
-              </a>
-            </li>
-            <li className="font-400SL">
-              <a className="dropdown-item" href="#/">
-                食譜收藏
-              </a>
-            </li>
-            <li className="font-400SL">
-              <a className="dropdown-item" href="#/">
-                商品收藏
-              </a>
-            </li>
-            <li className="font-400SL">
-              <a className="dropdown-item" href="#/">
-                訂單查詢
-              </a>
-            </li>
-            <li className="font-400SL">
-              <a className="dropdown-item" href="#/">
-                登出
-              </a>
-            </li>
-          </ul>
-        </li>
+        {login ? (
+          <li className="user-btn ">
+            <FontAwesomeIcon
+              icon="user-circle"
+              className="user"
+              data-bs-toggle="dropdown"
+            />
+            <ul className="dropdown-menu user-dropdown">
+              <li className="font-400SL">
+                <a className="dropdown-item" href="#/">
+                  大頭貼
+                </a>
+              </li>
+              <hr />
+              <li className="font-400SL">
+                <a className="dropdown-item" href="#/">
+                  個人資料
+                </a>
+              </li>
+              <li className="font-400SL">
+                <a className="dropdown-item" href="#/">
+                  我的客製便當
+                </a>
+              </li>
+              <li className="font-400SL">
+                <a className="dropdown-item" href="#/">
+                  我的私藏食譜
+                </a>
+              </li>
+              <li className="font-400SL">
+                <a className="dropdown-item" href="#/">
+                  食譜收藏
+                </a>
+              </li>
+              <li className="font-400SL">
+                <a className="dropdown-item" href="#/">
+                  商品收藏
+                </a>
+              </li>
+              <li className="font-400SL">
+                <a className="dropdown-item" href="#/">
+                  訂單查詢
+                </a>
+              </li>
+              <li className="font-400SL">
+                <a className="dropdown-item" href="#/">
+                  登出
+                </a>
+              </li>
+            </ul>
+          </li>
+        ) : (
+          <>
+            <Link to="/register">
+              <li className="font-400M header-register">註冊</li>
+            </Link>
+            <Link to="/login">
+              <li className="font-400M header-login">登入</li>
+            </Link>
+          </>
+        )}
       </ul>
       {hidden && (
         <div className="header-cart position-absolute" id="abc">

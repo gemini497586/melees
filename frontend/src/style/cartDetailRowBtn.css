@@ -54,16 +54,36 @@
   background: var(--color-grey-300);
   width: 125px;
   height: 43px;
-  line-height: 43px;
   border-radius: 100px;
   top: 66.5px;
   left: 835.8px;
+}
+
+.cart-btn-detail-amount p {
+  height: 43px;
+  width: 125px;
+  line-height: 43px;
+  border-radius: 100px;
   text-align: center;
 }
 
-.operation {
-  margin: 0px 15px;
-  cursor: pointer;
+.cart-btn-detail-amount .btn {
+  height: 43px;
+  width: 45px;
+}
+
+.cart-btn-detail-amount .btn:focus {
+  box-shadow: none;
+}
+
+.cart-btn-detail-amount .minus {
+  left: 0px;
+  border-radius: 100px 0px 0px 100px;
+}
+
+.cart-btn-detail-amount .plus {
+  right: 0px;
+  border-radius: 0px 100px 100px 0px;
 }
 
 .cart-btn-detail-total {

@@ -1,27 +1,31 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { API_URL } from '../../utils/config'
 import axios from 'axios'
 import '../../style/global.css'
 import '../../style/member.css'
 import '../../style/login.css'
 import logo from '../../images/logo.png'
+import { HandleCart } from '../../utils/HandleCart'
 
 function Login() {
+  const { login, setLogin } = useContext(HandleCart) //登入用
   const [account, setAccount] = useState('meleesadmin')
   const [password, setPassword] = useState('123456')
   const handleSubmit = async (e) => {
     e.preventDefault()
-    let result = await axios.post(
-      `${API_URL}/auth/login`,
-      {
-        account,
-        password,
-      },
-      {
-        // 設定可以跨源送 cookie
-        withCredentials: true,
-      }
-    )
+    let result = await axios
+      .post(
+        `${API_URL}/auth/login`,
+        {
+          account,
+          password,
+        },
+        {
+          // 設定可以跨源送 cookie
+          withCredentials: true,
+        }
+      )
+      .then(setLogin(true))
     console.log(result)
   }
   return (

@@ -8,10 +8,8 @@ import Login from '../pages/member/Login'
 import { HandleCart } from '../utils/HandleCart'
 
 function HeaderCartRow(props) {
-  const { removeCart, productsAll } = useContext(HandleCart)
+  const { removeCart, productsAll, amount, setAmount } = useContext(HandleCart)
 
-  // 計算商品數量用
-  const [amount, setAmount] = useState(1)
   let id = props.id - 1
 
   return (

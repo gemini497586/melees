@@ -68,12 +68,12 @@
   box-shadow: none;
 }
 
-.minus {
+.header-cart-row-operation .minus {
   margin-right: 5px;
   border-radius: 100px 0px 0px 100px;
 }
 
-.plus {
+.header-cart-row-operation.plus {
   margin-left: 10px;
   border-radius: 0px 100px 100px 0px;
 }

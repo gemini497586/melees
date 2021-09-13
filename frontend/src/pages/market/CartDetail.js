@@ -41,9 +41,12 @@ function CartDetail() {
             <div className="w244"></div>
             <p className="font-400S cart-detail-total-amount">商品總金額</p>
             <h6 className="cart-detail-total-amount-num">NT 2,820</h6>
-            <button className="btn font-700M cart-detail-checkout-btn">
+            <Link
+              to="/market/checkout-personalData"
+              className="btn font-700M cart-detail-checkout-btn"
+            >
               <FontAwesomeIcon icon="credit-card" /> 結帳去
-            </button>
+            </Link>
           </div>
         ) : (
           <h5>請新增商品至購物車</h5>

@@ -6,7 +6,8 @@ import '../../../component/FontawsomeIcons'
 import { HandleCart } from '../../../utils/HandleCart'
 
 function CartDetailRow(props) {
-  const { carts, addCart, removeCart, productsAll } = useContext(HandleCart)
+  const { carts, removeCart, productsAll, amount, setAmount } =
+    useContext(HandleCart)
   const pID = props.value - 1
 
   return (
@@ -23,15 +24,32 @@ function CartDetailRow(props) {
         <FontAwesomeIcon icon="dollar-sign" /> {productsAll[pID].price}
       </p>
       <div className="cart-btn-detail-amount">
-        <FontAwesomeIcon icon="minus" className="operation" />
-        5
-        <FontAwesomeIcon icon="plus" className="operation" />
+        <p>{amount}</p>
+        <button
+          className="btn minus"
+          onClick={() => {
+            amount > 1 ? setAmount(amount - 1) : setAmount(amount)
+          }}
+        >
+          <FontAwesomeIcon icon="minus" />
+        </button>
+        <button
+          className="btn plus"
+          onClick={() => {
+            amount < 99 ? setAmount(amount + 1) : setAmount(99)
+          }}
+        >
+          <FontAwesomeIcon icon="plus" />
+        </button>
       </div>
       <h5 className="cart-btn-detail-total">
         NT <FontAwesomeIcon icon="dollar-sign" />
-        1,550
+        {productsAll[pID].price * amount}
       </h5>
-      <button className="btn cart-btn-detail-delete">
+      <button
+        className="btn cart-btn-detail-delete"
+        onClick={(e) => removeCart(e, pID)}
+      >
         <FontAwesomeIcon icon="trash-alt" />
       </button>
     </div>
