@@ -37,6 +37,14 @@ const dataValidation = [
 
   // 地址驗證 --> 1.接受空值  2.max: 100;
   body("address").isLength({ max: 100 }).withMessage("地址太長了"),
+
+  // 手機驗證 --> 1.接受空值  2.台灣手機號碼格式
+  body("cellphone")
+    .custom((value, { req }) => {
+      let phoneRegex = /^(09)[0-9]{8}$/;
+      return phoneRegex.test(value);
+    })
+    .withMessage("手機號碼格式有誤"),
 ];
 
 // multer 用來處理 From-data (Content-Type: multipart/form-data)
@@ -61,9 +69,9 @@ const uploader = multer({
   fileFilter: function (req, file, callback) {
     console.log(file);
     if (
-      file.mimetype !== "imgae/jpeg" &&
+      file.mimetype !== "image/jpeg" &&
       file.mimetype !== "image/png" &&
-      file.mimetype !== "imgae/jpg"
+      file.mimetype !== "image/jpg"
     ) {
       callback(new Error("不接受的檔案型態"), false);
     }
@@ -74,7 +82,7 @@ const uploader = multer({
   },
 });
 
-// 手機驗證 --> 1.接受空值  2.台灣手機號碼格式
+
 
 // 註冊
 router.post(
@@ -109,37 +117,25 @@ router.post(
       });
     }
 
-    let filename = req.file ? "/" + req.file.filename : "";
     // 密碼加密 --> bcrypt.hash(明文, salt);
     let hashPassword = await bcrypt.hash(req.body.password, 10);
-    // let result = await connection.queryAsync(
-    //   "INSERT INTO member (account, password, name, nickname, gender, birthday, cellphone, email, picture, address) VALUES (?);",
-    //   [[
-    //       req.body.account,
-    //       hashPassword,
-    //       req.body.name,
-    //       req.body.nickname,
-    //       req.body.gender,
-    //       req.body.birthday,
-    //       req.body.cellphone,
-    //       req.body.email,
-    //       filename,
-    //       req.body.address,
-    //     ]]
-    // );
-    console.log("預計存入資料庫的內容：");
-    console.log([
-      req.body.account,
-      hashPassword,
-      req.body.name,
-      req.body.nickname,
-      req.body.gender,
-      req.body.birthday,
-      req.body.cellphone,
-      req.body.email,
-      filename,
-      req.body.address,
-    ]);
+    let filename = req.file ? "/" + req.file.filename : "";
+    let result = await connection.queryAsync(
+      "INSERT INTO member (account, password, name, nickname, gender, birthday, phone, email, picture, address) VALUES (?);",
+      [[
+          req.body.account,
+          hashPassword,
+          req.body.name,
+          req.body.nickname,
+          req.body.gender,
+          req.body.birthday,
+          req.body.cellphone,
+          req.body.email,
+          filename,
+          req.body.address,
+        ]]
+    );
+    console.log("存入資料庫的內容：", result);
 
     res.json({}); //回覆res --> 結束路由中間件
   }
@@ -153,7 +149,7 @@ router.post("/login", async (req, res, next) => {
   //   a.如果沒有這個帳號，就回覆錯誤(400)
   let member = await connection.queryAsync(
     "SELECT * FROM member WHERE account = ?",
-    ["meleesadmin"]
+    [req.body.account]
   );
   //   console.log(member);
 
@@ -168,13 +164,13 @@ router.post("/login", async (req, res, next) => {
 
   // 2.密碼比對
   //   a.不一致，回覆錯誤(400)
-  //   let result = await bcrypt.compare(req.body.password, member.password);
-  //   if (!result) {
-  //     return next({
-  //       status: 400,
-  //       message: "密碼輸入錯誤",
-  //     });
-  //   }
+    let result = await bcrypt.compare(req.body.password, member.password);
+    if (!result) {
+      return next({
+        status: 400,
+        message: "密碼輸入錯誤",
+      });
+    }
 
   // 3.有帳號且密碼正確
   //   a.紀錄 session
