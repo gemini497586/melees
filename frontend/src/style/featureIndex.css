@@ -1,12 +1,7 @@
 .findex-box {
   max-width: 1695px;
   margin: 0 auto;
-}
-.findex-dropdowm {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  margin: 20px 0px;
+  position: relative;
 }
 .findex-list {
   display: flex;

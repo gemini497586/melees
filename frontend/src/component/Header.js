@@ -1,9 +1,10 @@
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import meleesLogo from '../images/meleesLogo.svg'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../style/header.css'
 import './FontawsomeIcons'
+import HeaderCart from './HeaderCart'
 
 function Header() {
   // 讓header-active隨著點擊的頁面切換
@@ -18,6 +19,8 @@ function Header() {
       }
     })
   }, [])
+
+  const [hidden, setHidden] = useState(false)
 
   return (
     <div className="header-bar">
@@ -68,6 +71,7 @@ function Header() {
                 </a>
               </li>
             </ul>
+
             <input
               type="text"
               className="font-400SL header-search-input"
@@ -79,7 +83,13 @@ function Header() {
           </div>
         </li>
         <li className="cart-btn">
-          <div className="gray-circle">
+          <div
+            className="gray-circle"
+            id="cartBtn"
+            onClick={() => {
+              setHidden(!hidden)
+            }}
+          >
             <FontAwesomeIcon
               icon="shopping-cart"
               size="lg"
@@ -138,6 +148,11 @@ function Header() {
           </ul>
         </li>
       </ul>
+      {hidden && (
+        <div className="header-cart position-absolute" id="abc">
+          <HeaderCart />
+        </div>
+      )}
     </div>
   )
 }

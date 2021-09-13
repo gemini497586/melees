@@ -123,3 +123,10 @@
 .checkout-confirm-tr3 {
   top: 100px;
 }
+
+.checkout-confirm-detail {
+  top: 317px;
+  left: 112px;
+  width: 500px;
+  height: 25px;
+}

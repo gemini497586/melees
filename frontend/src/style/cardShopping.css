@@ -17,7 +17,7 @@
 .cardShopping-others-more {
   margin-right: 60px;
 }
-.cardShopping-others-more i {
+.cardShopping-others-more .more-arrow {
   margin-right: 18px;
 }
 .cardShopping {
@@ -40,7 +40,6 @@
   right: 28px;
   top: 21px;
   color: var(--color-white);
-  transform: scale(1, 0.85);
 }
 .cardShopping-bookmark-stat-box {
   position: absolute;
@@ -51,11 +50,10 @@
   border-radius: 14px;
   background: #f0f0f0;
 }
-.cardShopping-bookmark-stat-icon i {
+.cardShopping-bookmark-stat-icon {
   position: absolute;
-  transform: scaleX(24px);
-  left: 21px;
-  top: 8px;
+  left: 18px;
+  top: 5px;
   color: var(--color-blue-C);
 }
 .cardShopping-book-mark-num {

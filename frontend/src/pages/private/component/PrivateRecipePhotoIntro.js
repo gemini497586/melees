@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import '../../../style/privateRecipePhotoIntro.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import food from '../../../images/default_food3.jpg'
 import avatar from '../../../images/default_avatar1.jpg'
 import Axios from 'axios'
-
 
 function PrivateRecipePhotoIntro(props) {
   const { id } = props
@@ -46,11 +46,11 @@ function PrivateRecipePhotoIntro(props) {
                 </div>
               </div>
               <div class="PrivateRecipePhotoIntro-star">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
+                <FontAwesomeIcon icon="star" size="lg" />
+                <FontAwesomeIcon icon="star" size="lg" />
+                <FontAwesomeIcon icon="star" size="lg" />
+                <FontAwesomeIcon icon="star" size="lg" />
+                <FontAwesomeIcon icon="star" size="lg" />
                 <span
                   class="
                           font-700S
@@ -78,11 +78,19 @@ function PrivateRecipePhotoIntro(props) {
               })}
 
               <button class="PrivateRecipePhotoIntro-like-btn">
-                <i class="far fa-heart"></i>
+                <FontAwesomeIcon
+                  icon={['far', 'heart']}
+                  size="lg"
+                  className="private-heart"
+                />
                 <span class="font-700M">按讚</span>
               </button>
               <button class="PrivateRecipePhotoIntro-bookmark-btn">
-                <i class="far fa-bookmark"></i>
+                <FontAwesomeIcon
+                  icon={['far', 'bookmark']}
+                  size="lg"
+                  className="private-bookmark"
+                />
                 <span class="font-700M">加入收藏</span>
               </button>
             </div>

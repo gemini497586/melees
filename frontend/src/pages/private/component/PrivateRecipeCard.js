@@ -6,21 +6,15 @@ import food from '../../../images/default_food2.jpg'
 import avatar from '../../../images/default_avatar1.jpg'
 import Axios from 'axios'
 
-
 function PrivateRecipeCard(props) {
   const [itemInfo, setItemInfo] = useState([])
   const [starRate, setstarRate] = useState([])
-  let star = starRate.length
-  console.log(star)
 
   useEffect(() => {
     Axios.get('http://localhost:3001/api/private').then((res) => {
       setItemInfo(res.data.result)
       setstarRate(res.data.result2)
     })
-    // setItemInfo(PrivateRecipeCardData)
-    console.log('123', itemInfo)
-    console.log('456', starRate)
   }, [])
   return (
     <>
@@ -29,8 +23,8 @@ function PrivateRecipeCard(props) {
           {itemInfo.map((value, index) => {
             return (
               <div className="col-12 col-md-3">
-                <Link to={'/private/detail/' + value.id}>
-                  <div className="cardPrivateRecipe">
+                <div className="cardPrivateRecipe">
+                  <Link to={'/private/detail/' + value.id}>
                     <figure className="cardPrivateRecipe-img">
                       <img src={food} className="w-100" alt="" />
                     </figure>
@@ -75,8 +69,8 @@ function PrivateRecipeCard(props) {
                       />
                       <span>{value.view_qty}</span>
                     </div>
-                  </div>
-                </Link>
+                  </Link>
+                </div>
               </div>
             )
           })}

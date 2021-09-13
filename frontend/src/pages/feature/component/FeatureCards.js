@@ -22,11 +22,6 @@ function FeatureCards() {
           </figure>
           {/* 文案 */}
           <div className="fc-content">
-            {/* 收藏和按讚 */}
-            {/* <div className="d-flex ficon-size mb-1">
-              <i className="far fa-bookmark me-3 fa-fw"></i>
-              <i className="far fa-heart fa-fw"></i>
-            </div> */}
             {/* 分類 */}
             <p className="fcolor-grey-800 font-400S">健康長肉肉</p>
             {/* 食譜名稱和連結 */}
