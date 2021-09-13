@@ -85,24 +85,47 @@ const uploader = multer({
 
 // 先檢查是否已登入
 router.use(loginCheckMiddleware);
-// do something
 
-router.post("/editinfo", (req, res, next) => {
-  res.send("Hello with member editinfo");
-});
+router.post(
+  "/editinfo",
+  uploader.single("picture"),
+  dataValidation,
+  async (req, res, next) => {
+    // 套件回覆的驗證結果
+    const dataValidationResult = validationResult(req);
+    if (!dataValidationResult.isEmpty()) {
+      let error = dataValidationResult.array();
+      console.log(error);
+      return res
+        .status(400)
+        .json({ field: error[0].param, message: error[0].msg });
+    }
+
+    // 確認資料是否有正確取得
+    console.log(req.body);
+    console.log(req.file);
+
+    res.send("Hello with member editinfo");
+    // res.status(200).json({ message: "會員資料更新成功" });
+  }
+);
 
 router.post("/editpwd", dataValidation, async (req, res, next) => {
   // dataValidation --> 密碼格式要符合 + 確定新密碼一致
   let memberId = req.session.member.id;
-  console.log(req.session.member);
+  // let memberId = 37;
+
   // 舊密碼跟資料庫密碼比對，錯誤回覆400
-  let oldPassword = await connection.queryAsync(
+  let member = await connection.queryAsync(
     "SELECT password FROM member WHERE id = ?",
     [memberId]
   );
-  console.log("oldPassword", oldPassword);
-  console.log("req.body.oldPassword: ", req.body.oldPassword);
-  let confirmResult = await bcrypt.compare(req.body.oldPassword.toString(), oldPassword);
+  // console.log("member[0].password: ", member[0].password);
+  // console.log("req.body.oldPassword: ", req.body.oldPassword);
+  let confirmResult = await bcrypt.compare(
+    req.body.oldPassword,
+    member[0].password
+  );
   if (!confirmResult) {
     return next({
       status: 400,
@@ -118,13 +141,14 @@ router.post("/editpwd", dataValidation, async (req, res, next) => {
     });
   }
 
-  // 更新密碼
+  // 更新密碼存入資料庫
   let result = await connection.queryAsync(
     "UPDATE member SET password = ? WHERE id = ?",
-    [bcrypt.hash(req.body.password, 10), memberId]
+    [await bcrypt.hash(req.body.password, 10), memberId]
   );
 
-  res.send("Hello with member editpwd");
+  console.log("result: ", result);
+  res.status(200).json({ message: "密碼更新成功" });
 });
 
 router.get("/", (req, res, next) => {
