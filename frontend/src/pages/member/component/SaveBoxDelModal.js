@@ -7,12 +7,12 @@ import Axios from 'axios'
 
 function SaveBoxDelModal(props) {
   const { showModal, openDeleteModal, id } = props
-  // console.log(id)
+  console.log(id)
 
   const handleDelete = async (e) => {
     e.preventDefault()
-
-    console.log('把我刪除 ', id)
+    console.log(id)
+    // console.log('把我刪除 ')
     // try {
     //   let res = await Axios.post(
     //     `${API_URL}/api/box/delete`,
@@ -40,9 +40,14 @@ function SaveBoxDelModal(props) {
             <FontAwesomeIcon icon="exclamation" className="exclamation" />
           </div>
           <h1>確定要刪除嗎</h1>
-          <p className="font-400M">確定要刪除這筆收藏嗎</p>
+          <p className="font-400M">確定要刪除這個便當嗎</p>
           <form onSubmit={handleDelete}>
-            <button className="btn-cancel" onClick={openDeleteModal}>
+            <button
+              className="btn-cancel"
+              onClick={() => {
+                openDeleteModal(id)
+              }}
+            >
               取消
             </button>
             <button type="submit" className="btn-delete">

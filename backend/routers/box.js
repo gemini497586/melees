@@ -5,20 +5,25 @@ const { loginCheckMiddleware } = require("../middlewares/auth");
 
 router.get("/", async (req, res, next) => {
     let result = await connection.queryAsync("SELECT * FROM box");
-    res.json(result);
+    let result2 = await connection.queryAsync(
+        "SELECT * FROM box WHERE id IN (5,13)"
+    );
+    res.json({ result, result2 });
 });
-
-router.post("/save", loginCheckMiddleware, async (req, res, next) => {
+// loginCheckMiddleware,
+router.post("/save", async (req, res, next) => {
     // 確認資料是否拿到
     // console.log(req.body);
 
     // 確認是否拿到會員id
     // console.log(req.session.member.id);
+    // const memberId = req.session.member.id;
+    const memberId = 2;
     let result = await connection.queryAsync(
         "INSERT INTO box_save (member_id,box_ids,name,cal,box_images) VALUE (?)",
         [
             [
-                req.session.member.id,
+                memberId,
                 req.body.saveId,
                 req.body.name,
                 req.body.cal,
@@ -30,7 +35,12 @@ router.post("/save", loginCheckMiddleware, async (req, res, next) => {
 });
 
 router.get("/boxsave", async (req, res, next) => {
-    let result = await connection.queryAsync("SELECT * FROM box_save");
+    const memberId = req.session.member.id;
+    console.log(memberId);
+    let result = await connection.queryAsync(
+        "SELECT * FROM box_save WHERE member_id=?",
+        [memberId]
+    );
     let result2 = await connection.queryAsync("SELECT id,name FROM box");
     res.json({ result2, result });
 });

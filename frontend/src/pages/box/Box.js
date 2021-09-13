@@ -10,6 +10,7 @@ import { API_URL } from '../../utils/config'
 
 function Box() {
   const [data, setData] = useState([])
+  const [subData, setSubData] = useState([])
   const [bmr, setBmr] = useState(0)
   const [tdee, setTdee] = useState(0)
   const [cal, setCal] = useState(0)
@@ -21,8 +22,10 @@ function Box() {
     const getData = async () => {
       try {
         let res = await Axios.get(`${API_URL}/api/box`)
-        let data = res.data
+        let data = res.data.result2
+        let subData = res.data.result
         setData(data)
+        setSubData(subData)
       } catch (e) {
         console.log(e)
         // alert(e.response.data.message)
@@ -97,6 +100,7 @@ function Box() {
         <Page1 bmr={bmr} setBmr={setBmr} tdee={tdee} setTdee={setTdee} />
         <Page2
           data={data}
+          subData={subData}
           handleCheck={handleCheck}
           handleRemove={handleRemove}
           bento={bento}

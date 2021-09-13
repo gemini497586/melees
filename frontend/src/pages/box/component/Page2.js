@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Carousel from './Carousel'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
 import { API_URL } from '../../../utils/config'
 
 function Page2(props) {
-  const { data, handleCheck, handleRemove, bento } = props
+  const { data, subData, handleCheck, handleRemove, bento } = props
+  const [main, setMain] = useState(true)
+  const [sub, setSub] = useState(false)
+  const handleMain = () => {
+    setMain((prev) => !prev)
+  }
+  // const handleSub = () => {
+  //   setSub((prev) => !prev)
+  // }
   return (
     <>
       <div className="container b-step position-relative">
@@ -75,9 +83,36 @@ function Page2(props) {
               />
             </div>
           </div>
+          <div className="col-md-3 b-page2-right ">
+            <div className="b-page2-btn mb-2">
+              <button
+                className="b-btn"
+                onClick={() => {
+                  handleMain()
+                }}
+              >
+                主食
+              </button>
+            </div>
+            <div>
+              <button
+                className="b-btn"
+                onClick={() => {
+                  handleMain()
+                }}
+              >
+                配菜
+              </button>
+            </div>
+          </div>
         </div>
-
-        <Carousel data={data} handleCheck={handleCheck} bento={bento} />
+        <Carousel
+          main={main}
+          data={data}
+          subData={subData}
+          handleCheck={handleCheck}
+          bento={bento}
+        />
         <hr />
       </div>
     </>

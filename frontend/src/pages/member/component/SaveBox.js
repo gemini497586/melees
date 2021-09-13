@@ -7,7 +7,8 @@ function SaveBox(props) {
   const { data, prep } = props
 
   const [showModal, setShowModal] = useState(false)
-  const openDeleteModal = () => {
+  const openDeleteModal = (id) => {
+    console.log(id)
     setShowModal((prev) => !prev)
   }
 
@@ -47,24 +48,13 @@ function SaveBox(props) {
     e = e.join('/')
     return e
   }
-  const handleDelete = async (id) => {
-    console.log(id)
-    // try {
-    //   let res = await Axios.post(
-    //     `${API_URL}/api/box/delete`,
-    //     {
-    //       id,
-    //     },
-    //     { withCredentials: true }
-    //   )
-    //   // console.log(res)
-    // } catch (e) {
-    //   console.log(e)
-    // }
-  }
 
   return (
     <>
+      <SaveBoxDelModal
+        showModal={showModal}
+        openDeleteModal={openDeleteModal}
+      />
       {data.map((value, index) => {
         return (
           <div className="col-12 col-md-4 member-box-card" key={value.id}>
@@ -110,17 +100,11 @@ function SaveBox(props) {
                 </li>
               </ul>
               <div className="d-flex justify-content-center">
-                <SaveBoxDelModal
-                  showModal={showModal}
-                  openDeleteModal={openDeleteModal}
-                  id={value.id}
-                />
                 <button
                   className="b-btn"
-                  onClick={openDeleteModal}
-                  // onClick={() => {
-                  //   handleDelete(value.id)
-                  // }}
+                  onClick={() => {
+                    openDeleteModal(value.id)
+                  }}
                 >
                   刪除收藏
                 </button>
