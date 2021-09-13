@@ -3,7 +3,8 @@ const router = express.Router();
 const path = require("path");
 const connection = require("../utils/db");
 const bcrypt = require("bcrypt");
-const { uuid } = require('uuidv4');
+const { uuid } = require("uuidv4");
+const moment = require("moment");
 
 // 資料驗證
 const { body, validationResult } = require("express-validator");
@@ -53,13 +54,13 @@ const multer = require("multer");
 const storage = multer.diskStorage({
   // 檔案儲存的路徑
   destination: function (req, file, callback) {
-    callback(null, path.join(__dirname, "../", "images", "member"))
+    callback(null, path.join(__dirname, "../", "images", "member"));
   },
   // 檔案命名
   filename: function (req, file, callback) {
     let ext = file.originalname.split(".").pop();
     console.log(`${uuid()}.${ext}`);
-    callback(null, `${uuid()}.${ext}`)
+    callback(null, `${uuid()}.${ext}`);
   },
 });
 // 大頭貼驗證 --> 1.接受空值  2.檔案格式是否正確  3.重新命名
@@ -82,13 +83,11 @@ const uploader = multer({
   },
 });
 
-
-
 // 註冊
 router.post(
   "/register",
   // 只有一張圖片的話就用single()
-  uploader.single("picture"), 
+  uploader.single("picture"),
   dataValidation,
   async (req, res, next) => {
     // 套件回覆的驗證結果
@@ -120,9 +119,11 @@ router.post(
     // 密碼加密 --> bcrypt.hash(明文, salt);
     let hashPassword = await bcrypt.hash(req.body.password, 10);
     let filename = req.file ? "/" + req.file.filename : "";
+    let createDate = moment().format("YYYYMMDD");
     let result = await connection.queryAsync(
-      "INSERT INTO member (account, password, name, nickname, gender, birthday, phone, email, picture, address) VALUES (?);",
-      [[
+      "INSERT INTO member (account, password, name, nickname, gender, birthday, phone, email, picture, address, create_date) VALUES (?);",
+      [
+        [
           req.body.account,
           hashPassword,
           req.body.name,
@@ -133,7 +134,9 @@ router.post(
           req.body.email,
           filename,
           req.body.address,
-        ]]
+          createDate,
+        ],
+      ]
     );
     console.log("存入資料庫的內容：", result);
 
@@ -164,13 +167,13 @@ router.post("/login", async (req, res, next) => {
 
   // 2.密碼比對
   //   a.不一致，回覆錯誤(400)
-    let result = await bcrypt.compare(req.body.password, member.password);
-    if (!result) {
-      return next({
-        status: 400,
-        message: "密碼輸入錯誤",
-      });
-    }
+  let result = await bcrypt.compare(req.body.password, member.password);
+  if (!result) {
+    return next({
+      status: 400,
+      message: "密碼輸入錯誤",
+    });
+  }
 
   // 3.有帳號且密碼正確
   //   a.紀錄 session

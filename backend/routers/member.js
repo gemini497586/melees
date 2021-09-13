@@ -8,22 +8,7 @@ const { uuid } = require("uuidv4");
 
 // 資料驗證
 const { body, validationResult } = require("express-validator");
-const dataValidation = [
-  // 帳號驗證 --> 1.不為空值  2.max: 100;
-  body("account")
-    // .isEmpty()
-    .isLength({ max: 100 })
-    .withMessage("帳號不可空白或過長"),
-  // 密碼驗證 --> 1.不為空值  2.密碼與確認密碼是否一致  3.min: 6; max: 12;
-  body("password")
-    .isLength({ min: 6, max: 12 })
-    .withMessage("密碼長度為6-12字元"),
-  body("rePassword")
-    .custom((value, { req }) => {
-      return value === req.body.password;
-    })
-    .withMessage("密碼驗證不一致"),
-
+const infoValidation = [
   // Email驗證 --> 1.不為空值  2.檢查Email格式  3.max: 100;
   body("email").isEmail().withMessage("請填寫正確的 Email 格式"),
 
@@ -46,6 +31,17 @@ const dataValidation = [
       return phoneRegex.test(value);
     })
     .withMessage("手機號碼格式有誤"),
+];
+const passwordValidation = [
+  // 密碼驗證 --> 1.不為空值  2.密碼與確認密碼是否一致  3.min: 6; max: 12;
+  body("password")
+    .isLength({ min: 6, max: 12 })
+    .withMessage("密碼長度為6-12字元"),
+  body("rePassword")
+    .custom((value, { req }) => {
+      return value === req.body.password;
+    })
+    .withMessage("密碼驗證不一致"),
 ];
 
 // multer 用來處理 From-data (Content-Type: multipart/form-data)
@@ -85,11 +81,33 @@ const uploader = multer({
 
 // 先檢查是否已登入
 router.use(loginCheckMiddleware);
+let memberId = req.session.member.id;
+// let memberId = 37;
 
+// 會員資料修改 --> 進入編輯頁面 --> 需要撈資料庫
+router.get("/editinfo", async (req, res, next) => {
+  let memberInfo = await connection.queryAsync(
+    "SELECT * FROM member WHERE id = ?",
+    [memberId]
+  );
+  memberInfo = memberInfo[0];
+  let responeMemberInfo = {
+    name: memberInfo.name,
+    gender: memberInfo.gender,
+    nickname: memberInfo.nickname,
+    birthday: memberInfo.birthday,
+    cellphone: memberInfo.phone,
+    email: memberInfo.email,
+    address: memberInfo.address,
+  };
+  res.json(responeMemberInfo);
+});
+
+// 會員資料修改 --> 表單送出 --> 需要更新資料庫
 router.post(
   "/editinfo",
   uploader.single("picture"),
-  dataValidation,
+  infoValidation,
   async (req, res, next) => {
     // 套件回覆的驗證結果
     const dataValidationResult = validationResult(req);
@@ -102,54 +120,71 @@ router.post(
     }
 
     // 確認資料是否有正確取得
-    console.log(req.body);
-    console.log(req.file);
+    console.log("test1: ", req.body);
+    console.log("test2: ",req.file);
 
-    res.send("Hello with member editinfo");
-    // res.status(200).json({ message: "會員資料更新成功" });
+    let filename = req.file ? "/" + req.file.filename : "";
+    let result = await connection.queryAsync(
+      "UPDATE member SET name = ?, gender = ?, nickname = ?, birthday = ?, phone = ?, email = ?, address = ?, picture = ? WHERE id = ?",
+      [
+        req.body.name,
+        req.body.gender,
+        req.body.nickname,
+        req.body.birthday,
+        req.body.cellphone,
+        req.body.email,
+        req.body.address,
+        filename,
+        memberId,
+      ]
+    );
+    console.log("存入資料庫的內容：", result);
+    res.status(200).json({ message: "會員資料更新成功" });
   }
 );
 
-router.post("/editpwd", dataValidation, async (req, res, next) => {
-  // dataValidation --> 密碼格式要符合 + 確定新密碼一致
-  let memberId = req.session.member.id;
-  // let memberId = 37;
+// 會員密碼變更
+router.post(
+  "/editpwd",
+  // passwordValidation --> 密碼格式要符合 + 確定新密碼一致
+  passwordValidation,
+  async (req, res, next) => {
+    // 舊密碼跟資料庫密碼比對，錯誤回覆400
+    let member = await connection.queryAsync(
+      "SELECT password FROM member WHERE id = ?",
+      [memberId]
+    );
+    // console.log("member[0].password: ", member[0].password);
+    // console.log("req.body.oldPassword: ", req.body.oldPassword);
+    let confirmResult = await bcrypt.compare(
+      req.body.oldPassword,
+      member[0].password
+    );
+    if (!confirmResult) {
+      return next({
+        status: 400,
+        message: "密碼輸入錯誤",
+      });
+    }
 
-  // 舊密碼跟資料庫密碼比對，錯誤回覆400
-  let member = await connection.queryAsync(
-    "SELECT password FROM member WHERE id = ?",
-    [memberId]
-  );
-  // console.log("member[0].password: ", member[0].password);
-  // console.log("req.body.oldPassword: ", req.body.oldPassword);
-  let confirmResult = await bcrypt.compare(
-    req.body.oldPassword,
-    member[0].password
-  );
-  if (!confirmResult) {
-    return next({
-      status: 400,
-      message: "密碼輸入錯誤",
-    });
+    // 新密碼 !== 舊密碼
+    if (req.body.oldPassword === req.body.password) {
+      return next({
+        status: 400,
+        message: "新舊密碼不可以一致",
+      });
+    }
+
+    // 更新密碼存入資料庫
+    let result = await connection.queryAsync(
+      "UPDATE member SET password = ? WHERE id = ?",
+      [await bcrypt.hash(req.body.password, 10), memberId]
+    );
+
+    console.log("result: ", result);
+    res.status(200).json({ message: "密碼更新成功" });
   }
-
-  // 新密碼 !== 舊密碼
-  if (req.body.oldPassword === req.body.password) {
-    return next({
-      status: 400,
-      message: "新舊密碼不可以一致",
-    });
-  }
-
-  // 更新密碼存入資料庫
-  let result = await connection.queryAsync(
-    "UPDATE member SET password = ? WHERE id = ?",
-    [await bcrypt.hash(req.body.password, 10), memberId]
-  );
-
-  console.log("result: ", result);
-  res.status(200).json({ message: "密碼更新成功" });
-});
+);
 
 router.get("/", (req, res, next) => {
   res.send("Hello with member center");
