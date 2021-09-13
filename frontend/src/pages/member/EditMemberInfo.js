@@ -30,7 +30,7 @@ function EditMemberInfo() {
       formData.append('cellphone', cellphone)
       formData.append('email', email)
       formData.append('address', address)
-      let result = await axios.post(`${API_URL}/auth/register`, formData, {
+      let result = await axios.post(`${API_URL}/member/editinfo`, formData, {
         // 設定可以跨源送 cookie
         withCredentials: true,
       })
@@ -39,7 +39,6 @@ function EditMemberInfo() {
       console.error(e.result)
     }
   }
-  const [errorMsg, setErrorMsg] = useState(null)
   useEffect(() => {
     const testLoginCheck = async () => {
       try {
@@ -47,11 +46,18 @@ function EditMemberInfo() {
           // 設定可以跨源送 cookie
           withCredentials: true,
         })
-        console.log(result)
-        setErrorMsg(null)
+        // console.log(result)
+        console.log(result.data[0])
+        let memberInfo = result.data
+        setName(memberInfo.name)
+        setGender(memberInfo.gender)
+        setNickname(memberInfo.nickname)
+        setBirthday(memberInfo.birthday)
+        setCellphone(memberInfo.cellphone)
+        setEmail(memberInfo.email)
+        setAddress(memberInfo.address)
       } catch (e) {
-        console.log(e)
-        setErrorMsg(e.message)
+        console.error(e)
       }
     }
     testLoginCheck()
@@ -61,7 +67,6 @@ function EditMemberInfo() {
     <>
       <div className="page-group">
         <MinorBar />
-        <div>後端訊息：{errorMsg}</div>
         <form
           className="member-form member-form-forEditMemberInfo"
           onSubmit={handleSubmit}
