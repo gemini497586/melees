@@ -21,8 +21,6 @@ function CheckoutPersonalData() {
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
 
-  console.log(name)
-
   return (
     <div className="container">
       <OrderProgressBar />
