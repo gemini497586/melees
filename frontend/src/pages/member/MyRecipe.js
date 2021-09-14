@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import '../../style/global.css'
 import '../../style/memberMyRecipe.css'
 import '../../style/memberMyRecipeTable.css'
@@ -11,7 +11,14 @@ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 
 import food from '../../images/default_food1.jpg'
 
+import Axios from 'axios'
+
 function MyRecipe() {
+  useEffect(() => {
+    Axios.get(`http://localhost:3001/api/private/myrecipe`).then((res) => {
+      console.log('success')
+    })
+  })
   const list = [
     {
       id: 1,
@@ -25,17 +32,7 @@ function MyRecipe() {
     {
       id: 4,
     },
-    {
-      id: 5,
-    },
-    {
-      id: 6,
-    },
-    {
-      id: 7,
-    },
   ]
-  console.log(list.length)
   return (
     <>
       <div className="page-group">

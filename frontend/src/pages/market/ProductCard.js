@@ -12,6 +12,7 @@ function ProductCard(props) {
   const [product, setProduct] = useState([])
   const { carts, addCart, setProductsAll } = useContext(HandleCart)
 
+  console.log(props)
   useEffect(() => {
     // 顯示商品分類用
     axios.get(`${API_URL}/market/${props.category}`).then((response) => {
