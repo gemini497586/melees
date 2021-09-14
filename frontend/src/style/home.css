@@ -7,9 +7,6 @@
   position: absolute;
 }
 .h-bento-dialog {
-  position: absolute;
-  top: 13%;
-  left: 950px;
   max-width: 300px;
 }
 .h-bento-group {
@@ -17,18 +14,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 120px 0px 0px 80px;
+  padding: 120px 0px 0px 0px;
 }
 .h-bento-img {
   max-width: 900px;
-  margin-right: 150px;
+  padding: 0px 0px 0px 0px;
 }
 .h-bento-contentgroup {
   display: flex;
   flex-direction: column;
-  align-content: center;
-  margin-right: 200px;
-  padding-top: 100px;
+  width: 900px;
+}
+.h-bento-titlegroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .h-bento-title {
   font-size: 80px;
@@ -37,6 +37,7 @@
   color: var(--color-secondary);
   text-align: center;
   margin-bottom: 60px;
+  line-height: 100px;
 }
 .h-bento-subtitle {
   max-width: 480px;
@@ -156,12 +157,12 @@
 
 /*私藏食譜*/
 .h-recipe-bg {
-  background: url('../images/homerecipe_bg.jpg') right;
+  background: url('../images/homerecipe_bg.jpg') center no-repeat;
   background-size: 2100px auto;
 }
 .h-recipe-content {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: flex-start;
   padding: 100px 120px 0px 0px;
 }
@@ -189,7 +190,7 @@
 }
 .f-recipe-img {
   width: 550px;
-  height: 550x;
+  height: 550px;
   position: absolute;
   border-radius: 50%;
   overflow: hidden;
@@ -269,7 +270,7 @@
   align-items: flex-end;
   justify-content: center;
   position: absolute;
-  top: 190px;
+  top: 200px;
   margin-right: auto;
   margin-left: auto;
   left: 0;

@@ -16,6 +16,7 @@ import CheckoutPersonalData from './pages/market/CheckoutPersonalData'
 
 // 精選食譜
 import FeatureIndex from './pages/feature/FeatureIndex'
+import FeatureStep from './pages/feature/FeatureStep'
 import FeatureStepWeek from './pages/feature/FeatureStepWeek'
 import FeatureIndexWeek from './pages/feature/FeatureIndexWeek'
 
@@ -70,16 +71,16 @@ function App() {
             <PrivateRecipeIntro />
           </Route>
           {/* 精選 */}
-          <Route exact path="/feature">
-            <FeatureIndex />
-          </Route>
           <Route path="/feature/week">
             <FeatureIndexWeek />
           </Route>
           <Route path="/feature/stepweek">
             <FeatureStepWeek />
           </Route>
-          <Route exact path="/feature/:id?">
+          <Route path="/feature/step">
+            <FeatureStep />
+          </Route>
+          <Route path="/feature">
             <FeatureIndex />
           </Route>
           {/* 購物車 */}

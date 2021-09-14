@@ -47,10 +47,6 @@ function Home() {
           <ReactFullpage.Wrapper>
             {/* 便當頁面 */}
             <article className="section h-bento-bg">
-              {/* 小小對話框 */}
-              <div className="h-bento-dialog">
-                <img className="fcover-fit" src={homebento_dialog} alt="" />
-              </div>
               {/* 中間內容 */}
               <div className="h-bento-group">
                 {/* 便當圖片 */}
@@ -59,19 +55,29 @@ function Home() {
                 </figure>
                 {/* 內容 */}
                 <div className="h-bento-contentgroup">
-                  <h1 className="h-bento-title">客製化便當</h1>
-                  <div className="h-bento-subtitle">
-                    <img className="fcover-fit" src={homebento_fontbg} alt="" />
+                  {/* 小小對話框 */}
+                  <div className="h-bento-dialog">
+                    <img className="fcover-fit" src={homebento_dialog} alt="" />
                   </div>
-                  <Link to="/box">
+                  <div className="h-bento-titlegroup">
+                    <h1 className="h-bento-title">客製化便當</h1>
                     <div className="h-bento-subtitle">
                       <img
                         className="fcover-fit"
-                        src={homebento_btnbg}
+                        src={homebento_fontbg}
                         alt=""
                       />
                     </div>
-                  </Link>
+                    <Link to="/box">
+                      <div className="h-bento-subtitle">
+                        <img
+                          className="fcover-fit"
+                          src={homebento_btnbg}
+                          alt=""
+                        />
+                      </div>
+                    </Link>
+                  </div>
                 </div>
               </div>
               {/* 往下箭頭 */}
