@@ -8,25 +8,35 @@ import CardShopping from '../../component/CardShopping'
 import MinorBar from './component/MinorBar'
 
 function FeatureIndexWeek() {
+  /* 排序搜尋 */
   const [sortBy, setSortBy] = useState('0')
   const itemList = [
     {
-      name: '時間由新至舊',
+      name: '週期由新至舊',
       value: '1',
     },
     {
-      name: '時間由舊至新',
+      name: '週期由舊至新',
       value: '2',
     },
     {
-      name: '卡路里由多至少',
+      name: '按讚數由多至少',
       value: '3',
     },
     {
-      name: '卡路里由少至多',
+      name: '按讚數由少至多',
       value: '4',
     },
+    {
+      name: '瀏覽數由多至少',
+      value: '5',
+    },
+    {
+      name: '瀏覽數由少至多',
+      value: '6',
+    },
   ]
+
   return (
     <>
       <div className="page-group">

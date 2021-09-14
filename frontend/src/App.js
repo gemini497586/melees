@@ -113,16 +113,16 @@ function App() {
                 <PrivateRecipeIntro />
               </Route>
               {/* 精選 */}
-              <Route path="/feature/step">
-              <FeatureStep />
-            </Route>
               <Route path="/feature/week">
                 <FeatureIndexWeek />
               </Route>
               <Route path="/feature/stepweek">
                 <FeatureStepWeek />
               </Route>
-              <Route exact path="/feature/:id?">
+              <Route path="/feature/step">
+                <FeatureStep />
+              </Route>
+              <Route path="/feature">
                 <FeatureIndex />
               </Route>
 
@@ -133,7 +133,7 @@ function App() {
               <Route path="/search/market">
                 <SearchMarket />
               </Route>
-              
+
               {/* 會員相關 */}
               <Route path="/login">
                 <Login />
