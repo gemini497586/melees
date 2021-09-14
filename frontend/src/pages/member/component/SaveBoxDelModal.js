@@ -7,7 +7,7 @@ import Axios from 'axios'
 
 function SaveBoxDelModal(props) {
   const { showModal, openDeleteModal, id } = props
-  console.log(id)
+  // console.log(id)
 
   const handleDelete = async (e) => {
     e.preventDefault()

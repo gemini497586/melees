@@ -12,7 +12,6 @@ function ProductCard(props) {
   const [product, setProduct] = useState([])
   const { carts, addCart, setProductsAll } = useContext(HandleCart)
 
-  console.log(props)
   useEffect(() => {
     // 顯示商品分類用
     axios.get(`${API_URL}/market/${props.category}`).then((response) => {
@@ -48,8 +47,13 @@ function ProductCard(props) {
         <button
           className="btn font-700M product-add-to-cart-btn"
           id={e.id}
-          onClick={(p) => {
-            addCart(p.target.id)
+          onClick={() => {
+            addCart({
+              id: e.id,
+              name: e.name,
+              amount: 1,
+              price: e.price,
+            })
           }}
         >
           <FontAwesomeIcon icon="cart-plus" className="cart-plus" />
