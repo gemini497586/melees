@@ -34,7 +34,7 @@ app.use(
     })
 );
 
-// 使用這個中間件才可以讀到 body 的資料
+// 使用這個中間件，才可以讀到 body 的資料
 app.use(express.urlencoded({ extended: true }));
 // 使用這個中間件，才可以解析到 json 的資料
 app.use(express.json());
@@ -66,7 +66,7 @@ app.use("/auth", authRouter);
 let memberRouter = require("./routers/member");
 app.use("/member", memberRouter);
 
-// 引入 private router 中間件，包含會員專區功能
+// 引入 private router 中間件，包含私藏食譜
 let privateRouter = require("./routers/private");
 app.use("/api/private", privateRouter);
 
@@ -83,30 +83,22 @@ app.use((req, res, next) => {
     res.status(404).json({ message: "NOT FOUND" });
 });
 
-// multer 用來處理 From-data
+
+// multer 用來處理 From-data (Content-Type: multipart/form-data)
 const multer = require("multer");
 app.use((err, req, res, next) => {
-    // multer 丟出來的 exception 不符合我們制定的格式
-    console.error("來自四個參數的錯誤處理", err);
-    // 判斷這個 err 來自哪一個
-    if (err instanceof multer.MulterError) {
-        // 到這裡表示我們知道這一次來的 err 其實是 MulterError
-        // 而且我們有觀察到 MulterError 有一個 code 可以辨別錯誤
-        if (err.code === "LIMIT_FILE_SIZE") {
-            return res
-                .status(400)
-                .json({ code: 320001, message: "檔案太大啦" });
-        }
-        return res.status(400).json({ message: err.message });
+  // multer 丟出來的 exception 不符合我們制定的格式
+  console.error("來自四個參數的錯誤處理", err);
+  // 判斷這個 err 來自哪一個
+  if (err instanceof multer.MulterError) {
+    // 到這裡表示我們知道這一次來的 err 其實是 MulterError
+    // 而且我們有觀察到 MulterError 有一個 code 可以辨別錯誤
+    if (err.code === "LIMIT_FILE_SIZE") {
+      return res.status(400).json({ message: "檔案太大啦" });
     }
-    // 如果不符合上述特殊的錯誤類別，那表示就是我們自訂的
-    // 我們自己拋出的錯誤有自己制定的格式
-    // {
-    //   code: "330001",
-    //   status: 401,
-    //   message: "沒有登入不能用喔",
-    // }
-    res.status(err.status).json({ message: err.message });
+    return res.status(400).json({ message: err.message });
+  }
+  res.status(err.status).json({ message: err.message });
 });
 
 const port = 3001;

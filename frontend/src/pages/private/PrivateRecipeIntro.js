@@ -8,7 +8,6 @@ import PrivateRecipeIngre from './component/PrivateRecipeIngre'
 import PrivateRecipeHeading from './component/PrivateRecipeHeading'
 import CardRecipe from '../../component/CardRecipe'
 
-
 import { useParams } from 'react-router'
 
 function PrivateRecipeIntro(props) {
