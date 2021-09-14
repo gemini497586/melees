@@ -20,7 +20,9 @@ function DeleteModal(props) {
           </div>
           <h1>確定要刪除嗎</h1>
           <p className="font-400M">確定要刪除這筆評論嗎</p>
-          <button className="btn-cancel" onClick={openDeleteModal}>取消</button>
+          <button className="btn-cancel" onClick={openDeleteModal}>
+            取消
+          </button>
           <button className="btn-delete">確定刪除</button>
         </div>
       ) : null}

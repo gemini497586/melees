@@ -1,7 +1,7 @@
 .melees-dropdown {
   width: 306px;
   position: relative;
-  z-index: 2;
+  z-index: 9;
   margin: 20px auto;
 }
 .melees-dropdown-selection {

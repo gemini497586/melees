@@ -95,15 +95,44 @@ router.get("/editinfo", async (req, res, next) => {
 });
 
 // 會員資料修改 --> 表單送出 --> 需要更新資料庫
-router.post("/editinfo", uploader.single("picture"), infoValidation, async (req, res, next) => {
-  let memberId = req.session.member.id;
-  // let memberId = 37;
-  // 套件回覆的驗證結果
-  const dataValidationResult = validationResult(req);
-  if (!dataValidationResult.isEmpty()) {
-    let error = dataValidationResult.array();
-    console.log(error);
-    return res.status(400).json({ field: error[0].param, message: error[0].msg });
+router.post(
+  "/editinfo",
+  uploader.single("picture"),
+  infoValidation,
+  async (req, res, next) => {
+    let memberId = req.session.member.id;
+    // let memberId = 37;
+    // 套件回覆的驗證結果
+    const dataValidationResult = validationResult(req);
+    if (!dataValidationResult.isEmpty()) {
+      let error = dataValidationResult.array();
+      console.log(error);
+      return res
+        .status(400)
+        .json({ field: error[0].param, message: error[0].msg });
+    }
+
+    // 確認資料是否有正確取得
+    console.log("test1: ", req.body);
+    console.log("test2: ", req.file);
+
+    let filename = req.file ? "/" + req.file.filename : "";
+    let result = await connection.queryAsync(
+      "UPDATE member SET name = ?, gender = ?, nickname = ?, birthday = ?, phone = ?, email = ?, address = ?, picture = ? WHERE id = ?",
+      [
+        req.body.name,
+        req.body.gender,
+        req.body.nickname,
+        req.body.birthday,
+        req.body.cellphone,
+        req.body.email,
+        req.body.address,
+        filename,
+        memberId,
+      ]
+    );
+    console.log("存入資料庫的內容：", result);
+    res.status(200).json({ message: "會員資料更新成功" });
   }
 
   // 確認資料是否有正確取得
