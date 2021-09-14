@@ -18,7 +18,7 @@ function SearchCardPrivate(props) {
               </figure>
               <div className="s-recipe-classify font-400SL">
                 <FontAwesomeIcon icon="bookmark" className="me-2 font-400L" />
-                {v.classify}
+                私藏食譜
               </div>
               <div className="s-recipe-text">
                 <ul className="list-unstyled">
@@ -32,7 +32,7 @@ function SearchCardPrivate(props) {
                   <div className="s-recipe-count-circle">
                     <img className="b-cover-fit" src={Avatar} alt=""></img>
                   </div>
-                  <p className="font-400SL">{v.auth}</p>
+                  <p className="font-400SL">{v.member_id}</p>
                 </div>
               </div>
               <div className="s-recipe-add">

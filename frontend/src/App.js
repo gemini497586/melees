@@ -1,13 +1,11 @@
 // 必要的
-
 import { HandleCart } from './utils/HandleCart'
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import './style/global.css'
-
 import Header from './component/Header'
-
 import Home from './pages/home/Home'
 import Footer from './component/Footer'
+import ScrollToTop from './component/ScrollToTop'
 
 // 購物商城
 import MarketMainPage from './pages/market/MarketMainPage'
@@ -21,6 +19,7 @@ import Shoppingcart from './pages/market/CartDetail'
 
 // 精選食譜
 import FeatureIndex from './pages/feature/FeatureIndex'
+import FeatureStep from './pages/feature/FeatureStep'
 import FeatureStepWeek from './pages/feature/FeatureStepWeek'
 import FeatureIndexWeek from './pages/feature/FeatureIndexWeek'
 
@@ -90,150 +89,124 @@ function App() {
       <Router>
         <div className="App">
           <Header />
-          <Switch>
-            {/* 首頁 */}
-            <Route exact path="/">
-              <Home />
+          <ScrollToTop>
+            <Switch>
+              {/* 首頁 */}
+              <Route exact path="/">
+                <Home />
+              </Route>
+              {/* 客製化 */}
+              <Route exact path="/box">
+                <Box />
+              </Route>
+              {/* 私藏 */}
+              <Route exact path="/private">
+                <PrivateRecipe />
+              </Route>
+              <Route exact path="/private/upload">
+                <PrivateRecipeUpload />
+              </Route>
+              <Route exact path="/private/edit">
+                <PrivateRecipeEdit />
+              </Route>
+              <Route exact path="/private/detail/:id">
+                <PrivateRecipeIntro />
+              </Route>
+              {/* 精選 */}
+              <Route path="/feature/step">
+              <FeatureStep />
             </Route>
-            {/* 客製化 */}
-            <Route exact path="/box">
-              <Box />
-            </Route>
-            {/* 私藏 */}
-            <Route exact path="/private">
-              <PrivateRecipe />
-            </Route>
-            <Route exact path="/private/upload">
-              <PrivateRecipeUpload />
-            </Route>
-            <Route exact path="/private/edit">
-              <PrivateRecipeEdit />
-            </Route>
-            <Route exact path="/private/detail/:id">
-              <PrivateRecipeIntro />
-            </Route>
-            {/* 精選 */}
-            <Route exact path="/feature">
-              <FeatureIndex />
-            </Route>
-            <Route path="/feature/week">
-              <FeatureIndexWeek />
-            </Route>
-            <Route path="/feature/stepweek">
-              <FeatureStepWeek />
-            </Route>
-            <Route exact path="/feature/:id?">
-              <FeatureIndex />
-            </Route>
+              <Route path="/feature/week">
+                <FeatureIndexWeek />
+              </Route>
+              <Route path="/feature/stepweek">
+                <FeatureStepWeek />
+              </Route>
+              <Route exact path="/feature/:id?">
+                <FeatureIndex />
+              </Route>
 
-            {/* 搜尋 */}
-            <Route path="/search/recipe">
-              <SearchRecipe />
-            </Route>
-            <Route path="/search/market">
-              <SearchMarket />
-            </Route>
-            {/* 會員相關 */}
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/register">
-              <Register />
-            </Route>
-            <Route exact path="/member">
-              <MyRecipe />
-            </Route>
-            <Route path="/member/editinfo">
-              <EditMemberInfo />
-            </Route>
-            <Route path="/member/editpwd">
-              <EditPassword />
-            </Route>
-            <Route path="/member/orderdetail">
-              <OrderDetails />
-            </Route>
-            <Route path="/member/orderlist">
-              <OrderList />
-            </Route>
-            <Route path="/member/savebox">
-              <MemberBox />
-            </Route>
-            <Route path="/member/saverecipe">
-              <MemberFeature />
-            </Route>
+              {/* 搜尋 */}
+              <Route path="/search/recipe">
+                <SearchRecipe />
+              </Route>
+              <Route path="/search/market">
+                <SearchMarket />
+              </Route>
+              
+              {/* 會員相關 */}
+              <Route path="/login">
+                <Login />
+              </Route>
+              <Route path="/register">
+                <Register />
+              </Route>
+              <Route path="/member/editinfo">
+                <EditMemberInfo />
+              </Route>
+              <Route path="/member/editpwd">
+                <EditPassword />
+              </Route>
+              <Route path="/member/orderdetail">
+                <OrderDetails />
+              </Route>
+              <Route path="/member/orderlist">
+                <OrderList />
+              </Route>
+              <Route path="/member/savebox">
+                <MemberBox />
+              </Route>
+              <Route path="/member/saverecipe">
+                <MemberFeature />
+              </Route>
+              <Route path="/member/saveproduct">
+                <MemberSaveProduct />
+              </Route>
+              <Route exact path="/member/recipecomment">
+                <MemberRecipeComment />
+              </Route>
+              <Route path="/member/coupon">
+                <Coupon />
+              </Route>
+              <Route exact path="/member">
+                <MyRecipe />
+              </Route>
 
-            {/* 購物車 */}
-            <Route exact path="/market/orders-complete">
-              <OrdersComplete />
-            </Route>
-            <Route exact path="/market/checkout-confirm">
-              <CheckoutConfirm />
-            </Route>
-            <Route exact path="/market/shoppingcart">
-              <Shoppingcart />
-            </Route>
-            <Route exact path="/market/checkout-personalData">
-              <CheckoutPersonalData />
-            </Route>
-            <Route exact path="/market/cart-detail">
-              <CartDetail />
-            </Route>
-            <Route exact path="/market/product/:id?">
-              <ProductDetails />
-            </Route>
-            <Route exact path="/market/:category?">
-              <MarketMainPage />
-            </Route>
-            <Route exact path="/market/check-order">
-              <CheckOrder />
-            </Route>
+              {/* 購物車 */}
+              <Route exact path="/market/orders-complete">
+                <OrdersComplete />
+              </Route>
+              <Route exact path="/market/checkout-confirm">
+                <CheckoutConfirm />
+              </Route>
+              <Route exact path="/market/shoppingcart">
+                <Shoppingcart />
+              </Route>
+              <Route exact path="/market/checkout-personalData">
+                <CheckoutPersonalData />
+              </Route>
+              <Route exact path="/market/cart-detail">
+                <CartDetail />
+              </Route>
+              <Route exact path="/market/product/:id?">
+                <ProductDetails />
+              </Route>
+              <Route exact path="/market/:category?">
+                <MarketMainPage />
+              </Route>
+              <Route exact path="/market/check-order">
+                <CheckOrder />
+              </Route>
 
-            {/* 搜尋 */}
-            <Route path="/search/recipe">
-              <SearchRecipe />
-            </Route>
-            <Route path="/search/market">
-              <SearchMarket />
-            </Route>
-            {/* 會員相關 */}
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/register">
-              <Register />
-            </Route>
-            <Route exact path="/member">
-              <MyRecipe />
-            </Route>
-            <Route path="/member/editinfo">
-              <EditMemberInfo />
-            </Route>
-            <Route path="/member/editpwd">
-              <EditPassword />
-            </Route>
-            <Route path="/member/orderdetail">
-              <OrderDetails />
-            </Route>
-            <Route path="/member/orderlist">
-              <OrderList />
-            </Route>
-            <Route path="/member/savebox">
-              <MemberBox />
-            </Route>
-            <Route path="/member/saverecipe">
-              <MemberFeature />
-            </Route>
-            <Route path="/member/saveproduct">
-              <MemberSaveProduct />
-            </Route>
-            <Route exact path="/member/recipecomment">
-              <MemberRecipeComment />
-            </Route>
-            <Route path="/member/coupon">
-              <Coupon />
-            </Route>
-          </Switch>
-
+              {/* 搜尋 */}
+              <Route path="/search/recipe">
+                <SearchRecipe />
+              </Route>
+              <Route path="/search/market">
+                <SearchMarket />
+              </Route>
+            </Switch>
+          </ScrollToTop>
           <Footer />
         </div>
       </Router>
