@@ -9,15 +9,15 @@
   position: relative;
 }
 
-.cart-checkout-area p,
-.cart-checkout-area h6,
-.cart-checkout-area h5,
-.cart-checkout-area div,
-.cart-checkout-area .btn {
+.cart-checkout-box p,
+.cart-checkout-box h6,
+.cart-checkout-box h5,
+.cart-checkout-box div,
+.cart-checkout-box .btn {
   position: absolute;
 }
 
-.cart-checkout-area .btn {
+.cart-checkout-box .btn {
   width: 205px;
   height: 43px;
   border-radius: 100px;
@@ -102,6 +102,7 @@
   color: var(--color-red-C);
 }
 
+/* 各個分頁的結帳按鈕 */
 .cart-checkout-btn {
   color: #fff;
   background: var(--color-primary);

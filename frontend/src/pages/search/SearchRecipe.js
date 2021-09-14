@@ -1,12 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../../style/searchRecipe.css'
 import SearchCardFeature from './component/SearchCardFeature.js'
 import SearchCardPrivate from './component/SearchCardPrivate.js'
-import CheckBox from './component/CheckBox'
+import RadioBox from './component/RadioBox'
 import DropDown2 from '../../component/DropDown2'
+import Axios from 'axios'
+import { API_URL } from '../../utils/config'
 
 function SearchRecipe() {
-  const [checked, setChecked] = useState('')
+  const [data, setData] = useState([])
+  const [displayData, setDisplayData] = useState([])
+  const [sortBy, setSortBy] = useState(0)
+  const [checked, setChecked] = useState('全部')
   const checkList = ['全部', '精選食譜', '私藏食譜']
   const itemList = [
     {
@@ -34,49 +39,56 @@ function SearchRecipe() {
       value: '6',
     },
   ]
-  const featureList = [
-    {
-      classify: '精選食譜',
-      image: '',
-      type: '健康長肉肉',
-      name: '三杯雞',
-      auth: '便當調色盤 | Della & Joey',
-      like: 123,
-      view: 222,
-    },
-    {
-      classify: '精選食譜',
-      image: '',
-      type: '健康長肉肉',
-      name: '三杯雞',
-      auth: '便當調色盤 | Della & Joey',
-      like: 123,
-      view: 222,
-    },
-  ]
-  const privateList = [
-    {
-      classify: '私藏食譜',
-      image: '',
-      date: '2021/09/03',
-      name: '無水番茄牛肋無水番茄牛肋無水番茄牛肋',
-      auth: '小深藍',
-      like: 123,
-      view: 222,
-    },
-    {
-      classify: '私藏食譜',
-      image: '',
-      date: '2021/09/93',
-      name: '無水番茄牛肋',
-      auth: '小深藍小深藍',
-      like: 20000,
-      view: 2000000,
-    },
-  ]
+
+  // 初始化
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        let res = await Axios.get(`${API_URL}/api/private`)
+        let data = res.data.result
+        setData(data)
+        setDisplayData(data)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    getData()
+  }, [])
+
+  // 排序功能
+  const handleSortBy = (data, sortBy) => {
+    let newData = [...data]
+    if (sortBy === 0) {
+      newData = [...newData].sort((a, b) => a.id - b.id)
+    }
+    if (sortBy === 1) {
+      newData = [...newData].sort((a, b) => b.id - a.id)
+    }
+    if (sortBy === 2) {
+      newData = [...newData].sort((a, b) => b.like_qty - a.like_qty)
+    }
+    if (sortBy === 3) {
+      newData = [...newData].sort((a, b) => a.like_qty - b.like_qty)
+    }
+    if (sortBy === 4) {
+      newData = [...newData].sort((a, b) => b.view_qty - a.view_qty)
+    }
+    if (sortBy === 5) {
+      newData = [...newData].sort((a, b) => a.view_qty - b.view_qty)
+    }
+    return newData
+  }
+
+  // 重新渲染
+  useEffect(() => {
+    let newData = []
+    newData = handleSortBy(data, sortBy)
+    setDisplayData(newData)
+  }, [sortBy])
+
   return (
     <>
-      <section>
+      <section className="page-group">
         <div className="container">
           <div className="s-recipe-top">
             <div className="col-6">
@@ -88,9 +100,9 @@ function SearchRecipe() {
               <div className="col-4 d-flex">
                 {checkList.map((v, i) => {
                   return (
-                    <CheckBox
+                    <RadioBox
                       key={i}
-                      name={'all'}
+                      name={v}
                       value={v}
                       checked={checked}
                       setChecked={setChecked}
@@ -98,12 +110,16 @@ function SearchRecipe() {
                   )
                 })}
               </div>
-              <DropDown2 itemList={itemList} />
+              <DropDown2
+                itemList={itemList}
+                sortBy={sortBy}
+                setSortBy={setSortBy}
+              />
             </div>
           </div>
           <div className="s-recipe-bottom">
-            <SearchCardFeature featureList={featureList} />
-            <SearchCardPrivate privateList={privateList} />
+            <SearchCardFeature featureList={displayData} />
+            <SearchCardPrivate privateList={displayData} />
           </div>
         </div>
       </section>

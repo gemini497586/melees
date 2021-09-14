@@ -1,0 +1,76 @@
+.privateRecipeUpload input {
+  padding-left: 15px;
+  height: 45px;
+  border-radius: 4px;
+}
+.privateRecipeUpload textarea {
+  padding-top: 15px;
+  padding-left: 15px;
+  border-radius: 4px;
+}
+
+.privateRecipeUpload-label {
+  margin-top: 52px;
+  margin-bottom: 40px;
+}
+
+/* 食材增加按鈕部分 */
+.privateRecipeUpload-ingred {
+  margin-bottom: 15px;
+}
+.privateRecipeUpload-ingred input:nth-child(1) {
+  width: 378px;
+  height: 45px;
+}
+.privateRecipeUpload-ingred input:nth-child(2) {
+  width: 172px;
+  height: 45px;
+}
+.privateRecipeUpload-ingred-delete {
+  height: 100%;
+  margin: auto 10px;
+  cursor: pointer;
+  color: var(--color-grey-500);
+}
+.privateRecipeUpload-add-ingred {
+  margin-top: 52px;
+  width: 113px;
+  height: 43px;
+  border: 2px solid var(--color-primary);
+  border-radius: 8px;
+  color: var(--color-primary);
+  background: var(--color-white);
+}
+
+/* 步驟增加部分 */
+.privateRecipeUpload-step {
+  margin-bottom: 15px;
+}
+.privateRecipeUpload-step-delete {
+  height: 100%;
+  margin: auto 10px;
+  /* margin-left: 20px; */
+  /* margin-right: 10px; */
+  cursor: pointer;
+  color: var(--color-grey-500);
+}
+/* 送出跟取消按鈕 */
+.privateRecipeUpload-btn {
+  margin-top: 93px;
+}
+.privateRecipeUpload-btn-upload {
+  width: 205px;
+  height: 43px;
+  border: none;
+  border-radius: 8px;
+  color: var(--color-white);
+  background: var(--color-primary);
+}
+.privateRecipeUpload-btn-cancel {
+  width: 205px;
+  height: 43px;
+  border: none;
+  border-radius: 8px;
+  color: var(--color-white);
+  background: var(--color-grey-500);
+}

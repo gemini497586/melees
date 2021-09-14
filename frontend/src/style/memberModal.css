@@ -130,3 +130,12 @@
   color: var(--color-white);
   margin-left: 44px;
 }
+
+.modal-edit-recipeComment-wrapper-forDelete .btn-cancel:hover {
+  background-color: var(--color-grey-800);
+  color: var(--color-white);
+}
+
+.modal-edit-recipeComment-wrapper-forDelete .btn-delete:hover {
+  background-color: var(--color-primary-A);
+}

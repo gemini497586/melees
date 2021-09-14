@@ -1,41 +1,29 @@
-import React from 'react'
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import '../../../style/minorBar.css'
-import MarketMainPage from '../MarketMainPage'
+import ProductData from '../../../data/Products.json'
+import axios from 'axios'
 
 function MinorBar(props) {
-  // const minorBarArray = ['全部', '食材', '鍋具', '調味料']
-  return (
-    <Router>
-      <ul className="minor-bar">
-        {/* 原本的寫法 */}
-        <li>
-          <a href="/">全部</a>
-        </li>
-        <li>
-          <a href="/">食材</a>
-        </li>
-        <li>
-          <a href="/">鍋具</a>
-        </li>
-        <li>
-          <a href="/">調味料</a>
-        </li>
+  const [product, setProduct] = useState([])
 
-        {/* map寫法 */}
-        {/* {minorBarArray.map((v) => {
+  useEffect(() => {
+    setProduct(ProductData.productCategory)
+  }, [])
+
+  return (
+    <>
+      <ul className="minor-bar">
+        {product.map((v) => {
           return (
             <li>
-              <a href="/">{v}</a>
+              <Link to={`/market/${v.category}`}>{v.text}</Link>
             </li>
           )
-        })} */}
+        })}
       </ul>
       <div className="sub-line"></div>
-      <Switch>
-        <Route path="/market/all"></Route>
-      </Switch>
-    </Router>
+    </>
   )
 }
 

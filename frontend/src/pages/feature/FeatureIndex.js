@@ -42,6 +42,7 @@ const itemList = [
 const arr = [1, 2, 3, 4, 5, 6]
 
 function FeatureIndex() {
+<<<<<<< HEAD
   // 使用 useState ，透過陣列讓 List 顯示出項目
   const [listdata, setListdata] = useState([])
 
@@ -51,6 +52,27 @@ function FeatureIndex() {
     })
   }, [])
 
+=======
+  const [sortBy, setSortBy] = useState('0')
+  const itemList = [
+    {
+      name: '時間由新至舊',
+      value: '1',
+    },
+    {
+      name: '時間由舊至新',
+      value: '2',
+    },
+    {
+      name: '卡路里由多至少',
+      value: '3',
+    },
+    {
+      name: '卡路里由少至多',
+      value: '4',
+    },
+  ]
+>>>>>>> develop
   return (
     <>
       <div className="page-group">
@@ -59,7 +81,15 @@ function FeatureIndex() {
         <div className="findex-box">
           {/* dropdown */}
           <div className="fdropdown-mf">
+<<<<<<< HEAD
             <DropDown2 itemList={itemList} />
+=======
+            <DropDown2
+              itemList={itemList}
+              sortBy={sortBy}
+              setSortBy={setSortBy}
+            />
+>>>>>>> develop
           </div>
           {/* cards */}
           <div className="findex-list">

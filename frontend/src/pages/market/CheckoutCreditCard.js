@@ -7,25 +7,25 @@ function CheckoutCreditCard() {
   return (
     <>
       <div className="credit-area">
-        <label className="checkout-credit-card-label">卡號*</label>
+        <label className="checkout-credit-card-label"> 卡號 * </label>{' '}
         <div>
           <input type="text" className="checkout-credit-card-num credit1" />
           <input type="text" className="checkout-credit-card-num credit2" />
           <input type="text" className="checkout-credit-card-num credit3" />
           <input type="text" className="checkout-credit-card-num credit4" />
-        </div>
-      </div>
+        </div>{' '}
+      </div>{' '}
       <div className="expiration-period">
-        <label className="checkout-credit-card-label">有效期限*</label>
+        <label className="checkout-credit-card-label"> 有效期限 * </label>{' '}
         <input type="text" className="checkout-credit-card-input ep1" />
         <input type="text" className="checkout-credit-card-input ep2" />
-      </div>
+      </div>{' '}
       <div className="last3num">
-        <label className="checkout-credit-card-label">末三碼*</label>
+        <label className="checkout-credit-card-label"> 末三碼 * </label>{' '}
         <input type="text" className="checkout-credit-card-input" />
-      </div>
+      </div>{' '}
       <div className="checkout-credit-card-address">
-        <label className="checkout-credit-card-label">地址*</label>
+        <label className="checkout-credit-card-label"> 地址 * </label>{' '}
         <input
           type="text"
           className="checkout-credit-card-input address1"

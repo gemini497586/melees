@@ -8,7 +8,7 @@ import { API_URL } from '../../utils/config'
 import axios from 'axios'
 
 function Register() {
-  const [picture, setPicture] = useState('')
+  const [picture, setPicture] = useState()
   const [account, setAccount] = useState('test123er')
   const [password, setPassword] = useState('123456')
   const [rePassword, setRePassword] = useState('123456')
@@ -21,27 +21,27 @@ function Register() {
   const [address, setAddress] = useState('桃園市中壢區中央路300號')
   const handleSubmit = async (e) => {
     e.preventDefault()
-    let result = await axios.post(
-      `${API_URL}/auth/register`,
-      {
-        picture,
-        account,
-        password,
-        rePassword,
-        name,
-        gender,
-        nickname,
-        birthday,
-        cellphone,
-        email,
-        address,
-      },
-      {
+    try {
+      let formData = new FormData()
+      formData.append('picture', picture)
+      formData.append('account', account)
+      formData.append('password', password)
+      formData.append('rePassword', rePassword)
+      formData.append('name', name)
+      formData.append('gender', gender)
+      formData.append('nickname', nickname)
+      formData.append('birthday', birthday)
+      formData.append('cellphone', cellphone)
+      formData.append('email', email)
+      formData.append('address', address)
+      let result = await axios.post(`${API_URL}/auth/register`, formData, {
         // 設定可以跨源送 cookie
         withCredentials: true,
-      }
-    )
-    console.log(result)
+      })
+      console.log(result)
+    } catch (e) {
+      console.error(e.result)
+    }
   }
   return (
     <>
@@ -64,9 +64,8 @@ function Register() {
               type="file"
               id="picture"
               name="picture"
-              value={picture}
               onChange={(e) => {
-                setPicture(e.target.value)
+                setPicture(e.target.files[0])
               }}
             />
           </div>
@@ -91,7 +90,6 @@ function Register() {
                 預留錯誤訊息的位置
               </p>
             </div>
-            <h5>註冊</h5>
           </div>
           <div className="member-form-group row">
             <label className="font-700SL col-2" htmlFor="password">
@@ -185,22 +183,6 @@ function Register() {
               <label className="font-700SL" htmlFor="女">
                 小姐
               </label>
-              <div className="col-4">
-                <input type="text" placeholder="" name="memberName" />
-                <p className="font-400S member-form-errorMsg">
-                  預留錯誤訊息的位置
-                </p>
-              </div>
-              <div className="col-4 member-form-group-gender">
-                <input type="radio" name="male" />
-                <label className="font-700SL" htmlFor="male">
-                  先生
-                </label>
-                <input type="radio" name="female" />
-                <label className="font-700SL" htmlFor="female">
-                  小姐
-                </label>
-              </div>
             </div>
           </div>
           <div className="member-form-group row">

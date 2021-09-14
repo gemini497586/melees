@@ -11,7 +11,6 @@
 .checkout-confirm h5,
 .checkout-confirm p,
 .checkout-confirm table,
-.checkout-confirm tr,
 .checkout-confirm span {
   position: absolute;
 }
@@ -93,16 +92,25 @@
 }
 
 .checkout-confirm-detail {
-  top: 372px;
-  left: 112px;
+  /* top: 372px;
+  left: 112px; */
+  margin-top: 58px;
   width: 1100px;
-  height: 155px;
-  border-bottom: 1px solid var(--color-grey-500);
+  min-height: 155px;
+}
+
+.checkout-confirm-detail-w1100 {
+  margin-top: 43px;
+  width: 1100px;
+  height: 1px;
+  background: var(--color-grey-500);
 }
 
 .checkout-confirm-table {
-  top: 0px;
-  left: 116px;
+  width: 100%;
+  min-height: 100px;
+  top: 43px;
+  left: 0px;
 }
 
 .checkout-confirm-table span {
@@ -110,16 +118,15 @@
 }
 
 .checkout-confirm-table tr {
-  width: 500px;
+  min-width: 600px;
   padding: 15px;
   color: var(--color-grey-800);
   border-bottom: 1px solid var(--color-grey-500);
 }
 
-.checkout-confirm-tr2 {
-  top: 50px;
-}
-
-.checkout-confirm-tr3 {
-  top: 100px;
+.checkout-confirm-detail {
+  top: 317px;
+  left: 112px;
+  width: 500px;
+  height: 25px;
 }

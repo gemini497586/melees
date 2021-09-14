@@ -23,13 +23,11 @@ function SearchCardFeature(props) {
               <div className="s-recipe-text">
                 <ul className="list-unstyled">
                   <li className="s-recipe-subtitle font-400S">健康長肉肉</li>
-                  <li className="s-recipe-title font-700L ">
-                    三杯雞三杯雞三杯雞三杯雞
-                  </li>
+                  <li className="s-recipe-title font-700L ">{v.name}</li>
                 </ul>
               </div>
               <div className="s-recipe-count font-400M">
-                <HeartViewNum />
+                <HeartViewNum featureList={featureList} />
                 <Ig />
               </div>
               <div className="s-recipe-add">
