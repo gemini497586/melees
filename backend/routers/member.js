@@ -142,28 +142,6 @@ router.post(
     );
     console.log("存入資料庫的內容：", result);
     res.status(200).json({ message: "會員資料更新成功" });
-
-    // 確認資料是否有正確取得
-    console.log("test1: ", req.body);
-    console.log("test2: ", req.file);
-
-    let filename = req.file ? "/" + req.file.filename : "";
-    let result = await connection.queryAsync(
-      "UPDATE member SET name = ?, gender = ?, nickname = ?, birthday = ?, phone = ?, email = ?, address = ?, picture = ? WHERE id = ?",
-      [
-        req.body.name,
-        req.body.gender,
-        req.body.nickname,
-        req.body.birthday,
-        req.body.cellphone,
-        req.body.email,
-        req.body.address,
-        filename,
-        memberId,
-      ]
-    );
-    console.log("存入資料庫的內容：", result);
-    res.status(200).json({ message: "會員資料更新成功" });
   }
 );
 
