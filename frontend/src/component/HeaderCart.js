@@ -1,18 +1,27 @@
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import meleesLogo from '../images/meleesLogo.svg'
-import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import React, { useEffect, useContext, useState } from 'react'
 import '../style/headerCartRow.css'
 import './FontawsomeIcons'
 import HeaderCartRow from './HeaderCartRow'
+import { HandleCart } from '../utils/HandleCart'
 
 function HeaderCart() {
+  const { carts } = useContext(HandleCart)
+
   return (
     <>
-      <HeaderCartRow />
-      <Link to="/market/cart-detail">
-        <button className="font-400S btn header-checkout-btn">前往結帳</button>
-      </Link>
+      {carts.map((value, index) => (
+        <HeaderCartRow id={value} index={index} />
+      ))}
+      {carts.length > 0 ? (
+        <Link to="/market/cart-detail">
+          <button className="font-400S btn header-checkout-btn">
+            前往結帳
+          </button>
+        </Link>
+      ) : (
+        <h6 className="no-product-in-cart">請新增商品至購物車</h6>
+      )}
     </>
   )
 }

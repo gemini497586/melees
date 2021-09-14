@@ -49,12 +49,34 @@ app.get("/", (req, res, next) => {
   res.send("Hello with nodemon");
 });
 
-app.get("/market", (req, res, next) => {
-  const sqlSelect = "SELECT * FROM product";
-  connection.query(sqlSelect, (err, result) => {
+app.get("/market/product/:id", (req, res, next) => {
+  let sqlSelectID = "SELECT * FROM product WHERE id = ?";
+  console.log("商品", req.params.id);
+  connection.query(sqlSelectID, req.params.id, (err, result) => {
     res.json(result);
   });
 });
+
+app.get("/market/:category?", (req, res, next) => {
+  if (req.params.category === "undefined") {
+    connection.query("SELECT * FROM product", (err, result) => {
+      // console.log("select All");
+      res.json(result);
+    });
+  } else {
+    connection.query("SELECT * FROM product WHERE category = ?", req.params.category, (err, result) => {
+      // console.log(req.params.category);
+      res.json(result);
+    });
+  }
+});
+
+// app.get("/market", (req, res, next) => {
+//   let sqlSelectAll = "SELECT * FROM product";
+//   connection.query(sqlSelectAll, (err, result) => {
+//     res.json(result);
+//   });
+// });
 
 // 引入 auth router 中間件，包含資料驗證、登入、註冊
 let authRouter = require("./routers/auth");
