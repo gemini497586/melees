@@ -12,38 +12,38 @@ import { API_URL } from '../../utils/config'
 
 /* 排序搜尋 */
 
-const [sortBy, setSortBy] = useState('0')
-const itemList = [
-  {
-    name: '時間由新至舊',
-    value: '1',
-  },
-  {
-    name: '時間由舊至新',
-    value: '2',
-  },
-  {
-    name: '按讚數由多至少',
-    value: '3',
-  },
-  {
-    name: '按讚數由少至多',
-    value: '4',
-  },
-  {
-    name: '瀏覽數由多至少',
-    value: '5',
-  },
-  {
-    name: '瀏覽數由少至多',
-    value: '6',
-  },
-]
-
-// 用map渲染6個FeatureCards
-const arr = [1, 2, 3, 4, 5, 6]
-
 function FeatureIndex() {
+  const [sortBy, setSortBy] = useState('0')
+  const itemList = [
+    {
+      name: '時間由新至舊',
+      value: '1',
+    },
+    {
+      name: '時間由舊至新',
+      value: '2',
+    },
+    {
+      name: '按讚數由多至少',
+      value: '3',
+    },
+    {
+      name: '按讚數由少至多',
+      value: '4',
+    },
+    {
+      name: '瀏覽數由多至少',
+      value: '5',
+    },
+    {
+      name: '瀏覽數由少至多',
+      value: '6',
+    },
+  ]
+
+  // 用map渲染6個FeatureCards
+  const arr = [1, 2, 3, 4, 5, 6]
+
   // 使用 useState ，透過陣列讓 List 顯示出項目
   const [listdata, setListdata] = useState([])
 
