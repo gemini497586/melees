@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import '../../style/productCard.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
@@ -6,26 +6,28 @@ import productImg from '../../images/005.jpg'
 import { Link } from 'react-router-dom'
 import { API_URL } from '../../utils/config'
 import axios from 'axios'
+import { HandleCart } from '../../utils/HandleCart'
 
-function ProductCard() {
+function ProductCard(props) {
   const [product, setProduct] = useState([])
-  const [cart, setCart] = useState([])
+  const { carts, addCart, setProductsAll } = useContext(HandleCart)
 
   useEffect(() => {
-    // console.log(API_URL)
-    axios.get(`${API_URL}/market`).then((response) => {
+    // 顯示商品分類用
+    axios.get(`${API_URL}/market/${props.category}`).then((response) => {
       setProduct(response.data)
+    })
+  }, [props.category])
+
+  useEffect(() => {
+    // 取得所有商品資料用
+    axios.get(`${API_URL}/market/undefined`).then((response) => {
+      setProductsAll(response.data)
     })
   }, [])
 
   // 查表法 --> O(1)
   let category = { 1: '食材', 2: '鍋具', 3: '調味料' }
-
-  // 新增至購物車(onClick)
-  const handleCart = (e) => {
-    setCart([...cart, e.target.id])
-    console.log(cart)
-  }
 
   const handleProductCard = product.map((e) => {
     return (
@@ -45,14 +47,13 @@ function ProductCard() {
         <button
           className="btn font-700M product-add-to-cart-btn"
           id={e.id}
-          onClick={(e) => {
-            handleCart(e)
+          onClick={(p) => {
+            addCart(p.target.id)
           }}
         >
           <FontAwesomeIcon icon="cart-plus" className="cart-plus" />
           加入購物車
         </button>
-        {cart}
       </div>
     )
   })
