@@ -81,11 +81,11 @@ const uploader = multer({
 
 // 先檢查是否已登入
 router.use(loginCheckMiddleware);
-let memberId = req.session.member.id;
-// let memberId = 37;
 
 // 會員資料修改 --> 進入編輯頁面 --> 需要撈資料庫
 router.get("/editinfo", async (req, res, next) => {
+  let memberId = req.session.member.id;
+  // let memberId = 37;
   let memberInfo = await connection.queryAsync(
     "SELECT * FROM member WHERE id = ?",
     [memberId]
@@ -109,6 +109,8 @@ router.post(
   uploader.single("picture"),
   infoValidation,
   async (req, res, next) => {
+    let memberId = req.session.member.id;
+    // let memberId = 37;
     // 套件回覆的驗證結果
     const dataValidationResult = validationResult(req);
     if (!dataValidationResult.isEmpty()) {
@@ -121,7 +123,7 @@ router.post(
 
     // 確認資料是否有正確取得
     console.log("test1: ", req.body);
-    console.log("test2: ",req.file);
+    console.log("test2: ", req.file);
 
     let filename = req.file ? "/" + req.file.filename : "";
     let result = await connection.queryAsync(
@@ -149,6 +151,8 @@ router.post(
   // passwordValidation --> 密碼格式要符合 + 確定新密碼一致
   passwordValidation,
   async (req, res, next) => {
+    let memberId = req.session.member.id;
+    // let memberId = 37;
     // 舊密碼跟資料庫密碼比對，錯誤回覆400
     let member = await connection.queryAsync(
       "SELECT password FROM member WHERE id = ?",
