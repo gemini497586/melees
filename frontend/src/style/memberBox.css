@@ -1,38 +1,45 @@
-.member-box-top {
-  padding: 20px 0;
-}
-
-.member-box-bottom {
-  /* padding-bottom: 20px; */
-}
-
 .member-box-card {
-  padding: 20px 0;
+  padding-bottom: 50px;
+}
+.member-box-indside {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.member-box-indside img {
+  position: absolute;
+  left: 17%;
+  top: 3%;
+  width: 320px;
+  height: 220px;
 }
 .member-box-food {
   color: var(--color-grey-500);
   text-align: center;
-  padding-top: 10px;
-  max-width: 300px;
-  height: 50px;
 }
-
 .member-box-detail ul {
-  display: block;
+  margin: 0 50px;
 }
 .member-box-detail li {
-  height: 20px;
   margin: 10px 0;
   text-align: left;
 }
-
 .member-box-title {
   color: var(--color-grey-900);
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
-
 .member-box-content {
   color: var(--color-grey-800);
+}
+/* modal */
+.member-box-icon {
+  border: 7px solid var(--color-red-C);
+  border-radius: 100%;
+}
+.member-box-icon > .exclamation {
+  color: var(--color-red-C);
+  font-size: 100px;
+  margin-top: 25px;
 }

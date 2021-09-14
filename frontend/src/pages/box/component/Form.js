@@ -1,29 +1,85 @@
 import React, { useState } from 'react'
+import Input from './Input'
+import Select from './Select'
 
-function Form(props) {
+function Form2(props) {
   const { setBmr, setTdee } = props
 
-  // 表單初始值
-  const [gender, setGender] = useState('')
-  const [age, setAge] = useState('')
-  const [height, setHeight] = useState('')
-  const [weight, setWeight] = useState('')
-  const [active, setActive] = useState('')
-
+  const genderList = [
+    { value: 1, name: '男' },
+    { value: 2, name: '女' },
+  ]
+  const activeList = [
+    {
+      value: 1.2,
+      name: '沒什麼運動',
+    },
+    {
+      value: 1.375,
+      name: '每週運動1-3天',
+    },
+    {
+      value: 1.55,
+      name: '每週運動4-5天',
+    },
+    {
+      value: 1.725,
+      name: '每週運動6-7天',
+    },
+    {
+      value: 1.9,
+      name: '無時無刻都在運動',
+    },
+  ]
+  // 用物件的方式(一個空白物件，把物件屬性寫出來)
+  const [fields, setFields] = useState({
+    gender: '',
+    age: '',
+    height: '',
+    weight: '',
+    active: '',
+  })
+  const [fieldErrors, setFieldsErrors] = useState({
+    gender: '',
+    age: '',
+    height: '',
+    weight: '',
+    active: '',
+  })
+  // onChange事件
+  const handleFieldChange = (e) => {
+    // console.log(e.target.name, e.target.value)
+    const updatedFields = { ...fields, [e.target.name]: e.target.value }
+    setFields(updatedFields)
+  }
+  // 驗證
+  const handleFormInvalid = (e) => {
+    e.preventDefault()
+    const updatedFieldError = {
+      ...fieldErrors,
+      [e.target.name]: e.target.validationMessage,
+    }
+    setFieldsErrors(updatedFieldError)
+  }
+  // 表單變動時
+  const handleFormChange = (e) => {
+    console.log('目前正在更新這個欄位 ', e.target.name)
+    const updatedFieldError = { ...fieldErrors, [e.target.name]: '' }
+    setFieldsErrors(updatedFieldError)
+  }
+  // 計算基礎代謝率 每日消耗卡路里
   const handleSubmit = (e) => {
-    // 改變預設行為
     e.preventDefault()
 
-    // 計算基礎代謝率 每日消耗卡路里
     let newBmr = 0
     let newTdee = 0
-    if (gender === '1') {
-      newBmr = weight * 10 + height * 6.25 - age * 5 + 5
-      newTdee = newBmr * active
+    if (fields.gender === '1') {
+      newBmr = fields.weight * 10 + fields.height * 6.25 - fields.age * 5 + 5
+      newTdee = newBmr * fields.active
     }
-    if (gender === '2') {
-      newBmr = weight * 10 + height * 6.25 - age * 5 - 161
-      newTdee = newBmr * active
+    if (fields.gender === '2') {
+      newBmr = fields.weight * 10 + fields.height * 6.25 - fields.age * 5 - 161
+      newTdee = newBmr * fields.active
     }
     if (newBmr) {
       setBmr(parseInt(newBmr))
@@ -33,98 +89,51 @@ function Form(props) {
   }
   return (
     <>
-      <form className="d-flex flex-column">
-        <div className="mb-3 row align-items-center">
-          <label htmlFor="weight" className="col-4 font-700M">
-            性別
-          </label>
-          <div className="col-8">
-            <select
-              value={gender}
-              onChange={(e) => {
-                setGender(e.target.value)
-              }}
-            >
-              {gender === '' ? <option value="">請選擇</option> : ''}
-              <option value="1">男生</option>
-              <option value="2">女生</option>
-            </select>
-          </div>
-        </div>
-        <div className="mb-3 row align-items-center">
-          <label htmlFor="age" className="col-4 font-700M">
-            年齡
-          </label>
-          <div className="col-8">
-            <input
-              type="number"
-              name="age"
-              value={age}
-              placeholder="請輸入年齡"
-              min="0"
-              onChange={(e) => {
-                setAge(e.target.value)
-              }}
-            />
-          </div>
-        </div>
-        <div className="mb-3 row align-items-center">
-          <label htmlFor="heigh" className="col-4 font-700M">
-            身高
-          </label>
-          <div className="col-8">
-            <input
-              type="number"
-              name="heigh"
-              value={height}
-              placeholder="請輸入身高(公分)"
-              min="0"
-              onChange={(e) => {
-                setHeight(e.target.value)
-              }}
-            />
-          </div>
-        </div>
-        <div className="mb-3 row align-items-center">
-          <label htmlFor="weight" className="col-4 font-700M">
-            體重
-          </label>
-          <div className="col-8">
-            <input
-              type="number"
-              name="weight"
-              value={weight}
-              placeholder="請輸入體重(公斤)"
-              min="0"
-              onChange={(e) => {
-                setWeight(e.target.value)
-              }}
-            />
-          </div>
-        </div>
-        <div className="mb-3 row align-items-center">
-          <label htmlFor="Active" className="col-4 font-700M">
-            活動量
-          </label>
-          <div className="col-8">
-            <select
-              value={active}
-              onChange={(e) => {
-                setActive(e.target.value)
-              }}
-            >
-              {active === '' ? <option value="">請選擇</option> : ''}
-              請選擇
-              <option value="1.2">沒什麼運動</option>
-              <option value="1.375">每週運動1-3天</option>
-              <option value="1.55">每週運動4-5天</option>
-              <option value="1.725">每週運動6-7天</option>
-              <option value="1.9">無時無刻都在運動</option>
-            </select>
-          </div>
-        </div>
+      <form
+        className="d-flex flex-column"
+        onChange={handleFormChange}
+        onInvalid={handleFormInvalid}
+        onSubmit={handleSubmit}
+      >
+        <Select
+          fields={fields.gender}
+          fieldErrors={fieldErrors.gender}
+          handleFieldChange={handleFieldChange}
+          name={'性別'}
+          value={'gender'}
+          options={genderList}
+        />
+        <Input
+          fields={fields.age}
+          fieldErrors={fieldErrors.age}
+          handleFieldChange={handleFieldChange}
+          name={'年齡'}
+          value={'age'}
+        />
+        <Input
+          fields={fields.height}
+          fieldErrors={fieldErrors.height}
+          handleFieldChange={handleFieldChange}
+          name={'身高'}
+          value={'height'}
+        />
+        <Input
+          fields={fields.weight}
+          fieldErrors={fieldErrors.weight}
+          handleFieldChange={handleFieldChange}
+          name={'體重'}
+          value={'weight'}
+        />
+        <Select
+          fields={fields.active}
+          fieldErrors={fieldErrors.active}
+          handleFieldChange={handleFieldChange}
+          name={'活動量'}
+          value={'active'}
+          options={activeList}
+        />
         <div className="row">
-          <button className="font-700M b-btn" onClick={handleSubmit}>
+          <button className="font-700M b-btn" type="submit">
             開始計算
           </button>
         </div>
@@ -133,4 +142,4 @@ function Form(props) {
   )
 }
 
-export default Form
+export default Form2

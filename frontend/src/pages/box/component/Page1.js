@@ -1,6 +1,5 @@
 import React from 'react'
 import Form from './Form'
-import Woman from '../../../images/box_woman.png'
 
 function Page1(props) {
   const { bmr, setBmr, tdee, setTdee } = props
@@ -18,10 +17,7 @@ function Page1(props) {
           {/* 右邊介紹 */}
           <div className="col-12 col-md-7 b-page1-right">
             <div>
-              {/* {tdee>0? :'' } */}
-              <p className="font-700L">
-                你的基礎代謝率: {bmr > 0 ? bmr : ''}
-              </p>
+              <p className="font-700L">你的基礎代謝率: {bmr > 0 ? bmr : ''}</p>
               <p className="font-700L">
                 你的每日總消耗熱量: {tdee > 0 ? tdee + ' 大卡' : ''}
               </p>
@@ -31,7 +27,7 @@ function Page1(props) {
                 </p>
                 <img
                   className="b-contain-fit b-page1-woman"
-                  src={Woman}
+                  src="http://localhost:3000/images/woman.png"
                   alt="woman"
                 />
               </div>

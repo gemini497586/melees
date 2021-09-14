@@ -3,8 +3,8 @@ import '../style/dropdown.css'
 
 function DropDown2(props) {
   const [isDropDown, setIsDropDown] = useState(false)
-  const [selectIndex, setSelectIndex] = useState(null)
-  const { itemList } = props
+  // const [selectIndex, setSelectIndex] = useState(null)
+  const { itemList, sortBy, setSortBy } = props
 
   return (
     <>
@@ -18,9 +18,7 @@ function DropDown2(props) {
               setIsDropDown(!isDropDown)
             }}
           >
-            {selectIndex !== null
-              ? itemList[selectIndex].name
-              : '請輸入排序方式'}
+            {sortBy !== null ? itemList[sortBy].name : '請輸入排序方式'}
           </div>
           {isDropDown ? (
             <div className="melees-items-holder font-400SL">
@@ -29,7 +27,7 @@ function DropDown2(props) {
                   key={item.value}
                   className="melees-dropdown-item"
                   onClick={(e) => {
-                    setSelectIndex(index)
+                    setSortBy(index)
                     setIsDropDown(false)
                   }}
                 >
