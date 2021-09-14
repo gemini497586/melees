@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2021-09-09 09:41:35
+-- 產生時間： 2021-09-09 09:41:25
 -- 伺服器版本： 10.4.20-MariaDB
 -- PHP 版本： 7.3.29
 
@@ -24,16 +24,21 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `order_detail_list`
+-- 資料表結構 `order_main_list`
 --
 
-CREATE TABLE `order_detail_list` (
+CREATE TABLE `order_main_list` (
   `id` int(4) NOT NULL,
-  `order_id` int(4) NOT NULL COMMENT '對應到order_main_list的主ID',
-  `product_id` int(4) NOT NULL COMMENT '對應的商品ID',
-  `amount` int(4) NOT NULL COMMENT '購買數量',
-  `price` int(6) NOT NULL COMMENT '單價',
-  `total` int(10) NOT NULL COMMENT '總計'
+  `member_id` int(4) NOT NULL COMMENT '使用者ID',
+  `order_number` int(4) NOT NULL COMMENT '訂單編號',
+  `name` int(11) NOT NULL COMMENT '收件人姓名',
+  `phone` int(20) NOT NULL COMMENT '聯絡電話',
+  `email` varchar(1000) NOT NULL COMMENT '聯絡信箱',
+  `address` varchar(10000) NOT NULL COMMENT '寄送地址',
+  `payment_method` int(4) NOT NULL COMMENT '付款方式',
+  `create_date` date NOT NULL COMMENT '訂單成立日期',
+  `status` int(4) NOT NULL COMMENT '訂單狀態',
+  `total_price` int(6) NOT NULL COMMENT '總金額'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -41,9 +46,9 @@ CREATE TABLE `order_detail_list` (
 --
 
 --
--- 資料表索引 `order_detail_list`
+-- 資料表索引 `order_main_list`
 --
-ALTER TABLE `order_detail_list`
+ALTER TABLE `order_main_list`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -51,9 +56,9 @@ ALTER TABLE `order_detail_list`
 --
 
 --
--- 使用資料表自動遞增(AUTO_INCREMENT) `order_detail_list`
+-- 使用資料表自動遞增(AUTO_INCREMENT) `order_main_list`
 --
-ALTER TABLE `order_detail_list`
+ALTER TABLE `order_main_list`
   MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
 COMMIT;
 

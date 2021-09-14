@@ -1,23 +1,22 @@
-import React, { useState } from 'react'
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import PrivateRecipeHeading from './component/PrivateRecipeHeading'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../style/privateRecipeUpload.css'
+import React, { useState } from 'react'
 import Axios from 'axios'
 
-function PrivateRecipeUpload(props) {
+function PrivateRecipeUpload() {
   const [recipeName, setRecipeName] = useState('')
   const [recipeIntro, setRecipeIntro] = useState('')
   const [recipeQty, setRecipeQty] = useState('')
   const [ingredList, setIngredList] = useState([
     { ingred: '', ingred_unit: '' },
   ])
-  const [recipeSteps, setRecipeSteps] = useState('')
   const [steps, setSteps] = useState([{ step: '' }])
-
   const title = ['新增']
+
   // 食材的部分
-  const handleChange = (e, index) => {
+  const ChangeIngred = (e, index) => {
     const { name, value } = e.target
 
     const list = [...ingredList]
@@ -25,11 +24,11 @@ function PrivateRecipeUpload(props) {
     setIngredList(list)
   }
 
-  const handleAddIngred = () => {
+  const AddIngred = () => {
     setIngredList([...ingredList, { ingred: '', ingred_unit: '' }])
   }
 
-  const handleDeleteIngred = (index) => {
+  const DeleteIngred = (index) => {
     const list = [...ingredList]
     list.splice(index, 1)
     setIngredList(list)
@@ -53,6 +52,8 @@ function PrivateRecipeUpload(props) {
     list.splice(index, 1)
     setSteps(list)
   }
+
+  // 上傳
   const upload = () => {
     Axios.post('http://localhost:3001/api/private/upload', {
       name: recipeName,
@@ -72,20 +73,22 @@ function PrivateRecipeUpload(props) {
             <div className="col-6">
               <PrivateRecipeHeading title={title[0]} />
               <div className="privateRecipeUpload">
+                {/* 食譜名稱 */}
                 <label htmlFor="name" className="privateRecipeUpload-label">
                   <h4>食譜名稱</h4>
                 </label>
                 <input
                   className="w-100"
                   type="text"
-                  // id="name"
-                  // name="name"
+                  id="name"
+                  name="name"
                   placeholder="請填入食譜名稱"
                   onChange={(e) => {
                     setRecipeName(e.target.value)
                   }}
                 />
 
+                {/* 食譜介紹 */}
                 <label htmlFor="intro" className="privateRecipeUpload-label">
                   <h4>食譜介紹</h4>
                 </label>
@@ -100,6 +103,8 @@ function PrivateRecipeUpload(props) {
                     setRecipeIntro(e.target.value)
                   }}
                 ></textarea>
+
+                {/* 份量 */}
                 <label htmlFor="qty" className="privateRecipeUpload-label">
                   <h4>份量</h4>
                 </label>
@@ -122,26 +127,24 @@ function PrivateRecipeUpload(props) {
                   return (
                     <div className="d-flex privateRecipeUpload-ingred justify-content-between">
                       <input
-                        className=""
                         type="text"
                         id="ingred"
                         name="ingred"
                         placeholder="高麗菜"
-                        onChange={(e) => handleChange(e, index)}
+                        onChange={(e) => ChangeIngred(e, index)}
                       />
                       <input
-                        className=""
                         type="text"
-                        id="name"
-                        name="name"
+                        id="ingred_unit"
+                        name="ingred_unit"
                         placeholder="1顆"
-                        onChange={(e) => handleChange(e, index)}
+                        onChange={(e) => ChangeIngred(e, index)}
                       />
                       <FontAwesomeIcon
                         className="d-flex privateRecipeUpload-ingred-delete"
                         icon="trash-alt"
                         size="lg"
-                        onClick={(e) => handleDeleteIngred(index)}
+                        onClick={(e) => DeleteIngred(index)}
                       />
                     </div>
                   )
@@ -149,7 +152,7 @@ function PrivateRecipeUpload(props) {
                 <div className="d-flex justify-content-center">
                   <button
                     className="privateRecipeUpload-add-ingred"
-                    onClick={handleAddIngred}
+                    onClick={AddIngred}
                   >
                     <FontAwesomeIcon icon="plus" size="lg" />
                     <span className="font-700M"> 添加</span>
@@ -209,7 +212,8 @@ function PrivateRecipeUpload(props) {
                 </div>
               </div>
 
-              {/* <pre>{JSON.stringify(ingredList, null, 2)}</pre> */}
+              <pre>{JSON.stringify(ingredList, null, 2)}</pre>
+              <pre>{JSON.stringify(steps, null, 2)}</pre>
             </div>
           </div>
         </div>

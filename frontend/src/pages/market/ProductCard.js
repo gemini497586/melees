@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import '../../style/productCard.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
@@ -6,17 +6,26 @@ import productImg from '../../images/005.jpg'
 import { Link } from 'react-router-dom'
 import { API_URL } from '../../utils/config'
 import axios from 'axios'
+import { HandleCart } from '../../utils/HandleCart'
 
 function ProductCard(props) {
   const [product, setProduct] = useState([])
+  const { carts, addCart, setProductsAll } = useContext(HandleCart)
 
   console.log(props)
   useEffect(() => {
-    // console.log(API_URL)
+    // 顯示商品分類用
     axios.get(`${API_URL}/market/${props.category}`).then((response) => {
       setProduct(response.data)
     })
   }, [props.category])
+
+  useEffect(() => {
+    // 取得所有商品資料用
+    axios.get(`${API_URL}/market/undefined`).then((response) => {
+      setProductsAll(response.data)
+    })
+  }, [])
 
   // 查表法 --> O(1)
   let category = { 1: '食材', 2: '鍋具', 3: '調味料' }
@@ -39,8 +48,8 @@ function ProductCard(props) {
         <button
           className="btn font-700M product-add-to-cart-btn"
           id={e.id}
-          onClick={(e) => {
-            props.setCart([...props.cart, e.target.id])
+          onClick={(p) => {
+            addCart(p.target.id)
           }}
         >
           <FontAwesomeIcon icon="cart-plus" className="cart-plus" />

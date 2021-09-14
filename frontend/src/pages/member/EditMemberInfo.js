@@ -10,7 +10,35 @@ import { API_URL } from '../../utils/config'
 import axios from 'axios'
 
 function EditMemberInfo() {
-  const [errorMsg, setErrorMsg] = useState(null)
+  const [picture, setPicture] = useState()
+  const [name, setName] = useState('')
+  const [gender, setGender] = useState('')
+  const [nickname, setNickname] = useState('')
+  const [birthday, setBirthday] = useState()
+  const [cellphone, setCellphone] = useState('')
+  const [email, setEmail] = useState('')
+  const [address, setAddress] = useState('')
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      let formData = new FormData()
+      formData.append('picture', picture)
+      formData.append('name', name)
+      formData.append('gender', gender)
+      formData.append('nickname', nickname)
+      formData.append('birthday', birthday)
+      formData.append('cellphone', cellphone)
+      formData.append('email', email)
+      formData.append('address', address)
+      let result = await axios.post(`${API_URL}/member/editinfo`, formData, {
+        // 設定可以跨源送 cookie
+        withCredentials: true,
+      })
+      console.log(result)
+    } catch (e) {
+      console.error(e.result)
+    }
+  }
   useEffect(() => {
     const testLoginCheck = async () => {
       try {
@@ -18,11 +46,18 @@ function EditMemberInfo() {
           // 設定可以跨源送 cookie
           withCredentials: true,
         })
-        console.log(result)
-        setErrorMsg(null)
+        // console.log(result)
+        console.log(result.data[0])
+        let memberInfo = result.data
+        setName(memberInfo.name)
+        setGender(memberInfo.gender)
+        setNickname(memberInfo.nickname)
+        setBirthday(memberInfo.birthday)
+        setCellphone(memberInfo.cellphone)
+        setEmail(memberInfo.email)
+        setAddress(memberInfo.address)
       } catch (e) {
-        console.log(e)
-        setErrorMsg(e.message)
+        console.error(e)
       }
     }
     testLoginCheck()
@@ -32,8 +67,10 @@ function EditMemberInfo() {
     <>
       <div className="page-group">
         <MinorBar />
-        <div>後端訊息：{errorMsg}</div>
-        <form className="member-form member-form-forEditMemberInfo">
+        <form
+          className="member-form member-form-forEditMemberInfo"
+          onSubmit={handleSubmit}
+        >
           <div className="member-form-title">
             <div className="member-form-title-icon">
               <FontAwesomeIcon
@@ -53,79 +90,165 @@ function EditMemberInfo() {
               <figure>
                 <img src={avatar} alt="Avatar" />
               </figure>
-              <input type="file" />
+              <input
+                type="file"
+                id="picture"
+                name="picture"
+                onChange={(e) => {
+                  setPicture(e.target.files[0])
+                }}
+              />
             </div>
             <div className="member-form-group row">
-              <label className="font-700SL col-2" htmlFor="">
+              <label className="font-700SL col-2" htmlFor="name">
                 姓名*
               </label>
               <div className="col-4">
-                <input type="text" placeholder="" />
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={name}
+                  onChange={(e) => {
+                    setName(e.target.value)
+                  }}
+                  placeholder=""
+                  required
+                  maxlength="100"
+                />
                 <p className="font-400S member-form-errorMsg">
                   預留錯誤訊息的位置
                 </p>
               </div>
               <div className="col-4 member-form-group-gender">
-                <input type="radio" />
-                <label className="font-700SL" htmlFor="">
+                <input
+                  type="radio"
+                  name="男"
+                  value="男"
+                  checked={gender === '男'}
+                  onChange={(e) => {
+                    setGender(e.target.value)
+                  }}
+                />
+                <label className="font-700SL" htmlFor="男">
                   先生
                 </label>
-                <input type="radio" />
-                <label className="font-700SL" htmlFor="">
+                <input
+                  type="radio"
+                  name="女"
+                  value="女"
+                  checked={gender === '女'}
+                  onChange={(e) => {
+                    setGender(e.target.value)
+                  }}
+                />
+                <label className="font-700SL" htmlFor="女">
                   小姐
                 </label>
               </div>
             </div>
             <div className="member-form-group row">
-              <label className="font-700SL col-2" htmlFor="">
+              <label className="font-700SL col-2" htmlFor="nickname">
                 暱稱
               </label>
               <div className="col-4">
-                <input type="text" placeholder="" />
+                <input
+                  type="text"
+                  id="nickname"
+                  name="nickname"
+                  value={nickname}
+                  onChange={(e) => {
+                    setNickname(e.target.value)
+                  }}
+                  placeholder=""
+                  maxlength="100"
+                />
                 <p className="font-400S member-form-errorMsg">
                   預留錯誤訊息的位置
                 </p>
               </div>
             </div>
             <div className="member-form-group row">
-              <label className="font-700SL col-2" htmlFor="">
+              <label className="font-700SL col-2" htmlFor="birthday">
+                出生日期*
+              </label>
+              <div className="col-4">
+                <input
+                  type="date"
+                  id="birthday"
+                  name="birthday"
+                  value={birthday}
+                  onChange={(e) => {
+                    setBirthday(e.target.value)
+                  }}
+                  placeholder=""
+                  required
+                />
+                <p className="font-400S member-form-errorMsg">
+                  預留錯誤訊息的位置
+                </p>
+              </div>
+            </div>
+            <div className="member-form-group row">
+              <label className="font-700SL col-2" htmlFor="cellphone">
                 手機號碼*
               </label>
               <div className="col-4">
-                <input type="text" placeholder="" />
+                <input
+                  type="text"
+                  id="cellphone"
+                  name="cellphone"
+                  value={cellphone}
+                  onChange={(e) => {
+                    setCellphone(e.target.value)
+                  }}
+                  placeholder=""
+                  required
+                  maxlength="100"
+                />
                 <p className="font-400S member-form-errorMsg">
                   預留錯誤訊息的位置
                 </p>
               </div>
             </div>
             <div className="member-form-group row">
-              <label className="font-700SL col-2" htmlFor="">
+              <label className="font-700SL col-2" htmlFor="email">
                 電子信箱*
               </label>
               <div className="col-4">
-                <input type="text" placeholder="" />
+                <input
+                  type="text"
+                  id="email"
+                  name="email"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value)
+                  }}
+                  placeholder=""
+                  required
+                  maxlength="100"
+                />
                 <p className="font-400S member-form-errorMsg">
                   預留錯誤訊息的位置
                 </p>
               </div>
             </div>
             <div className="member-form-group row">
-              <label className="font-700SL col-2" htmlFor="">
+              <label className="font-700SL col-2" htmlFor="address">
                 地址
               </label>
               <div className="col-4">
-                <input type="text" placeholder="" />
-                <p className="font-400S member-form-errorMsg">
-                  預留錯誤訊息的位置
-                </p>
-              </div>
-            </div>
-            <div className="member-form-group row">
-              <label className="font-700SL col-2" htmlFor="">
-                取貨門市
-              </label>
-              <div className="col-4">
-                <input type="text" placeholder="" />
+                <input
+                  type="text"
+                  id="address"
+                  name="address"
+                  value={address}
+                  onChange={(e) => {
+                    setAddress(e.target.value)
+                  }}
+                  placeholder=""
+                  maxlength="100"
+                />
                 <p className="font-400S member-form-errorMsg">
                   預留錯誤訊息的位置
                 </p>

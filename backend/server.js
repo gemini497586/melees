@@ -34,7 +34,7 @@ app.use(
   })
 );
 
-// 使用這個中間件才可以讀到 body 的資料
+// 使用這個中間件，才可以讀到 body 的資料
 app.use(express.urlencoded({ extended: true }));
 // 使用這個中間件，才可以解析到 json 的資料
 app.use(express.json());
@@ -51,12 +51,34 @@ app.get("/", (req, res, next) => {
   res.send("Hello with nodemon");
 });
 
-app.get("/market", (req, res, next) => {
-  const sqlSelect = "SELECT * FROM product";
-  connection.query(sqlSelect, (err, result) => {
+app.get("/market/product/:id", (req, res, next) => {
+  let sqlSelectID = "SELECT * FROM product WHERE id = ?";
+  console.log("商品", req.params.id);
+  connection.query(sqlSelectID, req.params.id, (err, result) => {
     res.json(result);
   });
 });
+
+app.get("/market/:category?", (req, res, next) => {
+  if (req.params.category === "undefined") {
+    connection.query("SELECT * FROM product", (err, result) => {
+      // console.log("select All");
+      res.json(result);
+    });
+  } else {
+    connection.query("SELECT * FROM product WHERE category = ?", req.params.category, (err, result) => {
+      // console.log(req.params.category);
+      res.json(result);
+    });
+  }
+});
+
+// app.get("/market", (req, res, next) => {
+//   let sqlSelectAll = "SELECT * FROM product";
+//   connection.query(sqlSelectAll, (err, result) => {
+//     res.json(result);
+//   });
+// });
 
 // 引入 auth router 中間件，包含資料驗證、登入、註冊
 let authRouter = require("./routers/auth");
@@ -66,7 +88,7 @@ app.use("/auth", authRouter);
 let memberRouter = require("./routers/member");
 app.use("/member", memberRouter);
 
-// 引入 private router 中間件，包含會員專區功能
+// 引入 private router 中間件，包含私藏食譜
 let privateRouter = require("./routers/private");
 app.use("/api/private", privateRouter);
 
@@ -79,7 +101,8 @@ app.use((req, res, next) => {
   res.status(404).json({ message: "NOT FOUND" });
 });
 
-// multer 用來處理 From-data
+
+// multer 用來處理 From-data (Content-Type: multipart/form-data)
 const multer = require("multer");
 app.use((err, req, res, next) => {
   // multer 丟出來的 exception 不符合我們制定的格式
@@ -89,17 +112,10 @@ app.use((err, req, res, next) => {
     // 到這裡表示我們知道這一次來的 err 其實是 MulterError
     // 而且我們有觀察到 MulterError 有一個 code 可以辨別錯誤
     if (err.code === "LIMIT_FILE_SIZE") {
-      return res.status(400).json({ code: 320001, message: "檔案太大啦" });
+      return res.status(400).json({ message: "檔案太大啦" });
     }
     return res.status(400).json({ message: err.message });
   }
-  // 如果不符合上述特殊的錯誤類別，那表示就是我們自訂的
-  // 我們自己拋出的錯誤有自己制定的格式
-  // {
-  //   code: "330001",
-  //   status: 401,
-  //   message: "沒有登入不能用喔",
-  // }
   res.status(err.status).json({ message: err.message });
 });
 

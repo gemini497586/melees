@@ -60,18 +60,21 @@ router.get("/tags/:id", async function (req, res, next) {
     res.json(data)
 });
 
+// 抓取目前食譜的評論
 router.get("/comment/:id", async function (req, res, next) {
     let sql = "SELECT * FROM private_comment WHERE private_id = ?"
     let data = await connection.queryAsync(sql, [req.params.id])
     res.json(data)
 });
 
+// 更新瀏覽數
 router.get("/addview/:id", async function(req, res ,next) {
     let sql = "INSERT INTO private_view (private_id) VALUES (?)"
     let data = await connection.queryAsync(sql, [req.params.id])
     res.send("success")
 });
 
+// 上傳食譜
 router.post("/upload", async function (req, res, next) {
     let member_id = 3
     const name = req.body.name;
@@ -80,19 +83,31 @@ router.post("/upload", async function (req, res, next) {
     const ingred = req.body.ingred;
     const steps = req.body.steps
     const recipe_time = moment().format('YYYY-MM-DD');
-    console.log(ingred)
-    console.log(steps)
+    // console.log(ingred)
+    // console.log(steps)
 
     // 新增到 private_recipe 資料表裡
     let sql = "INSERT INTO private_recipe (name, intro, qty, member_id, create_date) VALUES (?, ?, ?, ?, ?)"
-    let data = await connection.queryAsync(sql, [name, intro, qty, privateMember, recipe_time])
-    
+    let data = await connection.queryAsync(sql, [name, intro, qty, member_id, recipe_time])
+
+    // 取得剛新增的食譜 id
+    let sql2 = "SELECT * FROM private_recipe ORDER BY id DESC LIMIT 1";
+    let lastId = await connection.queryAsync(sql2)
+    // console.log(lastId[0].id)
+
     
     // 新增食材到資料表
     ingred.forEach(async (value)=>{
-        let ingredList = "INSERT INTO private_ingred (ingred, ingred_unit) VALUES (?, ?)"
-        let ingredResult = await connection.queryAsync(ingredList, [value.ingred, value.name])
+        let ingredList = "INSERT INTO private_ingred (private_id, ingred, ingred_unit) VALUES (?, ?, ?)"
+        let ingredResult = await connection.queryAsync(ingredList, [lastId[0].id, value.ingred, value.ingred_unit])
     })
+
+    // 新增食材到資料表
+    steps.forEach(async (value) => {
+        let stepList = "INSERT INTO private_step (private_id, steps) VALUES (?, ?)"
+        let stepResult = await connection.queryAsync(stepList, [lastId[0].id, value.step])
+    })
+
     res.json(data)
 })
 

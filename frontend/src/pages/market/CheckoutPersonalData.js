@@ -5,6 +5,7 @@ import '../../component/FontawsomeIcons'
 import CheckoutCreditCard from './CheckoutCreditCard'
 import CheckoutArea from './CheckoutArea'
 import OrderProgressBar from './component/OrderProgressBar'
+import { Link } from 'react-router-dom'
 
 function CheckoutPersonalData() {
   const [howToPay, setHowToPay] = useState('請選擇付款方式')
@@ -81,20 +82,14 @@ function CheckoutPersonalData() {
           </ul>
         </div>
         <div className="checkout-credit-card-area">{showInfo}</div>
-        <CheckoutArea />
-        {/* <div className="checkout-personal-data-checkout-area">
-          <button className="btn font-700M  checkout-personal-data-back-btn">
-            <FontAwesomeIcon icon="long-arrow-alt-left" /> 返回
-          </button>
-          <p className="font-400S">商品總金額</p>
-          <h6>
-            NT <FontAwesomeIcon icon="dollar-sign" />
-            2,820
-          </h6>
-          <button className="btn font-700M  checkout-personal-data-next-btn">
-            <FontAwesomeIcon icon="credit-card" /> 下一頁
-          </button>
-        </div> */}
+        <div className="cart-checkout-box">
+          <CheckoutArea />
+          <Link to="/market/checkout-confirm">
+            <button className="btn font-700M cart-checkout-btn">
+              <FontAwesomeIcon icon="credit-card" /> 結帳去
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   )
