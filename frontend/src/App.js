@@ -184,7 +184,7 @@ function App() {
               <Route path="/member/editpwd">
                 <EditPassword />
               </Route>
-              <Route path="/member/orderdetail">
+              <Route path="/member/orderdetail/:order_id?">
                 <OrderDetails />
               </Route>
               <Route path="/member/orderlist">

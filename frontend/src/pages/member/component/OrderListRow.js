@@ -3,25 +3,35 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
 import { Link } from 'react-router-dom'
 
-function OrderListRow() {
+function OrderListRow(props) {
+  const { dataList, payment_method, status } = props
+
   return (
     <>
-      <tr>
-        <td>2021-08-20</td>
-        <td>
-          <Link to="/member/orderdetail/">0025</Link>
-        </td>
-        <td>信用卡</td>
-        <td>處理中</td>
-        <td>2021-08-24</td>
-        <td>$1,989</td>
-        <td>鑑賞期 2021-08-30</td>
-        <td>
-          <Link to="#/">
-            客服 <FontAwesomeIcon icon="info-circle" className="icon-info" />
-          </Link>
-        </td>
-      </tr>
+      {dataList.map((value, item) => {
+        return (
+          <tr key={value.id}>
+            <td>{value.create_date}</td>
+            <td>
+              <Link to="/member/orderdetail/">0025</Link>
+            </td>
+            <td>{payment_method[value.payment_method]}</td>
+            <td>{status[value.status]}</td>
+            <td>{value.create_date}</td>
+            <td>${value.total_price}</td>
+            <td>鑑賞期 {value.create_date}</td>
+            <td>
+              <Link to="#/">
+                客服
+                <FontAwesomeIcon
+                  icon="info-circle"
+                  className="icon-info ms-2"
+                />
+              </Link>
+            </td>
+          </tr>
+        )
+      })}
     </>
   )
 }

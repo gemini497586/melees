@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { API_URL } from '../../../utils/config'
-import Axios from 'axios'
 import SaveBoxDelModal from './SaveBoxDelModal'
 
 function SaveBox(props) {
   const { data, prep } = props
 
   const [showModal, setShowModal] = useState(false)
+  const [boxId, setBoxId] = useState('')
   const openDeleteModal = (id) => {
     console.log(id)
     setShowModal((prev) => !prev)
+    setBoxId(id)
   }
 
   // 把 prep 做成表
@@ -54,6 +55,7 @@ function SaveBox(props) {
       <SaveBoxDelModal
         showModal={showModal}
         openDeleteModal={openDeleteModal}
+        id={boxId}
       />
       {data.map((value, index) => {
         return (

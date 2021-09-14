@@ -1,15 +1,33 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import MinorBar from './component/MinorBar'
-import '../../style/global.css'
-import '../../style/member.css'
 import '../../style/orderList.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
 import OrderDetailRow from './component/OrderDetailRow'
+import { withRouter } from 'react-router-dom'
+import Axios from 'axios'
+import { API_URL } from '../../utils/config'
 
-const cartArray = [1, 2, 3]
+function OrderDetails(props) {
+  // 從網址上拿到訂單編號，打後端的API
+  const order_id = props.match.params.order_id
 
-function OrderDetails() {
+  const [data, setData] = useState([])
+
+  // 初始值
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        let res = await Axios.get(`${API_URL}/order/detail/${order_id}`)
+        let data = res.data
+        setData(data)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    getData()
+  }, [])
+
   return (
     <>
       <div className="page-group">
@@ -40,7 +58,7 @@ function OrderDetails() {
           </ol>
           {/* <!-- 訂單編號 --> */}
           <div className="orderList-title">
-            <h6>您的訂單編號為：0001</h6>
+            <h6>您的訂單編號為: {order_id}</h6>
           </div>
           {/* <!-- 訂單查詢 --> */}
           <div className="member-form member-form-forOrderDetail">
@@ -61,9 +79,7 @@ function OrderDetails() {
                 <p className="font-400L orderDetail-title-amount">數量</p>
                 <p className="font-400L orderDetail-title-total">總價</p>
               </div>
-              {cartArray.map((v, i) => {
-                return <OrderDetailRow />
-              })}
+              <OrderDetailRow dataList={data} />
               {/* 總金額計算 */}
               <div className="sumGroup">
                 <div className="sumGroup-item">
@@ -185,4 +201,4 @@ function OrderDetails() {
   )
 }
 
-export default OrderDetails
+export default withRouter(OrderDetails)

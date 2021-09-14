@@ -50,7 +50,7 @@ function Modal(props) {
             <FontAwesomeIcon icon="times" />
           </button>
           <div className="b-modal-box">
-            <div className="col-md-8 b-modal-left">
+            <div className="col-md-6 b-modal-left">
               <div className="b-modal-name">
                 <div className="font-700L text-center">{name}</div>
               </div>

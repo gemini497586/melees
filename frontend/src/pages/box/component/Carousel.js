@@ -5,7 +5,7 @@ import '../../../component/FontawsomeIcons'
 import { API_URL } from '../../../utils/config'
 
 function Carousel(props) {
-  const { main, data, subData, handleCheck, bento } = props
+  const { main, data, subData, handleCheck } = props
 
   // 套件的控制項
   const [activeItemIndex, setActiveItemIndex] = useState(0)
