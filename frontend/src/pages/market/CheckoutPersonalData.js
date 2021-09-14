@@ -9,18 +9,20 @@ import { Link } from 'react-router-dom'
 
 function CheckoutPersonalData() {
   const [howToPay, setHowToPay] = useState('請選擇付款方式')
+  const [credit, setCredit] = useState(false)
 
   useEffect(() => {
     let payingBtn = document.getElementById('payingBtn')
     payingBtn.addEventListener('click', () => {
       payingBtn.classList.remove('dropdown-toggle')
     })
-  }, [howToPay])
+  }, [])
+  const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
+  const [email, setEmail] = useState('')
 
-  let showInfo
-  if (howToPay === '信用卡') {
-    showInfo = <CheckoutCreditCard />
-  }
+  console.log(name)
+
   return (
     <div className="container">
       <OrderProgressBar />
@@ -32,7 +34,14 @@ function CheckoutPersonalData() {
         <div className="checkout-personal-data-w1100"></div>
         <div className="checkout-personal-data-name">
           <label className="checkout-personal-data-label">名字*</label>
-          <input className="checkout-personal-data-input" type="text" />
+          <input
+            className="checkout-personal-data-input"
+            type="text"
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value)
+            }}
+          />
         </div>
         <div className="checkout-personal-data-phone">
           <label className="checkout-personal-data-label">手機號碼*</label>
@@ -40,6 +49,10 @@ function CheckoutPersonalData() {
             className="checkout-personal-data-input"
             type="text"
             placeholder="0912xxxxxx"
+            value={phone}
+            onChange={(e) => {
+              setPhone(e.target.value)
+            }}
           />
         </div>
         <div className="checkout-personal-data-email">
@@ -48,6 +61,10 @@ function CheckoutPersonalData() {
             className="checkout-personal-data-input"
             type="email"
             placeholder="abc@gmail.com"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value)
+            }}
           />
         </div>
         <div className="checkout-personal-data-paying">
@@ -56,32 +73,33 @@ function CheckoutPersonalData() {
             className="btn dropdown-toggle checkout-personal-data-btn"
             data-bs-toggle="dropdown"
             id="payingBtn"
-            onChange={(e) => {
-              console.log(e.target)
-            }}
           >
             {howToPay}
           </button>
           <ul class="dropdown-menu paying-dropdown-btn">
             <li
               className="dropdown-item"
-              onClick={(e) => {
-                setHowToPay(e.target.innerText)
+              onClick={() => {
+                setHowToPay('信用卡')
+                setCredit(true)
               }}
             >
               信用卡
             </li>
             <li
               className="dropdown-item"
-              onClick={(e) => {
-                setHowToPay(e.target.innerText)
+              onClick={() => {
+                setHowToPay('貨到付款')
+                setCredit(false)
               }}
             >
               貨到付款
             </li>
           </ul>
         </div>
-        <div className="checkout-credit-card-area">{showInfo}</div>
+        <div className="checkout-credit-card-area">
+          {credit && <CheckoutCreditCard />}
+        </div>
         <div className="cart-checkout-box">
           <CheckoutArea />
           <Link to="/market/checkout-confirm">

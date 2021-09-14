@@ -49,8 +49,8 @@ function CheckoutConfirm() {
           <p className="checkout-confirm-label font-700SL">訂單明細</p>
           <table className="checkout-confirm-table">
             <tbody className="font-400SL">
-              {carts.map((value) => (
-                <CheckoutConfirmTable value={value} />
+              {carts.map((value, index) => (
+                <CheckoutConfirmTable id={value} index={index} />
               ))}
             </tbody>
           </table>

@@ -47,8 +47,13 @@ function ProductCard(props) {
         <button
           className="btn font-700M product-add-to-cart-btn"
           id={e.id}
-          onClick={(p) => {
-            addCart(p.target.id)
+          onClick={() => {
+            addCart({
+              id: e.id,
+              name: e.name,
+              amount: 1,
+              price: e.price,
+            })
           }}
         >
           <FontAwesomeIcon icon="cart-plus" className="cart-plus" />

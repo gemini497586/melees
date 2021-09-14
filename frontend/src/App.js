@@ -53,25 +53,62 @@ import MyRecipe from './pages/member/MyRecipe'
 import { useState } from 'react'
 
 function App() {
-  const [carts, setCarts] = useState([]) //放入購物車的商品
+  const cartList = JSON.parse(localStorage.getItem('cartList')) || []
+  const [carts, setCarts] = useState(cartList) //放入購物車的商品
+  // console.log(cartList)
   const addCart = (e) => {
-    if (carts.includes(e)) {
-      console.log(`已經有${e}了`)
+    const currentCart = JSON.parse(localStorage.getItem('cartList')) || []
+    const index = currentCart.findIndex((v) => v.id === e.id)
+    console.log(e)
+    console.log(index)
+    if (index > -1) {
+      //currentCart[index].amount++
       alert('該商品已經加入購物車')
-      setCarts([...carts])
+      return
     } else {
-      setCarts([...carts, e])
+      currentCart.push(e)
     }
+    localStorage.setItem('cartList', JSON.stringify(currentCart))
+    setCarts(currentCart)
+    // if (carts.includes(e)) {
+    //   console.log(`已經有${e}了`)
+    //   alert('該商品已經加入購物車')
+    //   setCarts([...carts])
+    // } else {
+    //   setCarts([...carts, e])
+    // }
   }
   const removeCart = (e, id) => {
-    id = id + 1
-    const newList = carts.filter((item) => item != id)
-    setCarts(newList)
+    const currentCart = JSON.parse(localStorage.getItem('cartList')) || []
+    const index = currentCart.findIndex((v) => v.id === e.id)
+    if (index === -1) {
+      currentCart.splice(e, 1)
+    }
+    localStorage.setItem('cartList', JSON.stringify(currentCart))
+    setCarts(currentCart)
   }
+
   const [productsAll, setProductsAll] = useState([]) //所有的商品
 
   const [amount, setAmount] = useState(1) // 計算商品數量用
-
+  const minusAmount = (e) => {
+    const currentCart = JSON.parse(localStorage.getItem('cartList')) || []
+    const index = currentCart.findIndex((v) => v.id === e.id)
+    if (index === -1 && currentCart[e].amount > 1) {
+      currentCart[e].amount--
+    }
+    localStorage.setItem('cartList', JSON.stringify(currentCart))
+    setCarts(currentCart)
+  }
+  const plusAmount = (e) => {
+    const currentCart = JSON.parse(localStorage.getItem('cartList')) || []
+    const index = currentCart.findIndex((v) => v.id === e.id)
+    if (index === -1 && currentCart[e].amount < 99) {
+      currentCart[e].amount++
+    }
+    localStorage.setItem('cartList', JSON.stringify(currentCart))
+    setCarts(currentCart)
+  }
   const [login, setLogin] = useState(false) //查看是否登入
   return (
     <HandleCart.Provider
@@ -82,6 +119,8 @@ function App() {
         productsAll,
         setProductsAll,
         amount,
+        minusAmount,
+        plusAmount,
         setAmount,
         login,
         setLogin,

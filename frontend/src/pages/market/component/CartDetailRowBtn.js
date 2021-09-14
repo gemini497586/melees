@@ -6,29 +6,30 @@ import '../../../component/FontawsomeIcons'
 import { HandleCart } from '../../../utils/HandleCart'
 
 function CartDetailRow(props) {
-  const { carts, removeCart, productsAll, amount, setAmount } =
+  const { carts, removeCart, productsAll, minusAmount, plusAmount } =
     useContext(HandleCart)
-  const pID = props.value - 1
-
+  const index = props.index
+  const productID = carts[index].id - 1
+  // console.log(productsAll)
   return (
     <div className="cart-btn-detail-row">
       <img src={img} alt="商品圖片" />
       <p className="font-400S cart-btn-detail-category">
-        {productsAll[props.value].category}
+        {productsAll[productID].category}
       </p>
-      <h6 className="cart-btn-detail-name">{productsAll[pID].name}</h6>
+      <h6 className="cart-btn-detail-name">{carts[index].name}</h6>
       <p className="font-400S cart-btn-detail-specs">
-        {productsAll[pID].specs}
+        {productsAll[productID].specs}
       </p>
       <p className="cart-btn-detail-price">
-        <FontAwesomeIcon icon="dollar-sign" /> {productsAll[pID].price}
+        <FontAwesomeIcon icon="dollar-sign" /> {carts[index].price}
       </p>
       <div className="cart-btn-detail-amount">
-        <p>{amount}</p>
+        <p>{carts[index].amount}</p>
         <button
           className="btn minus"
           onClick={() => {
-            amount > 1 ? setAmount(amount - 1) : setAmount(amount)
+            minusAmount(index)
           }}
         >
           <FontAwesomeIcon icon="minus" />
@@ -36,7 +37,7 @@ function CartDetailRow(props) {
         <button
           className="btn plus"
           onClick={() => {
-            amount < 99 ? setAmount(amount + 1) : setAmount(99)
+            plusAmount(index)
           }}
         >
           <FontAwesomeIcon icon="plus" />
@@ -44,11 +45,11 @@ function CartDetailRow(props) {
       </div>
       <h5 className="cart-btn-detail-total">
         NT <FontAwesomeIcon icon="dollar-sign" />
-        {productsAll[pID].price * amount}
+        {carts[index].amount * carts[index].price}
       </h5>
       <button
         className="btn cart-btn-detail-delete"
-        onClick={(e) => removeCart(e, pID)}
+        onClick={() => removeCart(index)}
       >
         <FontAwesomeIcon icon="trash-alt" />
       </button>
