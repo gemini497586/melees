@@ -384,22 +384,22 @@
   "productCategory": [
     {
       "id": 1,
-      "category": 0,
+      "category": "",
       "text": "全部"
     },
     {
       "id": 2,
-      "category": 2,
+      "category": 1,
       "text": "食材"
     },
     {
       "id": 3,
-      "category": 3,
+      "category": 2,
       "text": "鍋具"
     },
     {
       "id": 4,
-      "category": 4,
+      "category": 3,
       "text": "調味料"
     }
   ]

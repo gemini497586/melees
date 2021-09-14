@@ -41,7 +41,7 @@ function CheckoutCreditCard() {
           className="checkout-credit-card-input address3"
           placeholder="XX路 / 街 / 巷"
         />
-      </div>{' '}
+      </div>
     </>
   )
 }
