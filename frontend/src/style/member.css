@@ -71,7 +71,7 @@
 }
 
 .member-form-errorMsg {
-  color: var(--color-grey-800);
+  color: var(--color-red-C);
   margin: 0 0 0 5px;
 
   /* 暫時隱藏錯誤訊息 */
