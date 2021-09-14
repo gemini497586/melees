@@ -27,8 +27,12 @@
   color: var(--color-white);
   transform: scale(2);
 }
-.cardPrivateRecipe-bookmark:hover {
-  color: var(--color-primary);
+.cardPrivateRecipe-bookmark-active {
+  position: absolute;
+  right: 28px;
+  top: 22px;
+  color: var(--color-blue-C);
+  transform: scale(2);
 }
 
 .cardPrivateRecipe-avatar {
