@@ -64,7 +64,7 @@ function App() {
   }
   const removeCart = (e, id) => {
     id = id + 1
-    const newList = carts.filter((item) => item != id)
+    const newList = carts.filter((item) => item !== id)
     setCarts(newList)
   }
   const [productsAll, setProductsAll] = useState([]) //所有的商品
@@ -113,9 +113,9 @@ function App() {
                 <PrivateRecipeIntro />
               </Route>
               {/* 精選 */}
-              <Route exact path="/feature">
-                <FeatureIndex />
-              </Route>
+              <Route path="/feature/step">
+              <FeatureStep />
+            </Route>
               <Route path="/feature/week">
                 <FeatureIndexWeek />
               </Route>

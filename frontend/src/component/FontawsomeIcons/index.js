@@ -15,7 +15,7 @@ import {
   faFileAlt,
   faInfoCircle,
   faPen,
-  faStar,
+  faStar as fasStar,
   faStarHalfAlt,
   faCheckCircle as fasCheckCircle,
   faChevronDown,
@@ -25,13 +25,14 @@ import {
   faHeart,
   faEye,
   faPencilAlt,
-  faExclamation,
+  faEllipsisH,
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
   faCheckCircle as farCheckCircle,
   faBookmark as farBookmark,
   faHeart as farHeart,
+  faStar as farStar,
 } from '@fortawesome/free-regular-svg-icons'
 
 library.add(
@@ -52,7 +53,7 @@ library.add(
   faFileAlt,
   faInfoCircle,
   faPen,
-  faStar,
+  fasStar,
   faStarHalfAlt,
   fasCheckCircle,
   farCheckCircle,
@@ -63,5 +64,6 @@ library.add(
   faEye,
   farHeart,
   faPencilAlt,
-  faExclamation
+  faEllipsisH,
+  farStar
 )
