@@ -122,7 +122,10 @@ function App() {
               <Route path="/feature/stepweek">
                 <FeatureStepWeek />
               </Route>
-              <Route exact path="/feature/:id?">
+              <Route path="/feature/step">
+                <FeatureStep />
+              </Route>
+              <Route path="/feature">
                 <FeatureIndex />
               </Route>
 

@@ -18,11 +18,11 @@ app.use(
     })
 );
 
-// // 告訴 express 我們用哪一種樣板語言
-// // 樣板語言其實不止一種
-// app.set("view engine", "pug");
-// // 告訴 express 我們的樣板檔案放在哪裡
-// app.set("views", path.join(__dirname, "views"));
+// 告訴 express 我們用哪一種樣板語言
+// 樣板語言其實不止一種
+app.set("view engine", "pug");
+// 告訴 express 我們的樣板檔案放在哪裡
+app.set("views", path.join(__dirname, "views"));
 
 // 啟用 session 機制
 const expressSession = require("express-session");
@@ -50,6 +50,10 @@ app.use((req, res, next) => {
 app.get("/", (req, res, next) => {
     res.send("Hello with nodemon");
 });
+
+// 引入 feature 中間件
+let featureRouter = require("./routers/feature");
+app.use("/feature", featureRouter);
 
 app.get("/market/product/:id", (req, res, next) => {
     let sqlSelectID = "SELECT * FROM product WHERE id = ?";
@@ -94,7 +98,7 @@ app.use("/member", memberRouter);
 
 // 引入 private router 中間件，包含私藏食譜
 let privateRouter = require("./routers/private");
-app.use("/api/private", privateRouter);
+app.use("/private", privateRouter);
 
 // 引入 box router 中間件，包含客製化便當
 let boxRouter = require("./routers/box");
