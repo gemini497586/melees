@@ -1,9 +1,17 @@
 .member-box-card {
   padding-bottom: 50px;
 }
-.member-box-image {
-  position: relative;
-  height: 380px;
+.member-box-indside {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.member-box-indside img {
+  position: absolute;
+  left: 17%;
+  top: 3%;
+  width: 320px;
+  height: 220px;
 }
 .member-box-food {
   color: var(--color-grey-500);
@@ -25,7 +33,6 @@
 .member-box-content {
   color: var(--color-grey-800);
 }
-
 /* modal */
 .member-box-icon {
   border: 7px solid var(--color-red-C);

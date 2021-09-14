@@ -43,7 +43,7 @@ function MemberFeature() {
 
   // 初始化
   useEffect(() => {
-    const getData = async() => {
+    const getData = async () => {
       try {
         let res = await Axios.get(`${API_URL}/api/private`)
         let data = res.data.result
@@ -94,7 +94,7 @@ function MemberFeature() {
     }
     return newData
   }
-  
+
   // 重新渲染
   useEffect(() => {
     let newData = []

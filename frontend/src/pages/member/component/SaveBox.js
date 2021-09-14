@@ -58,19 +58,19 @@ function SaveBox(props) {
       {data.map((value, index) => {
         return (
           <div className="col-12 col-md-4 member-box-card" key={value.id}>
-            <div className="member-box-image">
+            <div className="b-page2-box">
               <img
                 src="http://localhost:3000/images/box_up.png"
                 alt="BoxUp"
                 class="b-contain-fit b-page2-up"
               />
-              <div className="b-page2-indside">
+              <div className="member-box-indside">
                 {getImage(value.box_images).map((v, i) => {
                   return (
                     <>
                       <img
                         key={i}
-                        className={`b-page2-box-${i}`}
+                        // className={`b-page2-box-${i}`}
                         src={`${API_URL}/box/${v}`}
                         alt={v}
                       />

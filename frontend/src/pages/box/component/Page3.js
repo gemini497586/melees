@@ -41,19 +41,10 @@ function Page3(props) {
               />
             </div>
             <div className="b-page3-btn">
-              <button className="b-btn font-700M me-2" onClick={openModal}>
+              <button className="b-btn font-700M" onClick={openModal}>
                 <FontAwesomeIcon icon={['far', 'bookmark']} className="me-2" />
                 收藏便當
               </button>
-              <Link to="#">
-                <button className="b-btnblue font-700M">
-                  <FontAwesomeIcon
-                    icon={['fab', 'facebook']}
-                    className="me-2"
-                  />
-                  分享便當
-                </button>
-              </Link>
             </div>
           </div>
           {/* 右邊 */}

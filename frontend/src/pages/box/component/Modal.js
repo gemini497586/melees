@@ -66,7 +66,6 @@ function Modal(props) {
                       <>
                         <img
                           key={v.id}
-                          className={`b-page2-box-${i}`}
                           src={`${API_URL}/box/${v.inside_image}`}
                           alt={v.name}
                         />
@@ -81,7 +80,6 @@ function Modal(props) {
                 />
               </div>
             </div>
-
             <div className="col-md-4 b-modal-right">
               <form onSubmit={handleSubmit}>
                 <input type="hidden" value={saveId} />

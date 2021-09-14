@@ -86,10 +86,8 @@ function MemberBox() {
                 setSortBy={setSortBy}
               />
             </div>
-            <div className="member-box-bottom">
-              <div className="row">
-                <SaveBox data={displayData} prep={prep} />
-              </div>
+            <div className="row">
+              <SaveBox data={displayData} prep={prep} />
             </div>
           </div>
         </section>

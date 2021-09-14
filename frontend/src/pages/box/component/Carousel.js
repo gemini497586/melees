@@ -80,9 +80,7 @@ function Carousel(props) {
             {subData.map((v, i) => {
               return (
                 <div className="b-page2-slider">
-                  <div className="font-400M b-page2-slider-text">
-                    主食{v.name}
-                  </div>
+                  <div className="font-400M b-page2-slider-text">{v.name}</div>
                   <div
                     className="b-page2-slider-image"
                     onClick={() => {

@@ -31,10 +31,11 @@
 .b-btn {
   background: var(--color-primary);
   color: var(--color-white);
-  padding: 0 20px;
+  padding: 0 40px;
   height: 43px;
   border: 1px solid transparent;
   border-radius: 8px;
+  white-space: nowrap;
 }
 .b-btn:hover,
 .b-btnblue:hover {
@@ -144,6 +145,9 @@
   top: 45px;
   left: 45px;
 }
+.b-page2-bento {
+  margin-bottom: 30px;
+}
 .b-page2-left {
   width: 30%;
   height: 100%;
@@ -166,9 +170,7 @@
 }
 .b-page2-image {
   position: relative;
-  /* margin: 0 auto; */
   width: 35%;
-  margin-bottom: 30px;
 }
 .b-page2-box {
   position: relative;
@@ -188,42 +190,23 @@
   height: 100%;
 }
 .b-page2-indside img {
+  /* border: 1px solid #000; */
+  position: absolute;
+  left: 17%;
+  top: 3%;
+  width: 330px;
+  height: 220px;
+}
+.b-page2-right {
+  position: relative;
   width: 30%;
 }
-.b-page2-box-0 {
-  /* border: 1px solid #000; */
+.b-page2-btn {
   position: absolute;
-  left: 25%;
-  top: 2%;
-}
-.b-page2-box-1 {
-  /* border: 1px solid #000; */
-  position: absolute;
-  left: 45%;
-  top: 10%;
-}
-.b-page2-box-2 {
-  /* border: 1px solid #000; */
-  position: absolute;
-  left: 60%;
-  top: 18%;
-}
-.b-page2-box-3 {
-  /* border: 1px solid #000; */
-  position: absolute;
-  left: 20%;
-  top: 15%;
-}
-.b-page2-box-4 {
-  /* border: 1px solid #000; */
-  position: absolute;
-  left: 45%;
-  top: 25%;
+  right: 0;
+  bottom: 0;
 }
 /* slider */
-.b-page2-slider {
-  margin-bottom: 30px;
-}
 .b-page2-chevron {
   font-size: 30px;
   cursor: pointer;
@@ -258,11 +241,22 @@
   .b-page2-slider {
     margin-bottom: 0;
   }
+  .b-page2-indside img {
+    left: 17%;
+    top: 8%;
+    width: 300px;
+    height: 200px;
+  }
+  .b-page2-slider-text {
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: 3px;
+  }
 }
 /* 第三段 */
 .b-page3 {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: flex-end;
   padding-bottom: 50px;
 }
@@ -281,7 +275,7 @@
 }
 .b-page3-btn {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
 }
 .b-page3-right {
   height: 320px;

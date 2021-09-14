@@ -81,8 +81,8 @@ const uploader = multer({
 
 // 先檢查是否已登入
 router.use(loginCheckMiddleware);
-let memberId = req.session.member.id;
-// let memberId = 37;
+// let memberId = req.session.member.id;
+let memberId = 37;
 
 // 會員資料修改 --> 進入編輯頁面 --> 需要撈資料庫
 router.get("/editinfo", async (req, res, next) => {
