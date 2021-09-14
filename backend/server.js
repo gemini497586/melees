@@ -38,6 +38,8 @@ app.use(
 app.use(express.urlencoded({ extended: true }));
 // 使用這個中間件，才可以解析到 json 的資料
 app.use(express.json());
+// 使用這個中間件，才可以設定靜態檔案的位置
+app.use(express.static(path.join(__dirname, "images")));
 
 app.use((req, res, next) => {
   let current = new Date();

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2021-09-09 08:33:44
+-- 產生時間： 2021-09-14 04:04:41
 -- 伺服器版本： 10.4.19-MariaDB
 -- PHP 版本： 8.0.7
 
@@ -63,19 +63,9 @@ INSERT INTO `private_comment` (`id`, `private_id`, `member_id`, `comment`, `star
 --
 
 CREATE TABLE `private_follow` (
-  `private_id` int(10) NOT NULL,
-  `member_id` int(10) NOT NULL
+  `private_id` int(5) UNSIGNED NOT NULL,
+  `member_id` int(5) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- 傾印資料表的資料 `private_follow`
---
-
-INSERT INTO `private_follow` (`private_id`, `member_id`) VALUES
-(3, 6),
-(5, 1),
-(5, 2),
-(6, 4);
 
 -- --------------------------------------------------------
 
@@ -121,7 +111,25 @@ INSERT INTO `private_ingred` (`id`, `private_id`, `ingred`, `ingred_unit`) VALUE
 (27, 4, '檸檬汁', '20g'),
 (28, 5, '雞胸肉', '300g'),
 (29, 5, '鴻禧菇', '1包'),
-(30, 5, '香茅', '1枝');
+(30, 5, '香茅', '1枝'),
+(31, 0, '豬肉', '500g'),
+(32, 0, '豬肉', '500g'),
+(33, 0, 'asd', 'dda'),
+(34, 0, 'asd', 'dda'),
+(35, 0, 'asd', 'dda'),
+(36, 0, '去骨雞腿肉', '2片'),
+(37, 0, '蛋', '3顆'),
+(38, 0, '蛋', '3顆'),
+(39, 0, '蛋', '3顆'),
+(40, 47, '蛋', '3顆'),
+(41, 48, '牛番茄', '2顆'),
+(42, 49, '', ''),
+(43, 0, '飯', ''),
+(44, 0, '可樂', ''),
+(45, 0, '飯', ''),
+(46, 0, '可樂', ''),
+(47, 0, '牛排', '4盎司'),
+(48, 0, '奶油', '50g');
 
 -- --------------------------------------------------------
 
@@ -130,8 +138,8 @@ INSERT INTO `private_ingred` (`id`, `private_id`, `ingred`, `ingred_unit`) VALUE
 --
 
 CREATE TABLE `private_like` (
-  `private_id` int(10) NOT NULL,
-  `member_id` int(10) NOT NULL
+  `private_id` int(5) UNSIGNED NOT NULL,
+  `member_id` int(5) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -139,12 +147,14 @@ CREATE TABLE `private_like` (
 --
 
 INSERT INTO `private_like` (`private_id`, `member_id`) VALUES
-(3, 1),
-(3, 3),
-(4, 2),
-(5, 7),
-(7, 2),
-(8, 6);
+(5, 4),
+(3, 2),
+(1, 5),
+(3, 2),
+(6, 4),
+(8, 1),
+(9, 3),
+(11, 9);
 
 -- --------------------------------------------------------
 
@@ -172,10 +182,18 @@ CREATE TABLE `private_recipe` (
 
 INSERT INTO `private_recipe` (`id`, `picture`, `name`, `intro`, `qty`, `view_qty`, `like_qty`, `create_date`, `member_id`, `valid`, `star_rate`) VALUES
 (1, '1.jpg', '泰式涼拌海鮮寬粉', '其實本來是兩道不同的料理，但因為這顆南瓜實在是太沒有香氣了，怎麼吃怎麼平淡、怎麼吃怎麼無味，於是最後決定把沒有味道的南瓜煮和甜美帶酸的番茄紅醬擺在一起。', '2', '545', '425', '2021-07-05', 1, 0, 3.5),
-(2, '2.jpg', '檸檬蝦', '這次做的檸檬蝦是沒有殼的版本，因為Joey吃飯不太喜歡剝殼、啃骨頭，所以通常我們很少做排骨料理，海鮮也都一定會剝殼。', '2', '359', '470', '2021-07-06', 5, 0, 3.7),
-(3, '3.jpg', '蜂蜜檸檬豬排', '今天要分享的主菜非常簡單，而且味道很好，大人小朋友都會喜歡哦！如果可以提前一天準備會更加入味，準備便當的時候也可以更從容。', '2', '754', '560', '2021-07-04', 10, 0, 4),
+(2, '2.jpg', '檸檬蝦', '這次做的檸檬蝦是沒有殼的版本，因為Joey吃飯不太喜歡剝殼、啃骨頭，所以通常我們很少做排骨料理，海鮮也都一定會剝殼。', '2', '359', '470', '2021-07-06', 5, 0, 5),
+(3, '3.jpg', '蜂蜜檸檬豬排', '今天要分享的主菜非常簡單，而且味道很好，大人小朋友都會喜歡哦！如果可以提前一天準備會更加入味，準備便當的時候也可以更從容。', '2', '754', '560', '2021-07-04', 10, 0, 2.7),
 (4, '4.jpg', '檸檬魚', '今天的主菜是好多人的點菜，檸檬魚其實很簡單哦！自己在家準備起來很快，材料也很好取得哦！', '2', '653', '800', '2021-07-06', 12, 0, 4),
-(5, '5.jpg', '香茅椰汁雞湯', '今天跟大家分享一道泰式雞湯，是我小時候到泰式料理餐廳最期待的湯品 — 香茅椰汁雞湯， 如果沒有喝過的人，非常推薦可以試試看，很特別好喝哦！我調整了材料和作法，刪去了一些我會過敏的食物，這個版本是在家可以自己做的家常版本哦！', '1', '7', '1', '2021-07-13', 1, 0, 3);
+(5, '5.jpg', '香茅椰汁雞湯', '今天跟大家分享一道泰式雞湯，是我小時候到泰式料理餐廳最期待的湯品 — 香茅椰汁雞湯， 如果沒有喝過的人，非常推薦可以試試看，很特別好喝哦！我調整了材料和作法，刪去了一些我會過敏的食物，這個版本是在家可以自己做的家常版本哦！', '1', '7', '1', '2021-07-13', 1, 0, 2),
+(50, NULL, '青江菜', '', '', NULL, NULL, '2021-09-14', NULL, 0, 0),
+(51, NULL, '披薩', '美味披薩', '', NULL, NULL, '2021-09-14', NULL, 0, 0),
+(52, NULL, '披薩', '美味披薩', '', NULL, NULL, '2021-09-14', NULL, 0, 0),
+(53, NULL, '披薩', '美味披薩', '', NULL, NULL, '2021-09-14', 3, 0, 0),
+(54, NULL, '披薩', '美味披薩', '', NULL, NULL, '2021-09-14', 3, 0, 0),
+(55, NULL, '披薩', '美味披薩', '', NULL, NULL, '2021-09-14', 3, 0, 0),
+(56, NULL, '披薩', '美味披薩', '', NULL, NULL, '2021-09-14', 3, 0, 0),
+(57, NULL, '巨無霸牛排', '比臉還大', '5', NULL, NULL, '2021-09-14', 3, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -184,19 +202,9 @@ INSERT INTO `private_recipe` (`id`, `picture`, `name`, `intro`, `qty`, `view_qty
 --
 
 CREATE TABLE `private_save` (
-  `private_id` int(10) NOT NULL,
-  `member_id` int(10) NOT NULL
+  `private_id` int(5) UNSIGNED NOT NULL,
+  `member_id` int(5) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- 傾印資料表的資料 `private_save`
---
-
-INSERT INTO `private_save` (`private_id`, `member_id`) VALUES
-(2, 3),
-(4, 8),
-(8, 6),
-(9, 3);
 
 -- --------------------------------------------------------
 
@@ -268,6 +276,60 @@ INSERT INTO `private_tags` (`id`, `private_id`, `tags`) VALUES
 (3, 4, '平民'),
 (4, 8, '牛肉');
 
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `private_view`
+--
+
+CREATE TABLE `private_view` (
+  `private_id` int(5) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- 傾印資料表的資料 `private_view`
+--
+
+INSERT INTO `private_view` (`private_id`) VALUES
+(5),
+(3),
+(6),
+(8),
+(4),
+(13),
+(6),
+(9),
+(16),
+(2),
+(2),
+(1),
+(1),
+(3),
+(2),
+(3),
+(3),
+(4),
+(50),
+(51),
+(52),
+(51),
+(52),
+(50),
+(2),
+(51),
+(2),
+(2),
+(2),
+(2),
+(2),
+(2),
+(2),
+(2),
+(2),
+(2),
+(2),
+(2);
+
 --
 -- 已傾印資料表的索引
 --
@@ -279,34 +341,16 @@ ALTER TABLE `private_comment`
   ADD PRIMARY KEY (`id`);
 
 --
--- 資料表索引 `private_follow`
---
-ALTER TABLE `private_follow`
-  ADD PRIMARY KEY (`private_id`,`member_id`);
-
---
 -- 資料表索引 `private_ingred`
 --
 ALTER TABLE `private_ingred`
   ADD PRIMARY KEY (`id`);
 
 --
--- 資料表索引 `private_like`
---
-ALTER TABLE `private_like`
-  ADD PRIMARY KEY (`private_id`,`member_id`);
-
---
 -- 資料表索引 `private_recipe`
 --
 ALTER TABLE `private_recipe`
   ADD PRIMARY KEY (`id`);
-
---
--- 資料表索引 `private_save`
---
-ALTER TABLE `private_save`
-  ADD PRIMARY KEY (`private_id`,`member_id`);
 
 --
 -- 資料表索引 `private_step`
@@ -334,13 +378,13 @@ ALTER TABLE `private_comment`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `private_ingred`
 --
 ALTER TABLE `private_ingred`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `private_recipe`
 --
 ALTER TABLE `private_recipe`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `private_step`
