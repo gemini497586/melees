@@ -65,7 +65,7 @@ function App() {
   }
   const removeCart = (e, id) => {
     id = id + 1
-    const newList = carts.filter((item) => item != id)
+    const newList = carts.filter((item) => item !== id)
     setCarts(newList)
   }
   const [productsAll, setProductsAll] = useState([]) //所有的商品

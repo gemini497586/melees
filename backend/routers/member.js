@@ -34,7 +34,9 @@ const infoValidation = [
 ];
 const passwordValidation = [
   // 密碼驗證 --> 1.不為空值  2.密碼與確認密碼是否一致  3.min: 6; max: 12;
-  body("password").isLength({ min: 6, max: 12 }).withMessage("密碼長度為6-12字元"),
+  body("password")
+    .isLength({ min: 6, max: 12 })
+    .withMessage("密碼長度為6-12字元"),
   body("rePassword")
     .custom((value, { req }) => {
       return value === req.body.password;
@@ -63,7 +65,11 @@ const uploader = multer({
   // 非常必要的檔案驗證
   fileFilter: function (req, file, callback) {
     console.log(file);
-    if (file.mimetype !== "image/jpeg" && file.mimetype !== "image/png" && file.mimetype !== "image/jpg") {
+    if (
+      file.mimetype !== "image/jpeg" &&
+      file.mimetype !== "image/png" &&
+      file.mimetype !== "image/jpg"
+    ) {
       callback(new Error("不接受的檔案型態"), false);
     }
     callback(null, true);
@@ -75,12 +81,15 @@ const uploader = multer({
 
 // 先檢查是否已登入
 router.use(loginCheckMiddleware);
-// let memberId = req.session.member.id;
-let memberId = 37;
 
 // 會員資料修改 --> 進入編輯頁面 --> 需要撈資料庫
 router.get("/editinfo", async (req, res, next) => {
-  let memberInfo = await connection.queryAsync("SELECT * FROM member WHERE id = ?", [memberId]);
+  let memberId = req.session.member.id;
+  // let memberId = 37;
+  let memberInfo = await connection.queryAsync(
+    "SELECT * FROM member WHERE id = ?",
+    [memberId]
+  );
   memberInfo = memberInfo[0];
   let responeMemberInfo = {
     name: memberInfo.name,
@@ -95,27 +104,68 @@ router.get("/editinfo", async (req, res, next) => {
 });
 
 // 會員資料修改 --> 表單送出 --> 需要更新資料庫
-router.post("/editinfo", uploader.single("picture"), infoValidation, async (req, res, next) => {
-  // 套件回覆的驗證結果
-  const dataValidationResult = validationResult(req);
-  if (!dataValidationResult.isEmpty()) {
-    let error = dataValidationResult.array();
-    console.log(error);
-    return res.status(400).json({ field: error[0].param, message: error[0].msg });
+router.post(
+  "/editinfo",
+  uploader.single("picture"),
+  infoValidation,
+  async (req, res, next) => {
+    let memberId = req.session.member.id;
+    // let memberId = 37;
+    // 套件回覆的驗證結果
+    const dataValidationResult = validationResult(req);
+    if (!dataValidationResult.isEmpty()) {
+      let error = dataValidationResult.array();
+      console.log(error);
+      return res
+        .status(400)
+        .json({ field: error[0].param, message: error[0].msg });
+    }
+
+    // 確認資料是否有正確取得
+    console.log("test1: ", req.body);
+    console.log("test2: ", req.file);
+
+    let filename = req.file ? "/" + req.file.filename : "";
+    let result = await connection.queryAsync(
+      "UPDATE member SET name = ?, gender = ?, nickname = ?, birthday = ?, phone = ?, email = ?, address = ?, picture = ? WHERE id = ?",
+      [
+        req.body.name,
+        req.body.gender,
+        req.body.nickname,
+        req.body.birthday,
+        req.body.cellphone,
+        req.body.email,
+        req.body.address,
+        filename,
+        memberId,
+      ]
+    );
+    console.log("存入資料庫的內容：", result);
+    res.status(200).json({ message: "會員資料更新成功" });
+
+    // 確認資料是否有正確取得
+    console.log("test1: ", req.body);
+    console.log("test2: ", req.file);
+
+    let filename = req.file ? "/" + req.file.filename : "";
+    let result = await connection.queryAsync(
+      "UPDATE member SET name = ?, gender = ?, nickname = ?, birthday = ?, phone = ?, email = ?, address = ?, picture = ? WHERE id = ?",
+      [
+        req.body.name,
+        req.body.gender,
+        req.body.nickname,
+        req.body.birthday,
+        req.body.cellphone,
+        req.body.email,
+        req.body.address,
+        filename,
+        memberId,
+      ]
+    );
+    console.log("存入資料庫的內容：", result);
+    res.status(200).json({ message: "會員資料更新成功" });
   }
-
-  // 確認資料是否有正確取得
-  console.log("test1: ", req.body);
-  console.log("test2: ", req.file);
-
-  let filename = req.file ? "/" + req.file.filename : "";
-  let result = await connection.queryAsync(
-    "UPDATE member SET name = ?, gender = ?, nickname = ?, birthday = ?, phone = ?, email = ?, address = ?, picture = ? WHERE id = ?",
-    [req.body.name, req.body.gender, req.body.nickname, req.body.birthday, req.body.cellphone, req.body.email, req.body.address, filename, memberId]
-  );
-  console.log("存入資料庫的內容：", result);
-  res.status(200).json({ message: "會員資料更新成功" });
-});
+);
 
 // 會員密碼變更
 router.post(
@@ -123,11 +173,19 @@ router.post(
   // passwordValidation --> 密碼格式要符合 + 確定新密碼一致
   passwordValidation,
   async (req, res, next) => {
+    let memberId = req.session.member.id;
+    // let memberId = 37;
     // 舊密碼跟資料庫密碼比對，錯誤回覆400
-    let member = await connection.queryAsync("SELECT password FROM member WHERE id = ?", [memberId]);
+    let member = await connection.queryAsync(
+      "SELECT password FROM member WHERE id = ?",
+      [memberId]
+    );
     // console.log("member[0].password: ", member[0].password);
     // console.log("req.body.oldPassword: ", req.body.oldPassword);
-    let confirmResult = await bcrypt.compare(req.body.oldPassword, member[0].password);
+    let confirmResult = await bcrypt.compare(
+      req.body.oldPassword,
+      member[0].password
+    );
     if (!confirmResult) {
       return next({
         status: 400,
@@ -144,7 +202,10 @@ router.post(
     }
 
     // 更新密碼存入資料庫
-    let result = await connection.queryAsync("UPDATE member SET password = ? WHERE id = ?", [await bcrypt.hash(req.body.password, 10), memberId]);
+    let result = await connection.queryAsync(
+      "UPDATE member SET password = ? WHERE id = ?",
+      [await bcrypt.hash(req.body.password, 10), memberId]
+    );
 
     console.log("result: ", result);
     res.status(200).json({ message: "密碼更新成功" });
