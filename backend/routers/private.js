@@ -3,23 +3,12 @@ const connection = require("../utils/db")
 const router = express.Router();
 const moment = require("moment")
 const {loginCheckMiddleware} = require("../middlewares/auth")
-
 const comment_time = moment().format('YYYY/MM/DD');
 
-router.get("/star", async function (req, res, next) {
-    
-    let sql = "SELECT * FROM private_comment";
-    let result = await connection.queryAsync(sql);
-    let newResult = result.reduce((acc, value) => {
-        return value.star_rate + acc;
-    }, 0)
-    
-    res.json(newResult) 
-})
-
-
-
+// 抓食譜的資料
 router.get("/", async function (req, res, next) {
+    // let memberlee = req.session.member.id
+    // console.log(memberlee)
     let recipe = "SELECT * FROM private_recipe";
     let result = await connection.queryAsync(recipe);  
 
@@ -32,12 +21,22 @@ router.get("/", async function (req, res, next) {
     res.json({result, result2, result3})
 });
 
-router.get("/:id", async function (req, res, next) {
-    let sql = "SELECT * FROM private_recipe WHERE id = ?"
-    let data = await connection.queryAsync(sql, [req.params.id])
+// 會員 myrecipe 部分(未完成)
+router.get("/myrecipe", async function(req, res,next) {
+    res.send("尚未完成")
+})
+
+// 新增評論的部分(未完成)
+router.get("/star", async function (req, res, next) {
     
-    res.json(data)
-});
+    let sql = "SELECT * FROM private_comment";
+    let result = await connection.queryAsync(sql);
+    let newResult = result.reduce((acc, value) => {
+        return value.star_rate + acc;
+    }, 0)
+    
+    res.json(newResult) 
+})
 
 // 抓取食材的資料
 router.get("/ingred/:id", async function (req, res, next) {
@@ -110,6 +109,15 @@ router.post("/upload", async function (req, res, next) {
 
     res.json(data)
 })
+
+// 進入食譜內頁的資料
+router.get("/:id", async function (req, res, next) {
+    let sql = "SELECT * FROM private_recipe WHERE id = ?"
+    let data = await connection.queryAsync(sql, [req.params.id])
+    
+    res.json(data)
+});
+
 
 module.exports = router;
 
