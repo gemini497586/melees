@@ -10,21 +10,22 @@ function OrderProgressBar() {
   let theURL = window.location.pathname
 
   const [count, setCount] = useState(1)
+  // setCount((currentItems) => setCount(currentItems))
   useEffect(() => {
     if (theURL === '/market/cart-detail') {
       // console.log('第一步')
     } else if (theURL === '/market/checkout-personalData') {
-      setCount(count + 1)
+      setCount(2)
       // console.log('第二步')
       firstStep.classList.remove('active')
       secondStep.classList.add('active')
     } else if (theURL === '/market/checkout-confirm') {
-      setCount(count + 1)
+      setCount(3)
       // console.log('第三步')
       firstStep.classList.remove('active')
       thirdStep.classList.add('active')
     } else if (theURL === '/market/orders-complete') {
-      setCount(count + 1)
+      setCount(4)
       // console.log('第四步')
       firstStep.classList.remove('active')
       fourthStep.classList.add('active')

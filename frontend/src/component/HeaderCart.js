@@ -7,7 +7,6 @@ import { HandleCart } from '../utils/HandleCart'
 
 function HeaderCart() {
   const { carts } = useContext(HandleCart)
-
   return (
     <>
       {carts.map((value, index) => (
