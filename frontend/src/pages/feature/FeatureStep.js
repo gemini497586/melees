@@ -8,15 +8,19 @@ import CardRecipe from '../../component/CardRecipe'
 import CardShopping from '../../component/CardShopping'
 import MinorBar from './component/MinorBar'
 
+<<<<<<< HEAD
+=======
 // json 測試用
 // import RecipeStepTest from '../../data/RecipeStepTest'
 
+>>>>>>> develop
 function FeatureStep() {
   // 控制table裡的資料
   const [unitList, setUnitList] = useState([
     { name: '雞蛋', unit: '20顆' },
     { name: '雞蛋', unit: '20顆' },
   ])
+
   return (
     <>
       <div className="page-group">
@@ -45,7 +49,11 @@ function FeatureStep() {
                 <h5 className="fcolor-grey-900">步驟</h5>
                 <div className="fline-g500 mb-3"></div>
               </div>
+<<<<<<< HEAD
+              <RecipeStep />
+=======
               {/* <RecipeStep RecipeStepTest={RecipeStepTest} /> */}
+>>>>>>> develop
             </div>
             <CardRecipe />
             <CardShopping />
