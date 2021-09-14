@@ -133,15 +133,13 @@ function App() {
               <Route path="/search/market">
                 <SearchMarket />
               </Route>
+              
               {/* 會員相關 */}
               <Route path="/login">
                 <Login />
               </Route>
               <Route path="/register">
                 <Register />
-              </Route>
-              <Route exact path="/member">
-                <MyRecipe />
               </Route>
               <Route path="/member/editinfo">
                 <EditMemberInfo />
@@ -160,6 +158,18 @@ function App() {
               </Route>
               <Route path="/member/saverecipe">
                 <MemberFeature />
+              </Route>
+              <Route path="/member/saveproduct">
+                <MemberSaveProduct />
+              </Route>
+              <Route exact path="/member/recipecomment">
+                <MemberRecipeComment />
+              </Route>
+              <Route path="/member/coupon">
+                <Coupon />
+              </Route>
+              <Route exact path="/member">
+                <MyRecipe />
               </Route>
 
               {/* 購物車 */}

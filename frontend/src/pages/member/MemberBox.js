@@ -34,7 +34,7 @@ function MemberBox() {
   useEffect(() => {
     const getData = async () => {
       try {
-        let res = await Axios.get(`${API_URL}/api/box/boxsave`, {
+        let res = await Axios.get(`${API_URL}/box/boxsave`, {
           withCredentials: true,
         })
         let data = res.data.result

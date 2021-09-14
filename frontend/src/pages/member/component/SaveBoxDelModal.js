@@ -15,7 +15,7 @@ function SaveBoxDelModal(props) {
     // console.log('把我刪除 ')
     // try {
     //   let res = await Axios.post(
-    //     `${API_URL}/api/box/delete`,
+    //     `${API_URL}/box/delete`,
     //     {
     //       id,
     //     },

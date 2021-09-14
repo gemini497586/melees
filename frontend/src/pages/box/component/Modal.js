@@ -25,7 +25,7 @@ function Modal(props) {
     // e.preventDefault()
     try {
       let res = await axios.post(
-        `${API_URL}/api/box/save`,
+        `${API_URL}/box/save`,
         {
           saveId,
           name,

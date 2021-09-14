@@ -21,7 +21,7 @@ function Box() {
   useEffect(() => {
     const getData = async () => {
       try {
-        let res = await Axios.get(`${API_URL}/api/box`)
+        let res = await Axios.get(`${API_URL}/box`)
         let data = res.data.result2
         let subData = res.data.result
         setData(data)

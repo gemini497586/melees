@@ -4,12 +4,12 @@ import MinorBar from './component/MinorBar'
 import Paging from '../../component/Paging'
 import MemberSaveProdcutCard from './component/MemberSaveProductCard'
 import DropDown2 from '../../component/DropDown2'
-import ProductData from '../../data/Products'
+import Axios from 'axios'
+import { API_URL } from '../../utils/config'
 
 const pages = [1]
 
 function MemberSaveProdcut() {
-  const ProductDatas = ProductData.products
   const [data, setData] = useState([])
   const [displayData, setDisplayData] = useState([])
   const [sortBy, setSortBy] = useState(0)
@@ -33,9 +33,19 @@ function MemberSaveProdcut() {
   ]
   // 初始化
   useEffect(() => {
-    setData(ProductDatas)
-    setDisplayData(ProductDatas)
+    const getData = async () => {
+      try {
+        let res = await Axios.get(`${API_URL}/market/2`)
+        let data = res.data
+        setData(data)
+        setDisplayData(data)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    getData()
   }, [])
+
   // 排序功能
   const handleSortBy = (data, sortBy) => {
     let newData = [...data]

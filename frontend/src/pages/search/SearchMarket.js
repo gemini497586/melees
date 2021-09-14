@@ -3,6 +3,8 @@ import '../../style/searchMarket.css'
 import SearchCardMarket from './component/SearchCardMarket'
 import DropDown2 from '../../component/DropDown2'
 import ProductData from '../../data/Products'
+import Axios from 'axios'
+import { API_URL } from '../../utils/config'
 
 function SearchMarket() {
   const ProductDatas = ProductData.products
@@ -30,8 +32,17 @@ function SearchMarket() {
   ]
   // 初始化
   useEffect(() => {
-    setData(ProductDatas)
-    setDisplayData(ProductDatas)
+    const getData = async () => {
+      try {
+        let res = await Axios.get(`${API_URL}/market/2`)
+        let data = res.data
+        setData(data)
+        setDisplayData(data)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    getData()
   }, [])
   // 排序功能
   const handleSortBy = (data, sortBy) => {

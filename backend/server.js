@@ -98,7 +98,7 @@ app.use("/api/private", privateRouter);
 
 // 引入 box router 中間件，包含客製化便當
 let boxRouter = require("./routers/box");
-app.use("/api/box", boxRouter);
+app.use("/box", boxRouter);
 
 // 前面都沒有任何符合的路由網址就進入這邊統一 404 來處理
 app.use((req, res, next) => {
