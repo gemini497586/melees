@@ -8,7 +8,7 @@ import { HandleCart } from '../../utils/HandleCart'
 import { Link } from 'react-router-dom'
 
 function CartDetail() {
-  const { carts, removeCart } = useContext(HandleCart)
+  const { carts } = useContext(HandleCart)
 
   return (
     <div className="container">
@@ -20,8 +20,8 @@ function CartDetail() {
           <p className="font-400L cart-detail-title-amount">數量</p>
           <p className="font-400L cart-detail-title-total">總價</p>
         </div>
-        {carts.map((value) => {
-          return <CartDetailRowBtn value={value} />
+        {carts.map((value, index) => {
+          return <CartDetailRowBtn id={value} index={index} />
         })}
         {carts.length > 0 ? (
           <div className="cart-detail-checkout-area">
@@ -31,13 +31,13 @@ function CartDetail() {
             >
               <FontAwesomeIcon icon="long-arrow-alt-left" /> 繼續購物
             </Link>
-            <button className="btn font-700M cart-detail-coupon-btn">
+            {/* <button className="btn font-700M cart-detail-coupon-btn">
               選取優惠券
-            </button>
+            </button> */}
             <p className="font-400S cart-detail-price-amount">商品金額總計</p>
             <p className="font-700SL cart-detail-price-amount-num">NT 2,820</p>
-            <p className="font-400S cart-detail-coupon-txt">優惠券扣抵</p>
-            <p className="font-700SL cart-detail-coupon-num">NT 0</p>
+            {/* <p className="font-400S cart-detail-coupon-txt">優惠券扣抵</p>
+            <p className="font-700SL cart-detail-coupon-num">NT 0</p> */}
             <div className="w244"></div>
             <p className="font-400S cart-detail-total-amount">商品總金額</p>
             <h6 className="cart-detail-total-amount-num">NT 2,820</h6>

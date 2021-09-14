@@ -10,15 +10,9 @@ import { Link } from 'react-router-dom'
 import Axios from 'axios'
 import { API_URL } from '../../utils/config'
 
-// 用map渲染6個FeatureCards
-const arr = [1, 2, 3, 4, 5, 6]
+/* 排序搜尋 */
 
 function FeatureIndex() {
-  // 使用 useState ，透過陣列讓 List 顯示出項目
-  const [listdata, setListdata] = useState([])
-
-  /* 排序搜尋 */
-
   const [sortBy, setSortBy] = useState('0')
   const itemList = [
     {
@@ -46,6 +40,12 @@ function FeatureIndex() {
       value: '6',
     },
   ]
+
+  // 用map渲染6個FeatureCards
+  const arr = [1, 2, 3, 4, 5, 6]
+
+  // 使用 useState ，透過陣列讓 List 顯示出項目
+  const [listdata, setListdata] = useState([])
 
   useEffect(() => {
     Axios.get('${API_URL}/api/feature').then((res) => {

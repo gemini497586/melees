@@ -30,7 +30,7 @@ function FeatureCards(props) {
               className="d-flex text-decoration-none align-items-center"
               href="#/"
             >
-              <img className="fc-logo me-2" src={iglogo} alt="" />
+              {/* <img className="fc-logo me-2" src={iglogo} alt="" /> */}
               <p className="fcolor-grey-800 font-400SL m-0">謝戎宥- LON YO</p>
             </div>
           </div>

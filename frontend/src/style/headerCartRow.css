@@ -73,7 +73,7 @@
   border-radius: 100px 0px 0px 100px;
 }
 
-.header-cart-row-operation.plus {
+.header-cart-row-operation .plus {
   margin-left: 10px;
   border-radius: 0px 100px 100px 0px;
 }
