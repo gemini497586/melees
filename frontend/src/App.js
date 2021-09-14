@@ -114,8 +114,8 @@ function App() {
               </Route>
               {/* 精選 */}
               <Route path="/feature/step">
-              <FeatureStep />
-            </Route>
+                <FeatureStep />
+              </Route>
               <Route path="/feature/week">
                 <FeatureIndexWeek />
               </Route>
@@ -133,7 +133,7 @@ function App() {
               <Route path="/search/market">
                 <SearchMarket />
               </Route>
-              
+
               {/* 會員相關 */}
               <Route path="/login">
                 <Login />
