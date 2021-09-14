@@ -7,8 +7,9 @@ const comment_time = moment().format('YYYY/MM/DD');
 
 // 抓食譜的資料
 router.get("/", async function (req, res, next) {
-    // let memberlee = req.session.member.id
-    // console.log(memberlee)
+    const memberId = req.session.member.id;
+    console.log("123");
+    console.log(memberId);
     let recipe = "SELECT * FROM private_recipe";
     let result = await connection.queryAsync(recipe);  
 

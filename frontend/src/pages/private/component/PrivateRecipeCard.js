@@ -13,7 +13,9 @@ function PrivateRecipeCard() {
   const [starList, setStarList] = useState([])
 
   useEffect(() => {
-    Axios.get('http://localhost:3001/api/private').then((res) => {
+    Axios.get('http://localhost:3001/api/private', {
+      withCredentials: true,
+    }).then((res) => {
       setItemInfo(res.data.result)
       setLikeList(res.data.result2)
       setViewList(res.data.result3)
