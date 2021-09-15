@@ -22,8 +22,13 @@ function Page3(props) {
 
   return (
     <>
-      <Modal modal={modal} closeModal={closeModal} bento={bento} cal={cal} />
-
+      <Modal
+        modal={modal}
+        setModal={setModal}
+        closeModal={closeModal}
+        bento={bento}
+        cal={cal}
+      />
       <div className="container b-step">
         <h4 className="b-title">3. 計算便當卡路里</h4>
         <div className="b-page3">

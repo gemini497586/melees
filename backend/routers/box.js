@@ -2,6 +2,7 @@ const express = require("express");
 const connection = require("../utils/db");
 const router = express.Router();
 const { loginCheckMiddleware } = require("../middlewares/auth");
+const moment = require("moment");
 
 router.get("/", async (req, res, next) => {
     let result = await connection.queryAsync(
@@ -16,12 +17,13 @@ router.get("/", async (req, res, next) => {
 router.post("/save", loginCheckMiddleware, async (req, res, next) => {
     // 確認資料是否拿到
     // console.log(req.body);
-
     // 確認是否拿到會員id
     // console.log(req.session.member.id);
+    const createDate = moment().format("YYYYMMDD");
     const memberId = req.session.member.id;
+    // console.log(memberId)
     let result = await connection.queryAsync(
-        "INSERT INTO box_save (member_id,box_ids,name,cal,box_images) VALUE (?)",
+        "INSERT INTO box_save (member_id,box_ids,name,cal,box_images,create_at) VALUE (?)",
         [
             [
                 memberId,
@@ -29,6 +31,7 @@ router.post("/save", loginCheckMiddleware, async (req, res, next) => {
                 req.body.name,
                 req.body.cal,
                 req.body.saveImage,
+                createDate,
             ],
         ]
     );
@@ -37,7 +40,7 @@ router.post("/save", loginCheckMiddleware, async (req, res, next) => {
 
 router.get("/boxsave", async (req, res, next) => {
     const memberId = req.session.member.id;
-    console.log(memberId);
+    // console.log(memberId);
     let result = await connection.queryAsync(
         "SELECT * FROM box_save WHERE member_id=?",
         [memberId]

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import MinorBar from './component/MinorBar'
-import '../../style/orderList.css'
+import { withRouter, Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
+import MinorBar from './component/MinorBar'
 import OrderDetailRow from './component/OrderDetailRow'
-import { withRouter } from 'react-router-dom'
+import ProgressBar from './component/ProgressBar'
+import PayInfo from './component/PayInfo'
 import Axios from 'axios'
 import { API_URL } from '../../utils/config'
 
@@ -12,53 +13,51 @@ function OrderDetails(props) {
   // 從網址上拿到訂單編號，打後端的API
   const order_id = props.match.params.order_id
 
-  const [data, setData] = useState([])
+  const [detail, setDetail] = useState([])
+  const [mainList, setMainList] = useState([])
+  const [step, setStep] = useState('')
+  const [payMethod, setPayMethod] = useState('')
+  const [product, setProduct] = useState([])
+
+  // 幫商品做成查表法
+  let productList = {}
+  product.map((item) => {
+    productList[item.id] = item.name
+  })
+
+  const payment_method = { 1: '信用卡', 2: '貨到付款' }
 
   // 初始值
   useEffect(() => {
     const getData = async () => {
       try {
-        let res = await Axios.get(`${API_URL}/order/detail/${order_id}`)
-        let data = res.data
-        setData(data)
+        let res = await Axios.get(`${API_URL}/order/detail/${order_id}`, {
+          withCredentials: true,
+        })
+        let data = res.data.result
+        let mainList = res.data.mainList
+        let product = res.data.result2
+        setDetail(data)
+        setMainList(mainList)
+        setStep(mainList.status)
+        setPayMethod(mainList.payment_method)
+        setProduct(product)
       } catch (e) {
         console.log(e)
       }
     }
     getData()
   }, [])
-
   return (
     <>
       <div className="page-group">
         <MinorBar />
-        <div className="orderList-container">
-          {/* <!-- 訂單進度條 --> */}
-          <ol className="progressBar">
-            <li>
-              <div className="progressBar-icon">1</div>
-              <p className="progressBar-text font-400S">訂單成立</p>
-            </li>
-            <li className="active">
-              <div className="progressBar-icon">2</div>
-              <p className="progressBar-text font-400S">處理中</p>
-            </li>
-            <li>
-              <div className="progressBar-icon">3</div>
-              <p className="progressBar-text font-400S">已出貨</p>
-            </li>
-            <li>
-              <div className="progressBar-icon">4</div>
-              <p className="progressBar-text font-400S">派送中</p>
-            </li>
-            <li>
-              <div className="progressBar-icon">5</div>
-              <p className="progressBar-text font-400S">已送達</p>
-            </li>
-          </ol>
+        <div className="container">
+          <ProgressBar step={step} />
           {/* <!-- 訂單編號 --> */}
           <div className="orderList-title">
-            <h6>您的訂單編號為: {order_id}</h6>
+            <div className="font-700L">訂單編號為: {order_id}</div>
+            <h6> </h6>
           </div>
           {/* <!-- 訂單查詢 --> */}
           <div className="member-form member-form-forOrderDetail">
@@ -73,51 +72,41 @@ function OrderDetails(props) {
               <h5>訂單查詢</h5>
             </div>
             <div className="member-form-group-content member-form-group-content-forOrderDetail">
-              <div className="d-flex orderDetail-title">
-                <p className="font-400L orderDetail-title-info">商品介紹</p>
-                <p className="font-400L orderDetail-title-price">單價</p>
-                <p className="font-400L orderDetail-title-amount">數量</p>
-                <p className="font-400L orderDetail-title-total">總價</p>
+              <div className="orderDetail-title font-400L">
+                <div className="orderDetail-title-info">商品介紹</div>
+                <div className="orderDetail-title-count">
+                  <div className="orderDetail-title-price">單價</div>
+                  <div className="orderDetail-title-amount">數量</div>
+                </div>
+                <div className="orderDetail-title-total">總價</div>
               </div>
-              <OrderDetailRow dataList={data} />
+              <OrderDetailRow detailList={detail} productList={productList} />
               {/* 總金額計算 */}
               <div className="sumGroup">
                 <div className="sumGroup-item">
                   <div className="sumGroup-item-subtitle font-400S">
                     商品金額總計
                   </div>
-                  <div className="sumGroup-item-money">
-                    <strong>
-                      NT$ <span>3,930</span>
-                    </strong>
+                  <div className="sumGroup-item-money font-700SL">
+                    NT$ {mainList.total_price}
                   </div>
                 </div>
                 <div className="sumGroup-item">
                   <div className="sumGroup-item-subtitle font-400S">
                     折扣金額
                   </div>
-                  <div className="sumGroup-item-money">
-                    <strong>
-                      NT$ <span>0</span>
-                    </strong>
-                  </div>
+                  <div className="sumGroup-item-money font-700SL">NT$ 0</div>
                 </div>
                 <div className="sumGroup-item">
                   <div className="sumGroup-item-subtitle font-400S">
                     物流費用
                   </div>
-                  <div className="sumGroup-item-money">
-                    <strong>
-                      NT$ <span>0</span>
-                    </strong>
-                  </div>
+                  <div className="sumGroup-item-money font-700SL">NT$ 0</div>
                 </div>
                 <div className="sumGroup-item sumGroup-item-total">
                   <div className="sumGroup-item-subtitle font-400S">總計</div>
-                  <div className="sumGroup-item-money">
-                    <strong className="h6">
-                      NT$ <span>3,930</span>
-                    </strong>
+                  <div className="sumGroup-item-money font-700SL">
+                    NT$ {mainList.total_price}
                   </div>
                 </div>
               </div>
@@ -136,22 +125,11 @@ function OrderDetails(props) {
               <h5>付款方式與寄送資料</h5>
             </div>
             <div className="member-form-group-content member-form-group-content-forPayInfo">
-              <ul className="orderDetail-payInfo">
-                <li className="font-400SL">
-                  <strong className="font-700SL">付款方式</strong>7-11 取貨付款
-                </li>
-                <li className="font-400SL">
-                  <strong className="font-700SL">訂購姓名</strong>王小明
-                </li>
-                <li className="font-400SL">
-                  <strong className="font-700SL">取貨門市</strong>
-                  174132-德隆門市-桃園市八德區永豐路408號410號1樓
-                </li>
-                <li className="font-400SL">
-                  <strong className="font-700SL">發票類型</strong>電子發票 -
-                  個人
-                </li>
-              </ul>
+              <PayInfo
+                mainList={mainList}
+                payMethod={payMethod}
+                payment_method={payment_method}
+              />
             </div>
           </div>
           {/* 注意事項  */}
@@ -175,7 +153,10 @@ function OrderDetails(props) {
                   商品送達門市時，系統會以簡訊及E-mail通知您取貨。
                 </li>
                 <li className="font-400SL">
-                  您可以隨時到本網站「<a href="#/">訂單查詢</a>
+                  您可以隨時到本網站「
+                  <Link to={`/member/orderdetail/${mainList.order_number}`}>
+                    訂單查詢
+                  </Link>
                   」，查詢目前訂單處理進度。
                 </li>
                 <li className="font-400SL">
@@ -190,7 +171,8 @@ function OrderDetails(props) {
                   </strong>
                 </li>
                 <li className="font-400SL">
-                  電子發票相關詳細說明，請參考「<a href="#/">購物說明</a>」。
+                  電子發票相關詳細說明，請參考「<Link to="#/">購物說明</Link>
+                  」。
                 </li>
               </ul>
             </div>

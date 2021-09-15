@@ -7,7 +7,7 @@ import { API_URL } from '../../../utils/config'
 
 function Modal(props) {
   const [name, setName] = useState('')
-  const { modal, closeModal, bento, cal } = props
+  const { modal, setModal, closeModal, bento, cal } = props
 
   // 抓到便當裡食材的id，陣列把它轉成字串
   const bentoId = bento.map((item) => {
@@ -22,7 +22,7 @@ function Modal(props) {
   const saveImage = bentoImage.toString()
 
   const handleSubmit = async (e) => {
-    // e.preventDefault()
+    e.preventDefault()
     try {
       let res = await axios.post(
         `${API_URL}/box/save`,
@@ -34,6 +34,7 @@ function Modal(props) {
         },
         { withCredentials: true }
       )
+      setModal(false)
       // console.log(res)
     } catch (e) {
       console.log(e)

@@ -7,21 +7,10 @@ import { API_URL } from '../../utils/config'
 
 function OrderQuery() {
   const [data, setData] = useState([])
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        let res = await Axios.get(`${API_URL}/order`)
-        let data = res.data
-        setData(data)
-      } catch (e) {
-        console.log(e)
-      }
-    }
-    getData()
-  }, [])
+  const [count, setCount] = useState(0)
 
-  let payment_method = { 1: '信用卡', 2: '貨到付款' }
-  let status = {
+  const payment_method = { 1: '信用卡', 2: '貨到付款' }
+  const status = {
     1: '訂單成立',
     2: '處理中',
     3: '已出貨',
@@ -29,54 +18,55 @@ function OrderQuery() {
     5: '已送達',
   }
 
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        let res = await Axios.get(`${API_URL}/order`, { withCredentials: true })
+        let data = res.data.result
+        let count = res.data.count.total
+        setData(data)
+        setCount(count)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    getData()
+  }, [])
+
   return (
     <>
       <div className="page-group">
         <MinorBar />
         <div className="container">
           <div className="orderList-title">
-            <div className="font-700L">共: 25 筆訂單</div>
+            <div className="font-700L">共: {count} 筆訂單</div>
             <button className="orderList-refundBtn font-700M">
               退款帳戶查詢/結清
             </button>
           </div>
-          <table className="orderList-table">
-            <thead>
-              <tr>
-                <th className="font-400SL" scope="col">
-                  訂購日期
-                </th>
-                <th className="font-400SL" scope="col">
-                  訂單編號
-                </th>
-                <th className="font-400SL" scope="col">
-                  付款方式
-                </th>
-                <th className="font-400SL" scope="col">
-                  處理進度
-                </th>
-                <th className="font-400SL" scope="col">
-                  預計出貨日期
-                </th>
-                <th className="font-400SL" scope="col">
-                  應付金額
-                </th>
-                <th className="font-400SL" scope="col">
-                  訂單取消/退貨詳情
-                </th>
-                <th className="font-400SL" scope="col">
-                  問與答
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <OrderListRow
-                dataList={data}
-                payment_method={payment_method}
-                status={status}
-              />
-            </tbody>
-          </table>
+          <div className="orderList-table-wrap">
+            {/* 上面標題 */}
+            <div className="orderList-header font-700SL">
+              <div className="orderList-row-date">訂購日期</div>
+              <div className="orderList-row-10">訂單編號</div>
+              <div className="orderList-row-10 orderList-web">付款方式</div>
+              <div className="orderList-row-10">處理進度</div>
+              <div className="orderList-row-date orderList-web">
+                預計出貨日期
+              </div>
+              <div className="orderList-row-10">應付金額</div>
+              <div className="rderList-row-refund orderList-web">
+                訂單取消/退貨詳情
+              </div>
+              <div className="orderList-row-10 orderList-web">問與答</div>
+            </div>
+            {/* 下面內容 */}
+            <OrderListRow
+              dataList={data}
+              payment_method={payment_method}
+              status={status}
+            />
+          </div>
         </div>
       </div>
     </>

@@ -36,7 +36,7 @@ function Carousel(props) {
           >
             {data.map((v, i) => {
               return (
-                <div className="b-page2-slider">
+                <div className="b-page2-slider" key={v.id}>
                   <div className="font-400M b-page2-slider-text">{v.name}</div>
                   <div
                     className="b-page2-slider-image"
