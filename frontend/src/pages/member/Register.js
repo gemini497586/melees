@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState } from 'react'
 import '../../style/global.css'
 import '../../style/member.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -9,10 +9,20 @@ import axios from 'axios'
 import validationInfo from './component/validationInfo'
 
 function Register() {
-  // const errorMsgRef = useRef()
   const [errors, setErrors] = useState({})
   const [pictureErrors, setPictureErrors] = useState(false)
   const [formValues, setFormValues] = useState({
+    // picture: '',
+    // account: '',
+    // password: '',
+    // rePassword: '',
+    // name: '',
+    // gender: '',
+    // nickname: '',
+    // birthday: '',
+    // cellphone: '',
+    // email: '',
+    // address: '',
     picture: avatar,
     account: 'test123er',
     password: '123456',
@@ -91,13 +101,16 @@ function Register() {
       formData.append('cellphone', formValues.cellphone)
       formData.append('email', formValues.email)
       formData.append('address', formValues.address)
-      let result = await axios.post(`${API_URL}/auth/register`, formData, {
+      let response = await axios.post(`${API_URL}/auth/register`, formData, {
         // 設定可以跨源送 cookie
         withCredentials: true,
       })
-      console.log(result)
-    } catch (e) {
-      console.error(e.result)
+      console.log(response)
+    } catch (err) {
+      console.error(err.response)
+      if (err.response.data.message === '此帳號已有人使用') {
+        alert('此帳號已有人使用')
+      }
     }
   }
 
@@ -117,7 +130,10 @@ function Register() {
         <div className="member-form-group-content">
           <div className="member-form-group-picture">
             <figure>
-              <img src={formValues.picture} alt="Avatar" />
+              <img
+                src={formValues.picture ? formValues.picture : avatar}
+                alt="使用者頭像"
+              />
             </figure>
             <input
               type="file"

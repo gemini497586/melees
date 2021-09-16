@@ -1,7 +1,7 @@
 export default function validationInfo(formValues) {
   let errors = {}
 
-  if (!formValues.account.trim()) {
+  if (!formValues.account) {
     errors.account = '請填寫使用者帳號'
   }
 
@@ -20,7 +20,16 @@ export default function validationInfo(formValues) {
     errors.rePassword = '密碼輸入不一致'
   }
 
-  if (!formValues.name.trim()) {
+  if (!formValues.oldPassword) {
+    errors.oldPassword = '請填寫密碼'
+  } else if (
+    formValues.oldPassword.length < 6 ||
+    formValues.oldPassword.length > 12
+  ) {
+    errors.oldPassword = '請填寫6-12位密碼'
+  }
+
+  if (!formValues.name) {
     errors.name = '請填寫使用者姓名'
   }
 
@@ -28,7 +37,7 @@ export default function validationInfo(formValues) {
     errors.gender = '請填寫使用者性別'
   }
 
-  if (!formValues.cellphone.trim()) {
+  if (!formValues.cellphone) {
     errors.cellphone = '請填寫手機號碼'
   } else if (!/^(09)[0-9]{8}$/.test(formValues.cellphone)) {
     errors.cellphone = '手機號碼格式有誤'
