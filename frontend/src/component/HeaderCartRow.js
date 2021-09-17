@@ -4,11 +4,11 @@ import meleesLogo from '../images/meleesLogo.svg'
 import React, { useEffect, useState, useContext } from 'react'
 import '../style/headerCartRow.css'
 import './FontawsomeIcons'
-import Login from '../pages/member/Login'
-import { HandleCart } from '../utils/HandleCart'
+// import { HandleCart } from '../utils/HandleCart'
+import useCart from '../utils/useCart'
 
 function HeaderCartRow(props) {
-  const { carts, removeCart, minusAmount, plusAmount } = useContext(HandleCart)
+  const { carts, removeCart, minusAmount, plusAmount } = useCart()
 
   let index = props.index
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import HeartViewNum from '../../../component/HeartViewNum'
 import '../../../style/featureCards.css'
 import '../../../style/featureComponent.css'
@@ -6,7 +6,8 @@ import avatar from '../../../images/lonyo63.jpg'
 import iglogo from '../../../images/instagramLogo.jpg'
 import food from '../../../images/1.jpg'
 
-function FeatureCards(props) {
+function FeatureCards() {
+  // const { id, type_id, name, picture, link_id } = props.data
   return (
     <>
       <div className="fc-cards mb-5">
@@ -18,19 +19,19 @@ function FeatureCards(props) {
         <div className="fc-cards-bg">
           {/* IG照片 */}
           <figure className="fc-avatar">
-            {/* <img className="fcover-fit" src={link_img} alt="" /> */}
+            <img className="fcover-fit" src={avatar} alt="" />
           </figure>
           {/* 文案 */}
           <div className="fc-content">
             {/* 分類 */}
-            {/* <p className="fcolor-grey-800 font-400S">{type_id}</p> */}
+            <p className="fcolor-grey-800 font-400S">健康長肉肉</p>
             {/* 食譜名稱和連結 */}
-            {/* <h5 className="fcolor-secondary">{name}</h5> */}
+            <h5 className="fcolor-secondary">鮮蔬嫩豬溫沙拉</h5>
             <div
               className="d-flex text-decoration-none align-items-center"
               href="#/"
             >
-              {/* <img className="fc-logo me-2" src={iglogo} alt="" /> */}
+              <img className="fc-logo me-2" src={iglogo} alt="" />
               <p className="fcolor-grey-800 font-400SL m-0">謝戎宥- LON YO</p>
             </div>
           </div>

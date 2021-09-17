@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../../style/productDetails.css'
 import img from '../../images/005.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -6,12 +6,12 @@ import '../../component/FontawsomeIcons'
 import { useParams } from 'react-router'
 import { API_URL } from '../../utils/config'
 import axios from 'axios'
-import { HandleCart } from '../../utils/HandleCart'
+import useCart from '../../utils/useCart'
 
 function ProductDetails(props) {
   const { id } = useParams()
   const [product, setProduct] = useState([])
-  const { carts, addCart, removeCart } = useContext(HandleCart)
+  const { addCart } = useCart()
 
   useEffect(() => {
     axios.get(`${API_URL}/market/product/${id}`).then((response) => {
@@ -36,8 +36,15 @@ function ProductDetails(props) {
         <button
           className="font-700M product-detail-add-to-cart-btn btn"
           id={id}
-          onClick={(e) => {
-            addCart(e.target.id)
+          onClick={() => {
+            addCart({
+              id: product.id,
+              name: product.name,
+              amount: 1,
+              price: product.price,
+              category: category[product.category],
+              specs: product.specs,
+            })
           }}
         >
           <FontAwesomeIcon icon="cart-plus" className="cart-plus" />

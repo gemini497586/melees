@@ -6,10 +6,10 @@ import CheckoutArea from './CheckoutArea'
 import OrderProgressBar from './component/OrderProgressBar'
 import { Link } from 'react-router-dom'
 import { HandleCart } from '../../utils/HandleCart'
+import useCart from '../../utils/useCart'
 
 function CheckoutConfirmTable(props) {
-  const { carts, removeCart, productsAll, minusAmount, plusAmount } =
-    useContext(HandleCart)
+  const { carts, productsAll, minusAmount, plusAmount } = useCart()
   const index = props.index
   const productID = carts[index].id - 1
 

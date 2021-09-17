@@ -3,6 +3,7 @@ import '../../style/ordersComplete.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
 import OrderProgressBar from './component/OrderProgressBar'
+import { Link } from 'react-router-dom'
 
 function OrdersComplete() {
   return (
@@ -18,7 +19,11 @@ function OrdersComplete() {
         <p className="font-700L orders-complete-title">
           您的訂單已經成功送出!!
         </p>
-        <button className="btn font-700M  orders-complete-btn">追蹤訂單</button>
+        <Link to="/market/check-order">
+          <button className="btn font-700M  orders-complete-btn">
+            追蹤訂單
+          </button>
+        </Link>
       </div>
     </div>
   )
