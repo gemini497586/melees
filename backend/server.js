@@ -53,7 +53,7 @@ app.get("/", (req, res, next) => {
 
 // 引入 feature 中間件
 let featureRouter = require("./routers/feature");
-app.use("/api/feature", featureRouter);
+app.use("/feature", featureRouter);
 
 // 引入 market router 中間件，包含會員專區功能
 let marketRouter = require("./routers/market");
@@ -69,7 +69,7 @@ app.use("/member", memberRouter);
 
 // 引入 private router 中間件，包含私藏食譜
 let privateRouter = require("./routers/private");
-app.use("/api/private", privateRouter);
+app.use("/private", privateRouter);
 
 // 引入 box router 中間件，包含客製化便當
 let boxRouter = require("./routers/box");

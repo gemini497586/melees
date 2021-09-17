@@ -5,6 +5,7 @@ import Header from './component/Header'
 import Home from './pages/home/Home'
 import Footer from './component/Footer'
 import ScrollToTop from './component/ScrollToTop'
+import ProtectedRoute from './component/ProtectedRoute'
 
 // 購物商城
 import MarketMainPage from './pages/market/MarketMainPage'
@@ -52,8 +53,10 @@ import MyRecipe from './pages/member/MyRecipe'
 // useContext。CartProvider 跟購物車商品有關; CheckoutInfoProvider 跟個人購買資料有關
 import { CheckoutInfoProvider } from './utils/CheckoutInfoContext'
 import { CartProvider } from './utils/CartContext'
+import useCart from './utils/useCart'
 
 function App() {
+  const [login] = useCart
   return (
     <CartProvider>
       <Router>
@@ -83,6 +86,9 @@ function App() {
                 <PrivateRecipeIntro />
               </Route>
               {/* 精選 */}
+              <Route path="/feature/step">
+                <FeatureStep />
+              </Route>
               <Route path="/feature/week">
                 <FeatureIndexWeek />
               </Route>
@@ -111,36 +117,37 @@ function App() {
               <Route path="/register">
                 <Register />
               </Route>
-              <Route path="/member/editinfo">
+
+              <ProtectedRoute path="/member/editinfo" isAuth={login}>
                 <EditMemberInfo />
-              </Route>
-              <Route path="/member/editpwd">
+              </ProtectedRoute>
+              <ProtectedRoute path="/member/editpwd" isAuth={login}>
                 <EditPassword />
-              </Route>
-              <Route path="/member/orderdetail">
+              </ProtectedRoute>
+              <ProtectedRoute path="/member/orderdetail" isAuth={login}>
                 <OrderDetails />
-              </Route>
-              <Route path="/member/orderlist">
+              </ProtectedRoute>
+              <ProtectedRoute path="/member/orderlist" isAuth={login}>
                 <OrderList />
-              </Route>
-              <Route path="/member/savebox">
+              </ProtectedRoute>
+              <ProtectedRoute path="/member/savebox" isAuth={login}>
                 <MemberBox />
-              </Route>
-              <Route path="/member/saverecipe">
+              </ProtectedRoute>
+              <ProtectedRoute path="/member/saverecipe" isAuth={login}>
                 <MemberFeature />
-              </Route>
-              <Route path="/member/saveproduct">
+              </ProtectedRoute>
+              <ProtectedRoute path="/member/saveproduct" isAuth={login}>
                 <MemberSaveProduct />
-              </Route>
-              <Route exact path="/member/recipecomment">
+              </ProtectedRoute>
+              <ProtectedRoute exact path="/member/recipecomment" isAuth={login}>
                 <MemberRecipeComment />
-              </Route>
-              <Route path="/member/coupon">
+              </ProtectedRoute>
+              <ProtectedRoute path="/member/coupon" isAuth={login}>
                 <Coupon />
-              </Route>
-              <Route exact path="/member">
+              </ProtectedRoute>
+              <ProtectedRoute exact path="/member" isAuth={login}>
                 <MyRecipe />
-              </Route>
+              </ProtectedRoute>
 
               {/* 購物車 */}
               <CheckoutInfoProvider>

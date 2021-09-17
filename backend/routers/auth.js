@@ -59,8 +59,7 @@ const storage = multer.diskStorage({
   // 檔案命名
   filename: function (req, file, callback) {
     let ext = file.originalname.split(".").pop();
-    console.log(`${uuid()}.${ext}`);
-    callback(null, `${uuid()}.${ext}`);
+    callback(null, `${v4()}.${ext}`);
   },
 });
 // 大頭貼驗證 --> 1.接受空值  2.檔案格式是否正確  3.重新命名
@@ -194,7 +193,8 @@ router.post("/login", async (req, res, next) => {
 });
 
 // 登出
-router.get("/logout", (req, res, next) => {
+router.post("/logout", (req, res, next) => {
+  console.log('會員登出摟', req.body)
   req.session.member = null;
   res.sendStatus(202);
 });
