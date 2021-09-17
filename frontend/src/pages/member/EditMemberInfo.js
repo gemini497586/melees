@@ -12,7 +12,7 @@ import validationInfo from './component/validationInfo'
 import { HandleCart } from '../../utils/HandleCart'
 
 function EditMemberInfo() {
-  const { login } = useContext(HandleCart)
+  // const { login } = useContext(HandleCart)
   const [errors, setErrors] = useState({})
   const [pictureErrors, setPictureErrors] = useState(false)
   const [formValues, setFormValues] = useState({
@@ -126,25 +126,6 @@ function EditMemberInfo() {
     }
     testLoginCheck()
   }, [])
-
-  // 好的 --> 未登入跳轉到登入頁面
-  if (!login) {
-    return <Redirect to="/login" />
-  }
-
-  // 測試中
-  // const location = useLocation()
-  // console.log(location)
-  // if (!login) {
-  //   return (
-  //     <Redirect
-  //       to={{
-  //         pathname: '/login',
-  //         state: { from: location.pathname },
-  //       }}
-  //     />
-  //   )
-  // }
   return (
     <>
       <div className="page-group">

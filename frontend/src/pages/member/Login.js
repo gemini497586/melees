@@ -47,10 +47,7 @@ function Login() {
   const location = useLocation()
   const loginRedirect = () => {
     let { from } = location.state || { from: { pathname: '/' } }
-    // console.log('location', location)
-    // console.log('from', from)
     history.push(from)
-    // history.replace(from)
   }
 
   const handleSubmit = async (e) => {
@@ -69,8 +66,8 @@ function Login() {
           withCredentials: true,
         }
       )
-      setLogin(true)
       console.log(response)
+      setLogin(true)
       loginRedirect()
     } catch (err) {
       console.error(err.response)

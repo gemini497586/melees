@@ -197,7 +197,7 @@ function Header(props) {
                 </a>
               </li>
               <li className="font-400SL">
-                <Link to="/" onClick={handleLogout}>
+                <Link to="/" onClick={handleLogout} className="dropdown-item">
                   登出
                 </Link>
               </li>

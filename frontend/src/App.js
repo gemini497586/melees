@@ -6,6 +6,7 @@ import Header from './component/Header'
 import Home from './pages/home/Home'
 import Footer from './component/Footer'
 import ScrollToTop from './component/ScrollToTop'
+import ProtectedRoute from './component/ProtectedRoute'
 
 // 購物商城
 import MarketMainPage from './pages/market/MarketMainPage'
@@ -181,7 +182,39 @@ function App() {
               <Route path="/register">
                 <Register />
               </Route>
-              <Route path="/member/editinfo">
+
+              <ProtectedRoute path="/member/editinfo" isAuth={login}>
+                <EditMemberInfo />
+              </ProtectedRoute>
+              <ProtectedRoute path="/member/editpwd" isAuth={login}>
+                <EditPassword />
+              </ProtectedRoute>
+              <ProtectedRoute path="/member/orderdetail" isAuth={login}>
+                <OrderDetails />
+              </ProtectedRoute>
+              <ProtectedRoute path="/member/orderlist" isAuth={login}>
+                <OrderList />
+              </ProtectedRoute>
+              <ProtectedRoute path="/member/savebox" isAuth={login}>
+                <MemberBox />
+              </ProtectedRoute>
+              <ProtectedRoute path="/member/saverecipe" isAuth={login}>
+                <MemberFeature />
+              </ProtectedRoute>
+              <ProtectedRoute path="/member/saveproduct" isAuth={login}>
+                <MemberSaveProduct />
+              </ProtectedRoute>
+              <ProtectedRoute exact path="/member/recipecomment" isAuth={login}>
+                <MemberRecipeComment />
+              </ProtectedRoute>
+              <ProtectedRoute path="/member/coupon" isAuth={login}>
+                <Coupon />
+              </ProtectedRoute>
+              <ProtectedRoute exact path="/member" isAuth={login}>
+                <MyRecipe />
+              </ProtectedRoute>
+
+              {/* <Route path="/member/editinfo">
                 <EditMemberInfo />
               </Route>
               <Route path="/member/editpwd">
@@ -210,7 +243,7 @@ function App() {
               </Route>
               <Route exact path="/member">
                 <MyRecipe />
-              </Route>
+              </Route> */}
 
               {/* 購物車 */}
               <Route exact path="/market/orders-complete">
