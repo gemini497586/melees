@@ -6,15 +6,51 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
 import { API_URL } from '../../utils/config'
 import axios from 'axios'
+import validationInfo from './component/validationInfo'
 
 function EditPassword() {
-  const [oldPassword, setOldPassword] = useState('')
-  const [password, setPassword] = useState('')
-  const [rePassword, setRePassword] = useState('')
+  const [errors, setErrors] = useState({})
+  const [formValues, setFormValues] = useState({
+    oldPassword: '',
+    password: '',
+    rePassword: '',
+  })
+
+  const handleFormValuesChange = (e) => {
+    setFormValues({
+      ...formValues,
+      [e.target.name]: e.target.value,
+    })
+    // console.log(formValues)
+  }
+
+  // 使用者修改欄位時，清空該欄位的錯誤訊息
+  const handleFormChange = (e) => {
+    // console.log('更新欄位：', e.target.name)
+
+    // 清空該欄位的錯誤訊息
+    const updateErrors = {
+      ...errors,
+      [e.target.name]: '',
+    }
+    setErrors(updateErrors)
+  }
+
+  // 檢驗表單的值有沒有不合法
+  const handleFormValuesInvalid = (e) => {
+    // 擋住錯誤訊息的預設方式(跳出的訊息泡泡)
+    e.preventDefault()
+    setErrors(validationInfo(formValues))
+    console.log(errors)
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      let result = await axios.post(
+      let oldPassword = formValues.oldPassword
+      let password = formValues.password
+      let rePassword = formValues.rePassword
+      let response = await axios.post(
         `${API_URL}/member/editpwd`,
         {
           oldPassword,
@@ -26,9 +62,12 @@ function EditPassword() {
           withCredentials: true,
         }
       )
-      console.log(result)
-    } catch (e) {
-      console.error(e.result)
+      console.log(response)
+    } catch (err) {
+      console.error(err.response)
+      if (err.response.data.message === '密碼輸入錯誤') {
+        alert('密碼輸入錯誤')
+      }
     }
   }
   return (
@@ -38,6 +77,7 @@ function EditPassword() {
         <form
           className="member-form member-form-forEditMemberInfo"
           onSubmit={handleSubmit}
+          onChange={handleFormChange}
         >
           <div className="member-form-title">
             <div className="member-form-title-icon">
@@ -59,17 +99,24 @@ function EditPassword() {
                   type="password"
                   id="oldPassword"
                   name="oldPassword"
-                  value={oldPassword}
-                  onChange={(e) => {
-                    setOldPassword(e.target.value)
-                  }}
+                  value={formValues.oldPassword}
+                  onChange={handleFormValuesChange}
+                  onBlur={handleFormValuesInvalid}
                   placeholder="請輸入6-12位舊密碼"
                   required
                   minlength="6"
                   maxlength="12"
                 />
-                <p className="font-400S member-form-errorMsg">
-                  預留錯誤訊息的位置
+                <p
+                  className={
+                    errors.oldPassword
+                      ? 'font-400S member-form-errorMsg errorMsg-show'
+                      : 'font-400S member-form-errorMsg'
+                  }
+                >
+                  {errors.oldPassword
+                    ? errors.oldPassword
+                    : '預留錯誤訊息的位置'}
                 </p>
               </div>
             </div>
@@ -82,17 +129,22 @@ function EditPassword() {
                   type="password"
                   id="password"
                   name="password"
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value)
-                  }}
+                  value={formValues.password}
+                  onChange={handleFormValuesChange}
+                  onBlur={handleFormValuesInvalid}
                   placeholder="請輸入6-12位新密碼"
                   required
                   minlength="6"
                   maxlength="12"
                 />
-                <p className="font-400S member-form-errorMsg">
-                  預留錯誤訊息的位置
+                <p
+                  className={
+                    errors.password
+                      ? 'font-400S member-form-errorMsg errorMsg-show'
+                      : 'font-400S member-form-errorMsg'
+                  }
+                >
+                  {errors.password ? errors.password : '預留錯誤訊息的位置'}
                 </p>
               </div>
             </div>
@@ -105,17 +157,22 @@ function EditPassword() {
                   type="password"
                   id="rePassword"
                   name="rePassword"
-                  value={rePassword}
-                  onChange={(e) => {
-                    setRePassword(e.target.value)
-                  }}
+                  value={formValues.rePassword}
+                  onChange={handleFormValuesChange}
+                  onBlur={handleFormValuesInvalid}
                   placeholder="請輸入6-12位確認新密碼"
                   required
                   minlength="6"
                   maxlength="12"
                 />
-                <p className="font-400S member-form-errorMsg">
-                  預留錯誤訊息的位置
+                <p
+                  className={
+                    errors.rePassword
+                      ? 'font-400S member-form-errorMsg errorMsg-show'
+                      : 'font-400S member-form-errorMsg'
+                  }
+                >
+                  {errors.rePassword ? errors.rePassword : '預留錯誤訊息的位置'}
                 </p>
               </div>
             </div>

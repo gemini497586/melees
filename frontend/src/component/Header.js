@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Link, useHistory } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Link,
+  useHistory,
+  Redirect,
+} from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import meleesLogo from '../images/meleesLogo.svg'
 import React, { useEffect, useState, useContext } from 'react'
@@ -6,6 +11,8 @@ import '../style/header.css'
 import './FontawsomeIcons'
 import HeaderCart from './HeaderCart'
 import { HandleCart } from '../utils/HandleCart'
+import axios from 'axios'
+import { API_URL } from '../utils/config'
 
 function Header(props) {
   const history = useHistory()
@@ -53,6 +60,22 @@ function Header(props) {
   const [hidden, setHidden] = useState(false)
   // 檢查是否登入
   const { login, setLogin } = useContext(HandleCart)
+
+  const handleLogout = async () => {
+    try {
+      let response = await axios.post(`${API_URL}/auth/logout`, {
+        // 設定可以跨源送 cookie
+        withCredentials: true,
+      })
+      // console.log(response)
+      if (response.status === 202) {
+        alert('會員已登出')
+        setLogin(false)
+      }
+    } catch (err) {
+      console.error(err.response)
+    }
+  }
 
   return (
     <div className="header-bar">
@@ -174,9 +197,9 @@ function Header(props) {
                 </a>
               </li>
               <li className="font-400SL">
-                <a className="dropdown-item" href="#/">
+                <Link to="/" onClick={handleLogout} className="dropdown-item">
                   登出
-                </a>
+                </Link>
               </li>
             </ul>
           </li>
