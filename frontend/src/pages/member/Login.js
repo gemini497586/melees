@@ -48,6 +48,7 @@ function Login() {
   const loginRedirect = () => {
     let { from } = location.state || { from: { pathname: '/' } }
     history.push(from)
+    // history.replace(from)
   }
 
   const handleSubmit = async (e) => {

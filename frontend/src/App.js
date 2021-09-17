@@ -214,37 +214,6 @@ function App() {
                 <MyRecipe />
               </ProtectedRoute>
 
-              {/* <Route path="/member/editinfo">
-                <EditMemberInfo />
-              </Route>
-              <Route path="/member/editpwd">
-                <EditPassword />
-              </Route>
-              <Route path="/member/orderdetail">
-                <OrderDetails />
-              </Route>
-              <Route path="/member/orderlist">
-                <OrderList />
-              </Route>
-              <Route path="/member/savebox">
-                <MemberBox />
-              </Route>
-              <Route path="/member/saverecipe">
-                <MemberFeature />
-              </Route>
-              <Route path="/member/saveproduct">
-                <MemberSaveProduct />
-              </Route>
-              <Route exact path="/member/recipecomment">
-                <MemberRecipeComment />
-              </Route>
-              <Route path="/member/coupon">
-                <Coupon />
-              </Route>
-              <Route exact path="/member">
-                <MyRecipe />
-              </Route> */}
-
               {/* 購物車 */}
               <Route exact path="/market/orders-complete">
                 <OrdersComplete />
