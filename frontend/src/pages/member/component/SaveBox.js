@@ -7,9 +7,12 @@ function SaveBox(props) {
   const { data, prep } = props
 
   const [showModal, setShowModal] = useState(false)
+  const [boxID, setBoxID] = useState('')
+
   const openDeleteModal = (id) => {
     console.log(id)
     setShowModal((prev) => !prev)
+    setBoxID(id)
   }
 
   // 把 prep 做成表
@@ -54,6 +57,7 @@ function SaveBox(props) {
       <SaveBoxDelModal
         showModal={showModal}
         openDeleteModal={openDeleteModal}
+        id={boxID}
       />
       {data.map((value, index) => {
         return (

@@ -83,6 +83,7 @@ router.get("/editinfo", async (req, res, next) => {
   let memberInfo = await connection.queryAsync("SELECT * FROM member WHERE id = ?", [memberId]);
   memberInfo = memberInfo[0];
   let responeMemberInfo = {
+    picture: memberInfo.picture,
     name: memberInfo.name,
     gender: memberInfo.gender,
     nickname: memberInfo.nickname,

@@ -3,51 +3,53 @@ import '../../../style/orderProgressBar.css'
 
 function OrderProgressBar() {
   // console.log(window.location.pathname)
-  let firstStep = document.getElementById('firstStep')
-  let secondStep = document.getElementById('secondStep')
-  let thirdStep = document.getElementById('thirdStep')
-  let fourthStep = document.getElementById('fourthStep')
+
+  const handleBar = (e) => {
+    let firstStep = document.getElementById('firstStep')
+    let secondStep = document.getElementById('secondStep')
+    let thirdStep = document.getElementById('thirdStep')
+    let fourthStep = document.getElementById('fourthStep')
+
+    switch (e) {
+      case '/market/checkout-personalData':
+        secondStep.classList.add('active')
+        break
+      case '/market/checkout-confirm':
+        thirdStep.classList.add('active')
+        break
+      case '/market/orders-complete':
+        fourthStep.classList.add('active')
+        break
+      default:
+        firstStep.classList.add('active')
+        break
+    }
+    setCount(e)
+  }
+
+  const [count, setCount] = useState([])
   let theURL = window.location.pathname
 
-  const [count, setCount] = useState(1)
-  // setCount((currentItems) => setCount(currentItems))
   useEffect(() => {
-    if (theURL === '/market/cart-detail') {
-      // console.log('第一步')
-    } else if (theURL === '/market/checkout-personalData') {
-      setCount(2)
-      // console.log('第二步')
-      firstStep.classList.remove('active')
-      secondStep.classList.add('active')
-    } else if (theURL === '/market/checkout-confirm') {
-      setCount(3)
-      // console.log('第三步')
-      firstStep.classList.remove('active')
-      thirdStep.classList.add('active')
-    } else if (theURL === '/market/orders-complete') {
-      setCount(4)
-      // console.log('第四步')
-      firstStep.classList.remove('active')
-      fourthStep.classList.add('active')
-    }
+    handleBar(theURL)
   }, [count])
 
   return (
     <>
       <ol className="orderProgressBar">
-        <li id="firstStep" className="active">
+        <li id="firstStep">
           <div className="orderProgressBar-icon">1</div>
           <p className="orderProgressBar-text font-400S">購物車</p>
         </li>
-        <li id="secondStep" className="">
+        <li id="secondStep">
           <div className="orderProgressBar-icon">2</div>
           <p className="orderProgressBar-text font-400S">運送資訊</p>
         </li>
-        <li id="thirdStep" className="">
+        <li id="thirdStep">
           <div className="orderProgressBar-icon">3</div>
           <p className="orderProgressBar-text font-400S">付款資訊</p>
         </li>
-        <li id="fourthStep" className="">
+        <li id="fourthStep">
           <div className="orderProgressBar-icon">4</div>
           <p className="orderProgressBar-text font-400S">訂單完成</p>
         </li>

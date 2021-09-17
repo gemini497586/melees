@@ -6,22 +6,22 @@ import productImg from '../../images/005.jpg'
 import { Link } from 'react-router-dom'
 import { API_URL } from '../../utils/config'
 import axios from 'axios'
-import { HandleCart } from '../../utils/HandleCart'
+import useCart from '../../utils/useCart'
 
 function ProductCard(props) {
   const [product, setProduct] = useState([])
-  const { carts, addCart, setProductsAll } = useContext(HandleCart)
+  const { carts, addCart, setProductsAll } = useCart()
 
   useEffect(() => {
     // 顯示商品分類用
-    axios.get(`${API_URL}/market/${props.category}`).then((response) => {
+    axios.get(`${API_URL}/market/home/${props.category}`).then((response) => {
       setProduct(response.data)
     })
   }, [props.category])
 
   useEffect(() => {
     // 取得所有商品資料用
-    axios.get(`${API_URL}/market/undefined`).then((response) => {
+    axios.get(`${API_URL}/market/home/undefined`).then((response) => {
       setProductsAll(response.data)
     })
   }, [])
@@ -53,6 +53,8 @@ function ProductCard(props) {
               name: e.name,
               amount: 1,
               price: e.price,
+              category: category[e.category],
+              specs: e.specs,
             })
           }}
         >

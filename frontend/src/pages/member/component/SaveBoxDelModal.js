@@ -11,7 +11,6 @@ function SaveBoxDelModal(props) {
 
   const handleDelete = async (e) => {
     e.preventDefault()
-    console.log(id)
     // console.log('把我刪除 ')
     // try {
     //   let res = await Axios.post(

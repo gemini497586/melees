@@ -1,42 +1,50 @@
-import { BrowserRouter as Router, Link, useHistory } from 'react-router-dom'
+import { Link, Redirect, useLocation } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import meleesLogo from '../images/meleesLogo.svg'
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import '../style/header.css'
 import './FontawsomeIcons'
 import HeaderCart from './HeaderCart'
+import useCart from '../utils/useCart'
+import axios from 'axios'
+import { API_URL } from '../utils/config'
 import { HandleCart } from '../utils/HandleCart'
 
 function Header(props) {
-  const history = useHistory()
-  useEffect(() => {
-    return history.listen((location) => {
-      let now = location.pathname
-      let header = document.getElementById('header')
-      let toBox = document.getElementById('toBox')
-      let toFeature = document.getElementById('toFeature')
-      let toPrivate = document.getElementById('toPrivate')
-      let toMarket = document.getElementById('toMarket')
-      let toMember = document.getElementById('toMember')
-      if (now.includes('member')) {
-        toMember.classList.add('header-active', 'font-700SL')
-      } else if (now.includes('market')) {
-        toMarket.classList.add('header-active', 'font-700SL')
-      } else if (now.includes('private')) {
-        toPrivate.classList.add('header-active', 'font-700SL')
-      } else if (now.includes('feature')) {
-        toFeature.classList.add('header-active', 'font-700SL')
-      } else if (now.includes('box')) {
-        toBox.classList.add('header-active', 'font-700SL')
-      } else {
-        for (let i = 0; i < header.childElementCount; i++) {
-          header.children[i].classList.remove('header-active', 'font-700SL')
-        }
-      }
-    })
-  }, [history])
+  const { login, setLogin } = useContext(HandleCart)
 
-  // 讓header-active隨著點擊的頁面切換
+  const location = useLocation()
+  // useLocation
+
+  useEffect(() => {
+    // demount + deUpdate
+    // 跟著location
+    let now = location.pathname
+    let header = document.getElementById('header')
+    let toBox = document.getElementById('toBox')
+    let toFeature = document.getElementById('toFeature')
+    let toPrivate = document.getElementById('toPrivate')
+    let toMarket = document.getElementById('toMarket')
+    let toMember = document.getElementById('toMember')
+    // switch、array -> number
+    if (now.includes('member')) {
+      toMember.classList.add('header-active', 'font-700SL')
+    } else if (now.includes('market')) {
+      toMarket.classList.add('header-active', 'font-700SL')
+    } else if (now.includes('private')) {
+      toPrivate.classList.add('header-active', 'font-700SL')
+    } else if (now.includes('feature')) {
+      toFeature.classList.add('header-active', 'font-700SL')
+    } else if (now.includes('box')) {
+      toBox.classList.add('header-active', 'font-700SL')
+    } else {
+      for (let i = 0; i < header.childElementCount; i++) {
+        header.children[i].classList.remove('header-active', 'font-700SL')
+      }
+    }
+  }, [location])
+
+  // 讓header-active隨著點擊的頁面切換，並取消其他的.active
   useEffect(() => {
     let header = document.getElementById('header')
     header.addEventListener('click', (e) => {
@@ -51,8 +59,24 @@ function Header(props) {
 
   // 顯示header購物車
   const [hidden, setHidden] = useState(false)
-  // 檢查是否登入
-  const { login, setLogin } = useContext(HandleCart)
+
+  const handleLogout = async () => {
+    try {
+      let response = await axios.post(`${API_URL}/auth/logout`, {
+        // 設定可以跨源送 cookie
+        withCredentials: true,
+      })
+      // console.log(response)
+      if (response.status === 202) {
+        alert('會員已登出')
+        setLogin(false)
+        // signOut()
+        console.log(login)
+      }
+    } catch (err) {
+      console.error(err.response)
+    }
+  }
 
   return (
     <div className="header-bar">
@@ -62,7 +86,7 @@ function Header(props) {
         </Link>
       </div>
       <ul className="header-bar-main-ul" id="header">
-        <li className="font-700SL header-active" id="toBox">
+        <li className="font-400M" id="toBox">
           <Link to="/box">客製化便當</Link>
         </li>
 
@@ -73,7 +97,7 @@ function Header(props) {
           <Link to="/private">私藏食譜</Link>
         </li>
         <li className="font-400M" id="toMarket">
-          <Link to="/market">購物商城</Link>
+          <Link to="/market/home">購物商城</Link>
         </li>
         <li className="font-400M" id="toMember">
           <Link to="/member">會員專區</Link>
@@ -174,9 +198,9 @@ function Header(props) {
                 </a>
               </li>
               <li className="font-400SL">
-                <a className="dropdown-item" href="#/">
+                <Link to="/" onClick={handleLogout} className="dropdown-item">
                   登出
-                </a>
+                </Link>
               </li>
             </ul>
           </li>
