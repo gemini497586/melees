@@ -9,7 +9,13 @@ import '../../style/login.css'
 import logo from '../../images/logo.png'
 import { HandleCart } from '../../utils/HandleCart'
 
+// 測試搬家版本
+import useCart from '../../utils/useCart'
+
 function Login() {
+  // 測試搬家版本
+  // const { login, setLogin, signIn, signOut } = useCart()
+
   const { login, setLogin } = useContext(HandleCart) //登入用
   const [errorMsg, setErrorMsg] = useState()
   const [formValues, setFormValues] = useState({
@@ -67,8 +73,11 @@ function Login() {
           withCredentials: true,
         }
       )
-      console.log(response)
+      // console.log(response)
+      console.log('1', login)
       setLogin(true)
+      // signIn()
+      console.log('2', login)
       loginRedirect()
     } catch (err) {
       console.error(err.response)

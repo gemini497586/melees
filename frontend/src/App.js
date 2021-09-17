@@ -52,6 +52,9 @@ import Coupon from './pages/member/Coupon'
 import MyRecipe from './pages/member/MyRecipe'
 import { useState } from 'react'
 
+import useCart from './utils/useCart'
+import { CartProvider } from './utils/CartContext'
+
 function App() {
   const cartList = JSON.parse(localStorage.getItem('cartList')) || []
   const [carts, setCarts] = useState(cartList) //放入購物車的商品
@@ -108,151 +111,158 @@ function App() {
     setCarts(currentCart)
   }
   const [login, setLogin] = useState(false) //查看是否登入
+  // const { login, setLogin } = useCart()
   return (
-    <HandleCart.Provider
-      value={{
-        carts,
-        addCart,
-        removeCart,
-        productsAll,
-        setProductsAll,
-        amount,
-        minusAmount,
-        plusAmount,
-        setAmount,
-        login,
-        setLogin,
-      }}
-    >
-      <Router>
-        <div className="App">
-          <Header />
-          <ScrollToTop>
-            <Switch>
-              {/* 首頁 */}
-              <Route exact path="/">
-                <Home />
-              </Route>
-              {/* 客製化 */}
-              <Route exact path="/box">
-                <Box />
-              </Route>
-              {/* 私藏 */}
-              <Route exact path="/private">
-                <PrivateRecipe />
-              </Route>
-              <Route exact path="/private/upload">
-                <PrivateRecipeUpload />
-              </Route>
-              <Route exact path="/private/edit">
-                <PrivateRecipeEdit />
-              </Route>
-              <Route exact path="/private/detail/:id">
-                <PrivateRecipeIntro />
-              </Route>
-              {/* 精選 */}
-              <Route path="/feature/step">
-                <FeatureStep />
-              </Route>
-              <Route path="/feature/week">
-                <FeatureIndexWeek />
-              </Route>
-              <Route path="/feature/stepweek">
-                <FeatureStepWeek />
-              </Route>
-              <Route path="/feature/step">
-                <FeatureStep />
-              </Route>
-              <Route path="/feature">
-                <FeatureIndex />
-              </Route>
+    <CartProvider>
+      <HandleCart.Provider
+        value={{
+          carts,
+          addCart,
+          removeCart,
+          productsAll,
+          setProductsAll,
+          amount,
+          minusAmount,
+          plusAmount,
+          setAmount,
+          login,
+          setLogin,
+        }}
+      >
+        <Router>
+          <div className="App">
+            <Header />
+            <ScrollToTop>
+              <Switch>
+                {/* 首頁 */}
+                <Route exact path="/">
+                  <Home />
+                </Route>
+                {/* 客製化 */}
+                <Route exact path="/box">
+                  <Box />
+                </Route>
+                {/* 私藏 */}
+                <Route exact path="/private">
+                  <PrivateRecipe />
+                </Route>
+                <Route exact path="/private/upload">
+                  <PrivateRecipeUpload />
+                </Route>
+                <Route exact path="/private/edit">
+                  <PrivateRecipeEdit />
+                </Route>
+                <Route exact path="/private/detail/:id">
+                  <PrivateRecipeIntro />
+                </Route>
+                {/* 精選 */}
+                <Route path="/feature/step">
+                  <FeatureStep />
+                </Route>
+                <Route path="/feature/week">
+                  <FeatureIndexWeek />
+                </Route>
+                <Route path="/feature/stepweek">
+                  <FeatureStepWeek />
+                </Route>
+                <Route path="/feature/step">
+                  <FeatureStep />
+                </Route>
+                <Route path="/feature">
+                  <FeatureIndex />
+                </Route>
 
-              {/* 搜尋 */}
-              <Route path="/search/recipe">
-                <SearchRecipe />
-              </Route>
-              <Route path="/search/market">
-                <SearchMarket />
-              </Route>
+                {/* 搜尋 */}
+                <Route path="/search/recipe">
+                  <SearchRecipe />
+                </Route>
+                <Route path="/search/market">
+                  <SearchMarket />
+                </Route>
 
-              {/* 會員相關 */}
-              <Route path="/login">
-                <Login />
-              </Route>
-              <Route path="/register">
-                <Register />
-              </Route>
+                {/* 會員相關 */}
+                <Route path="/login">
+                  <Login />
+                </Route>
+                <Route path="/register">
+                  <Register />
+                </Route>
 
-              <ProtectedRoute path="/member/editinfo" isAuth={login}>
-                <EditMemberInfo />
-              </ProtectedRoute>
-              <ProtectedRoute path="/member/editpwd" isAuth={login}>
-                <EditPassword />
-              </ProtectedRoute>
-              <ProtectedRoute path="/member/orderdetail" isAuth={login}>
-                <OrderDetails />
-              </ProtectedRoute>
-              <ProtectedRoute path="/member/orderlist" isAuth={login}>
-                <OrderList />
-              </ProtectedRoute>
-              <ProtectedRoute path="/member/savebox" isAuth={login}>
-                <MemberBox />
-              </ProtectedRoute>
-              <ProtectedRoute path="/member/saverecipe" isAuth={login}>
-                <MemberFeature />
-              </ProtectedRoute>
-              <ProtectedRoute path="/member/saveproduct" isAuth={login}>
-                <MemberSaveProduct />
-              </ProtectedRoute>
-              <ProtectedRoute exact path="/member/recipecomment" isAuth={login}>
-                <MemberRecipeComment />
-              </ProtectedRoute>
-              <ProtectedRoute path="/member/coupon" isAuth={login}>
-                <Coupon />
-              </ProtectedRoute>
-              <ProtectedRoute exact path="/member" isAuth={login}>
-                <MyRecipe />
-              </ProtectedRoute>
+                <ProtectedRoute path="/member/editinfo" isAuth={login}>
+                  <EditMemberInfo />
+                </ProtectedRoute>
+                <ProtectedRoute path="/member/editpwd" isAuth={login}>
+                  <EditPassword />
+                </ProtectedRoute>
+                <ProtectedRoute path="/member/orderdetail" isAuth={login}>
+                  <OrderDetails />
+                </ProtectedRoute>
+                <ProtectedRoute path="/member/orderlist" isAuth={login}>
+                  <OrderList />
+                </ProtectedRoute>
+                <ProtectedRoute path="/member/savebox" isAuth={login}>
+                  <MemberBox />
+                </ProtectedRoute>
+                <ProtectedRoute path="/member/saverecipe" isAuth={login}>
+                  <MemberFeature />
+                </ProtectedRoute>
+                <ProtectedRoute path="/member/saveproduct" isAuth={login}>
+                  <MemberSaveProduct />
+                </ProtectedRoute>
+                <ProtectedRoute
+                  exact
+                  path="/member/recipecomment"
+                  isAuth={login}
+                >
+                  <MemberRecipeComment />
+                </ProtectedRoute>
+                <ProtectedRoute path="/member/coupon" isAuth={login}>
+                  <Coupon />
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/member" isAuth={login}>
+                  <MyRecipe />
+                </ProtectedRoute>
 
-              {/* 購物車 */}
-              <Route exact path="/market/orders-complete">
-                <OrdersComplete />
-              </Route>
-              <Route exact path="/market/checkout-confirm">
-                <CheckoutConfirm />
-              </Route>
-              <Route exact path="/market/shoppingcart">
-                <Shoppingcart />
-              </Route>
-              <Route exact path="/market/checkout-personalData">
-                <CheckoutPersonalData />
-              </Route>
-              <Route exact path="/market/cart-detail">
-                <CartDetail />
-              </Route>
-              <Route exact path="/market/product/:id?">
-                <ProductDetails />
-              </Route>
-              <Route exact path="/market/:category?">
-                <MarketMainPage />
-              </Route>
-              <Route exact path="/market/check-order">
-                <CheckOrder />
-              </Route>
+                {/* 購物車 */}
+                <Route exact path="/market/orders-complete">
+                  <OrdersComplete />
+                </Route>
+                <Route exact path="/market/checkout-confirm">
+                  <CheckoutConfirm />
+                </Route>
+                <Route exact path="/market/shoppingcart">
+                  <Shoppingcart />
+                </Route>
+                <Route exact path="/market/checkout-personalData">
+                  <CheckoutPersonalData />
+                </Route>
+                <Route exact path="/market/cart-detail">
+                  <CartDetail />
+                </Route>
+                <Route exact path="/market/product/:id?">
+                  <ProductDetails />
+                </Route>
+                <Route exact path="/market/:category?">
+                  <MarketMainPage />
+                </Route>
+                <Route exact path="/market/check-order">
+                  <CheckOrder />
+                </Route>
 
-              {/* 搜尋 */}
-              <Route path="/search/recipe">
-                <SearchRecipe />
-              </Route>
-              <Route path="/search/market">
-                <SearchMarket />
-              </Route>
-            </Switch>
-          </ScrollToTop>
-          <Footer />
-        </div>
-      </Router>
-    </HandleCart.Provider>
+                {/* 搜尋 */}
+                <Route path="/search/recipe">
+                  <SearchRecipe />
+                </Route>
+                <Route path="/search/market">
+                  <SearchMarket />
+                </Route>
+              </Switch>
+            </ScrollToTop>
+            <Footer />
+          </div>
+        </Router>
+      </HandleCart.Provider>
+    </CartProvider>
   )
 }
 

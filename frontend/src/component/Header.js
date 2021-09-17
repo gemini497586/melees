@@ -14,6 +14,9 @@ import { HandleCart } from '../utils/HandleCart'
 import axios from 'axios'
 import { API_URL } from '../utils/config'
 
+// 測試搬家版本
+import useCart from '../utils/useCart'
+
 function Header(props) {
   const history = useHistory()
   useEffect(() => {
@@ -61,6 +64,9 @@ function Header(props) {
   // 檢查是否登入
   const { login, setLogin } = useContext(HandleCart)
 
+  // // 測試搬家版本
+  // const { login, setLogin, signIn, signOut } = useCart()
+
   const handleLogout = async () => {
     try {
       let response = await axios.post(`${API_URL}/auth/logout`, {
@@ -71,6 +77,8 @@ function Header(props) {
       if (response.status === 202) {
         alert('會員已登出')
         setLogin(false)
+        // signOut()
+        console.log(login)
       }
     } catch (err) {
       console.error(err.response)
