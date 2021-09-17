@@ -1,15 +1,18 @@
 import { Link, Redirect, useLocation } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import meleesLogo from '../images/meleesLogo.svg'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import '../style/header.css'
 import './FontawsomeIcons'
 import HeaderCart from './HeaderCart'
 import useCart from '../utils/useCart'
 import axios from 'axios'
 import { API_URL } from '../utils/config'
+import { HandleCart } from '../utils/HandleCart'
 
 function Header(props) {
+  const { login, setLogin } = useContext(HandleCart)
+
   const location = useLocation()
   // useLocation
 
@@ -57,7 +60,7 @@ function Header(props) {
   // 顯示header購物車
   const [hidden, setHidden] = useState(false)
   // 檢查是否登入
-  const { login, setLogin } = useCart()
+  // const { login, setLogin } = useCart()
 
   const handleLogout = async () => {
     try {

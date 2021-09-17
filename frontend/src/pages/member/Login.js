@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 // import { useHistory } from 'react-router-dom'
 import { useHistory, useLocation } from 'react-router-dom'
 import { API_URL } from '../../utils/config'
@@ -8,11 +8,10 @@ import '../../style/member.css'
 import '../../style/login.css'
 import logo from '../../images/logo.png'
 import useCart from '../../utils/useCart'
+import { HandleCart } from '../../utils/HandleCart'
 
 function Login() {
-  const { login, setLogin } = useCart() //登入用
-  const [account, setAccount] = useState('meleesadmin')
-  const [password, setPassword] = useState('123456')
+  const { login, setLogin } = useContext(HandleCart) //登入用
 
   const [errorMsg, setErrorMsg] = useState()
   const [formValues, setFormValues] = useState({
@@ -71,6 +70,7 @@ function Login() {
         }
       )
       console.log(response)
+
       setLogin(true)
       loginRedirect()
     } catch (err) {

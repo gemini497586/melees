@@ -36,8 +36,6 @@ const useCart = () => {
     setCarts(currentCart)
   }
 
-  //   const [productsAll, setProductsAll] = useState([]) //所有的商品
-
   const minusAmount = (e) => {
     const currentCart = JSON.parse(localStorage.getItem('cartList')) || []
     const index = currentCart.findIndex((v) => v.id === e.id)
@@ -68,8 +66,6 @@ const useCart = () => {
     setProductsAll,
     minusAmount,
     plusAmount,
-    login,
-    setLogin,
   }
 }
 
