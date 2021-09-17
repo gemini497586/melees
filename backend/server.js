@@ -53,7 +53,7 @@ app.get("/", (req, res, next) => {
 
 // 引入 feature 中間件
 let featureRouter = require("./routers/feature");
-app.use("/api/feature", featureRouter);
+app.use("/feature", featureRouter);
 
 app.get("/market/product/:id", (req, res, next) => {
     let sqlSelectID = "SELECT * FROM product WHERE id = ?";

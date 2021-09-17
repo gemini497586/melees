@@ -67,7 +67,7 @@ function Header(props) {
         </li>
 
         <li className="font-400M" id="toFeature">
-          <Link to="/feature">精選食譜</Link>
+          <Link to="/feature/index/1">精選食譜</Link>
         </li>
         <li className="font-400M" id="toPrivate">
           <Link to="/private">私藏食譜</Link>

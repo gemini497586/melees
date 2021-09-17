@@ -122,7 +122,7 @@ function App() {
               <Route path="/feature/step">
                 <FeatureStep />
               </Route>
-              <Route path="/feature">
+              <Route path="/feature/index/:typeid?">
                 <FeatureIndex />
               </Route>
 

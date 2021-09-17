@@ -7,12 +7,10 @@ import Paging from '../../component/Paging'
 import CardShopping from '../../component/CardShopping'
 import MinorBar from './component/MinorBar'
 import { Link } from 'react-router-dom'
-import Axios from 'axios'
-import { API_URL } from '../../utils/config'
+import { useParams } from 'react-router'
 
 /* 排序搜尋 */
 
-const [sortBy, setSortBy] = useState('0')
 const itemList = [
   {
     name: '時間由新至舊',
@@ -41,17 +39,15 @@ const itemList = [
 ]
 
 // 用map渲染6個FeatureCards
-const arr = [1, 2, 3, 4, 5, 6]
+// const arr = [1, 2, 3, 4, 5, 6]
 
 function FeatureIndex() {
-  // 使用 useState ，透過陣列讓 List 顯示出項目
-  const [listdata, setListdata] = useState([])
+  const [sortBy, setSortBy] = useState('0')
 
-  useEffect(() => {
-    Axios.get('${API_URL}/api/feature').then((res) => {
-      setListdata(res.data)
-    })
-  }, [])
+  // 網址後面抓到不同變數導入
+  const { typeid } = useParams()
+  // 查詢 typeid 發出什麼訊息
+  console.log('typeid2', typeid)
 
   return (
     <>
@@ -68,14 +64,10 @@ function FeatureIndex() {
             />
           </div>
           {/* cards */}
-          <div className="findex-list">
-            {arr.map((v, i) => {
-              return (
-                <Link to="/feature/step/">
-                  <FeatureCards listData={setListdata} />
-                </Link>
-              )
-            })}
+          <div className="">
+            <Link to="/feature/step/">
+              <FeatureCards typeid={typeid} />
+            </Link>
           </div>
         </div>
         {/* 分頁 */}
