@@ -59,8 +59,6 @@ function Header(props) {
 
   // 顯示header購物車
   const [hidden, setHidden] = useState(false)
-  // 檢查是否登入
-  // const { login, setLogin } = useCart()
 
   const handleLogout = async () => {
     try {
@@ -72,6 +70,8 @@ function Header(props) {
       if (response.status === 202) {
         alert('會員已登出')
         setLogin(false)
+        // signOut()
+        console.log(login)
       }
     } catch (err) {
       console.error(err.response)

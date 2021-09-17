@@ -11,6 +11,9 @@ import useCart from '../../utils/useCart'
 import { HandleCart } from '../../utils/HandleCart'
 
 function Login() {
+  // 測試搬家版本
+  // const { login, setLogin, signIn, signOut } = useCart()
+
   const { login, setLogin } = useContext(HandleCart) //登入用
 
   const [errorMsg, setErrorMsg] = useState()
