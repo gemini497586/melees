@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import '../style/recipeStep.css'
 import Axios from 'axios'
+import { API_URL } from '../utils/config'
 
 function RecipeStep(props) {
   const { id } = props
   const [stepList, setStepList] = useState([])
   useEffect(() => {
-    Axios.get(`http://localhost:3001/api/private/steps/${id}`).then((res) => {
+    Axios.get(`${API_URL}/private/steps/${id}`).then((res) => {
       setStepList(res.data)
     })
   }, [])

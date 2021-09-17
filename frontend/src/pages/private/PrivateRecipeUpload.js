@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../style/privateRecipeUpload.css'
 import React, { useState } from 'react'
 import Axios from 'axios'
+import { API_URL } from '../../utils/config'
 
 function PrivateRecipeUpload() {
   const [recipeName, setRecipeName] = useState('')
@@ -54,16 +55,22 @@ function PrivateRecipeUpload() {
   }
 
   // 上傳
-  const upload = () => {
-    Axios.post('http://localhost:3001/api/private/upload', {
-      name: recipeName,
-      intro: recipeIntro,
-      qty: recipeQty,
-      ingred: ingredList,
-      steps: steps,
-    }).then(() => {
-      console.log('success')
-    })
+  const upload = async () => {
+    try {
+      let res = Axios.post(
+        `${API_URL}/private/upload`,
+        {
+          name: recipeName,
+          intro: recipeIntro,
+          qty: recipeQty,
+          ingred: ingredList,
+          steps: steps,
+        },
+        { withCredentials: true }
+      )
+    } catch (e) {
+      console.log(e)
+    }
   }
   return (
     <>
@@ -71,8 +78,11 @@ function PrivateRecipeUpload() {
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-6">
+              {/* 食譜圖片 */}
               <PrivateRecipeHeading title={title[0]} />
               <div className="privateRecipeUpload">
+                <input type="file" />
+                <br />
                 {/* 食譜名稱 */}
                 <label htmlFor="name" className="privateRecipeUpload-label">
                   <h4>食譜名稱</h4>

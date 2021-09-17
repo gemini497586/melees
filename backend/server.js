@@ -98,7 +98,7 @@ app.use("/member", memberRouter);
 
 // 引入 private router 中間件，包含私藏食譜
 let privateRouter = require("./routers/private");
-app.use("/api/private", privateRouter);
+app.use("/private", privateRouter);
 
 // 引入 box router 中間件，包含客製化便當
 let boxRouter = require("./routers/box");

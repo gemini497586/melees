@@ -5,9 +5,12 @@ import CardShopping from '../../component/CardShopping'
 import PrivateRecipeComment from './component/PrivateRecipeComment'
 import PrivateRecipeIngre from './component/PrivateRecipeIngre'
 import PrivateRecipeHeading from './component/PrivateRecipeHeading'
+import PrivateRecipeStarComment from './component/PrivateRecipeStarComment'
+
 import CardRecipe from '../../component/CardRecipe'
 import Axios from 'axios'
 import { useParams } from 'react-router'
+import { API_URL } from '../../utils/config'
 
 function PrivateRecipeIntro(props) {
   const { id } = useParams()
@@ -16,15 +19,15 @@ function PrivateRecipeIntro(props) {
   const [tags, setTags] = useState([])
 
   useEffect(() => {
-    Axios.get(`http://localhost:3001/api/private/ingred/${id}`).then((res) => {
+    Axios.get(`${API_URL}/private/ingred/${id}`).then((res) => {
       setIngred(res.data)
     })
 
-    Axios.get(`http://localhost:3001/api/private/tags/${id}`).then((res) => {
+    Axios.get(`${API_URL}/private/tags/${id}`).then((res) => {
       setTags(res.data)
     })
 
-    Axios.get(`http://localhost:3001/api/private/addview/${id}`).then((res) => {
+    Axios.get(`${API_URL}/private/addview/${id}`).then((res) => {
       console.log(res)
     })
   }, [])
@@ -68,8 +71,12 @@ function PrivateRecipeIntro(props) {
           </div>
         </div>
         <div className="container">
+          <div className="row"></div>
+        </div>
+        <div className="container">
           <div className="row">
             <PrivateRecipeHeading title={heading[3]} />
+            <PrivateRecipeStarComment id={id} />
           </div>
         </div>
         <PrivateRecipeComment id={id} />
