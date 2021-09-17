@@ -69,8 +69,8 @@ function Header(props) {
       })
       // console.log(response)
       if (response.status === 202) {
-        setLogin(false)
         alert('會員已登出')
+        setLogin(false)
       }
     } catch (err) {
       console.error(err.response)
@@ -200,12 +200,6 @@ function Header(props) {
                 <Link to="/" onClick={handleLogout}>
                   登出
                 </Link>
-                {/* <a className="dropdown-item" href="#/" onClick={handleLogout}>
-                  登出
-                </a> */}
-                {/* <a className="dropdown-item" href="#/" onClick={handleLogout}>
-                  登出
-                </a> */}
               </li>
             </ul>
           </li>

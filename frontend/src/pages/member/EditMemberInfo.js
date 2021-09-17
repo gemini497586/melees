@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Link, Redirect, useLocation } from 'react-router-dom'
 import '../../style/global.css'
 import '../../style/member.css'
 import avatar from '../../images/Avatar.png'
@@ -127,9 +127,24 @@ function EditMemberInfo() {
     testLoginCheck()
   }, [])
 
+  // 好的 --> 未登入跳轉到登入頁面
   if (!login) {
     return <Redirect to="/login" />
   }
+
+  // 測試中
+  // const location = useLocation()
+  // console.log(location)
+  // if (!login) {
+  //   return (
+  //     <Redirect
+  //       to={{
+  //         pathname: '/login',
+  //         state: { from: location.pathname },
+  //       }}
+  //     />
+  //   )
+  // }
   return (
     <>
       <div className="page-group">

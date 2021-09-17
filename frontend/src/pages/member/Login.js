@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react'
-import { useHistory } from 'react-router-dom'
+// import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { API_URL } from '../../utils/config'
 import axios from 'axios'
 import '../../style/global.css'
@@ -10,7 +11,6 @@ import { HandleCart } from '../../utils/HandleCart'
 
 function Login() {
   const { login, setLogin } = useContext(HandleCart) //登入用
-  const history = useHistory()
   const [errorMsg, setErrorMsg] = useState()
   const [formValues, setFormValues] = useState({
     // account: '',
@@ -42,6 +42,17 @@ function Login() {
     }
   }
 
+  // 登入後導回前一頁或首頁
+  const history = useHistory()
+  const location = useLocation()
+  const loginRedirect = () => {
+    let { from } = location.state || { from: { pathname: '/' } }
+    // console.log('location', location)
+    // console.log('from', from)
+    history.push(from)
+    // history.replace(from)
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
@@ -60,9 +71,7 @@ function Login() {
       )
       setLogin(true)
       console.log(response)
-
-      // 導回首頁
-      history.push('/')
+      loginRedirect()
     } catch (err) {
       console.error(err.response)
       if (err.response.status === 400) {
