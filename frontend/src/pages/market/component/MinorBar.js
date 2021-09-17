@@ -17,7 +17,7 @@ function MinorBar(props) {
         {product.map((v) => {
           return (
             <li>
-              <Link to={`/market/${v.category}`}>{v.text}</Link>
+              <Link to={`/market/home/${v.category}`}>{v.text}</Link>
             </li>
           )
         })}

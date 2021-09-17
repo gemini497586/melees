@@ -6,7 +6,6 @@ import SortingBar from './SortingBar'
 import Paging from '../../component/Paging'
 import MinorBar from './component/MinorBar'
 import CardRecipe from '../../component/CardRecipe'
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import { useParams } from 'react-router'
 
 const pageArray = [1, 2, 3]

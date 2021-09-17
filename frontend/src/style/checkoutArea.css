@@ -17,15 +17,16 @@
   position: absolute;
 }
 
+/* 所有按鈕共通 */
 .cart-checkout-box .btn {
   width: 205px;
   height: 43px;
   border-radius: 100px;
 }
 
-.cart-checkout-continue-btn {
-  color: var(--color-primary);
-  border: 1px solid var(--color-primary);
+.cart-checkout-market-btn {
+  color: #fff;
+  background: var(--color-primary);
   top: 217px;
   left: 50px;
 }
@@ -108,4 +109,12 @@
   background: var(--color-primary);
   top: 217px;
   left: 1065px;
+}
+
+/* 回上一頁按鈕 */
+.cart-back-btn {
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  top: 163px;
+  left: 50px;
 }

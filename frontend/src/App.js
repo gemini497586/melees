@@ -50,85 +50,18 @@ import MemberSaveProduct from './pages/member/MemberSaveProduct'
 import MemberRecipeComment from './pages/member/MemberRecipeComment'
 import Coupon from './pages/member/Coupon'
 import MyRecipe from './pages/member/MyRecipe'
+
+// useContext。CartProvider 跟購物車商品有關; CheckoutInfoProvider 跟個人購買資料有關
+import { CheckoutInfoProvider } from './utils/CheckoutInfoContext'
+import { CartProvider } from './utils/CartContext'
+import useCart from './utils/useCart'
 import { useState } from 'react'
 
-import useCart from './utils/useCart'
-import { CartProvider } from './utils/CartContext'
-
 function App() {
-  const cartList = JSON.parse(localStorage.getItem('cartList')) || []
-  const [carts, setCarts] = useState(cartList) //放入購物車的商品
-  // console.log(cartList)
-  const addCart = (e) => {
-    // 增加商品到購物車內
-    // 1. 先從 localStorage 抓到原本的購物車，沒有的話就新增一個
-    const currentCart = JSON.parse(localStorage.getItem('cartList')) || []
-    // 2. 檢查有沒有重複的商品
-    const index = currentCart.findIndex((v) => v.id === e.id)
-
-    if (index > -1) {
-      //currentCart[index].amount++
-      alert('該商品已經加入購物車')
-      return
-    } else {
-      // 如果商品沒有重複就放進購物車
-      currentCart.push(e)
-    }
-    // 3. 把新的購物車放回 localStorage，以及更新 carts
-    localStorage.setItem('cartList', JSON.stringify(currentCart))
-    setCarts(currentCart)
-  }
-  const removeCart = (e, id) => {
-    // 從購物車移除商品
-    const currentCart = JSON.parse(localStorage.getItem('cartList')) || []
-    const index = currentCart.findIndex((v) => v.id === e.id)
-    if (index === -1) {
-      currentCart.splice(e, 1)
-    }
-    localStorage.setItem('cartList', JSON.stringify(currentCart))
-    setCarts(currentCart)
-  }
-
-  const [productsAll, setProductsAll] = useState([]) //所有的商品
-
-  const [amount, setAmount] = useState(1) // 計算商品數量用
-  const minusAmount = (e) => {
-    const currentCart = JSON.parse(localStorage.getItem('cartList')) || []
-    const index = currentCart.findIndex((v) => v.id === e.id)
-    if (index === -1 && currentCart[e].amount > 1) {
-      currentCart[e].amount--
-    }
-    localStorage.setItem('cartList', JSON.stringify(currentCart))
-    setCarts(currentCart)
-  }
-  const plusAmount = (e) => {
-    const currentCart = JSON.parse(localStorage.getItem('cartList')) || []
-    const index = currentCart.findIndex((v) => v.id === e.id)
-    if (index === -1 && currentCart[e].amount < 99) {
-      currentCart[e].amount++
-    }
-    localStorage.setItem('cartList', JSON.stringify(currentCart))
-    setCarts(currentCart)
-  }
   const [login, setLogin] = useState(false) //查看是否登入
-  // const { login, setLogin } = useCart()
   return (
     <CartProvider>
-      <HandleCart.Provider
-        value={{
-          carts,
-          addCart,
-          removeCart,
-          productsAll,
-          setProductsAll,
-          amount,
-          minusAmount,
-          plusAmount,
-          setAmount,
-          login,
-          setLogin,
-        }}
-      >
+      <HandleCart.Provider value={{ login, setLogin }}>
         <Router>
           <div className="App">
             <Header />
@@ -224,30 +157,32 @@ function App() {
                 </ProtectedRoute>
 
                 {/* 購物車 */}
-                <Route exact path="/market/orders-complete">
-                  <OrdersComplete />
-                </Route>
-                <Route exact path="/market/checkout-confirm">
-                  <CheckoutConfirm />
-                </Route>
-                <Route exact path="/market/shoppingcart">
-                  <Shoppingcart />
-                </Route>
-                <Route exact path="/market/checkout-personalData">
-                  <CheckoutPersonalData />
-                </Route>
-                <Route exact path="/market/cart-detail">
-                  <CartDetail />
-                </Route>
-                <Route exact path="/market/product/:id?">
-                  <ProductDetails />
-                </Route>
-                <Route exact path="/market/:category?">
-                  <MarketMainPage />
-                </Route>
-                <Route exact path="/market/check-order">
-                  <CheckOrder />
-                </Route>
+                <CheckoutInfoProvider>
+                  <Route exact path="/market/orders-complete">
+                    <OrdersComplete />
+                  </Route>
+                  <Route exact path="/market/check-order">
+                    <CheckOrder />
+                  </Route>
+                  <Route exact path="/market/checkout-confirm">
+                    <CheckoutConfirm />
+                  </Route>
+                  <Route exact path="/market/shoppingcart">
+                    <Shoppingcart />
+                  </Route>
+                  <Route exact path="/market/checkout-personalData">
+                    <CheckoutPersonalData />
+                  </Route>
+                  <Route exact path="/market/cart-detail">
+                    <CartDetail />
+                  </Route>
+                  <Route exact path="/market/product/:id?">
+                    <ProductDetails />
+                  </Route>
+                  <Route exact path="/market/home/:category?">
+                    <MarketMainPage />
+                  </Route>
+                </CheckoutInfoProvider>
 
                 {/* 搜尋 */}
                 <Route path="/search/recipe">
