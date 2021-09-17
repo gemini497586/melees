@@ -70,7 +70,6 @@ function Login() {
         }
       )
       console.log(response)
-
       setLogin(true)
       loginRedirect()
     } catch (err) {

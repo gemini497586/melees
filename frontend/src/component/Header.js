@@ -59,8 +59,6 @@ function Header(props) {
 
   // 顯示header購物車
   const [hidden, setHidden] = useState(false)
-  // 檢查是否登入
-  // const { login, setLogin } = useCart()
 
   const handleLogout = async () => {
     try {
