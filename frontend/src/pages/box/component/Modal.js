@@ -7,7 +7,7 @@ import { API_URL } from '../../../utils/config'
 
 function Modal(props) {
   const [name, setName] = useState('')
-  const { modal, setModal, closeModal, bento, cal } = props
+  const { modal, setModal, closeModal, bento, setBento, cal, setCal } = props
 
   // 抓到便當裡食材的id，陣列把它轉成字串
   const bentoId = bento.map((item) => {
@@ -15,26 +15,21 @@ function Modal(props) {
   })
   const saveId = bentoId.toString()
 
-  // 抓到便當裡面食材的圖片
-  const bentoImage = bento.map((item) => {
-    return item.inside_image
-  })
-  const saveImage = bentoImage.toString()
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       let res = await axios.post(
-        `${API_URL}/box/save`,
+        `${API_URL}/member/savebox`,
         {
           saveId,
           name,
           cal,
-          saveImage,
         },
         { withCredentials: true }
       )
       setModal(false)
+      setBento([])
+      setCal(0)
       // console.log(res)
     } catch (e) {
       console.log(e)
@@ -85,7 +80,6 @@ function Modal(props) {
               <form onSubmit={handleSubmit}>
                 <input type="hidden" value={saveId} />
                 <input type="hidden" value={cal} />
-                <input type="hidden" value={saveImage} />
                 <label htmlFor="boxName" className="font-700M">
                   為你的便當命名
                 </label>

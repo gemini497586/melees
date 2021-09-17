@@ -13,7 +13,10 @@ function MemberSaveProdcut() {
   const [data, setData] = useState([])
   const [displayData, setDisplayData] = useState([])
   const [sortBy, setSortBy] = useState(0)
-  const itemList = [
+  const [product, setProduct] = useState([])
+  const [productList, setProductList] = useState(null)
+
+  const sortList = [
     {
       name: '時間由新至舊',
       value: '1',
@@ -35,10 +38,21 @@ function MemberSaveProdcut() {
   useEffect(() => {
     const getData = async () => {
       try {
-        let res = await Axios.get(`${API_URL}/market/2`)
-        let data = res.data
+        let res = await Axios.get(`${API_URL}/member/readsaveproduct`, {
+          withCredentials: true,
+        })
+        let data = res.data.result
+        let product = res.data.result2
         setData(data)
         setDisplayData(data)
+        setProduct(product)
+
+        // 先設定好查表法的內容
+        let newProductList = {}
+        product.map((item) => {
+          newProductList[item.id] = item
+        })
+        setProductList(newProductList)
       } catch (e) {
         console.log(e)
       }
@@ -77,13 +91,16 @@ function MemberSaveProdcut() {
         <div className="container">
           <div className="d-flex justify-content-end">
             <DropDown2
-              itemList={itemList}
+              itemList={sortList}
               sortBy={sortBy}
               setSortBy={setSortBy}
             />
           </div>
           <div className="row">
-            <MemberSaveProdcutCard productlist={displayData} />
+            <MemberSaveProdcutCard
+              saveList={displayData}
+              productList={productList}
+            />
           </div>
           <Paging value={pages} />
         </div>

@@ -40,26 +40,6 @@ function OrderListRow(props) {
           </div>
         )
       })}
-
-      {/* <tr key={value.id}>
-        <td>{value.create_date}</td>
-        <td>
-          <Link to={`/member/orderdetail/${value.order_number}`}>
-            {value.order_number}
-          </Link>
-        </td>
-        <td>{payment_method[value.payment_method]}</td>
-        <td>{status[value.status]}</td>
-        <td>{value.create_date}</td>
-        <td>${value.total_price}</td>
-        <td>鑑賞期 {value.create_date}</td>
-        <td>
-          <Link to="#/">
-            客服
-            <FontAwesomeIcon icon="info-circle" className="icon-info ms-2" />
-          </Link>
-        </td>
-      </tr> */}
     </>
   )
 }

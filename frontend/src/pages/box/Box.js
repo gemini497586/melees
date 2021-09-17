@@ -11,11 +11,11 @@ import { API_URL } from '../../utils/config'
 function Box() {
   const [data, setData] = useState([])
   const [subData, setSubData] = useState([])
+  const [bento, setBento] = useState([])
+  const [unitList, setUnitList] = useState([])
   const [bmr, setBmr] = useState(0)
   const [tdee, setTdee] = useState(0)
   const [cal, setCal] = useState(0)
-  const [bento, setBento] = useState([])
-  const [unitList, setUnitList] = useState([])
 
   // 從資料庫抓資料
   useEffect(() => {
@@ -28,7 +28,6 @@ function Box() {
         setSubData(subData)
       } catch (e) {
         console.log(e)
-        // alert(e.response.data.message)
       }
     }
     getData()
@@ -50,10 +49,7 @@ function Box() {
       alert('每樣食材只可挑選一次')
       return
     } else {
-      const newBento = [
-        ...bento,
-        { name: v.name, inside_image: v.inside_image, id: v.id, cal: v.cal },
-      ]
+      const newBento = [...bento, { name: v.name, id: v.id, cal: v.cal }]
       // 第六個的時候就不能再新增
       if (newBento.length > 5) {
         alert('最多只可挑選五樣食材')
@@ -110,7 +106,9 @@ function Box() {
           tdee={tdee}
           unitList={unitList}
           bento={bento}
+          setBento={setBento}
           cal={cal}
+          setCal={setCal}
         />
         {/* 最下面推薦食譜 商品 */}
         <CardRecipe />

@@ -38,18 +38,16 @@ function Page2(props) {
                   已選擇食材
                   {bento.map((v, i) => {
                     return (
-                      <>
-                        <div key={i}>
-                          {v.name}
-                          <FontAwesomeIcon
-                            icon="times"
-                            className="times"
-                            onClick={() => {
-                              handleRemove(v)
-                            }}
-                          />
-                        </div>
-                      </>
+                      <div key={i}>
+                        {v.name}
+                        <FontAwesomeIcon
+                          icon="times"
+                          className="times"
+                          onClick={() => {
+                            handleRemove(v)
+                          }}
+                        />
+                      </div>
                     )
                   })}
                 </div>

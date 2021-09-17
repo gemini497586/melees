@@ -14,7 +14,7 @@ function MemberFeature() {
   const [sortBy, setSortBy] = useState(0)
   const [checked, setChecked] = useState('全部')
   const checkList = ['全部', '精選食譜', '私藏食譜']
-  const itemList = [
+  const sortList = [
     {
       name: '時間由新至舊',
       value: '1',
@@ -124,7 +124,7 @@ function MemberFeature() {
                 })}
               </div>
               <DropDown2
-                itemList={itemList}
+                itemList={sortList}
                 sortBy={sortBy}
                 setSortBy={setSortBy}
               />

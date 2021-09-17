@@ -12,7 +12,7 @@ function SaveBoxDelModal(props) {
     // e.preventDefault()
     try {
       let res = await Axios.post(
-        `${API_URL}/box/delete`,
+        `${API_URL}/member/deletesavebox`,
         {
           id,
         },

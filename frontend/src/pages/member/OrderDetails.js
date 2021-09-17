@@ -16,7 +16,6 @@ function OrderDetails(props) {
   const [detail, setDetail] = useState([])
   const [mainList, setMainList] = useState([])
   const [step, setStep] = useState('')
-  const [payMethod, setPayMethod] = useState('')
   const [product, setProduct] = useState([])
 
   // 幫商品做成查表法
@@ -24,7 +23,6 @@ function OrderDetails(props) {
   product.map((item) => {
     productList[item.id] = item.name
   })
-
   const payment_method = { 1: '信用卡', 2: '貨到付款' }
 
   // 初始值
@@ -40,7 +38,6 @@ function OrderDetails(props) {
         setDetail(data)
         setMainList(mainList)
         setStep(mainList.status)
-        setPayMethod(mainList.payment_method)
         setProduct(product)
       } catch (e) {
         console.log(e)
@@ -125,11 +122,7 @@ function OrderDetails(props) {
               <h5>付款方式與寄送資料</h5>
             </div>
             <div className="member-form-group-content member-form-group-content-forPayInfo">
-              <PayInfo
-                mainList={mainList}
-                payMethod={payMethod}
-                payment_method={payment_method}
-              />
+              <PayInfo mainList={mainList} payment_method={payment_method} />
             </div>
           </div>
           {/* 注意事項  */}

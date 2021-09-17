@@ -10,8 +10,10 @@ function MemberBox() {
   const [data, setData] = useState([])
   const [displayData, setDisplayData] = useState([])
   const [prep, setPrep] = useState([])
+  const [prepList, setprepList] = useState(null)
+
   const [sortBy, setSortBy] = useState('0')
-  const itemList = [
+  const sortList = [
     {
       name: '時間由新至舊',
       value: '1',
@@ -29,12 +31,11 @@ function MemberBox() {
       value: '4',
     },
   ]
-
   // 初始化資料
   useEffect(() => {
     const getData = async () => {
       try {
-        let res = await Axios.get(`${API_URL}/box/boxsave`, {
+        let res = await Axios.get(`${API_URL}/member/readsavebox`, {
           withCredentials: true,
         })
         let data = res.data.result
@@ -42,6 +43,14 @@ function MemberBox() {
         setData(data)
         setDisplayData(data)
         setPrep(prep)
+
+        // 把食材做成查表法
+        let newprepList = {}
+        prep.map((item) => {
+          newprepList[item.id] = item
+        })
+        setprepList(newprepList)
+        // console.log(newprepList)
       } catch (e) {
         console.log(e)
         alert(e.response.data.message)
@@ -81,13 +90,13 @@ function MemberBox() {
           <div className="container">
             <div className="d-flex justify-content-end">
               <DropDown2
-                itemList={itemList}
+                itemList={sortList}
                 sortBy={sortBy}
                 setSortBy={setSortBy}
               />
             </div>
             <div className="row">
-              <SaveBox data={displayData} prep={prep} />
+              <SaveBox data={displayData} prepList={prepList} />
             </div>
           </div>
         </section>
