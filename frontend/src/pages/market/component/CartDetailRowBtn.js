@@ -4,10 +4,10 @@ import '../../../style/cartDetailRowBtn.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
 import { HandleCart } from '../../../utils/HandleCart'
+import useCart from '../../../utils/useCart'
 
 function CartDetailRow(props) {
-  const { carts, removeCart, productsAll, minusAmount, plusAmount } =
-    useContext(HandleCart)
+  const { carts, removeCart, productsAll, minusAmount, plusAmount } = useCart()
   const index = props.index
   const productID = carts[index].id - 1
   // console.log(productsAll)
@@ -15,12 +15,10 @@ function CartDetailRow(props) {
     <div className="cart-btn-detail-row">
       <img src={img} alt="商品圖片" />
       <p className="font-400S cart-btn-detail-category">
-        {productsAll[productID].category}
+        {carts[index].category}
       </p>
       <h6 className="cart-btn-detail-name">{carts[index].name}</h6>
-      <p className="font-400S cart-btn-detail-specs">
-        {productsAll[productID].specs}
-      </p>
+      <p className="font-400S cart-btn-detail-specs">{carts[index].specs}</p>
       <p className="cart-btn-detail-price">
         <FontAwesomeIcon icon="dollar-sign" /> {carts[index].price}
       </p>

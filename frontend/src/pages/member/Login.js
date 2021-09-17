@@ -1,14 +1,14 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { API_URL } from '../../utils/config'
 import axios from 'axios'
 import '../../style/global.css'
 import '../../style/member.css'
 import '../../style/login.css'
 import logo from '../../images/logo.png'
-import { HandleCart } from '../../utils/HandleCart'
+import useCart from '../../utils/useCart'
 
 function Login() {
-  const { login, setLogin } = useContext(HandleCart) //登入用
+  const { login, setLogin } = useCart() //登入用
   const [account, setAccount] = useState('meleesadmin')
   const [password, setPassword] = useState('123456')
   const handleSubmit = async (e) => {

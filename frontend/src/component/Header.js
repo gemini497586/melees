@@ -1,42 +1,45 @@
-import { BrowserRouter as Router, Link, useHistory } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import meleesLogo from '../images/meleesLogo.svg'
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../style/header.css'
 import './FontawsomeIcons'
 import HeaderCart from './HeaderCart'
-import { HandleCart } from '../utils/HandleCart'
+import useCart from '../utils/useCart'
 
 function Header(props) {
-  const history = useHistory()
-  useEffect(() => {
-    return history.listen((location) => {
-      let now = location.pathname
-      let header = document.getElementById('header')
-      let toBox = document.getElementById('toBox')
-      let toFeature = document.getElementById('toFeature')
-      let toPrivate = document.getElementById('toPrivate')
-      let toMarket = document.getElementById('toMarket')
-      let toMember = document.getElementById('toMember')
-      if (now.includes('member')) {
-        toMember.classList.add('header-active', 'font-700SL')
-      } else if (now.includes('market')) {
-        toMarket.classList.add('header-active', 'font-700SL')
-      } else if (now.includes('private')) {
-        toPrivate.classList.add('header-active', 'font-700SL')
-      } else if (now.includes('feature')) {
-        toFeature.classList.add('header-active', 'font-700SL')
-      } else if (now.includes('box')) {
-        toBox.classList.add('header-active', 'font-700SL')
-      } else {
-        for (let i = 0; i < header.childElementCount; i++) {
-          header.children[i].classList.remove('header-active', 'font-700SL')
-        }
-      }
-    })
-  }, [history])
+  const location = useLocation()
+  // useLocation
 
-  // 讓header-active隨著點擊的頁面切換
+  useEffect(() => {
+    // demount + deUpdate
+    // 跟著location
+    let now = location.pathname
+    let header = document.getElementById('header')
+    let toBox = document.getElementById('toBox')
+    let toFeature = document.getElementById('toFeature')
+    let toPrivate = document.getElementById('toPrivate')
+    let toMarket = document.getElementById('toMarket')
+    let toMember = document.getElementById('toMember')
+    // switch、array -> number
+    if (now.includes('member')) {
+      toMember.classList.add('header-active', 'font-700SL')
+    } else if (now.includes('market')) {
+      toMarket.classList.add('header-active', 'font-700SL')
+    } else if (now.includes('private')) {
+      toPrivate.classList.add('header-active', 'font-700SL')
+    } else if (now.includes('feature')) {
+      toFeature.classList.add('header-active', 'font-700SL')
+    } else if (now.includes('box')) {
+      toBox.classList.add('header-active', 'font-700SL')
+    } else {
+      for (let i = 0; i < header.childElementCount; i++) {
+        header.children[i].classList.remove('header-active', 'font-700SL')
+      }
+    }
+  }, [location])
+
+  // 讓header-active隨著點擊的頁面切換，並取消其他的.active
   useEffect(() => {
     let header = document.getElementById('header')
     header.addEventListener('click', (e) => {
@@ -52,7 +55,7 @@ function Header(props) {
   // 顯示header購物車
   const [hidden, setHidden] = useState(false)
   // 檢查是否登入
-  const { login, setLogin } = useContext(HandleCart)
+  const { login, setLogin } = useCart()
 
   return (
     <div className="header-bar">
@@ -62,7 +65,7 @@ function Header(props) {
         </Link>
       </div>
       <ul className="header-bar-main-ul" id="header">
-        <li className="font-700SL header-active" id="toBox">
+        <li className="font-400M" id="toBox">
           <Link to="/box">客製化便當</Link>
         </li>
 
@@ -73,7 +76,7 @@ function Header(props) {
           <Link to="/private">私藏食譜</Link>
         </li>
         <li className="font-400M" id="toMarket">
-          <Link to="/market">購物商城</Link>
+          <Link to="/market/home">購物商城</Link>
         </li>
         <li className="font-400M" id="toMember">
           <Link to="/member">會員專區</Link>

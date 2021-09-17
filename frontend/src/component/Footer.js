@@ -32,9 +32,9 @@ function Footer() {
     {
       header: '購物商城',
       content: [
-        { url: '/a', title: '生鮮食材' },
-        { url: '/a', title: '調味料' },
-        { url: '/b', title: '廚房器具' },
+        { url: '/market/home/1', title: '生鮮食材' },
+        { url: '/market/home/2', title: '調味料' },
+        { url: '/market/home/3', title: '廚房器具' },
       ],
     },
     {

@@ -1,16 +1,16 @@
 import { Link } from 'react-router-dom'
-import React, { useEffect, useContext, useState } from 'react'
+import React from 'react'
 import '../style/headerCartRow.css'
 import './FontawsomeIcons'
 import HeaderCartRow from './HeaderCartRow'
-import { HandleCart } from '../utils/HandleCart'
+import useCart from '../utils/useCart'
 
 function HeaderCart() {
-  const { carts } = useContext(HandleCart)
+  const { carts } = useCart()
   return (
     <>
       {carts.map((value, index) => (
-        <HeaderCartRow id={value} index={index} />
+        <HeaderCartRow key={index} id={value} index={index} />
       ))}
       {carts.length > 0 ? (
         <Link to="/market/cart-detail">
