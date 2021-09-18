@@ -18,6 +18,7 @@ function MyRecipe() {
   const [recipeList, setRecipeList] = useState([])
   const [commentList, setCommentList] = useState([])
   const [likeList, setLikeList] = useState([])
+  const [viewList, setViewList] = useState([])
   const [followList, setFollowList] = useState([])
 
   useEffect(() => {
@@ -25,16 +26,45 @@ function MyRecipe() {
       setRecipeList(res.data.result)
       setCommentList(res.data.commentResult)
       setLikeList(res.data.likeResult)
+      setViewList(res.data.viewResult)
       setFollowList(res.data.followResult)
       console.log('success')
       console.log(recipeList)
     })
   }, [])
-  const list = [
-    {
-      id: 1,
-    },
-  ]
+
+  // 星星評分數
+  const starNum = (index) => {
+    const row = []
+    let solid = Math.floor(recipeList[index].star_rate)
+    let empty = 5 - Math.ceil(recipeList[index].star_rate)
+    let half = 5 - solid - empty
+    for (let i = 0; i < solid; i++) {
+      row.push(<FontAwesomeIcon icon="star" />)
+    }
+    for (let j = 0; j < half; j++) {
+      row.push(<FontAwesomeIcon icon="star-half-alt" />)
+    }
+    for (let k = 0; k < empty; k++) {
+      row.push(<FontAwesomeIcon icon={['far', 'star']} />)
+    }
+    return row
+  }
+
+  // 評分數總計
+  const commentTotal = (index) => {
+    let x = 0
+    for (let i = 0; i < commentList.length; i++) {
+      if (commentList[i].private_id === recipeList[index].id) {
+        x++
+      }
+    }
+
+    if (x > 0) {
+      return <div className="font-400S">{x} 人評分過</div>
+    }
+    return <div className="font-400S">0 人評分過</div>
+  }
   return (
     <>
       <div className="page-group">
@@ -54,7 +84,7 @@ function MyRecipe() {
                     <div className="MyRecipe-recipe-num">
                       <h2>{commentList.length}</h2>
                     </div>
-                    <span className="font-700M">個評分</span>
+                    <span className="font-700M">個評論</span>
                   </div>
                   <div className="MyRecipe-heart">
                     <div className="MyRecipe-recipe-num">
@@ -64,7 +94,7 @@ function MyRecipe() {
                   </div>
                   <div className="MyRecipe-view">
                     <div className="MyRecipe-recipe-num">
-                      <h2>421</h2>
+                      <h2>{viewList.length}</h2>
                     </div>
                     <span className="font-700M">瀏覽數</span>
                   </div>
@@ -88,10 +118,6 @@ function MyRecipe() {
           </div>
         </div>
         <DropDown />
-
-        <pre>{JSON.stringify(recipeList, null, 2)}</pre>
-        <pre>{JSON.stringify(followList, null, 2)}</pre>
-
         <div className="container">
           <div className="row">
             <div className="col"></div>
@@ -115,7 +141,7 @@ function MyRecipe() {
                 {recipeList.map((value, index) => {
                   return (
                     <tbody className="MyPecipe-tbody">
-                      <tr>
+                      <tr key={index}>
                         <td>
                           <div className="d-flex MyPecipe-tbody-avatar">
                             <figure>
@@ -131,14 +157,13 @@ function MyRecipe() {
                           <div className="d-flex ">
                             <div className="flex-column MyPecipe-tbody-star">
                               <div>
-                                <FontAwesomeIcon icon="star" size="lg" />
-                                <FontAwesomeIcon icon="star" size="lg" />
-                                <FontAwesomeIcon icon="star" size="lg" />
-                                <FontAwesomeIcon icon="star" size="lg" />
-                                <FontAwesomeIcon icon="star" size="lg" />
-                                <span className="font-400S">4.5</span>
+                                {starNum(index)}
+
+                                <span className="font-400S">
+                                  {value.star_rate}
+                                </span>
                               </div>
-                              <div className="font-400S">101人評分</div>
+                              {commentTotal(index)}
                             </div>
                           </div>
                         </td>
@@ -176,6 +201,11 @@ function MyRecipe() {
           </div>
         </div>
       </div>
+      <pre>食譜 {JSON.stringify(recipeList, null, 2)}</pre>
+      <pre>評論 {JSON.stringify(commentList, null, 2)}</pre>
+      <pre>按讚 {JSON.stringify(likeList, null, 2)}</pre>
+      <pre>瀏覽 {JSON.stringify(viewList, null, 2)}</pre>
+      <pre>粉絲 {JSON.stringify(followList, null, 2)}</pre>
     </>
   )
 }

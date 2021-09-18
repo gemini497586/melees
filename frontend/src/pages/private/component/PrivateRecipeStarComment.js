@@ -16,13 +16,14 @@ function PrivateRecipeStarComment(props) {
   }
   const addComment = async () => {
     try {
-      let res = Axios.post(
+      let res = await Axios.post(
         `${API_URL}/private/comment/upload/${id}`,
         {
           comment: comment,
         },
         { withCredentials: true }
       )
+      console.log(res)
     } catch (e) {
       console.log(e)
     }
@@ -30,52 +31,48 @@ function PrivateRecipeStarComment(props) {
   return (
     <>
       <div className="col-6">
-        <div className="PrivateRecipeStarComment">
-          <div className="d-flex">
-            <figure className="PrivateRecipeStarComment-figure">
-              <img
-                src={avatar}
-                className="PrivateRecipeStarComment-img"
-                alt=""
-              />
-            </figure>
-            <div className="flex-column">
-              <input
-                className="PrivateRecipeStarComment-comment"
-                type="text"
-                placeholder="留下您的評論"
-                onChange={(e) => {
-                  setComment(e.target.value)
-                }}
-              />
-              <div className="d-flex justify-content-between">
-                <div className="PrivateRecipeStarComment-star">
-                  <FontAwesomeIcon
-                    icon="star"
-                    size="2x"
-                    onClick={() => {
-                      starRate()
-                    }}
-                  />
-                  <FontAwesomeIcon icon="star" size="2x" />
-                  <FontAwesomeIcon icon="star" size="2x" />
-                  <FontAwesomeIcon icon="star" size="2x" />
-                  <FontAwesomeIcon icon="star" size="2x" />
-                </div>
-
-                <button
-                  className="PrivateRecipeStarComment-btn font-700M"
-                  onClick={() => {
-                    addComment()
+        <form action="" onSubmit={addComment}>
+          <div className="PrivateRecipeStarComment">
+            <div className="d-flex">
+              <figure className="PrivateRecipeStarComment-figure">
+                <img
+                  src={avatar}
+                  className="PrivateRecipeStarComment-img"
+                  alt=""
+                />
+              </figure>
+              <div className="flex-column">
+                <input
+                  className="PrivateRecipeStarComment-comment"
+                  type="text"
+                  placeholder="留下您的評論"
+                  onChange={(e) => {
+                    setComment(e.target.value)
                   }}
-                >
-                  評論
-                </button>
+                />
+                <div className="d-flex justify-content-between">
+                  <div className="PrivateRecipeStarComment-star">
+                    <FontAwesomeIcon
+                      icon="star"
+                      size="2x"
+                      onClick={() => {
+                        starRate()
+                      }}
+                    />
+                    <FontAwesomeIcon icon="star" size="2x" />
+                    <FontAwesomeIcon icon="star" size="2x" />
+                    <FontAwesomeIcon icon="star" size="2x" />
+                    <FontAwesomeIcon icon="star" size="2x" />
+                  </div>
+
+                  <button className="PrivateRecipeStarComment-btn font-700M">
+                    評論
+                  </button>
+                </div>
               </div>
-              {comment}
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </>
   )

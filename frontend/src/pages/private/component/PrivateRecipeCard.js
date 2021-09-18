@@ -99,9 +99,6 @@ function PrivateRecipeCard() {
     <>
       <div className="container">
         <div className="row">
-          <pre>{JSON.stringify(saveState, null, 2)}</pre>
-          <pre>{JSON.stringify(likeState, null, 2)}</pre>
-
           {itemInfo.map((value, index) => {
             return (
               <div className="col-12 col-md-3">
