@@ -145,7 +145,11 @@ function MyRecipe() {
                         <td>
                           <div className="d-flex MyPecipe-tbody-avatar">
                             <figure>
-                              <img src={food} alt="" className="" />
+                              <img
+                                src={`${API_URL}/private/${value.picture}`}
+                                alt=""
+                                className=""
+                              />
                             </figure>
                             <div className="flex-column">
                               <div>{value.name}</div>
