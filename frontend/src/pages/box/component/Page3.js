@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
 
 function Page3(props) {
-  const { cal, setCal, tdee, unitList, bento, setBento, setUnitList } = props
+  const { cal, setCal, tdee, tableList, bento, setBento, setUnitList } = props
   // 彈出視窗
   const [modal, setModal] = useState(false)
   const openModal = () => {
@@ -58,11 +58,13 @@ function Page3(props) {
                 收藏便當
               </button> */}
             </div>
-            <div className="b-page3-note font-400S">如需使用收藏便當功能，請先登入會員</div>
+            <div className="b-page3-note font-400S">
+              如需使用收藏便當功能，請先登入會員
+            </div>
           </div>
           {/* 右邊 */}
           <div className="col-12 col-md-5 b-page3-right">
-            <Table unitList={unitList} />
+            <Table tableList={tableList} />
           </div>
         </div>
       </div>
