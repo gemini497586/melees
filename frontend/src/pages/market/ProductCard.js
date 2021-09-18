@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react'
 import '../../style/productCard.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
-import productImg from '../../images/005.jpg'
 import { Link } from 'react-router-dom'
 import { API_URL } from '../../utils/config'
 import axios from 'axios'
@@ -34,8 +33,8 @@ function ProductCard(props) {
       <div className="product-card col-6" key={e.id}>
         <Link to={`/market/product/${e.id}`}>
           <div className="product-img">
-            <img src={productImg} alt="好想吃威靈頓牛排" />
-            <FontAwesomeIcon icon="bookmark" className="bookmark" />
+            <img src={`${API_URL}/market/${e.image}`} alt={`商品${e.id}圖片`} />
+            {/* <FontAwesomeIcon icon="bookmark" className="bookmark" /> */}
           </div>
           <p className="font-700S product-category">{category[e.category]}</p>
           <h6 className="product-name">{e.name}</h6>
@@ -55,6 +54,7 @@ function ProductCard(props) {
               price: e.price,
               category: category[e.category],
               specs: e.specs,
+              img: e.image,
             })
           }}
         >
