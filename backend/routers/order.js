@@ -24,20 +24,20 @@ router.get("/", async (req, res, next) => {
     res.json({ count, result });
 });
 
-router.get("/detail/:order_number", async (req, res, next) => {
+router.get("/detail/:id", async (req, res, next) => {
     const memberId = req.session.member.id;
     // const memberId = 37;
     console.log(memberId);
     let mainList = await connection.queryAsync(
         "SELECT * FROM order_main_list WHERE  member_id=? AND id =?",
-        [memberId, req.params.order_number]
+        [memberId, req.params.id]
     );
     if (mainList.length > 0) {
         mainList = mainList[0];
 
         let result = await connection.queryAsync(
-            "SELECT * FROM order_detail_list WHERE order_id =?",
-            [[req.params.order_number]]
+            "SELECT * FROM order_detail_list WHERE id =?",
+            [[req.params.id]]
         );
 
         // 只抓到result有用到的product_id
