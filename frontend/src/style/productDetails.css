@@ -102,3 +102,15 @@
   color: var(--color-grey-900);
   text-align: start;
 }
+
+/* 收藏按鈕 */
+.product-detail-bookmark {
+  cursor: pointer;
+  color: var(--color-grey-900);
+}
+.product-detail-bookmark:hover {
+  color: var(--color-blue-B);
+}
+.product-detail .active {
+  color: var(--color-blue-B);
+}

@@ -38,18 +38,16 @@ function Page2(props) {
                   已選擇食材
                   {bento.map((v, i) => {
                     return (
-                      <>
-                        <div key={i}>
-                          {v.name}
-                          <FontAwesomeIcon
-                            icon="times"
-                            className="times"
-                            onClick={() => {
-                              handleRemove(v)
-                            }}
-                          />
-                        </div>
-                      </>
+                      <div key={i}>
+                        {v.name}
+                        <FontAwesomeIcon
+                          icon="times"
+                          className="times"
+                          onClick={() => {
+                            handleRemove(v)
+                          }}
+                        />
+                      </div>
                     )
                   })}
                 </div>
@@ -65,13 +63,11 @@ function Page2(props) {
                 <div className="b-page2-indside">
                   {bento.map((v, i) => {
                     return (
-                      <>
-                        <img
-                          key={v.id}
-                          src={`${API_URL}/box/${v.inside_image}`}
-                          alt={v.name}
-                        />
-                      </>
+                      <img
+                        key={v.id}
+                        src={`${API_URL}/box/${v.inside_image}`}
+                        alt={v.name}
+                      />
                     )
                   })}
                 </div>
@@ -85,7 +81,11 @@ function Page2(props) {
             <div className="col-md-3 b-page2-right">
               <div className="b-page2-btn">
                 <button
-                  className="b-btn font-700M me-2"
+                  className={
+                    main
+                      ? 'b-btn-active font-700M me-2'
+                      : 'b-btn font-700M me-2'
+                  }
                   onClick={() => {
                     handleMain()
                   }}
@@ -93,7 +93,9 @@ function Page2(props) {
                   主食
                 </button>
                 <button
-                  className="b-btn font-700M"
+                  className={
+                    main ? 'b-btn font-700M' : 'b-btn-active font-700M'
+                  }
                   onClick={() => {
                     handleMain()
                   }}
@@ -109,7 +111,6 @@ function Page2(props) {
           data={data}
           subData={subData}
           handleCheck={handleCheck}
-          bento={bento}
         />
         <hr />
       </div>

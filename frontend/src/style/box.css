@@ -36,6 +36,7 @@
   border: 1px solid transparent;
   border-radius: 8px;
   white-space: nowrap;
+  transition: 0.4s;
 }
 .b-btn:hover,
 .b-btnblue:hover {
@@ -51,6 +52,16 @@
 }
 .b-btnblue:hover {
   background: var(--color-blue-B);
+}
+.b-btn-active {
+  background: var(--color-grey-500);
+  color: var(--color-white);
+  padding: 0 40px;
+  height: 43px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  white-space: nowrap;
+  pointer-events: none;
 }
 @media screen and (max-width: 414px) {
   .b-step {
@@ -132,6 +143,20 @@
 }
 
 /* 第二段 */
+.b-page2-title {
+  animation-name: page2title;
+  animation-duration: 2s;
+}
+
+@keyframes page2title {
+  0% {
+    top: 100px;
+  }
+  100% {
+    top: 200px;
+  }
+}
+
 .b-page2-dialog {
   position: absolute;
   top: 0;
@@ -277,6 +302,10 @@
   display: flex;
   justify-content: center;
 }
+.b-page3-note {
+  display: flex;
+  justify-content: center;
+}
 .b-page3-right {
   height: 320px;
 }
@@ -313,21 +342,22 @@
   z-index: 110;
   width: 50%;
   background: var(--color-white);
-  padding: 30px;
+  padding: 30px 0;
   transition: all 0.3s;
 }
 .b-modal-box {
   display: flex;
   align-items: flex-end;
+  justify-content: center;
 }
 .b-modal-left {
   position: relative;
-  height: 400px;
+  height: 380px;
 }
 .b-modal-name {
   position: absolute;
-  top: 49%;
-  left: 19%;
+  top: 50%;
+  left: 17%;
   transform: rotate(25deg);
   color: var(--color-secondary);
   width: 200px;
