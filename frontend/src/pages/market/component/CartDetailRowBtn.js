@@ -3,7 +3,7 @@ import img from '../../../images/005.jpg'
 import '../../../style/cartDetailRowBtn.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
-import { HandleCart } from '../../../utils/HandleCart'
+import { API_URL } from '../../../utils/config'
 import useCart from '../../../utils/useCart'
 
 function CartDetailRow(props) {
@@ -13,7 +13,7 @@ function CartDetailRow(props) {
   // console.log(productsAll)
   return (
     <div className="cart-btn-detail-row">
-      <img src={img} alt="商品圖片" />
+      <img src={`${API_URL}/market/${carts[index].img}`} alt="商品圖片" />
       <p className="font-400S cart-btn-detail-category">
         {carts[index].category}
       </p>
