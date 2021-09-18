@@ -52,7 +52,7 @@ function FeatureIndex() {
       setListdata(res.data)
     })
   }, [])
-
+  
   return (
     <>
       <div className="page-group">

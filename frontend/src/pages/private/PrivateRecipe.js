@@ -16,6 +16,7 @@ function PrivateRecipe() {
         <PrivateRecipeCard />
         <CardRecipe />
         <CardShopping />
+        <Paging />
       </div>
     </>
   )

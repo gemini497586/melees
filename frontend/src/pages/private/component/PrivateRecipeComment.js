@@ -4,13 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../style/privateRecipeComment.css'
 import avatar from '../../../images/default_avatar1.jpg'
 import Axios from 'axios'
+import { API_URL } from '../../../utils/config'
 
 function PrivateRecipeComment(props) {
   const { id } = props
   const [comment, setComment] = useState([])
 
   useEffect(() => {
-    Axios.get(`http://localhost:3001/api/private/comment/${id}`).then((res) => {
+    Axios.get(`${API_URL}/private/comment/${id}`).then((res) => {
       setComment(res.data)
       console.log(comment)
     })
