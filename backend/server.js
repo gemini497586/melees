@@ -75,6 +75,10 @@ app.use("/private", privateRouter);
 let boxRouter = require("./routers/box");
 app.use("/box", boxRouter);
 
+// 引入 order 中間件
+let orderRouter = require("./routers/order");
+app.use("/order", orderRouter);
+
 // 前面都沒有任何符合的路由網址就進入這邊統一 404 來處理
 app.use((req, res, next) => {
   console.log("都沒有符合的路由，請查明後再 keyin!");

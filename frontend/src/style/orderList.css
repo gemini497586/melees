@@ -4,7 +4,8 @@
   display: flex;
   justify-content: center;
   list-style: none;
-  padding: 0;
+  margin: 0;
+  padding: 20px 0 0;
 }
 
 .progressBar li {
@@ -68,15 +69,12 @@
 }
 
 /* 訂單查詢 */
-.orderList-container {
-  max-width: 1320px;
-  margin: 32px auto 40px;
-}
 .orderList-title {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
 }
-
 .orderList-refundBtn {
   width: 205px;
   height: 43px;
@@ -85,90 +83,99 @@
   color: var(--color-white);
   background-color: var(--color-primary);
 }
+.orderList-refundBtn:hover {
+  background-color: var(--color-primary-A);
+}
 
-.orderList-table {
-  width: 100%;
+.orderList-table-wrap {
   border: 1px solid var(--color-secondary);
-  margin-top: 50px;
   border-radius: 4px;
+  overflow: hidden;
+}
+.orderList-header {
+  display: flex;
+  justify-content: space-evenly;
+  border-bottom: 1px solid var(--color-grey-500);
   text-align: center;
+  padding: 18.5px 0;
 }
-
-.orderList-table thead {
-  border-bottom: 2px solid var(--color-grey-500);
+.orderList-row {
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+  padding: 20px 0;
 }
-.orderList-table th {
-  color: var(--color-grey-900);
-  padding: 13.5px 0;
+.orderList-row-date {
+  width: 12%;
 }
-
-.orderList-table tbody tr:nth-child(even) {
+.orderList-row-10 {
+  width: 10%;
+}
+.rderList-row-refund {
+  width: 20%;
+}
+.orderList-row:nth-child(even) {
   background-color: var(--color-grey-300);
 }
-.orderList-table tbody td {
-  padding: 24px 0;
-}
-
-.orderList-table tbody td a {
+.orderList-row a {
   text-decoration: none;
   color: var(--color-primary);
 }
-
-.orderList-table tbody td .icon-info {
-  color: var(--color-primary);
-}
-
-.orderList-table tbody td a:hover {
-  text-decoration: underline;
+.orderList-row a:hover {
+  /* text-decoration: underline; */
   color: var(--color-primary-A);
 }
 
-.orderList-table tbody td a:hover .icon-info {
-  color: var(--color-primary-A);
+@media screen and (max-width: 768px) {
+  .orderList-header,
+  .orderList-row {
+    justify-content: space-between;
+  }
+  .orderList-row {
+    font-size: 14px;
+    line-height: 19.6px;
+    letter-spacing: 3px;
+  }
+  .orderList-row-date {
+    width: 30%;
+  }
+  .orderList-row-10 {
+    width: 20%;
+  }
+  .orderList-web {
+    display: none;
+  }
 }
 
-
-
-/* 訂單明細的客製版 */
-.member-form-forOrderDetail {
-  margin-top: 30px;
-}
-/* 付款方式與寄送資料 */
-.member-form-group-content-forPayInfo {
-  margin: 0 0 30px 0;
-}
-.member-form-forOrderDetail .orderDetail-payInfo {
-  list-style: none;
-  color: var(--color-grey-800);
-  margin-left: 16px;
-}
-.member-form-forOrderDetail .orderDetail-payInfo li {
-  padding: 20px 0;
+/* 訂單查詢 */
+.orderDetail-title {
+  height: 38px;
+  width: 100%;
   border-bottom: 1px solid var(--color-grey-500);
-}
-.member-form-forOrderDetail .orderDetail-payInfo li strong {
-  margin-right: 26px;
-}
-/* 注意事項 */
-.member-form-forOrderDetail .orderDetail-notes {
   color: var(--color-grey-800);
-  margin-left: 40px;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
 }
-.member-form-forOrderDetail .orderDetail-notes li {
-  line-height: 36px;
+.orderDetail-title-info {
+  width: 50%;
+  text-align: left;
 }
-.member-form-forOrderDetail .orderDetail-notes li a {
-  color: var(--color-primary);
-  text-decoration: none;
+.orderDetail-title-count {
+  width: 20%;
+  display: flex;
+  flex-direction: row;
 }
-.member-form-forOrderDetail .orderDetail-notes li strong {
-  color: var(--color-red-C);
-  font-weight: 400;
+.orderDetail-title-price,
+.orderDetail-title-amount {
+  width: 50%;
+}
+.orderDetail-title-total {
+  width: 12%;
 }
 
 .member-form-forOrderDetail .sumGroup {
   width: 250px;
-  /* background-color: #e0e0e0; */
   margin-left: auto;
   padding-top: 20px;
 }
@@ -179,9 +186,8 @@
   padding-bottom: 16px;
 }
 
-.member-form-forOrderDetail .sumGroup-item-subtitle{
+.member-form-forOrderDetail .sumGroup-item-subtitle {
   width: 110px;
-  /* margin-right: 20px; */
   color: var(--color-grey-800);
 }
 
@@ -195,72 +201,54 @@
   margin-left: auto;
 }
 
-.member-form-group-content-forOrderDetail{
-  padding-left: 48px;
-}
-
+/* 訂單查詢內容的row */
 .orderDetail-row {
   width: 100%;
-  /* width: 1318px; */
   height: 176px;
-  position: relative;
   border-bottom: 1px solid var(--color-grey-500);
+  color: var(--color-grey-900);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
-
-.orderDetail-row img,
-.orderDetail-row p,
-.orderDetail-row h6,
-.orderDetail-row h5,
-.orderDetail-row div,
-.orderDetail-row .btn {
-  position: absolute;
+.orderDetail-info {
+  width: 50%;
+  display: flex;
+  align-items: center;
 }
-
-.orderDetail-row img {
-  width: 193px;
-  height: 152px;
+.orderDetail-image {
+  width: 35%;
+  height: 150px;
   border-radius: 4px;
-  top: 12px;
-  left: 30px;
+  overflow: hidden;
 }
-
 .orderDetail-name {
-  font-weight: bold;
-  color: var(--color-grey-900);
-  top: 40px;
-  left: 308px;
+  width: 65%;
+  padding-left: 50px;
 }
-
-.orderDetail-activity {
-  text-align: start;
-  color: var(--color-grey-800);
-  top: 76px;
-  left: 308px;
+.orderDetail-count {
+  width: 20%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
-
 .orderDetail-price {
-  font-weight: bold;
-  color: var(--color-grey-900);
-  top: 74px;
-  left: 700.2px;
+  width: 50%;
+  text-align: center;
+  margin: 0;
 }
-
 .orderDetail-amount {
+  width: 50%;
   background: var(--color-grey-300);
-  width: 125px;
   height: 43px;
   line-height: 43px;
   border-radius: 100px;
-  top: 66.5px;
-  left: 835.8px;
   text-align: center;
 }
-
 .orderDetail-total {
-  font-weight: bold;
-  color: var(--color-grey-900);
-  top: 74.5px;
-  left: 1010px;
+  width: 12%;
+  text-align: end;
+  margin: 0;
 }
 
 .orderDetail {
@@ -271,31 +259,105 @@
   margin-top: 120px;
 }
 
-.orderDetail-title {
-  height: 38px;
-  width: 100%;
-  position: relative;
-  border-bottom: 2px solid var(--color-grey-500);
+/* 訂單明細的客製版 */
+.member-form-forOrderDetail {
+  margin-top: 30px;
+}
+.member-form-title {
+  color: var(--color-grey-900);
 }
 
-.orderDetail-title p {
-  position: absolute;
+/* 付款方式與寄送資料 */
+.member-form-group-content-forPayInfo {
+  margin: 0 0 30px 0;
+}
+.member-form-forOrderDetail .orderDetail-payInfo {
+  list-style: none;
   color: var(--color-grey-800);
-  line-height: 38px;
+  padding: 0 50px;
+}
+.member-form-forOrderDetail .orderDetail-payInfo li {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--color-grey-500);
+}
+.member-form-forOrderDetail .orderDetail-payInfo li strong {
+  margin-right: 26px;
 }
 
-.orderDetail-title-info {
-  left: 31px;
+/* 注意事項 */
+.member-form-forOrderDetail .orderDetail-notes {
+  color: var(--color-grey-800);
+  padding-left: 80px;
+}
+.member-form-forOrderDetail .orderDetail-notes li {
+  line-height: 36px;
+}
+.member-form-forOrderDetail .orderDetail-notes li a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+.member-form-forOrderDetail .orderDetail-notes li strong {
+  color: var(--color-red-C);
+  font-weight: 400;
 }
 
-.orderDetail-title-price {
-  left: 700px;
-}
+@media screen and (max-width: 768px) {
+  .orderDetail-title,
+  .orderDetail-total {
+    display: none;
+  }
+  .orderDetail-row {
+    justify-content: start;
+  }
+  .orderDetail-info {
+    width: 70%;
+    flex-grow: 1;
+  }
+  .orderDetail-image {
+    width: 150px;
+    height: 100px;
+  }
+  .orderDetail-name {
+    padding-left: 5px;
+  }
+  .orderDetail-activity,
+  .orderDetail-price {
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: 3px;
+  }
+  .orderDetail-activity {
+    margin: 0;
+  }
+  .orderDetail-productname {
+    font-size: 14px;
+    line-height: 19.6px;
+    letter-spacing: 3px;
+  }
+  .orderDetail-count {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    /* align-items: end; */
+    /* justify-content: end; */
+  }
 
-.orderDetail-title-amount {
-  left: 875px;
-}
-
-.orderDetail-title-total {
-  left: 1040px;
+  .orderDetail-amount {
+    font-size: 16px;
+    line-height: 22.4px;
+    letter-spacing: 3px;
+  }
+  .orderDetail-price {
+    text-align: end;
+    width: 100%;
+  }
+  .orderDetail-amount {
+    text-align: end;
+    width: 100%;
+    background: transparent;
+  }
+  .member-form-forOrderDetail .orderDetail-payInfo,
+  .member-form-forOrderDetail .orderDetail-notes {
+    padding: 0;
+  }
 }

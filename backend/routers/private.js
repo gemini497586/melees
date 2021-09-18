@@ -185,9 +185,9 @@ router.post("/upload/main", uploader.single("photo"), async function (req, res, 
   const ingred = JSON.parse(req.body.ingred);
   const steps = JSON.parse(req.body.steps);
   const time = moment().format("YYYY-MM-DD");
+  const star_rate = 0;
   const memberId = 5;
   const valid = 1;
-  const star_rate = 0;
 
   // 新增到 private_recipe 資料表裡
   let sql = "INSERT INTO private_recipe (picture, name, intro, qty, member_id, create_date, star_rate, valid) VALUES (?)";

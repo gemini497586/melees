@@ -7,23 +7,21 @@ import Axios from 'axios'
 
 function SaveBoxDelModal(props) {
   const { showModal, openDeleteModal, id } = props
-  // console.log(id)
 
   const handleDelete = async (e) => {
-    e.preventDefault()
-    // console.log('把我刪除 ')
-    // try {
-    //   let res = await Axios.post(
-    //     `${API_URL}/box/delete`,
-    //     {
-    //       id,
-    //     },
-    //     { withCredentials: true }
-    //   )
-    //   // console.log(res)
-    // } catch (e) {
-    //   console.log(e)
-    // }
+    // e.preventDefault()
+    try {
+      let res = await Axios.post(
+        `${API_URL}/member/deletesavebox`,
+        {
+          id,
+        },
+        { withCredentials: true }
+      )
+      // console.log(res)
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   return (

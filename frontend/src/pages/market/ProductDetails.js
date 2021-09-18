@@ -45,6 +45,7 @@ function ProductDetails(props) {
           src={`${API_URL}/market/${product.image}`}
           alt={`商品${product.id}圖片`}
         />
+        {/* 收藏功能 */}
         <div
           className="product-detail-save"
           onClick={() => {
