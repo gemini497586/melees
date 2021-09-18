@@ -302,6 +302,10 @@
   display: flex;
   justify-content: center;
 }
+.b-page3-note {
+  display: flex;
+  justify-content: center;
+}
 .b-page3-right {
   height: 320px;
 }

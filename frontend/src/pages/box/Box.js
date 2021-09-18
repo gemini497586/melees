@@ -108,11 +108,11 @@ function Box() {
           cal={cal}
           tdee={tdee}
           unitList={unitList}
+          setUnitList={setUnitList}
           bento={bento}
           setBento={setBento}
           cal={cal}
           setCal={setCal}
-          setUnitList={setUnitList}
         />
         {/* 最下面推薦食譜 商品 */}
         <CardRecipe />

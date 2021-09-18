@@ -53,7 +53,12 @@ function Page3(props) {
                 <FontAwesomeIcon icon={['far', 'bookmark']} className="me-2" />
                 收藏便當
               </button>
+              {/* <button className="b-btn font-700M" onClick={openModal}>
+                <FontAwesomeIcon icon={['far', 'bookmark']} className="me-2" />
+                收藏便當
+              </button> */}
             </div>
+            <div className="b-page3-note font-400S">如需使用收藏便當功能，請先登入會員</div>
           </div>
           {/* 右邊 */}
           <div className="col-12 col-md-5 b-page3-right">
