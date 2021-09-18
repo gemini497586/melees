@@ -47,7 +47,7 @@ function FeatureIndex() {
   // 網址後面抓到不同變數導入
   const { typeid } = useParams()
   // 查詢 typeid 發出什麼訊息
-  console.log('typeid2', typeid)
+  // console.log('typeid2', typeid)
 
   return (
     <>
@@ -65,9 +65,7 @@ function FeatureIndex() {
           </div>
           {/* cards */}
           <div className="">
-            <Link to="/feature/step/">
-              <FeatureCards typeid={typeid} />
-            </Link>
+            <FeatureCards typeid={typeid} />
           </div>
         </div>
         {/* 分頁 */}

@@ -6,6 +6,7 @@ import iglogo from '../../../images/instagramLogo.jpg'
 import food from '../../../images/1.jpg'
 import Axios from 'axios'
 import { API_URL } from '../../../utils/config'
+import { Link } from 'react-router-dom'
 
 function FeatureCards(props) {
   // 撈後端資料
@@ -27,6 +28,7 @@ function FeatureCards(props) {
     console.log('typeid', props)
     Axios.get(`${API_URL}/feature/index/${props.typeid}`).then((response) => {
       setTypedata(response.data)
+      // console.log('response.data', response.data)
     })
   }, [props.typeid])
 
@@ -41,39 +43,45 @@ function FeatureCards(props) {
   const listFeatureCards = typedata.map((e) => {
     return (
       <>
-        <div className="fc-cards mb-5">
-          {/* 食譜照片 */}
-          <figure className="fc-food-img">
-            <img className="fcover-fit" src={food} alt="" />
-          </figure>
-          {/* 內容 */}
-          <div className="fc-cards-bg">
-            {/* IG照片 */}
-            <figure className="fc-avatar">
+        <Link to={`/feature/step/` + e.listId}>
+          <div className="fc-cards mb-5">
+            {/* 食譜照片 */}
+            <figure className="fc-food-img">
               <img
                 className="fcover-fit"
-                src={`http://localhost:3001/feature/${e.linkImg}`}
+                src={`http://localhost:3001/feature/featurefood/${e.featureimg[0]}`}
                 alt=""
               />
             </figure>
-            {/* 文案 */}
-            <div className="fc-content">
-              {/* 分類 type_id */}
-              <p className="fcolor-grey-800 font-400S">{typeid[e.type_id]}</p>
-              {/* 食譜名稱和連結 name */}
-              <h5 className="fcolor-secondary">{e.listName}</h5>
-              <div className="d-flex text-decoration-none align-items-center">
-                <img className="fc-logo me-2" src={iglogo} alt="" />
-                <p className="fcolor-grey-800 font-400SL m-0">{e.linkName}</p>
+            {/* 內容 */}
+            <div className="fc-cards-bg">
+              {/* IG照片 */}
+              <figure className="fc-avatar">
+                <img
+                  className="fcover-fit"
+                  src={`http://localhost:3001/feature/igavatar/${e.linkImg}`}
+                  alt=""
+                />
+              </figure>
+              {/* 文案 */}
+              <div className="fc-content">
+                {/* 分類 type_id */}
+                <p className="fcolor-grey-800 font-400S">{typeid[e.type_id]}</p>
+                {/* 食譜名稱和連結 name */}
+                <h5 className="fcolor-secondary">{e.listName}</h5>
+                <div className="d-flex text-decoration-none align-items-center">
+                  <img className="fc-logo me-2" src={iglogo} alt="" />
+                  <p className="fcolor-grey-800 font-400SL m-0">{e.linkName}</p>
+                </div>
+              </div>
+              {/* 瀏覽數和按讚數 */}
+              <div className="fc-content-down">
+                <div className="fline-g500 mb-1"></div>
+                <HeartViewNum />
               </div>
             </div>
-            {/* 瀏覽數和按讚數 */}
-            <div className="fc-content-down">
-              <div className="fline-g500 mb-1"></div>
-              <HeartViewNum />
-            </div>
           </div>
-        </div>
+        </Link>
       </>
     )
   })
