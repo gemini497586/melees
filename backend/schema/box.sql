@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： localhost
--- 產生時間： 2021 年 09 月 14 日 17:50
+-- 產生時間： 2021 年 09 月 17 日 12:33
 -- 伺服器版本： 10.4.19-MariaDB
 -- PHP 版本： 8.0.7
 
@@ -70,37 +70,26 @@ CREATE TABLE `box_save` (
   `box_ids` varchar(100) NOT NULL,
   `name` varchar(50) NOT NULL,
   `cal` int(5) UNSIGNED NOT NULL,
-  `box_images` varchar(200) NOT NULL,
-  `create_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `create_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- 傾印資料表的資料 `box_save`
 --
 
-INSERT INTO `box_save` (`id`, `member_id`, `box_ids`, `name`, `cal`, `box_images`, `create_at`) VALUES
-(21, 1, '2,3', 'RubyRuby', 407, 'chicken2.png,pork2.png', '2021-09-12 11:19:50'),
-(25, 1, '2,8,7,6,5', 'RubyCC', 562, 'chicken2.png,lettuce2.png,mushroom2.png,egg2.png,rice2.png', '2021-09-12 11:59:28'),
-(26, 1, '10,12,13,11,9', 'CHENCHEN', 465, 'cabbage2.png,salmon2.png,pasta2.png,tofu2.png,broccoli2.png', '2021-09-12 11:59:47'),
-(27, 1, '1,2,3,4,5', '好好好', 910, 'steak2.png,chicken2.png,pork2.png,shrimp2.png,rice2.png', '2021-09-12 14:09:58'),
-(28, 1, '5,9,8,7,10', '十點整', 367, 'rice2.png,broccoli2.png,lettuce2.png,mushroom2.png,cabbage2.png', '2021-09-12 14:10:14'),
-(29, 1, '10,9,8,7,6', '不好吃', 167, 'cabbage2.png,broccoli2.png,lettuce2.png,mushroom2.png,egg2.png', '2021-09-12 14:10:24'),
-(30, 1, '3,4,9,6,13', '很餓', 581, 'pork2.png,shrimp2.png,broccoli2.png,egg2.png,pasta2.png', '2021-09-12 14:31:10'),
-(31, 1, '8,9,7', '低GI', 62, 'lettuce2.png,broccoli2.png,mushroom2.png', '2021-09-12 14:31:31'),
-(32, 1, '1,2,3,4', 'RubyCC', 630, 'steak2.png,chicken2.png,pork2.png,shrimp2.png', '2021-09-13 06:44:40'),
-(33, 2, '2,3,5,7,8', '我是第二個', 724, 'chicken2.png,pork2.png,rice2.png,mushroom2.png,lettuce2.png', '2021-09-13 06:53:53'),
-(34, 2, '10,9,8,7,6', '會員二', 167, 'cabbage2.png,broccoli2.png,lettuce2.png,mushroom2.png,egg2.png', '2021-09-13 06:54:48'),
-(35, 2, '1', '', 120, 'steak2.png', '2021-09-13 14:35:44'),
-(36, 2, '5,3,2,4,1', '今日便當', 910, 'rice2.png,pork2.png,chicken2.png,shrimp2.png,steak2.png', '2021-09-14 01:33:21'),
-(37, 2, '13,7,8,9,10', '我是37號', 218, 'pasta2.png,mushroom2.png,lettuce2.png,broccoli2.png,cabbage2.png', '2021-09-14 01:33:48'),
-(38, 37, '13,6,7,8,9', '我是37號', 273, 'pasta2.png,egg2.png,mushroom2.png,lettuce2.png,broccoli2.png', '2021-09-14 01:39:27'),
-(39, 37, '5,9,8,10,11', '我的便當', 423, 'rice2.png,broccoli2.png,lettuce2.png,cabbage2.png,tofu2.png', '2021-09-14 01:39:41'),
-(40, 37, '13,3,4,6,7', '9/14午餐', 576, 'pasta2.png,pork2.png,shrimp2.png,egg2.png,mushroom2.png', '2021-09-14 05:43:33'),
-(41, 37, '15,6,12,11,10', '吃吃吃ㄔ吃', 552, 'friedrice2.png,egg2.png,salmon2.png,tofu2.png,cabbage2.png', '2021-09-14 05:52:53'),
-(42, 37, '5,1,2,3,4', '卡路里爆表', 910, 'rice2.png,steak2.png,chicken2.png,pork2.png,shrimp2.png', '2021-09-14 05:53:16'),
-(43, 38, '15,6,7,9,14', '第38號', 319, 'friedrice2.png,egg2.png,mushroom2.png,broccoli2.png,corn2.png', '2021-09-14 07:46:33'),
-(44, 38, '5,6,1,9,12', '吃', 713, 'rice2.png,egg2.png,steak2.png,broccoli2.png,salmon2.png', '2021-09-14 07:47:08'),
-(45, 37, '8,5', 'RubyRu', 297, 'lettuce2.png,rice2.png', '2021-09-14 09:43:04');
+INSERT INTO `box_save` (`id`, `member_id`, `box_ids`, `name`, `cal`, `create_at`) VALUES
+(42, 37, '5,1,2,3,4', '卡路里爆表', 910, '2021-09-14'),
+(43, 38, '15,6,7,9,14', '第38號', 319, '2021-09-14'),
+(44, 38, '5,6,1,9,12', '吃', 713, '2021-09-14'),
+(46, 37, '5,3,2,1', 'RubyRuby', 807, '2021-09-15'),
+(47, 37, '8,4,6,7', 'Ruby', 220, '2021-09-15'),
+(49, 37, '15,4,6', 'RubyRuby', 346, '2021-09-15'),
+(50, 37, '13,5,3,4,6', 'test', 836, '2021-09-15'),
+(51, 38, '5,10,9,7,6', 'RubyRu', 430, '2021-09-15'),
+(52, 38, '8,6,4,3', 'RubyRuby', 442, '2021-09-17'),
+(53, 38, '8,11,12,14', '09/17', 332, '2021-09-17'),
+(54, 38, '13,9,7,6', 'test', 256, '2021-09-17'),
+(55, 38, '5,2,12,11,10', 'Ruby', 754, '2021-09-17');
 
 --
 -- 已傾印資料表的索引
@@ -132,7 +121,7 @@ ALTER TABLE `box`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `box_save`
 --
 ALTER TABLE `box_save`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

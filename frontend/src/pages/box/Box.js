@@ -11,11 +11,11 @@ import { API_URL } from '../../utils/config'
 function Box() {
   const [data, setData] = useState([])
   const [subData, setSubData] = useState([])
+  const [bento, setBento] = useState([])
+  const [tableList, setTableList] = useState([])
   const [bmr, setBmr] = useState(0)
   const [tdee, setTdee] = useState(0)
   const [cal, setCal] = useState(0)
-  const [bento, setBento] = useState([])
-  const [unitList, setUnitList] = useState([])
 
   // 從資料庫抓資料
   useEffect(() => {
@@ -28,7 +28,6 @@ function Box() {
         setSubData(subData)
       } catch (e) {
         console.log(e)
-        // alert(e.response.data.message)
       }
     }
     getData()
@@ -64,8 +63,11 @@ function Box() {
       // console.log('新增之後', newBento)
 
       // 加到table
-      const newUnitList = [...unitList, { name: v.name, unit: `${v.cal} 大卡` }]
-      setUnitList(newUnitList)
+      const newTableList = [
+        ...tableList,
+        { ingred: v.name, ingred_unit: `${v.cal} 大卡` },
+      ]
+      setTableList(newTableList)
 
       // 現在便當裡面食材的卡路里，用reduce計算加總
       const getCal = newBento.map((item) => {
@@ -90,7 +92,7 @@ function Box() {
     newCal = newCal - v.cal
 
     setBento(bento.filter((v) => v.name !== name))
-    setUnitList(unitList.filter((v) => v.name !== name))
+    setTableList(tableList.filter((v) => v.name !== name))
     setCal(newCal)
   }
 
@@ -108,9 +110,12 @@ function Box() {
         <Page3
           cal={cal}
           tdee={tdee}
-          unitList={unitList}
+          tableList={tableList}
+          setTableList={setTableList}
           bento={bento}
+          setBento={setBento}
           cal={cal}
+          setCal={setCal}
         />
         {/* 最下面推薦食譜 商品 */}
         <CardRecipe />
