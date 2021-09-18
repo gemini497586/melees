@@ -63,13 +63,11 @@ function Page2(props) {
                 <div className="b-page2-indside">
                   {bento.map((v, i) => {
                     return (
-                      <>
-                        <img
-                          key={v.id}
-                          src={`${API_URL}/box/${v.inside_image}`}
-                          alt={v.name}
-                        />
-                      </>
+                      <img
+                        key={v.id}
+                        src={`${API_URL}/box/${v.inside_image}`}
+                        alt={v.name}
+                      />
                     )
                   })}
                 </div>

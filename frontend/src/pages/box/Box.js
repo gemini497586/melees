@@ -49,7 +49,10 @@ function Box() {
       alert('每樣食材只可挑選一次')
       return
     } else {
-      const newBento = [...bento, { name: v.name, id: v.id, cal: v.cal }]
+      const newBento = [
+        ...bento,
+        { name: v.name, inside_image: v.inside_image, id: v.id, cal: v.cal },
+      ]
       // 第六個的時候就不能再新增
       if (newBento.length > 5) {
         alert('最多只可挑選五樣食材')

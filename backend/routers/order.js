@@ -4,13 +4,12 @@ const router = express.Router();
 const { loginCheckMiddleware } = require("../middlewares/auth");
 
 // 登入才可以使用
-// router.use(loginCheckMiddleware);
+router.use(loginCheckMiddleware);
 
 router.get("/", async (req, res, next) => {
     // 確認是否拿到會員id
-    // const memberId = req.session.member.id;
-    // console.log(memberId);
-    const memberId = 37;
+    const memberId = req.session.member.id;
+    // const memberId = 37;
     let result = await connection.queryAsync(
         "SELECT * FROM order_main_list WHERE member_id =? ORDER BY create_date DESC",
         [memberId]

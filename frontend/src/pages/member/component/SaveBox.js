@@ -62,7 +62,7 @@ function SaveBox(props) {
               />
             </div>
             <div className="member-box-detail">
-              <p className="member-box-prep font-400L">
+              <p className="member-box-prep font-400M">
                 {getName(value.box_ids)}
               </p>
               <div className="member-box-content">

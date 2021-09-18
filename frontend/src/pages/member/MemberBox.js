@@ -12,7 +12,7 @@ function MemberBox() {
   const [prep, setPrep] = useState([])
   const [prepList, setprepList] = useState(null)
 
-  const [sortBy, setSortBy] = useState('0')
+  const [sortBy, setSortBy] = useState(0)
   const sortList = [
     {
       name: '時間由新至舊',
@@ -63,10 +63,10 @@ function MemberBox() {
   const handleSort = (data, sortBy) => {
     let newData = [...data]
     if (sortBy === 0) {
-      newData = [...newData].sort((a, b) => a.id - b.id)
+      newData = [...newData].sort((a, b) => b.id - a.id)
     }
     if (sortBy === 1) {
-      newData = [...newData].sort((a, b) => b.id - a.id)
+      newData = [...newData].sort((a, b) => a.id - b.id)
     }
     if (sortBy === 2) {
       newData = [...newData].sort((a, b) => b.cal - a.cal)

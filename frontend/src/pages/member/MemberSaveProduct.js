@@ -64,16 +64,22 @@ function MemberSaveProdcut() {
   const handleSortBy = (data, sortBy) => {
     let newData = [...data]
     if (sortBy === 0) {
-      newData = [...newData].sort((a, b) => a.id - b.id)
-    }
-    if (sortBy === 1) {
       newData = [...newData].sort((a, b) => b.id - a.id)
     }
+    if (sortBy === 1) {
+      newData = [...newData].sort((a, b) => a.id - b.id)
+    }
     if (sortBy === 2) {
-      newData = [...newData].sort((a, b) => b.price - a.price)
+      newData = [...newData].sort(
+        (a, b) =>
+          productList[b.product_id].price - productList[a.product_id].price
+      )
     }
     if (sortBy === 3) {
-      newData = [...newData].sort((a, b) => a.price - b.price)
+      newData = [...newData].sort(
+        (a, b) =>
+          productList[a.product_id].price - productList[b.product_id].price
+      )
     }
     return newData
   }

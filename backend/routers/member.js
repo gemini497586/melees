@@ -81,7 +81,7 @@ const uploader = multer({
 });
 
 // 先檢查是否已登入
-router.use(loginCheckMiddleware);
+// router.use(loginCheckMiddleware);
 
 // 會員資料修改 --> 進入編輯頁面 --> 需要撈資料庫
 router.get("/editinfo", async (req, res, next) => {
@@ -217,7 +217,7 @@ router.get("/readsavebox", async (req, res, next) => {
     const memberId = req.session.member.id;
     // const memberId = 37;
     let result = await connection.queryAsync(
-        "SELECT * FROM box_save WHERE member_id=?",
+        "SELECT * FROM box_save WHERE member_id=? ORDER BY id DESC",
         [memberId]
     );
 
@@ -248,9 +248,10 @@ router.post("/deletesaveproduct", async (req, res, next) => {
 });
 router.get("/readsaveproduct", async (req, res, next) => {
     const memberId = req.session.member.id;
-    // console.log(memberId);
+    // const memberId = 37;
+
     let result = await connection.queryAsync(
-        "SELECT * FROM product_save WHERE member_id=?",
+        "SELECT * FROM product_save WHERE member_id=? ORDER BY id DESC",
         [[memberId]]
     );
     let productIds = result.map((v) => {
