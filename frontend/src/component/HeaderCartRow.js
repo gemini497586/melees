@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import meleesLogo from '../images/meleesLogo.svg'
+import { API_URL } from '../utils/config'
 import React, { useEffect, useState, useContext } from 'react'
 import '../style/headerCartRow.css'
 import './FontawsomeIcons'
@@ -15,7 +15,11 @@ function HeaderCartRow(props) {
   return (
     <div className="header-cart-row">
       <div className="header-cart-row-img">
-        <img alt="商品圖片" src={meleesLogo} />
+        <img
+          alt="商品圖片"
+          src={`${API_URL}/market/${carts[index].img}`}
+          className="header-cart-img"
+        />
       </div>
       <h5 className="header-cart-row-name">{carts[index].name}</h5>
       <button

@@ -19,6 +19,11 @@
   text-align: center;
 }
 
+.header-cart-img {
+  width: 150px;
+  height: 100px;
+}
+
 .header-cart-row-name {
   width: 160px;
   height: 27px;
