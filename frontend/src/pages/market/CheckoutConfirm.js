@@ -1,15 +1,43 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import '../../style/checkoutConfirm.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
 import CheckoutArea from './CheckoutArea'
 import OrderProgressBar from './component/OrderProgressBar'
 import { Link } from 'react-router-dom'
-import { HandleCart } from '../../utils/HandleCart'
+
+import useCart from '../../utils/useCart'
 import CheckoutConfirmTable from './CheckoutConfirmTable'
+import useCheckoutInfo from '../../utils/useCheckoutInfo'
+import axios from 'axios'
+import { API_URL } from '../../utils/config'
 
 function CheckoutConfirm() {
-  const { carts, removeCart, amount, setAmount } = useContext(HandleCart)
+  const { carts, removeCart } = useCart()
+  const { info, addInfo, total } = useCheckoutInfo()
+
+  const handleData = async () => {
+    // 把資料傳進後端
+    let data = {
+      member_id: info[0].id,
+      name: info[0].name,
+      phone: info[0].phone,
+      email: info[0].email,
+      address: info[0].address,
+      payment_method: info[0].howToPay,
+      status: 1,
+      total_price: total + 150,
+      carts: carts,
+    }
+
+    try {
+      await axios
+        .post(`${API_URL}/market/checkout-confirm`, data)
+        .then(console.log('傳送!!'))
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
 
   return (
     <div className="container">
@@ -22,27 +50,25 @@ function CheckoutConfirm() {
         <div className="checkout-confirm-w1100"> </div>
         <div className="checkout-confirm-way">
           <p className="checkout-confirm-label font-700SL">付款方式</p>
-          <p className="checkout-confirm-input font-400SL">信用卡付款</p>
+          <p className="checkout-confirm-input font-400SL">
+            {info[0].howToPay}
+          </p>
         </div>
         <div className="checkout-confirm-name">
           <p className="checkout-confirm-label font-700SL">訂購姓名</p>
-          <p className="checkout-confirm-input font-400SL">陳柏元</p>
+          <p className="checkout-confirm-input font-400SL">{info[0].name}</p>
         </div>
         <div className="checkout-confirm-address">
           <p className="checkout-confirm-label font-700SL">送貨地址</p>
-          <p className="checkout-confirm-input font-400SL">
-            桃園市中壢區環北路543號
-          </p>
+          <p className="checkout-confirm-input font-400SL">{info[0].address}</p>
         </div>
         <div className="checkout-confirm-phone">
           <p className="checkout-confirm-label font-700SL">聯絡電話</p>
-          <p className="checkout-confirm-input font-400SL">0912345678</p>
+          <p className="checkout-confirm-input font-400SL">{info[0].phone}</p>
         </div>
         <div className="checkout-confirm-email">
           <p className="checkout-confirm-label font-700SL">聯絡信箱</p>
-          <p className="checkout-confirm-input font-400SL">
-            shopping@gmail.com
-          </p>
+          <p className="checkout-confirm-input font-400SL">{info[0].email}</p>
         </div>
         <div className="checkout-confirm-detail">
           <div className="checkout-confirm-detail-w1100"></div>
@@ -58,8 +84,16 @@ function CheckoutConfirm() {
         <div className="cart-checkout-box">
           <CheckoutArea toGO="" />
           <Link to="/market/orders-complete">
-            <button className="btn font-700M cart-checkout-btn">
+            <button
+              className="btn font-700M cart-checkout-btn"
+              onClick={handleData}
+            >
               <FontAwesomeIcon icon="credit-card" /> 確認送出
+            </button>
+          </Link>
+          <Link to="/market/checkout-personalData">
+            <button className="btn font-700M cart-back-btn">
+              <FontAwesomeIcon icon="long-arrow-alt-left" /> 回上頁
             </button>
           </Link>
         </div>

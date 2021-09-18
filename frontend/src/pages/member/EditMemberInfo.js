@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
+import { useEffect, useState, useContext } from 'react'
+import { Link, Redirect, useLocation } from 'react-router-dom'
 import '../../style/global.css'
 import '../../style/member.css'
 import avatar from '../../images/Avatar.png'
@@ -8,28 +8,86 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
 import { API_URL } from '../../utils/config'
 import axios from 'axios'
+import validationInfo from './component/validationInfo'
+import { HandleCart } from '../../utils/HandleCart'
 
 function EditMemberInfo() {
-  const [picture, setPicture] = useState()
-  const [name, setName] = useState('')
-  const [gender, setGender] = useState('')
-  const [nickname, setNickname] = useState('')
-  const [birthday, setBirthday] = useState()
-  const [cellphone, setCellphone] = useState('')
-  const [email, setEmail] = useState('')
-  const [address, setAddress] = useState('')
+  // const { login } = useContext(HandleCart)
+  const [errors, setErrors] = useState({})
+  const [pictureErrors, setPictureErrors] = useState(false)
+  const [formValues, setFormValues] = useState({
+    picture: '',
+    name: '',
+    gender: '',
+    nickname: '',
+    birthday: '',
+    cellphone: '',
+    email: '',
+    address: '',
+  })
+  const handleFormValuesChange = (e) => {
+    setFormValues({
+      ...formValues,
+      [e.target.name]: e.target.value,
+    })
+    // console.log(formValues)
+  }
+
+  // 使用者上傳照片時，進行驗證與寫入表單資料
+  const handlePictureChange = (e) => {
+    const selectedPic = e.target.files[0]
+    const ALLOWED_TPYES = ['image/png', 'image/jpeg', 'image/jpg']
+
+    setPictureErrors(false)
+    // 有上傳照片且格式符合才寫入表單資料
+    if (selectedPic && ALLOWED_TPYES.includes(selectedPic.type)) {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        // 必須用 reader.result 來存入物件內，這樣才能即時顯示
+        // 使用 e.target.files[0] 來存入物件內，無法即時顯示
+        setFormValues({
+          ...formValues,
+          picture: reader.result,
+        })
+      }
+      reader.readAsDataURL(selectedPic)
+    } else {
+      setPictureErrors(true)
+    }
+  }
+
+  // 使用者修改欄位時，清空該欄位的錯誤訊息
+  const handleFormChange = (e) => {
+    // console.log('更新欄位：', e.target.name)
+
+    // 清空該欄位的錯誤訊息
+    const updateErrors = {
+      ...errors,
+      [e.target.name]: '',
+    }
+    setErrors(updateErrors)
+  }
+
+  // 檢驗表單的值有沒有不合法
+  const handleFormValuesInvalid = (e) => {
+    // 擋住錯誤訊息的預設方式(跳出的訊息泡泡)
+    e.preventDefault()
+    setErrors(validationInfo(formValues))
+    console.log(errors)
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       let formData = new FormData()
-      formData.append('picture', picture)
-      formData.append('name', name)
-      formData.append('gender', gender)
-      formData.append('nickname', nickname)
-      formData.append('birthday', birthday)
-      formData.append('cellphone', cellphone)
-      formData.append('email', email)
-      formData.append('address', address)
+      formData.append('picture', formValues.picture)
+      formData.append('name', formValues.name)
+      formData.append('gender', formValues.gender)
+      formData.append('nickname', formValues.nickname)
+      formData.append('birthday', formValues.birthday)
+      formData.append('cellphone', formValues.cellphone)
+      formData.append('email', formValues.email)
+      formData.append('address', formValues.address)
       let result = await axios.post(`${API_URL}/member/editinfo`, formData, {
         // 設定可以跨源送 cookie
         withCredentials: true,
@@ -42,27 +100,32 @@ function EditMemberInfo() {
   useEffect(() => {
     const testLoginCheck = async () => {
       try {
-        let result = await axios.get(`${API_URL}/member/editinfo`, {
+        let response = await axios.get(`${API_URL}/member/editinfo`, {
           // 設定可以跨源送 cookie
           withCredentials: true,
         })
-        // console.log(result)
-        console.log(result.data[0])
-        let memberInfo = result.data
-        setName(memberInfo.name)
-        setGender(memberInfo.gender)
-        setNickname(memberInfo.nickname)
-        setBirthday(memberInfo.birthday)
-        setCellphone(memberInfo.cellphone)
-        setEmail(memberInfo.email)
-        setAddress(memberInfo.address)
-      } catch (e) {
-        console.error(e)
+        // console.log(response)
+        console.log(response.data)
+        let memberInfo = response.data
+        setFormValues({
+          picture: `${API_URL}/member/${memberInfo.picture}`,
+          name: memberInfo.name,
+          gender: memberInfo.gender,
+          nickname: memberInfo.nickname,
+          birthday: memberInfo.birthday,
+          cellphone: memberInfo.cellphone,
+          email: memberInfo.email,
+          address: memberInfo.address,
+        })
+      } catch (err) {
+        console.error(err.response)
+        if (err.response.status === 400) {
+          alert('會員資料輸入錯誤')
+        }
       }
     }
     testLoginCheck()
   }, [])
-
   return (
     <>
       <div className="page-group">
@@ -70,6 +133,7 @@ function EditMemberInfo() {
         <form
           className="member-form member-form-forEditMemberInfo"
           onSubmit={handleSubmit}
+          onChange={handleFormChange}
         >
           <div className="member-form-title">
             <div className="member-form-title-icon">
@@ -88,16 +152,22 @@ function EditMemberInfo() {
             </Link>
             <div className="member-form-group-picture">
               <figure>
-                <img src={avatar} alt="Avatar" />
+                <img
+                  src={formValues.picture ? formValues.picture : avatar}
+                  alt="使用者頭像"
+                />
               </figure>
               <input
                 type="file"
                 id="picture"
                 name="picture"
-                onChange={(e) => {
-                  setPicture(e.target.files[0])
-                }}
+                onChange={handlePictureChange}
               />
+              {pictureErrors && (
+                <p className="font-400S member-form-errorMsg errorMsg-show">
+                  檔案格式不符合
+                </p>
+              )}
             </div>
             <div className="member-form-group row">
               <label className="font-700SL col-2" htmlFor="name">
@@ -108,43 +178,57 @@ function EditMemberInfo() {
                   type="text"
                   id="name"
                   name="name"
-                  value={name}
-                  onChange={(e) => {
-                    setName(e.target.value)
-                  }}
+                  value={formValues.name}
+                  onChange={handleFormValuesChange}
+                  onBlur={handleFormValuesInvalid}
                   placeholder=""
                   required
                   maxlength="100"
                 />
-                <p className="font-400S member-form-errorMsg">
-                  預留錯誤訊息的位置
+                <p
+                  className={
+                    errors.name
+                      ? 'font-400S member-form-errorMsg errorMsg-show'
+                      : 'font-400S member-form-errorMsg'
+                  }
+                >
+                  {errors.name ? errors.name : '預留錯誤訊息的位置'}
                 </p>
               </div>
               <div className="col-4 member-form-group-gender">
                 <input
                   type="radio"
-                  name="男"
+                  id="male"
+                  name="gender"
                   value="男"
-                  checked={gender === '男'}
-                  onChange={(e) => {
-                    setGender(e.target.value)
-                  }}
+                  checked={formValues.gender === '男'}
+                  onChange={handleFormValuesChange}
+                  onBlur={handleFormValuesInvalid}
                 />
-                <label className="font-700SL" htmlFor="男">
+                <label className="font-700SL" htmlFor="male">
                   先生
                 </label>
                 <input
                   type="radio"
-                  name="女"
+                  id="female"
+                  name="gender"
                   value="女"
-                  checked={gender === '女'}
-                  onChange={(e) => {
-                    setGender(e.target.value)
-                  }}
+                  checked={formValues.gender === '女'}
+                  onChange={handleFormValuesChange}
+                  onBlur={handleFormValuesInvalid}
                 />
-                <label className="font-700SL" htmlFor="女">
+                <label className="font-700SL" htmlFor="female">
                   小姐
                 </label>
+                <p
+                  className={
+                    errors.gender
+                      ? 'font-400S member-form-errorMsg errorMsg-show'
+                      : 'font-400S member-form-errorMsg'
+                  }
+                >
+                  {errors.gender ? errors.gender : '預留錯誤訊息的位置'}
+                </p>
               </div>
             </div>
             <div className="member-form-group row">
@@ -156,15 +240,20 @@ function EditMemberInfo() {
                   type="text"
                   id="nickname"
                   name="nickname"
-                  value={nickname}
-                  onChange={(e) => {
-                    setNickname(e.target.value)
-                  }}
+                  value={formValues.nickname}
+                  onChange={handleFormValuesChange}
+                  onBlur={handleFormValuesInvalid}
                   placeholder=""
                   maxlength="100"
                 />
-                <p className="font-400S member-form-errorMsg">
-                  預留錯誤訊息的位置
+                <p
+                  className={
+                    errors.nickname
+                      ? 'font-400S member-form-errorMsg errorMsg-show'
+                      : 'font-400S member-form-errorMsg'
+                  }
+                >
+                  {errors.nickname ? errors.nickname : '預留錯誤訊息的位置'}
                 </p>
               </div>
             </div>
@@ -177,15 +266,20 @@ function EditMemberInfo() {
                   type="date"
                   id="birthday"
                   name="birthday"
-                  value={birthday}
-                  onChange={(e) => {
-                    setBirthday(e.target.value)
-                  }}
+                  value={formValues.birthday}
+                  onChange={handleFormValuesChange}
+                  onBlur={handleFormValuesInvalid}
                   placeholder=""
                   required
                 />
-                <p className="font-400S member-form-errorMsg">
-                  預留錯誤訊息的位置
+                <p
+                  className={
+                    errors.birthday
+                      ? 'font-400S member-form-errorMsg errorMsg-show'
+                      : 'font-400S member-form-errorMsg'
+                  }
+                >
+                  {errors.birthday ? errors.birthday : '預留錯誤訊息的位置'}
                 </p>
               </div>
             </div>
@@ -198,16 +292,21 @@ function EditMemberInfo() {
                   type="text"
                   id="cellphone"
                   name="cellphone"
-                  value={cellphone}
-                  onChange={(e) => {
-                    setCellphone(e.target.value)
-                  }}
+                  value={formValues.cellphone}
+                  onChange={handleFormValuesChange}
+                  onBlur={handleFormValuesInvalid}
                   placeholder=""
                   required
                   maxlength="100"
                 />
-                <p className="font-400S member-form-errorMsg">
-                  預留錯誤訊息的位置
+                <p
+                  className={
+                    errors.cellphone
+                      ? 'font-400S member-form-errorMsg errorMsg-show'
+                      : 'font-400S member-form-errorMsg'
+                  }
+                >
+                  {errors.cellphone ? errors.cellphone : '預留錯誤訊息的位置'}
                 </p>
               </div>
             </div>
@@ -220,16 +319,21 @@ function EditMemberInfo() {
                   type="text"
                   id="email"
                   name="email"
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value)
-                  }}
+                  value={formValues.email}
+                  onChange={handleFormValuesChange}
+                  onBlur={handleFormValuesInvalid}
                   placeholder=""
                   required
                   maxlength="100"
                 />
-                <p className="font-400S member-form-errorMsg">
-                  預留錯誤訊息的位置
+                <p
+                  className={
+                    errors.email
+                      ? 'font-400S member-form-errorMsg errorMsg-show'
+                      : 'font-400S member-form-errorMsg'
+                  }
+                >
+                  {errors.email ? errors.email : '預留錯誤訊息的位置'}
                 </p>
               </div>
             </div>
@@ -242,15 +346,20 @@ function EditMemberInfo() {
                   type="text"
                   id="address"
                   name="address"
-                  value={address}
-                  onChange={(e) => {
-                    setAddress(e.target.value)
-                  }}
+                  value={formValues.address}
+                  onChange={handleFormValuesChange}
+                  onBlur={handleFormValuesInvalid}
                   placeholder=""
                   maxlength="100"
                 />
-                <p className="font-400S member-form-errorMsg">
-                  預留錯誤訊息的位置
+                <p
+                  className={
+                    errors.address
+                      ? 'font-400S member-form-errorMsg errorMsg-show'
+                      : 'font-400S member-form-errorMsg'
+                  }
+                >
+                  {errors.address ? errors.address : '預留錯誤訊息的位置'}
                 </p>
               </div>
             </div>

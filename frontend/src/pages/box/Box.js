@@ -112,6 +112,7 @@ function Box() {
           setBento={setBento}
           cal={cal}
           setCal={setCal}
+          setUnitList={setUnitList}
         />
         {/* 最下面推薦食譜 商品 */}
         <CardRecipe />

@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
 
 function Page3(props) {
-  const { cal, setCal, tdee, unitList, bento, setBento } = props
+  const { cal, setCal, tdee, unitList, bento, setBento, setUnitList } = props
   // 彈出視窗
   const [modal, setModal] = useState(false)
   const openModal = () => {
@@ -30,6 +30,7 @@ function Page3(props) {
         setBento={setBento}
         cal={cal}
         setCal={setCal}
+        setUnitList={setUnitList}
       />
       <div className="container b-step">
         <h4 className="b-title">3. 計算便當卡路里</h4>

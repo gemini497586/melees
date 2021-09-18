@@ -85,23 +85,21 @@ const uploader = multer({
 
 // 會員資料修改 --> 進入編輯頁面 --> 需要撈資料庫
 router.get("/editinfo", async (req, res, next) => {
-    let memberId = req.session.member.id;
-    // let memberId = 37;
-    let memberInfo = await connection.queryAsync(
-        "SELECT * FROM member WHERE id = ?",
-        [memberId]
-    );
-    memberInfo = memberInfo[0];
-    let responeMemberInfo = {
-        name: memberInfo.name,
-        gender: memberInfo.gender,
-        nickname: memberInfo.nickname,
-        birthday: memberInfo.birthday,
-        cellphone: memberInfo.phone,
-        email: memberInfo.email,
-        address: memberInfo.address,
-    };
-    res.json(responeMemberInfo);
+  let memberId = req.session.member.id;
+  // let memberId = 37;
+  let memberInfo = await connection.queryAsync("SELECT * FROM member WHERE id = ?", [memberId]);
+  memberInfo = memberInfo[0];
+  let responeMemberInfo = {
+    picture: memberInfo.picture,
+    name: memberInfo.name,
+    gender: memberInfo.gender,
+    nickname: memberInfo.nickname,
+    birthday: memberInfo.birthday,
+    cellphone: memberInfo.phone,
+    email: memberInfo.email,
+    address: memberInfo.address,
+  };
+  res.json(responeMemberInfo);
 });
 
 // 會員資料修改 --> 表單送出 --> 需要更新資料庫

@@ -7,7 +7,16 @@ import { API_URL } from '../../../utils/config'
 
 function Modal(props) {
   const [name, setName] = useState('')
-  const { modal, setModal, closeModal, bento, setBento, cal, setCal } = props
+  const {
+    modal,
+    setModal,
+    closeModal,
+    bento,
+    setBento,
+    cal,
+    setCal,
+    setUnitList,
+  } = props
 
   // 抓到便當裡食材的id，陣列把它轉成字串
   const bentoId = bento.map((item) => {
@@ -30,6 +39,7 @@ function Modal(props) {
       setModal(false)
       setBento([])
       setCal(0)
+      setUnitList([])
       // console.log(res)
     } catch (e) {
       console.log(e)
