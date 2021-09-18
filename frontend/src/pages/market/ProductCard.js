@@ -2,27 +2,25 @@ import React, { useState, useEffect, useContext } from 'react'
 import '../../style/productCard.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
-import productImg from '../../images/005.jpg'
 import { Link } from 'react-router-dom'
 import { API_URL } from '../../utils/config'
 import axios from 'axios'
-import { HandleCart } from '../../utils/HandleCart'
+import useCart from '../../utils/useCart'
 
 function ProductCard(props) {
   const [product, setProduct] = useState([])
-  const { carts, addCart, setProductsAll } = useContext(HandleCart)
+  const { carts, addCart, setProductsAll } = useCart()
 
-  console.log(props)
   useEffect(() => {
     // 顯示商品分類用
-    axios.get(`${API_URL}/market/${props.category}`).then((response) => {
+    axios.get(`${API_URL}/market/home/${props.category}`).then((response) => {
       setProduct(response.data)
     })
   }, [props.category])
 
   useEffect(() => {
     // 取得所有商品資料用
-    axios.get(`${API_URL}/market/undefined`).then((response) => {
+    axios.get(`${API_URL}/market/home/undefined`).then((response) => {
       setProductsAll(response.data)
     })
   }, [])
@@ -35,8 +33,8 @@ function ProductCard(props) {
       <div className="product-card col-6" key={e.id}>
         <Link to={`/market/product/${e.id}`}>
           <div className="product-img">
-            <img src={productImg} alt="好想吃威靈頓牛排" />
-            <FontAwesomeIcon icon="bookmark" className="bookmark" />
+            <img src={`${API_URL}/market/${e.image}`} alt={`商品${e.id}圖片`} />
+            {/* <FontAwesomeIcon icon="bookmark" className="bookmark" /> */}
           </div>
           <p className="font-700S product-category">{category[e.category]}</p>
           <h6 className="product-name">{e.name}</h6>
@@ -48,8 +46,16 @@ function ProductCard(props) {
         <button
           className="btn font-700M product-add-to-cart-btn"
           id={e.id}
-          onClick={(p) => {
-            addCart(p.target.id)
+          onClick={() => {
+            addCart({
+              id: e.id,
+              name: e.name,
+              amount: 1,
+              price: e.price,
+              category: category[e.category],
+              specs: e.specs,
+              img: e.image,
+            })
           }}
         >
           <FontAwesomeIcon icon="cart-plus" className="cart-plus" />

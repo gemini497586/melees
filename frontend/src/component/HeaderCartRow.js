@@ -1,51 +1,58 @@
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import meleesLogo from '../images/meleesLogo.svg'
+import { API_URL } from '../utils/config'
 import React, { useEffect, useState, useContext } from 'react'
 import '../style/headerCartRow.css'
 import './FontawsomeIcons'
-import Login from '../pages/member/Login'
-import { HandleCart } from '../utils/HandleCart'
+// import { HandleCart } from '../utils/HandleCart'
+import useCart from '../utils/useCart'
 
 function HeaderCartRow(props) {
-  const { removeCart, productsAll, amount, setAmount } = useContext(HandleCart)
+  const { carts, removeCart, minusAmount, plusAmount } = useCart()
 
-  let id = props.id - 1
+  let index = props.index
 
   return (
     <div className="header-cart-row">
       <div className="header-cart-row-img">
-        <img alt="商品圖片" src={meleesLogo} />
+        <img
+          alt="商品圖片"
+          src={`${API_URL}/market/${carts[index].img}`}
+          className="header-cart-img"
+        />
       </div>
-      <h5 className="header-cart-row-name">{productsAll[id].name}</h5>
+      <h5 className="header-cart-row-name">{carts[index].name}</h5>
       <button
         className="header-cart-row-delete"
-        id={id}
-        onClick={(e) => removeCart(e, id)}
+        id={carts[index].id}
+        onClick={() => {
+          removeCart(index)
+        }}
       >
-        <FontAwesomeIcon icon="trash-alt" id={id} />
+        <FontAwesomeIcon icon="trash-alt" id={carts[index].id} />
       </button>
       <div className="header-cart-row-operation d-flex">
         <button
           className="btn operation-btn minus"
           onClick={() => {
-            amount > 1 ? setAmount(amount - 1) : setAmount(amount)
+            minusAmount(index)
           }}
         >
           <FontAwesomeIcon icon="minus" />
         </button>
-        <p>{amount}</p>
+        <p>{carts[index].amount}</p>
         <button
           className="btn operation-btn plus"
           onClick={() => {
-            amount < 99 ? setAmount(amount + 1) : setAmount(99)
+            plusAmount(index)
           }}
         >
           <FontAwesomeIcon icon="plus" />
         </button>
       </div>
       <div className="header-cart-row-price">
-        <FontAwesomeIcon icon="dollar-sign" /> {productsAll[id].price * amount}
+        <FontAwesomeIcon icon="dollar-sign" />{' '}
+        {carts[index].price * carts[index].amount}
       </div>
     </div>
   )

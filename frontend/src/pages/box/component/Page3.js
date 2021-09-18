@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
 
 function Page3(props) {
-  const { cal, tdee, unitList, bento } = props
+  const { cal, setCal, tdee, tableList, bento, setBento, setUnitList } = props
   // 彈出視窗
   const [modal, setModal] = useState(false)
   const openModal = () => {
@@ -22,8 +22,16 @@ function Page3(props) {
 
   return (
     <>
-      <Modal modal={modal} closeModal={closeModal} bento={bento} cal={cal} />
-
+      <Modal
+        modal={modal}
+        setModal={setModal}
+        closeModal={closeModal}
+        bento={bento}
+        setBento={setBento}
+        cal={cal}
+        setCal={setCal}
+        setUnitList={setUnitList}
+      />
       <div className="container b-step">
         <h4 className="b-title">3. 計算便當卡路里</h4>
         <div className="b-page3">
@@ -45,11 +53,18 @@ function Page3(props) {
                 <FontAwesomeIcon icon={['far', 'bookmark']} className="me-2" />
                 收藏便當
               </button>
+              {/* <button className="b-btn font-700M" onClick={openModal}>
+                <FontAwesomeIcon icon={['far', 'bookmark']} className="me-2" />
+                收藏便當
+              </button> */}
+            </div>
+            <div className="b-page3-note font-400S">
+              如需使用收藏便當功能，請先登入會員
             </div>
           </div>
           {/* 右邊 */}
           <div className="col-12 col-md-5 b-page3-right">
-            <Table unitList={unitList} />
+            <Table tableList={tableList} />
           </div>
         </div>
       </div>

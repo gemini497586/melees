@@ -2,10 +2,10 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- 主機： 127.0.0.1
--- 產生時間： 2021-09-09 09:41:35
--- 伺服器版本： 10.4.20-MariaDB
--- PHP 版本： 7.3.29
+-- 主機： localhost
+-- 產生時間： 2021 年 09 月 17 日 15:07
+-- 伺服器版本： 10.4.19-MariaDB
+-- PHP 版本： 8.0.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,26 +24,36 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `order_detail_list`
+-- 資料表結構 `product_save`
 --
 
-CREATE TABLE `order_detail_list` (
-  `id` int(4) NOT NULL,
-  `order_id` int(4) NOT NULL COMMENT '對應到order_main_list的主ID',
-  `product_id` int(4) NOT NULL COMMENT '對應的商品ID',
-  `amount` int(4) NOT NULL COMMENT '購買數量',
-  `price` int(6) NOT NULL COMMENT '單價',
-  `total` int(10) NOT NULL COMMENT '總計'
+CREATE TABLE `product_save` (
+  `id` int(5) UNSIGNED NOT NULL,
+  `member_id` int(5) UNSIGNED NOT NULL,
+  `product_id` int(5) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- 傾印資料表的資料 `product_save`
+--
+
+INSERT INTO `product_save` (`id`, `member_id`, `product_id`) VALUES
+(2, 37, 2),
+(6, 37, 3),
+(8, 37, 24),
+(9, 37, 15),
+(10, 38, 1),
+(11, 38, 4),
+(12, 38, 2);
 
 --
 -- 已傾印資料表的索引
 --
 
 --
--- 資料表索引 `order_detail_list`
+-- 資料表索引 `product_save`
 --
-ALTER TABLE `order_detail_list`
+ALTER TABLE `product_save`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -51,10 +61,10 @@ ALTER TABLE `order_detail_list`
 --
 
 --
--- 使用資料表自動遞增(AUTO_INCREMENT) `order_detail_list`
+-- 使用資料表自動遞增(AUTO_INCREMENT) `product_save`
 --
-ALTER TABLE `order_detail_list`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `product_save`
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

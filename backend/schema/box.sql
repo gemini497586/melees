@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： localhost
--- 產生時間： 2021 年 09 月 11 日 11:16
+-- 產生時間： 2021 年 09 月 17 日 12:33
 -- 伺服器版本： 10.4.19-MariaDB
 -- PHP 版本： 8.0.7
 
@@ -55,7 +55,8 @@ INSERT INTO `box` (`id`, `name`, `image`, `inside_image`, `cal`, `product_id`, `
 (11, '豆腐', 'tofu.png', 'tofu2.png', 76, NULL, '1'),
 (12, '鮭魚', 'salmon.png', 'salmon2.png', 208, NULL, '1'),
 (13, '義大利麵', 'pasta.png', 'pasta2.png', 131, NULL, '1'),
-(14, '玉米筍', 'corn.png', 'corn2.png', 31, NULL, '1');
+(14, '玉米筍', 'corn.png', 'corn2.png', 31, NULL, '1'),
+(15, '炒飯', 'friedrice.png', 'friedrice2.png', 163, NULL, '1');
 
 -- --------------------------------------------------------
 
@@ -69,7 +70,7 @@ CREATE TABLE `box_save` (
   `box_ids` varchar(100) NOT NULL,
   `name` varchar(50) NOT NULL,
   `cal` int(5) UNSIGNED NOT NULL,
-  `create_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `create_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -77,9 +78,18 @@ CREATE TABLE `box_save` (
 --
 
 INSERT INTO `box_save` (`id`, `member_id`, `box_ids`, `name`, `cal`, `create_at`) VALUES
-(1, 1, '1,2,3,4,5', 'Ruby', 910, '2021-09-11 03:15:47'),
-(2, 1, '4,5,6,7,8', '0911', 500, '2021-09-11 03:16:04'),
-(3, 1, '10,11,12,9,13', 'test', 465, '2021-09-11 03:16:16');
+(42, 37, '5,1,2,3,4', '卡路里爆表', 910, '2021-09-14'),
+(43, 38, '15,6,7,9,14', '第38號', 319, '2021-09-14'),
+(44, 38, '5,6,1,9,12', '吃', 713, '2021-09-14'),
+(46, 37, '5,3,2,1', 'RubyRuby', 807, '2021-09-15'),
+(47, 37, '8,4,6,7', 'Ruby', 220, '2021-09-15'),
+(49, 37, '15,4,6', 'RubyRuby', 346, '2021-09-15'),
+(50, 37, '13,5,3,4,6', 'test', 836, '2021-09-15'),
+(51, 38, '5,10,9,7,6', 'RubyRu', 430, '2021-09-15'),
+(52, 38, '8,6,4,3', 'RubyRuby', 442, '2021-09-17'),
+(53, 38, '8,11,12,14', '09/17', 332, '2021-09-17'),
+(54, 38, '13,9,7,6', 'test', 256, '2021-09-17'),
+(55, 38, '5,2,12,11,10', 'Ruby', 754, '2021-09-17');
 
 --
 -- 已傾印資料表的索引
@@ -105,13 +115,13 @@ ALTER TABLE `box_save`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `box`
 --
 ALTER TABLE `box`
-  MODIFY `id` int(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `box_save`
 --
 ALTER TABLE `box_save`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -13,7 +13,7 @@
   width: 320px;
   height: 220px;
 }
-.member-box-food {
+.member-box-prep {
   color: var(--color-grey-500);
   text-align: center;
 }
@@ -24,15 +24,35 @@
   margin: 10px 0;
   text-align: left;
 }
-.member-box-title {
+.member-box-content {
+  color: var(--color-grey-800);
+  display: flex;
+  align-items: center;
+}
+.member-box-cal {
   color: var(--color-grey-900);
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
-.member-box-content {
+.member-box-content button {
+  width: 40px;
+  height: 40px;
+  line-height: 20px;
+  text-align: center;
+  background-color: var(--color-white);
   color: var(--color-grey-800);
+  border: 1px solid var(--color-secondary);
+  border-radius: 50%;
+  padding: 8px;
+  margin-right: 25px;
+  transition: 0.5s;
 }
+.member-box-content button:hover {
+  color: var(--color-primary-A);
+  border: 1px solid var(--color-primary-A);
+}
+
 /* modal */
 .member-box-icon {
   border: 7px solid var(--color-red-C);

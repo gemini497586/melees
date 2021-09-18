@@ -3,10 +3,12 @@ import React from 'react'
 import '../../../style/table.css'
 
 function PrivateRecipeIngre(props) {
-  const { id, ingred } = props
+  const { id, tableList } = props
 
   return (
     <>
+      <pre>{JSON.stringify(tableList, null, 2)}</pre>
+
       <table className="table-food">
         <thead className="font-700L">
           <tr>
@@ -15,7 +17,7 @@ function PrivateRecipeIngre(props) {
           </tr>
         </thead>
         <tbody className="font-400M">
-          {ingred.map((value, index) => {
+          {tableList.map((value, index) => {
             return (
               <>
                 <tr key={id}>

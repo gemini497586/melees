@@ -22,6 +22,35 @@
   left: 44px;
 }
 
+.product-detail-save {
+  left: 1180px;
+  top: 15px;
+  border: 1px solid var(--color-grey-500);
+  border-radius: 100px;
+}
+
+.product-detail-unSave {
+  color: var(--color-grey-500);
+}
+
+.product-detail-save .btn:focus {
+  box-shadow: none;
+}
+
+.product-detail-save-active {
+  width: 105px;
+  height: 38px;
+  border: none;
+  border-radius: 100px;
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.product-detail-save-active:focus {
+  box-shadow: none;
+  outline: none;
+}
+
 .product-detail-specs {
   top: 528px;
   left: 44px;
@@ -101,4 +130,16 @@
   left: 750px;
   color: var(--color-grey-900);
   text-align: start;
+}
+
+/* 收藏按鈕 */
+.product-detail-bookmark {
+  cursor: pointer;
+  color: var(--color-grey-900);
+}
+.product-detail-bookmark:hover {
+  color: var(--color-blue-B);
+}
+.product-detail .active {
+  color: var(--color-blue-B);
 }

@@ -5,23 +5,27 @@ import '../../../style/cardPrivateRecipe.css'
 import food from '../../../images/default_food2.jpg'
 import avatar from '../../../images/default_avatar1.jpg'
 import Axios from 'axios'
+import { API_URL } from '../../../utils/config'
 
 function PrivateRecipeCard() {
   const [itemInfo, setItemInfo] = useState([])
   const [likeList, setLikeList] = useState([])
   const [viewList, setViewList] = useState([])
-  const [starList, setStarList] = useState([])
+  const [saveState, setSaveState] = useState([])
+  const [likeState, setLikeState] = useState([])
 
   useEffect(() => {
-    Axios.get('http://localhost:3001/api/private').then((res) => {
+    Axios.get(`${API_URL}/private/index`, {
+      withCredentials: true,
+    }).then((res) => {
       setItemInfo(res.data.result)
       setLikeList(res.data.result2)
       setViewList(res.data.result3)
-      setStarList(res.data.result4)
+      setSaveState(res.data.result4)
+      setLikeState(res.data.result5)
     })
   }, [])
-  // console.log(starList)
-  // 星星評分數 function
+  // 星星評分數
   const starNum = (index) => {
     const row = []
     let solid = Math.floor(itemInfo[index].star_rate)
@@ -38,7 +42,7 @@ function PrivateRecipeCard() {
     }
     return row
   }
-
+  // 按讚數
   const likeNum = (value, index) => {
     const like = []
     for (let i = 0; i < likeList.length; i++) {
@@ -50,7 +54,7 @@ function PrivateRecipeCard() {
     }
     return like
   }
-
+  // 瀏覽數
   const viewNum = (value, index) => {
     const view = []
     for (let i = 0; i < viewList.length; i++) {
@@ -60,6 +64,36 @@ function PrivateRecipeCard() {
       }
     }
     return view
+  }
+  const saveToggled = (value, index) => {
+    const save = []
+    for (let i = 0; i < saveState.length; i++) {
+      if (value.id !== saveState[i].private_id) {
+        save.push()
+      } else {
+        save.push(
+          <span className="cardPrivateRecipe-bookmark-active">
+            <FontAwesomeIcon icon="bookmark" size="2x" />
+          </span>
+        )
+      }
+    }
+    return save
+  }
+  const likeToggled = (value, index) => {
+    const like = []
+    for (let i = 0; i < likeState.length; i++) {
+      if (value.id !== likeState[i].private_id) {
+        like.push()
+      } else {
+        like.push(
+          <div className="d-flex cardPrivateRecipe-like-active">
+            <FontAwesomeIcon icon="heart" size="lg" />
+          </div>
+        )
+      }
+    }
+    return like
   }
   return (
     <>
@@ -72,14 +106,12 @@ function PrivateRecipeCard() {
                   <Link to={'/private/detail/' + value.id}>
                     <figure className="cardPrivateRecipe-img">
                       <img
-                        src={`http://localhost:3001/private/${value.picture}`}
+                        src={`${API_URL}/private/${value.picture}`}
                         className="b-cover-fit"
                         alt=""
                       />
                     </figure>
-                    <span className="cardPrivateRecipe-bookmark">
-                      <FontAwesomeIcon icon="bookmark" />
-                    </span>
+                    {saveToggled(value, index)}
 
                     <figure className="cardPrivateRecipe-avatar">
                       <img src={avatar} className="h-100" alt="" />
@@ -89,9 +121,8 @@ function PrivateRecipeCard() {
                         私藏食譜
                       </span>
                     </div>
-                    <div className="d-flex cardPrivateRecipe-like">
-                      <FontAwesomeIcon icon="heart" />
-                    </div>
+                    {likeToggled(value, index)}
+
                     <h6 className="font-700S cardPrivateRecipe-name">
                       {value.name}
                     </h6>
@@ -112,7 +143,6 @@ function PrivateRecipeCard() {
                         className="cardPrivateRecipe-stat-eye"
                       />
                       {viewNum(value, index)}
-                      {/* <span>{value.view_qty}</span> */}
                     </div>
                   </Link>
                 </div>
