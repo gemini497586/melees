@@ -190,13 +190,14 @@ router.post("/upload/main", uploader.single("photo"), async function (req, res, 
     const ingred = JSON.parse(req.body.ingred);
     const steps = JSON.parse(req.body.steps);
     const time = moment().format('YYYY-MM-DD');
+    const star_rate = 0
     const memberId = 5
     const valid = 1
     
     
     // 新增到 private_recipe 資料表裡
-    let sql = "INSERT INTO private_recipe (picture, name, intro, qty, member_id, create_date, valid) VALUES (?)"
-    let data = await connection.queryAsync(sql, [[filename, name, intro, qty, memberId, time, valid]])
+    let sql = "INSERT INTO private_recipe (picture, name, intro, qty, member_id, create_date, star_rate, valid) VALUES (?)"
+    let data = await connection.queryAsync(sql, [[filename, name, intro, qty, memberId, time, star_rate, valid]])
 
     // 取得剛新增的食譜 id
     let sql2 = "SELECT * FROM private_recipe ORDER BY id DESC LIMIT 1";
