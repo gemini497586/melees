@@ -74,6 +74,8 @@ function Box() {
         { ingred: v.name, ingred_unit: `${v.cal} 大卡` },
       ]
       setTableList(newTableList)
+      console.log('newTableList ', newTableList)
+      console.log('tableList ', tableList)
 
       // 現在便當裡面食材的卡路里，用reduce計算加總
       const getCal = newBento.map((item) => {
@@ -87,6 +89,7 @@ function Box() {
 
   // 把食材刪除
   const handleRemove = (v) => {
+    console.log(v)
     const name = v.name
 
     // 現在便當裡面食材的卡路里
@@ -98,7 +101,8 @@ function Box() {
     newCal = newCal - v.cal
 
     setBento(bento.filter((v) => v.name !== name))
-    setTableList(tableList.filter((v) => v.name !== name))
+    console.log(tableList)
+    setTableList(tableList.filter((v) => v.ingred !== name))
     setCal(newCal)
   }
 

@@ -11,14 +11,14 @@ router.get("/", async (req, res, next) => {
     const memberId = req.session.member.id;
     // const memberId = 37;
     let result = await connection.queryAsync(
-        "SELECT * FROM order_main_list WHERE member_id =? ORDER BY create_date DESC",
+        "SELECT * FROM order_main_list WHERE member_id =? ORDER BY id DESC",
         [memberId]
     );
     // 訂單編號補足四位數字
     result = result.map((item) => {
         if (item.id < 10) item.id = "000" + item.id;
-        if ((item.id < 100) & (item.id > 11)) item.id = "00" + item.id;
-        if ((item.id < 1000) & (item.id > 999)) item.id = "0" + item.id;
+        if ((item.id < 100) & (item.id >= 10)) item.id = "00" + item.id;
+        if ((item.id < 1000) & (item.id >= 100)) item.id = "0" + item.id;
         return item;
     });
     let count = await connection.queryAsync(
@@ -54,7 +54,7 @@ router.get("/detail/:id", async (req, res, next) => {
         });
         // console.log(productIds);
         let result2 = await connection.queryAsync(
-            "SELECT id,name FROM product WHERE id IN ?",
+            "SELECT id,name,image FROM product WHERE id IN ?",
             [[productIds]]
         );
 
