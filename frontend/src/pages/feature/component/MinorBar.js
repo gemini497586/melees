@@ -1,22 +1,24 @@
 import { Link } from 'react-router-dom'
 import '../../../style/minorBar.css'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import FeatureType from '../../../data/FeatureType.json'
 
-function MinorBar() {
-  const array = [
-    { url: '/feature/', title: '健康長肉肉' },
-    { url: '/feature/', title: '健康不吃肉' },
-    { url: '/feature/', title: '家常好手藝' },
-    { url: '/feature/week', title: '上班不煩惱' },
-  ]
+function MinorBar(props) {
+  // 選單
+  const [typedata, setTypedata] = useState([])
+
+  useEffect(() => {
+    // 利用查表法，撈出json裡面的type
+    setTypedata(FeatureType.featureType)
+  }, [])
+
   return (
     <>
       <ul className="minor-bar">
-        {/* map寫法 */}
-        {array.map((v) => {
+        {typedata.map((v) => {
           return (
             <li>
-              <Link to={v.url}>{v.title}</Link>
+              <Link to={`/feature/index/${v.typeid}`}>{v.text}</Link>
             </li>
           )
         })}
