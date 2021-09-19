@@ -6,23 +6,24 @@ import { API_URL } from '../../../utils/config'
 import Axios from 'axios'
 
 function SaveBoxDelModal(props) {
-  const { showModal, openDeleteModal, id } = props
+  const { showModal, openDeleteModal, id, handleDelete } = props
 
-  const handleDelete = async (e) => {
-    // e.preventDefault()
-    try {
-      let res = await Axios.post(
-        `${API_URL}/member/deletesavebox`,
-        {
-          id,
-        },
-        { withCredentials: true }
-      )
-      // console.log(res)
-    } catch (e) {
-      console.log(e)
-    }
-  }
+  // const handleDelete = async (id) => {
+  //   // e.preventDefault()
+  //   try {
+  //     let res = await Axios.post(
+  //       `${API_URL}/member/deletesavebox`,
+  //       {
+  //         id,
+  //       },
+  //       { withCredentials: true }
+  //     )
+  //     setShowModal((prev) => !prev)
+  //     // console.log(res)
+  //   } catch (e) {
+  //     console.log(e)
+  //   }
+  // }
 
   return (
     <>
@@ -38,19 +39,23 @@ function SaveBoxDelModal(props) {
           </div>
           <h1>確定要刪除嗎</h1>
           <p className="font-400M">確定要刪除這個便當嗎</p>
-          <form onSubmit={handleDelete}>
-            <button
-              className="btn-cancel"
-              onClick={() => {
-                openDeleteModal(id)
-              }}
-            >
-              取消
-            </button>
-            <button type="submit" className="btn-delete">
-              確定刪除
-            </button>
-          </form>
+          <button
+            className="btn-cancel"
+            onClick={() => {
+              openDeleteModal(id)
+            }}
+          >
+            取消
+          </button>
+          <button
+            type="submit"
+            className="btn-delete"
+            onClick={() => {
+              handleDelete(id)
+            }}
+          >
+            確定刪除
+          </button>
         </div>
       ) : null}
     </>

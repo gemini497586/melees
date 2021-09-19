@@ -15,7 +15,7 @@ function Modal(props) {
     setBento,
     cal,
     setCal,
-    setUnitList,
+    setTableList,
   } = props
 
   // 抓到便當裡食材的id，陣列把它轉成字串
@@ -39,10 +39,11 @@ function Modal(props) {
       setModal(false)
       setBento([])
       setCal(0)
-      setUnitList([])
+      setTableList([])
+      setName('')
       // console.log(res)
     } catch (e) {
-      console.log(e)
+      console.log('e', e.response)
       alert(e.response.data.message)
     }
   }
@@ -69,13 +70,11 @@ function Modal(props) {
                 <div className="b-page2-indside">
                   {bento.map((v, i) => {
                     return (
-                      <>
-                        <img
-                          key={v.id}
-                          src={`${API_URL}/box/${v.inside_image}`}
-                          alt={v.name}
-                        />
-                      </>
+                      <img
+                        key={v.id}
+                        src={`${API_URL}/box/${v.inside_image}`}
+                        alt={v.name}
+                      />
                     )
                   })}
                 </div>
@@ -102,7 +101,7 @@ function Modal(props) {
                     value={name}
                     className="col-8 mb-3"
                     placeholder={name}
-                    maxlength="8"
+                    maxLength="8"
                     onChange={(e) => {
                       setName(e.target.value)
                     }}

@@ -89,7 +89,7 @@ function Form2(props) {
   }
   return (
     <>
-      <form 
+      <form
         className="d-flex flex-column"
         onChange={handleFormChange}
         onInvalid={handleFormInvalid}

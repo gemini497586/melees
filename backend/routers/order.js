@@ -14,6 +14,13 @@ router.get("/", async (req, res, next) => {
         "SELECT * FROM order_main_list WHERE member_id =? ORDER BY create_date DESC",
         [memberId]
     );
+    // 訂單編號補足四位數字
+    result = result.map((item) => {
+        if (item.id < 10) item.id = "000" + item.id;
+        if ((item.id < 100) & (item.id > 11)) item.id = "00" + item.id;
+        if ((item.id < 1000) & (item.id > 999)) item.id = "0" + item.id;
+        return item;
+    });
     let count = await connection.queryAsync(
         "SELECT COUNT(*) AS total FROM order_main_list WHERE member_id =?",
         [memberId]
@@ -32,11 +39,12 @@ router.get("/detail/:id", async (req, res, next) => {
         "SELECT * FROM order_main_list WHERE  member_id=? AND id =?",
         [memberId, req.params.id]
     );
+
     if (mainList.length > 0) {
         mainList = mainList[0];
 
         let result = await connection.queryAsync(
-            "SELECT * FROM order_detail_list WHERE id =?",
+            "SELECT * FROM order_detail_list WHERE order_id =?",
             [[req.params.id]]
         );
 

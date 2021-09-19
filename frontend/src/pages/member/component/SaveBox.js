@@ -4,14 +4,24 @@ import SaveBoxDelModal from './SaveBoxDelModal'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function SaveBox(props) {
-  const { data, prepList } = props
-  const [showModal, setShowModal] = useState(false)
-  const [boxId, setBoxId] = useState('')
+  const {
+    data,
+    prepList,
+    handleDelete,
+    showModal,
+    setShowModal,
+    boxId,
+    openDeleteModal,
+  } = props
+  // const [showModal, setShowModal] = useState(false)
+  // const [boxId, setBoxId] = useState('')
 
-  const openDeleteModal = (id) => {
-    setShowModal((prev) => !prev)
-    setBoxId(id)
-  }
+  // const openDeleteModal = (id) => {
+  //   setShowModal((prev) => !prev)
+  //   setBoxId(id)
+  //   console.log(id)
+  // }
+  
   // 把原本的陣列->轉成對應的圖片陣列
   const getImage = (e) => {
     e = e.split(',')
@@ -38,17 +48,19 @@ function SaveBox(props) {
     <>
       <SaveBoxDelModal
         showModal={showModal}
+        setShowModal={setShowModal}
         openDeleteModal={openDeleteModal}
         id={boxId}
+        handleDelete={handleDelete}
       />
-      {data.map((value, index) => {
+      {data.map((value) => {
         return (
           <div className="col-12 col-md-4 member-box-card" key={value.id}>
             <div className="b-page2-box">
               <img
                 src="http://localhost:3000/images/box_up.png"
                 alt="BoxUp"
-                class="b-contain-fit b-page2-up"
+                className="b-contain-fit b-page2-up"
               />
               <div className="member-box-indside">
                 {getImage(value.box_ids).map((v, i) => {
@@ -58,7 +70,7 @@ function SaveBox(props) {
               <img
                 src="http://localhost:3000/images/box_down.png"
                 alt="BoxDown"
-                class="b-contain-fit b-page2-down"
+                className="b-contain-fit b-page2-down"
               />
             </div>
             <div className="member-box-detail">

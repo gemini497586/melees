@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
-import productImg from '../../../images/005.jpg'
+import { API_URL } from '../../../utils/config'
 
 function MemberSaveProdcutCard(props) {
   const { saveList, productList } = props
@@ -16,9 +16,11 @@ function MemberSaveProdcutCard(props) {
             <Link to={`/market/product/${value.product_id}`}>
               <div className="product-img">
                 <img
-                  src={productImg}
-                  // src={productList && productList[value.product_id].image}
+                  src={`${API_URL}/market/${
+                    productList && productList[value.product_id].image
+                  }`}
                   alt={productList && productList[value.product_id].name}
+                  className="b-cover-fit"
                 />
                 <FontAwesomeIcon icon="bookmark" className="bookmark" />
               </div>

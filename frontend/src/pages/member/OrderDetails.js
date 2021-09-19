@@ -148,7 +148,7 @@ function OrderDetails(props) {
                 </li>
                 <li className="font-400SL">
                   您可以隨時到本網站「
-                  <Link to={`/member/orderdetail/${mainList.order_number}`}>
+                  <Link to={`/member/orderdetail/${mainList.id}`}>
                     訂單查詢
                   </Link>
                   」，查詢目前訂單處理進度。

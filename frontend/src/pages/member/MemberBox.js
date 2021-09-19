@@ -11,7 +11,8 @@ function MemberBox() {
   const [displayData, setDisplayData] = useState([])
   const [prep, setPrep] = useState([])
   const [prepList, setprepList] = useState(null)
-
+  const [showModal, setShowModal] = useState(false)
+  const [boxId, setBoxId] = useState('')
   const [sortBy, setSortBy] = useState(0)
   const sortList = [
     {
@@ -31,6 +32,11 @@ function MemberBox() {
       value: '4',
     },
   ]
+  // 彈出視窗
+  const openDeleteModal = (id) => {
+    setShowModal((prev) => !prev)
+    setBoxId(id)
+  }
   // 初始化資料
   useEffect(() => {
     const getData = async () => {
@@ -77,6 +83,24 @@ function MemberBox() {
     return newData
   }
 
+  // 刪除收藏
+  const handleDelete = (id) => {
+    // e.preventDefault()
+    try {
+      let res = Axios.post(
+        `${API_URL}/member/deletesavebox`,
+        {
+          id,
+        },
+        { withCredentials: true }
+      )
+      setShowModal((prev) => !prev)
+      console.log(res)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   useEffect(() => {
     let newData = []
     newData = handleSort(data, sortBy)
@@ -96,7 +120,15 @@ function MemberBox() {
               />
             </div>
             <div className="row">
-              <SaveBox data={displayData} prepList={prepList} />
+              <SaveBox
+                data={displayData}
+                prepList={prepList}
+                handleDelete={handleDelete}
+                showModal={showModal}
+                setShowModal={setShowModal}
+                boxId={boxId}
+                openDeleteModal={openDeleteModal}
+              />
             </div>
           </div>
         </section>

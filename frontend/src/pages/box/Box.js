@@ -4,6 +4,7 @@ import '../../style/box.css'
 import Page1 from './component/Page1'
 import Page2 from './component/Page2'
 import Page3 from './component/Page3'
+import AlertModal from './component/AlertModal'
 import CardRecipe from '../../component/CardRecipe'
 import CardShopping from '../../component/CardShopping'
 import { API_URL } from '../../utils/config'
@@ -16,6 +17,12 @@ function Box() {
   const [bmr, setBmr] = useState(0)
   const [tdee, setTdee] = useState(0)
   const [cal, setCal] = useState(0)
+  const [alertmodal, setAlertModal] = useState(false)
+  const [message, setMessage] = useState('')
+  const openAlertModal = (msg) => {
+    setAlertModal((prev) => !prev)
+    setMessage(msg)
+  }
 
   // 從資料庫抓資料
   useEffect(() => {
@@ -45,8 +52,7 @@ function Box() {
     // 存在->不能新增
     // 不存在->可以新增
     if (getName.includes(v.name)) {
-      // console.log('點過')
-      alert('每樣食材只可挑選一次')
+      openAlertModal('每樣食材只可挑選一次')
       return
     } else {
       const newBento = [
@@ -55,7 +61,7 @@ function Box() {
       ]
       // 第六個的時候就不能再新增
       if (newBento.length > 5) {
-        alert('最多只可挑選五樣食材')
+        openAlertModal('最多只可挑選五樣食材')
         return
       }
       setBento(newBento)
@@ -99,6 +105,12 @@ function Box() {
   return (
     <>
       <section className="page-group">
+        <AlertModal
+          message={message}
+          alertmodal={alertmodal}
+          setAlertModal={setAlertModal}
+          openAlertModal={openAlertModal}
+        />
         <Page1 bmr={bmr} setBmr={setBmr} tdee={tdee} setTdee={setTdee} />
         <Page2
           data={data}
@@ -108,14 +120,13 @@ function Box() {
           bento={bento}
         />
         <Page3
-          cal={cal}
           tdee={tdee}
+          cal={cal}
+          setCal={setCal}
           tableList={tableList}
           setTableList={setTableList}
           bento={bento}
           setBento={setBento}
-          cal={cal}
-          setCal={setCal}
         />
         {/* 最下面推薦食譜 商品 */}
         <CardRecipe />

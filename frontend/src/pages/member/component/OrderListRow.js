@@ -8,7 +8,7 @@ function OrderListRow(props) {
 
   return (
     <>
-      {dataList.map((value, item) => {
+      {dataList.map((value) => {
         return (
           <div className="orderList-row font-400SL" key={value.id}>
             <div className="orderList-row-date">{value.create_date}</div>

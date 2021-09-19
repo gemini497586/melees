@@ -85,21 +85,24 @@ const uploader = multer({
 
 // 會員資料修改 --> 進入編輯頁面 --> 需要撈資料庫
 router.get("/editinfo", async (req, res, next) => {
-  let memberId = req.session.member.id;
-  // let memberId = 37;
-  let memberInfo = await connection.queryAsync("SELECT * FROM member WHERE id = ?", [memberId]);
-  memberInfo = memberInfo[0];
-  let responeMemberInfo = {
-    picture: memberInfo.picture,
-    name: memberInfo.name,
-    gender: memberInfo.gender,
-    nickname: memberInfo.nickname,
-    birthday: memberInfo.birthday,
-    cellphone: memberInfo.phone,
-    email: memberInfo.email,
-    address: memberInfo.address,
-  };
-  res.json(responeMemberInfo);
+    let memberId = req.session.member.id;
+    // let memberId = 37;
+    let memberInfo = await connection.queryAsync(
+        "SELECT * FROM member WHERE id = ?",
+        [memberId]
+    );
+    memberInfo = memberInfo[0];
+    let responeMemberInfo = {
+        picture: memberInfo.picture,
+        name: memberInfo.name,
+        gender: memberInfo.gender,
+        nickname: memberInfo.nickname,
+        birthday: memberInfo.birthday,
+        cellphone: memberInfo.phone,
+        email: memberInfo.email,
+        address: memberInfo.address,
+    };
+    res.json(responeMemberInfo);
 });
 
 // 會員資料修改 --> 表單送出 --> 需要更新資料庫
@@ -195,25 +198,27 @@ router.post("/savebox", async (req, res, next) => {
     // console.log(req.body);
     // 確認是否拿到會員id
     const memberId = req.session.member.id;
+    // console.log(memberId);
     const createDate = moment().format("YYYYMMDD");
     let result = await connection.queryAsync(
         "INSERT INTO box_save (member_id,box_ids,name,cal,create_at) VALUE (?)",
         [[memberId, req.body.saveId, req.body.name, req.body.cal, createDate]]
     );
-    res.json();
+    res.status(200).json({ message: "客製化便當收藏成功" });
 });
 
 router.post("/deletesavebox", async (req, res, next) => {
     let result = await connection.queryAsync(
         "DELETE FROM box_save WHERE id=?",
-        [[req.body.id]]
+        [req.body.id]
     );
-    res.json();
+    res.status(200).json({ message: "客製化便當收刪除成功" });
 });
 
 router.get("/readsavebox", async (req, res, next) => {
     const memberId = req.session.member.id;
     // const memberId = 37;
+    console.log("read ", memberId);
     let result = await connection.queryAsync(
         "SELECT * FROM box_save WHERE member_id=? ORDER BY id DESC",
         [memberId]
@@ -245,12 +250,12 @@ router.post("/deletesaveproduct", async (req, res, next) => {
     res.json();
 });
 router.get("/readsaveproduct", async (req, res, next) => {
-    const memberId = req.session.member.id;
-    // const memberId = 37;
+    // const memberId = req.session.member.id;
+    const memberId = 37;
 
     let result = await connection.queryAsync(
         "SELECT * FROM product_save WHERE member_id=? ORDER BY id DESC",
-        [[memberId]]
+        [memberId]
     );
     let productIds = result.map((v) => {
         return v.product_id;

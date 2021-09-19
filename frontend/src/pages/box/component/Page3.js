@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 import Modal from './Modal'
 import Table from '../../../component/Table'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
 
 function Page3(props) {
-  const { cal, setCal, tdee, tableList, bento, setBento, setUnitList } = props
+  const { cal, setCal, tdee, tableList, setTableList, bento, setBento } = props
   // 彈出視窗
   const [modal, setModal] = useState(false)
   const openModal = () => {
@@ -30,7 +29,7 @@ function Page3(props) {
         setBento={setBento}
         cal={cal}
         setCal={setCal}
-        setUnitList={setUnitList}
+        setTableList={setTableList}
       />
       <div className="container b-step">
         <h4 className="b-title">3. 計算便當卡路里</h4>

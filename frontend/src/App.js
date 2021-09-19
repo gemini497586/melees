@@ -133,9 +133,9 @@ function App() {
                 <ProtectedRoute path="/member/orderlist" isAuth={login}>
                   <OrderList />
                 </ProtectedRoute>
-                <ProtectedRoute path="/member/savebox" isAuth={login}>
+                <Route path="/member/savebox">
                   <MemberBox />
-                </ProtectedRoute>
+                </Route>
                 <ProtectedRoute path="/member/saverecipe" isAuth={login}>
                   <MemberFeature />
                 </ProtectedRoute>
