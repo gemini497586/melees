@@ -14,37 +14,107 @@ function ProductDetails(props) {
   const { addCart } = useCart()
 
   useEffect(() => {
-    axios.get(`${API_URL}/market/product/${id}`).then((response) => {
-      response.data[0].specs = response.data[0].specs.split('\n').join(' | ')
-      setProduct(response.data[0])
-    })
+    axios
+      .post(`${API_URL}/market/product/${id}`, null, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        if (response.data.getSave[0] !== undefined) {
+          // 如果回傳不是undefined，代表資料庫有資料，那就是該會員有收藏過，所以把按鈕設成true
+          setSave(true)
+        }
+
+        response.data.product[0].specs = response.data.product[0].specs
+          .split('\n')
+          .join(' | ')
+        setProduct(response.data.product[0])
+      })
   }, [id])
 
   let category = { 1: '食材', 2: '鍋具', 3: '調味料' }
+
+  const SaveProduct = async () => {
+    try {
+      await axios.post(`${API_URL}/market/product-save/${id}`, null, {
+        withCredentials: true,
+      })
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+
+  const DeleteProduct = async () => {
+    try {
+      await axios.post(`${API_URL}/market/product-delete/${id}`, null, {
+        withCredentials: true,
+      })
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
 
   const handleSave = () => {
     return (
       <>
         {save ? (
-          <button className="btn product-detail-save-active">
-            加入收藏 <FontAwesomeIcon icon={['far', 'bookmark']} />
+          <button
+            className="btn product-detail-unSave"
+            onClick={() => {
+              DeleteProduct()
+            }}
+          >
+            取消收藏 <FontAwesomeIcon icon={['fas', 'bookmark']} />
           </button>
         ) : (
-          <button className="btn product-detail-unSave">
-            取消收藏 <FontAwesomeIcon icon={['fas', 'bookmark']} />
+          <button
+            className="btn product-detail-save-active"
+            onClick={() => {
+              SaveProduct()
+            }}
+          >
+            加入收藏 <FontAwesomeIcon icon={['far', 'bookmark']} />
           </button>
         )}
       </>
     )
   }
 
+  const [mainImg, setMainImg] = useState('')
+
+  useEffect(() => {
+    setMainImg(`${API_URL}/market/${product.image}`)
+  }, [product])
+
+  const HandleImg = (e) => {
+    setMainImg(e.target.src)
+  }
+
+  // sessionStorage.setItem('cartList', 'true')
+  // let abc = sessionStorage.getItem('List') || []
+  // console.log(abc, '這是abc')
+
   const handleProductDetail = () => {
     return (
       <div className="product-detail">
-        <img
-          src={`${API_URL}/market/${product.image}`}
-          alt={`商品${product.id}圖片`}
-        />
+        <img src={mainImg} alt={`商品${product.id}圖片`} className="main-img" />
+        <div className="thumbnail">
+          <img
+            src={`${API_URL}/market/${'002.jpg'}`}
+            alt="圖1"
+            className="img1"
+            onClick={(e) => {
+              HandleImg(e)
+            }}
+          />
+          <img
+            src={`${API_URL}/market/${'005.jpg'}`}
+            alt="圖2"
+            className="img2"
+            onClick={(e) => {
+              HandleImg(e)
+            }}
+          />
+        </div>
         {/* 收藏功能 */}
         <div
           className="product-detail-save"

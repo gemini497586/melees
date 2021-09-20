@@ -15,11 +15,30 @@
   position: absolute;
 }
 
-.product-detail img {
+.main-img {
   width: 616px;
   height: 485px;
   top: 40px;
   left: 44px;
+}
+
+/* 縮圖 */
+.thumbnail {
+  width: 300px;
+  height: 150px;
+  top: 580px;
+  left: 60px;
+}
+
+.img1 {
+  width: 100px;
+  height: 120px;
+}
+
+.img2 {
+  width: 100px;
+  height: 120px;
+  left: 120px;
 }
 
 .product-detail-save {

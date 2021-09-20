@@ -13,8 +13,8 @@ import axios from 'axios'
 import { API_URL } from '../../utils/config'
 
 function CheckoutConfirm() {
-  const { carts, removeCart } = useCart()
-  const { info, addInfo, total } = useCheckoutInfo()
+  const { carts, removeCart, clearCart } = useCart()
+  const { info, addInfo, total, clearInfo } = useCheckoutInfo()
 
   const handleData = async () => {
     // 把資料傳進後端
@@ -34,9 +34,12 @@ function CheckoutConfirm() {
         // 設定可以跨源送 cookie
         withCredentials: true,
       })
-    } catch (error) {
-      console.error(error.message)
+    } catch (err) {
+      console.error(err.message)
     }
+
+    clearCart()
+    clearInfo()
   }
 
   return (
