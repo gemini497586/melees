@@ -6,24 +6,32 @@ import { API_URL } from '../../../utils/config'
 import Axios from 'axios'
 
 function SaveBoxDelModal(props) {
-  const { showModal, openDeleteModal, id, handleDelete } = props
+  const { showModal, setShowModal, openDeleteModal, id, setDisplayData } = props
 
-  // const handleDelete = async (id) => {
-  //   // e.preventDefault()
-  //   try {
-  //     let res = await Axios.post(
-  //       `${API_URL}/member/deletesavebox`,
-  //       {
-  //         id,
-  //       },
-  //       { withCredentials: true }
-  //     )
-  //     setShowModal((prev) => !prev)
-  //     // console.log(res)
-  //   } catch (e) {
-  //     console.log(e)
-  //   }
-  // }
+  // 刪除收藏
+  const handleDelete = async (id) => {
+    // e.preventDefault()
+    try {
+      let res = await Axios.post(
+        `${API_URL}/member/deletesavebox`,
+        {
+          id,
+        },
+        { withCredentials: true }
+      )
+      setShowModal((prev) => !prev)
+
+      // 刪除後，重新抓原本的data
+      let res2 = await Axios.get(`${API_URL}/member/readsavebox`, {
+        withCredentials: true,
+      })
+      let data = res2.data.result
+      setDisplayData(data)
+      // console.log(res)
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   return (
     <>
@@ -33,7 +41,6 @@ function SaveBoxDelModal(props) {
           <button className="b-modal-close " onClick={openDeleteModal}>
             <FontAwesomeIcon icon="times" />
           </button>
-
           <div className="icon-danger member-box-icon">
             <FontAwesomeIcon icon="exclamation" className="exclamation" />
           </div>

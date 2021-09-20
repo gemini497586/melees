@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Axios from 'axios'
 import '../../style/box.css'
 import Page1 from './component/Page1'
 import Page2 from './component/Page2'
 import Page3 from './component/Page3'
-import AlertModal from './component/AlertModal'
+import AlertModal from '../../component/AlertModal'
 import CardRecipe from '../../component/CardRecipe'
 import CardShopping from '../../component/CardShopping'
 import { API_URL } from '../../utils/config'
+import AlertModalMsg from '../../utils/AlertModalMsg'
 
 function Box() {
   const [data, setData] = useState([])
@@ -23,6 +24,7 @@ function Box() {
     setAlertModal((prev) => !prev)
     setMessage(msg)
   }
+
 
   // 從資料庫抓資料
   useEffect(() => {
@@ -74,8 +76,6 @@ function Box() {
         { ingred: v.name, ingred_unit: `${v.cal} 大卡` },
       ]
       setTableList(newTableList)
-      console.log('newTableList ', newTableList)
-      console.log('tableList ', tableList)
 
       // 現在便當裡面食材的卡路里，用reduce計算加總
       const getCal = newBento.map((item) => {
@@ -89,7 +89,7 @@ function Box() {
 
   // 把食材刪除
   const handleRemove = (v) => {
-    console.log(v)
+    // console.log(v)
     const name = v.name
 
     // 現在便當裡面食材的卡路里
@@ -101,7 +101,7 @@ function Box() {
     newCal = newCal - v.cal
 
     setBento(bento.filter((v) => v.name !== name))
-    console.log(tableList)
+    // console.log(tableList)
     setTableList(tableList.filter((v) => v.ingred !== name))
     setCal(newCal)
   }

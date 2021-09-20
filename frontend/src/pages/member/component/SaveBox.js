@@ -4,24 +4,17 @@ import SaveBoxDelModal from './SaveBoxDelModal'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function SaveBox(props) {
-  const {
-    data,
-    prepList,
-    handleDelete,
-    showModal,
-    setShowModal,
-    boxId,
-    openDeleteModal,
-  } = props
-  // const [showModal, setShowModal] = useState(false)
-  // const [boxId, setBoxId] = useState('')
+  const { data, prepList, setDisplayData } = props
 
-  // const openDeleteModal = (id) => {
-  //   setShowModal((prev) => !prev)
-  //   setBoxId(id)
-  //   console.log(id)
-  // }
-  
+  const [showModal, setShowModal] = useState(false)
+  const [boxId, setBoxId] = useState('')
+
+  const openDeleteModal = (id) => {
+    setShowModal((prev) => !prev)
+    setBoxId(id)
+    console.log(id)
+  }
+
   // 把原本的陣列->轉成對應的圖片陣列
   const getImage = (e) => {
     e = e.split(',')
@@ -51,7 +44,7 @@ function SaveBox(props) {
         setShowModal={setShowModal}
         openDeleteModal={openDeleteModal}
         id={boxId}
-        handleDelete={handleDelete}
+        setDisplayData={setDisplayData}
       />
       {data.map((value) => {
         return (

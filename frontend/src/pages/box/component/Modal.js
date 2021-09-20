@@ -8,9 +8,9 @@ import { API_URL } from '../../../utils/config'
 function Modal(props) {
   const [name, setName] = useState('')
   const {
-    modal,
-    setModal,
-    closeModal,
+    showModal,
+    setShowModal,
+    openModal,
     bento,
     setBento,
     cal,
@@ -36,7 +36,7 @@ function Modal(props) {
         },
         { withCredentials: true }
       )
-      setModal(false)
+      setShowModal(false)
       setBento([])
       setCal(0)
       setTableList([])
@@ -50,10 +50,10 @@ function Modal(props) {
 
   return (
     <>
-      <Black modal={modal} closeModal={closeModal} />
-      {modal ? (
+      <Black modal={showModal} closeModal={openModal} />
+      {showModal ? (
         <div className="b-modal">
-          <button className="b-modal-close" onClick={closeModal}>
+          <button className="b-modal-close" onClick={openModal}>
             <FontAwesomeIcon icon="times" />
           </button>
           <div className="b-modal-box">

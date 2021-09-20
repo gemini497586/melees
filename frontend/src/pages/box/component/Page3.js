@@ -1,30 +1,53 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Modal from './Modal'
 import Table from '../../../component/Table'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
+import { Redirect, useHistory, useLocation, Route } from 'react-router-dom'
+import { HandleCart } from '../../../utils/HandleCart'
 
 function Page3(props) {
   const { cal, setCal, tdee, tableList, setTableList, bento, setBento } = props
-  // 彈出視窗
-  const [modal, setModal] = useState(false)
+  const history = useHistory()
+  const location = useLocation()
+  const [redirect, setRedirect] = useState(false)
+  const { login, setLogin } = useContext(HandleCart)
+
+  const [showModal, setShowModal] = useState(false)
   const openModal = () => {
     if (bento.length > 0) {
-      setModal(true)
+      setShowModal((prev) => !prev)
     } else {
       alert('請先至上方點選食材')
     }
   }
-  const closeModal = () => {
-    setModal(false)
+
+  // 判斷是否有登入
+  // 沒有 -> 跳去登入畫面
+  // 有 -> 打開modal
+  const handleLogin = () => {
+    if (login) {
+      openModal()
+    } else {
+      setRedirect(true)
+    }
   }
 
   return (
     <>
+      {redirect ? (
+        <Redirect
+          to={{
+            pathname: '/login',
+            state: { from: location.pathname },
+          }}
+        />
+      ) : null}
+
       <Modal
-        modal={modal}
-        setModal={setModal}
-        closeModal={closeModal}
+        showModal={showModal}
+        setShowModal={setShowModal}
+        openModal={openModal}
         bento={bento}
         setBento={setBento}
         cal={cal}
@@ -48,14 +71,10 @@ function Page3(props) {
               />
             </div>
             <div className="b-page3-btn">
-              <button className="b-btn font-700M" onClick={openModal}>
+              <button className="b-btn font-700M" onClick={handleLogin}>
                 <FontAwesomeIcon icon={['far', 'bookmark']} className="me-2" />
                 收藏便當
               </button>
-              {/* <button className="b-btn font-700M" onClick={openModal}>
-                <FontAwesomeIcon icon={['far', 'bookmark']} className="me-2" />
-                收藏便當
-              </button> */}
             </div>
             <div className="b-page3-note font-400S">
               如需使用收藏便當功能，請先登入會員
