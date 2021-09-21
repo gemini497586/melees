@@ -132,11 +132,11 @@ function Form2(props) {
           value={'active'}
           options={activeList}
         />
-        <div className="row">
+        {/* <div className="row"> */}
           <button className="font-700M b-btn" type="submit">
             開始計算
           </button>
-        </div>
+        {/* </div> */}
       </form>
     </>
   )

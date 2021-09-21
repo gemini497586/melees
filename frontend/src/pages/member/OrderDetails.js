@@ -35,7 +35,7 @@ function OrderDetails(props) {
         setMainList(mainList)
         setStep(mainList.status)
         setProduct(product)
-
+        console.log(data)
         // 幫商品做成查表法
         let newProductList = {}
         product.map((item) => {

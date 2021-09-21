@@ -34,7 +34,7 @@ router.get("/", async (req, res, next) => {
 router.get("/detail/:id", async (req, res, next) => {
     const memberId = req.session.member.id;
     // const memberId = 37;
-    console.log(memberId);
+    // console.log(memberId);
     let mainList = await connection.queryAsync(
         "SELECT * FROM order_main_list WHERE  member_id=? AND id =?",
         [memberId, req.params.id]
@@ -62,16 +62,16 @@ router.get("/detail/:id", async (req, res, next) => {
     }
 
     // 只抓到result有用到的product_id
-    let productIds = result.map((v) => {
-        return v.product_id;
-    });
-    // console.log(productIds);
-    let result2 = await connection.queryAsync(
-        "SELECT id,name FROM product WHERE id IN ?",
-        [[productIds]]
-    );
+    // let productIds = result.map((v) => {
+    //     return v.product_id;
+    // });
+    // // console.log(productIds);
+    // let result2 = await connection.queryAsync(
+    //     "SELECT id,name FROM product WHERE id IN ?",
+    //     [[productIds]]
+    // );
 
-    res.json({ mainList, result2 });
+    // res.json({ mainList, result2 });
 });
 
 module.exports = router;

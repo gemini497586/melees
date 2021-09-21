@@ -8,7 +8,6 @@ import AlertModal from '../../component/AlertModal'
 import CardRecipe from '../../component/CardRecipe'
 import CardShopping from '../../component/CardShopping'
 import { API_URL } from '../../utils/config'
-import AlertModalMsg from '../../utils/AlertModalMsg'
 
 function Box() {
   const [data, setData] = useState([])
@@ -24,7 +23,6 @@ function Box() {
     setAlertModal((prev) => !prev)
     setMessage(msg)
   }
-
 
   // 從資料庫抓資料
   useEffect(() => {
@@ -112,7 +110,6 @@ function Box() {
         <AlertModal
           message={message}
           alertmodal={alertmodal}
-          setAlertModal={setAlertModal}
           openAlertModal={openAlertModal}
         />
         <Page1 bmr={bmr} setBmr={setBmr} tdee={tdee} setTdee={setTdee} />
@@ -131,6 +128,9 @@ function Box() {
           setTableList={setTableList}
           bento={bento}
           setBento={setBento}
+          message={message}
+          alertmodal={alertmodal}
+          openAlertModal={openAlertModal}
         />
         {/* 最下面推薦食譜 商品 */}
         <CardRecipe />

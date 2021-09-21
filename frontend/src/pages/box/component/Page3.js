@@ -5,9 +5,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
 import { Redirect, useHistory, useLocation, Route } from 'react-router-dom'
 import { HandleCart } from '../../../utils/HandleCart'
+import AlertModal from '../../../component/AlertModal'
 
 function Page3(props) {
-  const { cal, setCal, tdee, tableList, setTableList, bento, setBento } = props
+  const {
+    cal,
+    setCal,
+    tdee,
+    tableList,
+    setTableList,
+    bento,
+    setBento,
+    message,
+    alertmodal,
+    openAlertModal,
+  } = props
   const history = useHistory()
   const location = useLocation()
   const [redirect, setRedirect] = useState(false)
@@ -18,7 +30,8 @@ function Page3(props) {
     if (bento.length > 0) {
       setShowModal((prev) => !prev)
     } else {
-      alert('請先至上方點選食材')
+      openAlertModal('請先至上方挑選至少一樣食材')
+      // alert('請先至上方點選食材')
     }
   }
 
@@ -43,7 +56,11 @@ function Page3(props) {
           }}
         />
       ) : null}
-
+      <AlertModal
+        message={message}
+        alertmodal={alertmodal}
+        openAlertModal={openAlertModal}
+      />
       <Modal
         showModal={showModal}
         setShowModal={setShowModal}
@@ -59,9 +76,9 @@ function Page3(props) {
         <div className="b-page3">
           {/* 左邊 */}
           <div className="col-12 col-md-6 b-page3-left">
-            <div className="b-page3-text font-700M pb-2">
-              <p>便當總卡路里: {cal > 0 ? cal + ' 大卡' : ''}</p>
-              <p>你的每日總消耗熱量: {tdee > 0 ? tdee + ' 大卡' : ''} </p>
+            <div className="b-page3-text font-700L pb-2">
+              <div className="mb-2">便當總卡路里: {cal > 0 ? cal + ' 大卡' : ''}</div>
+              <div>你的每日總消耗熱量: {tdee > 0 ? tdee + ' 大卡' : ''} </div>
             </div>
             <div className="b-page3-man">
               <img
@@ -70,14 +87,14 @@ function Page3(props) {
                 alt="Man"
               />
             </div>
+            <div className="b-page3-note font-700M">
+              * 如需使用收藏便當功能，請先登入會員
+            </div>
             <div className="b-page3-btn">
               <button className="b-btn font-700M" onClick={handleLogin}>
                 <FontAwesomeIcon icon={['far', 'bookmark']} className="me-2" />
                 收藏便當
               </button>
-            </div>
-            <div className="b-page3-note font-400S">
-              如需使用收藏便當功能，請先登入會員
             </div>
           </div>
           {/* 右邊 */}
