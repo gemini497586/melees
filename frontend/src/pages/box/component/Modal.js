@@ -4,9 +4,13 @@ import '../../../component/FontawsomeIcons'
 import Black from '../Black'
 import axios from 'axios'
 import { API_URL } from '../../../utils/config'
+import useAlert from '../../../utils/useAlert'
+import AlertModal from '../../../component/AlertModal'
 
 function Modal(props) {
   const [name, setName] = useState('')
+  const { openAlertModal, message, alertmodal } = useAlert()
+
   const {
     showModal,
     setShowModal,
@@ -41,16 +45,22 @@ function Modal(props) {
       setCal(0)
       setTableList([])
       setName('')
+      openAlertModal('便當已收藏，可至會員專區查詢')
       // console.log(res)
     } catch (e) {
       console.log('e', e.response)
-      alert(e.response.data.message)
+      // alert(e.response.data.message)
     }
   }
 
   return (
     <>
       <Black modal={showModal} closeModal={openModal} />
+      <AlertModal
+        message={message}
+        alertmodal={alertmodal}
+        openAlertModal={openAlertModal}
+      />
       {showModal ? (
         <div className="b-modal">
           <button className="b-modal-close" onClick={openModal}>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import Axios from 'axios'
 import '../../style/box.css'
 import Page1 from './component/Page1'
@@ -8,6 +8,7 @@ import AlertModal from '../../component/AlertModal'
 import CardRecipe from '../../component/CardRecipe'
 import CardShopping from '../../component/CardShopping'
 import { API_URL } from '../../utils/config'
+import useAlert from '../../utils/useAlert'
 
 function Box() {
   const [data, setData] = useState([])
@@ -17,12 +18,7 @@ function Box() {
   const [bmr, setBmr] = useState(0)
   const [tdee, setTdee] = useState(0)
   const [cal, setCal] = useState(0)
-  const [alertmodal, setAlertModal] = useState(false)
-  const [message, setMessage] = useState('')
-  const openAlertModal = (msg) => {
-    setAlertModal((prev) => !prev)
-    setMessage(msg)
-  }
+  const { openAlertModal, message, alertmodal } = useAlert()
 
   // 從資料庫抓資料
   useEffect(() => {
@@ -106,12 +102,12 @@ function Box() {
 
   return (
     <>
+      <AlertModal
+        message={message}
+        alertmodal={alertmodal}
+        openAlertModal={openAlertModal}
+      />
       <section className="page-group">
-        <AlertModal
-          message={message}
-          alertmodal={alertmodal}
-          openAlertModal={openAlertModal}
-        />
         <Page1 bmr={bmr} setBmr={setBmr} tdee={tdee} setTdee={setTdee} />
         <Page2
           data={data}

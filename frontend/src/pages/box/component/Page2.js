@@ -29,7 +29,7 @@ function Page2(props) {
           <div className="d-block d-md-flex">
             <div className="col-md-3 b-page2-left">
               {bento.length > 0 ? (
-                <div className="b-page2-select font-400L">
+                <div className="b-page2-select font-400L b-bentotext">
                   已選擇食材
                   {bento.map((v, i) => {
                     return (
@@ -62,6 +62,7 @@ function Page2(props) {
                         key={v.id}
                         src={`${API_URL}/box/${v.inside_image}`}
                         alt={v.name}
+                        className="b-bentoIn"
                       />
                     )
                   })}

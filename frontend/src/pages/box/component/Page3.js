@@ -3,23 +3,14 @@ import Modal from './Modal'
 import Table from '../../../component/Table'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
-import { Redirect, useHistory, useLocation, Route } from 'react-router-dom'
+import { Redirect, useHistory, useLocation } from 'react-router-dom'
 import { HandleCart } from '../../../utils/HandleCart'
+import useAlert from '../../../utils/useAlert'
 import AlertModal from '../../../component/AlertModal'
 
 function Page3(props) {
-  const {
-    cal,
-    setCal,
-    tdee,
-    tableList,
-    setTableList,
-    bento,
-    setBento,
-    message,
-    alertmodal,
-    openAlertModal,
-  } = props
+  const { cal, setCal, tdee, tableList, setTableList, bento, setBento } = props
+  const { openAlertModal, message, alertmodal } = useAlert()
   const history = useHistory()
   const location = useLocation()
   const [redirect, setRedirect] = useState(false)
@@ -31,7 +22,6 @@ function Page3(props) {
       setShowModal((prev) => !prev)
     } else {
       openAlertModal('請先至上方挑選至少一樣食材')
-      // alert('請先至上方點選食材')
     }
   }
 
@@ -77,7 +67,9 @@ function Page3(props) {
           {/* 左邊 */}
           <div className="col-12 col-md-6 b-page3-left">
             <div className="b-page3-text font-700L pb-2">
-              <div className="mb-2">便當總卡路里: {cal > 0 ? cal + ' 大卡' : ''}</div>
+              <div className="mb-2">
+                便當總卡路里: {cal > 0 ? cal + ' 大卡' : ''}
+              </div>
               <div>你的每日總消耗熱量: {tdee > 0 ? tdee + ' 大卡' : ''} </div>
             </div>
             <div className="b-page3-man">

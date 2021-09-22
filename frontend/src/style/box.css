@@ -35,7 +35,6 @@
   height: 43px;
   border: 1px solid transparent;
   border-radius: 8px;
-  white-space: nowrap;
   transition: 0.4s;
 }
 .b-btn:hover {
@@ -48,7 +47,6 @@
   height: 43px;
   border: 1px solid transparent;
   border-radius: 8px;
-  white-space: nowrap;
   pointer-events: none;
 }
 @media screen and (max-width: 414px) {
@@ -89,7 +87,6 @@
   height: 45px;
 }
 .b-page1-calc button {
-  /* width: 50%; */
   margin: 0 auto;
 }
 .b-page1-errorMsg {
@@ -218,9 +215,30 @@
   cursor: pointer;
   height: 100%;
   width: 100%;
+  transition: 0.4s;
 }
 .b-page2-slider-text {
+  color: var(--color-grey-900);
   text-align: center;
+}
+.b-page2-slider-cal {
+  color: var(--color-grey-900);
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.b-page2-mask {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.b-page2-mask:hover .b-page2-slider-cal {
+  opacity: 1;
+}
+.b-page2-mask:hover .b-page2-slider-image {
+  opacity: 0.5;
 }
 
 @media screen and (max-width: 414px) {
@@ -333,12 +351,11 @@
   }
 }
 /* Modal */
-
 .b-modal {
   position: fixed;
-  top: 50%;
+  top: 10%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   z-index: 110;
   width: 50%;
   background: var(--color-white);
@@ -411,3 +428,34 @@
   top: 0;
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+/* 動畫 */
+.b-bentotext {
+  animation: bentoText;
+  animation-duration: 1s;
+}
+@keyframes bentoText {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.b-bentoIn {
+  animation: bentoIn;
+  animation-duration: 1s;
+}
+@keyframes bentoIn {
+  0% {
+    transform: translateY(-200px);
+    opacity: 0.7;
+  }
+  80% {
+    transform: translateY(0px);
+  }
+  100% {
+    opacity: 1;
+  }
+}
+

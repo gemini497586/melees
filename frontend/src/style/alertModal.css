@@ -1,15 +1,14 @@
 .alert-modal {
   position: fixed;
-  top: 50%;
+  top: 10%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   width: 400px;
   background: var(--color-white);
   text-align: center;
   padding: 20px;
   z-index: 110;
   border-radius: 8px;
-  /* box-shadow: 1px 1px 10px var(--color-grey-500); */
 }
 .alert-modal-icon {
   width: 50px;
@@ -24,7 +23,7 @@
   margin-top: 5px;
 }
 .alert-modal-text {
-  margin: 20px;
+  margin: 20px 0;
 }
 .alert-modal > .btn-cancel {
   padding: 0 10px;
