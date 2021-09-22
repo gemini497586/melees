@@ -9,14 +9,25 @@ import useCart from '../../utils/useCart'
 
 function ProductCard(props) {
   const [product, setProduct] = useState([])
-  const { carts, addCart, setProductsAll } = useCart()
+  const { carts, addCart, setProductsAll, selectIndex } = useCart()
 
   useEffect(() => {
-    // 顯示商品分類用
-    axios.get(`${API_URL}/market/home/${props.category}`).then((response) => {
-      setProduct(response.data)
-    })
+    // 商品分類跟排序
+    axios
+      .get(`${API_URL}/market/home/${props.category}/${selectIndex}`)
+      .then((response) => {
+        setProduct(response.data)
+      })
   }, [props.category])
+
+  useEffect(() => {
+    // 商品分類跟排序
+    axios
+      .get(`${API_URL}/market/home/${props.category}/${selectIndex}`)
+      .then((response) => {
+        setProduct(response.data)
+      })
+  }, [selectIndex])
 
   useEffect(() => {
     // 取得所有商品資料用

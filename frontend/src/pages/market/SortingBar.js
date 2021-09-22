@@ -1,29 +1,18 @@
 import React, { useState } from 'react'
 import '../../style/sortingBar.css'
+import useCart from '../../utils/useCart'
 
 function SortingBar() {
   const [isDropDown, setIsDropDown] = useState(false)
+  const { selectIndex, setSelectIndex } = useCart()
 
   const [itemList, setItemList] = useState([
-    {
-      name: '價格由低至高',
-      value: '1',
-    },
-    {
-      name: '價格由高至低',
-      value: '2',
-    },
-    {
-      name: '時間由新至舊',
-      value: '3',
-    },
-    {
-      name: '時間由舊至新',
-      value: '4',
-    },
+    '價格由低至高',
+    '價格由高至低',
+    '時間由新至舊',
+    '時間由舊至新',
   ])
 
-  const [selectIndex, setSelectIndex] = useState(null)
   return (
     <>
       <div className="row justify-content-end">
@@ -35,22 +24,20 @@ function SortingBar() {
                 setIsDropDown(!isDropDown)
               }}
             >
-              {selectIndex !== null
-                ? itemList[selectIndex].name
-                : '請輸入排序方式'}
+              {selectIndex ? selectIndex : '請選擇排序方式'}
             </div>
             {isDropDown ? (
               <div className="market-items-holder font-400SL">
                 {itemList.map((item, index) => (
                   <div
-                    key={item.value}
+                    key={index}
                     className="market-dropdown-item"
-                    onClick={(e) => {
-                      setSelectIndex(index)
+                    onClick={() => {
+                      setSelectIndex(item)
                       setIsDropDown(false)
                     }}
                   >
-                    {item.name}
+                    {item}
                   </div>
                 ))}
               </div>

@@ -89,10 +89,6 @@ function ProductDetails(props) {
     setMainImg(e.target.src)
   }
 
-  // sessionStorage.setItem('cartList', 'true')
-  // let abc = sessionStorage.getItem('List') || []
-  // console.log(abc, '這是abc')
-
   const handleProductDetail = () => {
     return (
       <div className="product-detail">

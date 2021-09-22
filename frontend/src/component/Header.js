@@ -27,35 +27,31 @@ function Header(props) {
     let toMarket = document.getElementById('toMarket')
     let toMember = document.getElementById('toMember')
     // switch、array -> number
-    if (now.includes('member')) {
-      toMember.classList.add('header-active', 'font-700SL')
-    } else if (now.includes('market')) {
-      toMarket.classList.add('header-active', 'font-700SL')
-    } else if (now.includes('private')) {
-      toPrivate.classList.add('header-active', 'font-700SL')
-    } else if (now.includes('feature')) {
-      toFeature.classList.add('header-active', 'font-700SL')
-    } else if (now.includes('box')) {
-      toBox.classList.add('header-active', 'font-700SL')
-    } else {
+    const removeActive = () => {
       for (let i = 0; i < header.childElementCount; i++) {
         header.children[i].classList.remove('header-active', 'font-700SL')
       }
     }
-  }, [location])
 
-  // 讓header-active隨著點擊的頁面切換，並取消其他的.active
-  useEffect(() => {
-    let header = document.getElementById('header')
-    header.addEventListener('click', (e) => {
-      if (e.target.children.length === 0) {
-        for (let i = 0; i < header.childElementCount; i++) {
-          header.children[i].classList.remove('header-active', 'font-700SL')
-        }
-        e.target.parentElement.classList.add('header-active', 'font-700SL')
-      }
-    })
-  }, [])
+    if (now.includes('member')) {
+      removeActive()
+      toMember.classList.add('header-active', 'font-700SL')
+    } else if (now.includes('market')) {
+      removeActive()
+      toMarket.classList.add('header-active', 'font-700SL')
+    } else if (now.includes('private')) {
+      removeActive()
+      toPrivate.classList.add('header-active', 'font-700SL')
+    } else if (now.includes('feature')) {
+      removeActive()
+      toFeature.classList.add('header-active', 'font-700SL')
+    } else if (now.includes('box')) {
+      removeActive()
+      toBox.classList.add('header-active', 'font-700SL')
+    } else {
+      removeActive()
+    }
+  }, [location])
 
   // 顯示header購物車
   const [hidden, setHidden] = useState(false)

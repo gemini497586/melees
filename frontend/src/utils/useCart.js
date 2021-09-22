@@ -2,8 +2,16 @@ import { useContext, useState } from 'react'
 import { CartContext } from './CartContext'
 
 const useCart = () => {
-  const [carts, setCarts, productsAll, setProductsAll, login, setLogin] =
-    useContext(CartContext)
+  const [
+    carts,
+    setCarts,
+    productsAll,
+    setProductsAll,
+    selectIndex,
+    setSelectIndex,
+    login,
+    setLogin,
+  ] = useContext(CartContext)
   // console.log(cartList)
   const addCart = (e) => {
     // 增加商品到購物車內
@@ -70,6 +78,8 @@ const useCart = () => {
     minusAmount,
     plusAmount,
     clearCart,
+    selectIndex,
+    setSelectIndex,
   }
 }
 
