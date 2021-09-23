@@ -20,8 +20,10 @@ function FeatureStep() {
   // 給頁面切換typeid資料用
   const [listdata, setListdata] = useState([])
   const [featureimg123, setFeatureimg123] = useState([])
-  // console.log('listdata', listdata)
-  // console.log('listdatafeatureimg', listdata.featureimg)
+  const [stepList, setStepList] = useState([])
+  const [ingred, setIngred] = useState([])
+  // console.log('stepList', stepList)
+
   // 取得食譜ID
   useEffect(() => {
     // 查props發出什麼訊息，是否有正確發出API
@@ -29,13 +31,24 @@ function FeatureStep() {
     //   '${API_URL}/feature/step/${listId}',
     //   `${API_URL}/feature/step/${listId}`
     // )
-    Axios.get(`${API_URL}/feature/step/${listId}`).then((response) => {
+    Axios.get(`${API_URL}/feature/steplist/${listId}`).then((response) => {
       // response.data[0] 我只要陣列裡面的這一個物件 (3層以上就會掛掉)
       setListdata(response.data[0])
       setFeatureimg123(response.data[0].featureimg)
-      console.log('featureimg123', featureimg123)
+      // console.log('featureimg123', featureimg123)
+    })
+
+    Axios.get(`${API_URL}/feature/step/${listId}`).then((response) => {
+      setStepList(response.data)
+      // console.log(response.data.steps)
     })
   }, [listId])
+
+  // 將食材資料分半
+  const total = ingred.length
+  const half = Math.ceil(total / 2)
+  const tableleft = ingred.slice(0, half)
+  const tableright = ingred.slice(half)
 
   return (
     <>
@@ -46,16 +59,12 @@ function FeatureStep() {
           <div className="container">
             {/* 上面介紹 */}
             <div className="d-flex fcard-mb65">
-              <FeatureContentImg
-                featureimg={featureimg123}
-                linkImg={listdata.linkImg}
-              />
+              <FeatureContentImg featureimg={featureimg123} />
               <FeatureContentIntro
                 linkImg={listdata.linkImg}
                 listName={listdata.listName}
                 qty={listdata.qty}
                 linkName={listdata.linkName}
-                featureimg={listdata.featureimg}
               />
             </div>
             {/* 食材準備 */}
@@ -64,9 +73,13 @@ function FeatureStep() {
                 <h5 className="fcolor-grey-900">食材</h5>
                 <div className="fline-g500 mb-3"></div>
               </div>
-              <div className="d-flex">
-                {/* <Table />
-                <Table /> */}
+              <div className="row">
+                <div className="col-12 col-md-6 g-0">
+                  <Table tableList={tableleft} />
+                </div>
+                <div className="col-12 col-md-6 g-0">
+                  <Table tableList={tableright} />
+                </div>
               </div>
             </div>
             <div className="fcard-mb65">
@@ -74,7 +87,7 @@ function FeatureStep() {
                 <h5 className="fcolor-grey-900">步驟</h5>
                 <div className="fline-g500 mb-3"></div>
               </div>
-              {/* <RecipeStep /> */}
+              <RecipeStep listId={listId} stepList={stepList} />
             </div>
             <CardRecipe />
             <CardShopping />
