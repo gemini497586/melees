@@ -3,7 +3,7 @@
   height: 936px;
   border: 1px solid #000;
   border-radius: 4px;
-  margin-top: 56px;
+  margin: 56px 0px 40px;
   position: relative;
 }
 
@@ -72,21 +72,29 @@
 .checkout-personal-data-phone {
   width: 450px;
   height: 45px;
-  top: 199px;
+  top: 191px;
   left: 76px;
 }
 
 .checkout-personal-data-email {
   width: 450px;
   height: 45px;
-  top: 285px;
+  top: 277px;
+  left: 76px;
+}
+
+/* 地址部分 */
+.checkout-credit-card-address {
+  width: 450px;
+  height: 45px;
+  top: 363px;
   left: 76px;
 }
 
 .checkout-personal-data-paying {
   width: 450px;
   height: 45px;
-  top: 371px;
+  top: 449px;
   left: 76px;
 }
 
@@ -102,6 +110,7 @@
   background: var(--color-primary);
 }
 
+/* 下方按鈕部分 */
 .checkout-personal-data-checkout-area {
   width: 1318px;
   height: 101px;

@@ -9,23 +9,24 @@
   position: relative;
 }
 
-.cart-checkout-area p,
-.cart-checkout-area h6,
-.cart-checkout-area h5,
-.cart-checkout-area div,
-.cart-checkout-area .btn {
+.cart-checkout-box p,
+.cart-checkout-box h6,
+.cart-checkout-box h5,
+.cart-checkout-box div,
+.cart-checkout-box .btn {
   position: absolute;
 }
 
-.cart-checkout-area .btn {
+/* 所有按鈕共通 */
+.cart-checkout-box .btn {
   width: 205px;
   height: 43px;
   border-radius: 100px;
 }
 
-.cart-checkout-continue-btn {
-  color: var(--color-primary);
-  border: 1px solid var(--color-primary);
+.cart-checkout-market-btn {
+  color: #fff;
+  background: var(--color-primary);
   top: 217px;
   left: 50px;
 }
@@ -102,9 +103,18 @@
   color: var(--color-red-C);
 }
 
+/* 各個分頁的結帳按鈕 */
 .cart-checkout-btn {
   color: #fff;
   background: var(--color-primary);
   top: 217px;
   left: 1065px;
+}
+
+/* 回上一頁按鈕 */
+.cart-back-btn {
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  top: 163px;
+  left: 50px;
 }

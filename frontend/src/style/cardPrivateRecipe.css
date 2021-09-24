@@ -6,6 +6,9 @@
   margin: auto;
   margin-bottom: 30px;
 }
+.cardPrivateRecipe a {
+  text-decoration: none;
+}
 .cardPrivateRecipe:hover {
   box-shadow: 0px 0px 15px var(--color-grey-800);
   transition: 0.2s;
@@ -22,10 +25,12 @@
   right: 28px;
   top: 22px;
   color: var(--color-white);
-  transform: scale(2);
 }
-.cardPrivateRecipe-bookmark:hover {
-  color: var(--color-primary);
+.cardPrivateRecipe-bookmark-active {
+  position: absolute;
+  right: 28px;
+  top: 22px;
+  color: var(--color-blue-C);
 }
 
 .cardPrivateRecipe-avatar {
@@ -72,7 +77,11 @@
   position: absolute;
   right: 20px;
   color: var(--color-grey-800);
-  transform: scale(1.5);
+}
+.cardPrivateRecipe-like-active {
+  position: absolute;
+  right: 20px;
+  color: var(--color-red-C);
 }
 .cardPrivateRecipe-stat {
   display: flex;

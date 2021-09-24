@@ -10,16 +10,70 @@
 .product-detail p,
 .product-detail h2,
 .product-detail h3,
-.product-detail img,
+.main-img,
 .product-detail div {
   position: absolute;
 }
 
-.product-detail img {
+.main-img {
   width: 616px;
   height: 485px;
   top: 40px;
   left: 44px;
+}
+
+/* 縮圖 */
+.thumbnail {
+  width: 300px;
+  height: 150px;
+  top: 580px;
+  left: 60px;
+}
+
+.side-img {
+  width: 110px;
+  height: 110px;
+  margin: 10px 10px 0px 0px;
+  border: 5px solid var(--color-orange-lee);
+  cursor: pointer;
+}
+
+.product-detail-save {
+  left: 1180px;
+  top: 15px;
+  border: 1px solid var(--color-grey-500);
+  border-radius: 100px;
+}
+
+.product-detail-unSave {
+  color: var(--color-grey-500);
+}
+
+.product-detail-save .btn:focus {
+  box-shadow: none;
+}
+
+.product-detail-save-active {
+  width: 105px;
+  height: 38px;
+  border: none;
+  border-radius: 100px;
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.product-detail-save-active:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+.product-detail-specs {
+  top: 528px;
+  left: 44px;
+  width: 590px;
+  line-height: 30px;
+  color: var(--color-grey-900);
+  text-align: start;
 }
 
 .product-detail-category {
@@ -34,15 +88,13 @@
   font-weight: 900;
   width: 560px;
   color: var(--color-grey-900);
-  background: yellow;
 }
 
 .product-detail-price {
   top: 255px;
-  left: 738px;
+  left: 740px;
   font-weight: 700;
   color: var(--color-primary-E);
-  background: green;
 }
 
 .product-detail-add-to-cart-btn {
@@ -72,25 +124,16 @@
   left: 738px;
 }
 
-.product-detail-specs {
-  top: 390px;
-  left: 750px;
-  width: 560px;
-  background: red;
-  color: var(--color-grey-900);
-  text-align: start;
-}
-
 .info-shadow {
   width: 145px;
   height: 28px;
-  top: 561px;
+  top: 408px;
   left: 758px;
   background: var(--color-orange-lee);
 }
 
 .product-detail-info {
-  top: 543px;
+  top: 390px;
   left: 738px;
   font-weight: bold;
   color: var(--color-grey-900);
@@ -99,9 +142,20 @@
 .product-detail-information {
   width: 445px;
   height: 195px;
-  top: 632px;
+  top: 479px;
   left: 750px;
   color: var(--color-grey-900);
   text-align: start;
-  background: pink;
+}
+
+/* 收藏按鈕 */
+.product-detail-bookmark {
+  cursor: pointer;
+  color: var(--color-grey-900);
+}
+.product-detail-bookmark:hover {
+  color: var(--color-blue-B);
+}
+.product-detail .active {
+  color: var(--color-blue-B);
 }

@@ -5,23 +5,96 @@ import '../../../style/cardPrivateRecipe.css'
 import food from '../../../images/default_food2.jpg'
 import avatar from '../../../images/default_avatar1.jpg'
 import Axios from 'axios'
+import { API_URL } from '../../../utils/config'
 
-
-function PrivateRecipeCard(props) {
+function PrivateRecipeCard() {
   const [itemInfo, setItemInfo] = useState([])
-  const [starRate, setstarRate] = useState([])
-  let star = starRate.length
-  console.log(star)
+  const [likeList, setLikeList] = useState([])
+  const [viewList, setViewList] = useState([])
+  const [saveState, setSaveState] = useState([])
+  const [likeState, setLikeState] = useState([])
 
   useEffect(() => {
-    Axios.get('http://localhost:3001/api/private').then((res) => {
+    Axios.get(`${API_URL}/private/index`, {
+      withCredentials: true,
+    }).then((res) => {
       setItemInfo(res.data.result)
-      setstarRate(res.data.result2)
+      setLikeList(res.data.result2)
+      setViewList(res.data.result3)
+      setSaveState(res.data.result4)
+      setLikeState(res.data.result5)
     })
-    // setItemInfo(PrivateRecipeCardData)
-    console.log('123', itemInfo)
-    console.log('456', starRate)
   }, [])
+  // 星星評分數
+  const starNum = (index) => {
+    const row = []
+    let solid = Math.floor(itemInfo[index].star_rate)
+    let empty = 5 - Math.ceil(itemInfo[index].star_rate)
+    let half = 5 - solid - empty
+    for (let i = 0; i < solid; i++) {
+      row.push(<FontAwesomeIcon icon="star" />)
+    }
+    for (let j = 0; j < half; j++) {
+      row.push(<FontAwesomeIcon icon="star-half-alt" />)
+    }
+    for (let k = 0; k < empty; k++) {
+      row.push(<FontAwesomeIcon icon={['far', 'star']} />)
+    }
+    return row
+  }
+  // 按讚數
+  const likeNum = (value, index) => {
+    const like = []
+    for (let i = 0; i < likeList.length; i++) {
+      if (value.id !== likeList[i].private_id) {
+        // like.push(<span>0</span>)
+      } else {
+        like.push(<span>{likeList[i].count}</span>)
+      }
+    }
+    return like
+  }
+  // 瀏覽數
+  const viewNum = (value, index) => {
+    const view = []
+    for (let i = 0; i < viewList.length; i++) {
+      if (value.id !== viewList[i].private_id) {
+      } else {
+        view.push(<span>{viewList[i].count}</span>)
+      }
+    }
+    return view
+  }
+  const saveToggled = (value, index) => {
+    const save = []
+    for (let i = 0; i < saveState.length; i++) {
+      if (value.id !== saveState[i].private_id) {
+        save.push()
+      } else {
+        save.push(
+          <span className="cardPrivateRecipe-bookmark-active">
+            <FontAwesomeIcon icon="bookmark" size="2x" />
+          </span>
+        )
+      }
+    }
+    return save
+  }
+  const likeToggled = (value, index) => {
+    const like = []
+    for (let i = 0; i < likeState.length; i++) {
+      if (value.id !== likeState[i].private_id) {
+        like.push()
+      } else {
+        like.push(
+          <div className="d-flex cardPrivateRecipe-like-active">
+            <FontAwesomeIcon icon="heart" size="lg" />
+          </div>
+        )
+      }
+    }
+    return like
+  }
   return (
     <>
       <div className="container">
@@ -29,14 +102,17 @@ function PrivateRecipeCard(props) {
           {itemInfo.map((value, index) => {
             return (
               <div className="col-12 col-md-3">
-                <Link to={'/private/detail/' + value.id}>
-                  <div className="cardPrivateRecipe">
+                <div className="cardPrivateRecipe">
+                  <Link to={'/private/detail/' + value.id}>
                     <figure className="cardPrivateRecipe-img">
-                      <img src={food} className="w-100" alt="" />
+                      <img
+                        src={`${API_URL}/private/${value.picture}`}
+                        className="b-cover-fit"
+                        alt=""
+                      />
                     </figure>
-                    <span className="cardPrivateRecipe-bookmark">
-                      <FontAwesomeIcon icon="bookmark" />
-                    </span>
+                    {saveToggled(value, index)}
+
                     <figure className="cardPrivateRecipe-avatar">
                       <img src={avatar} className="h-100" alt="" />
                     </figure>
@@ -45,19 +121,13 @@ function PrivateRecipeCard(props) {
                         私藏食譜
                       </span>
                     </div>
-                    <div className="d-flex cardPrivateRecipe-like">
-                      <FontAwesomeIcon icon="heart" />
-                    </div>
+                    {likeToggled(value, index)}
+
                     <h6 className="font-700S cardPrivateRecipe-name">
                       {value.name}
                     </h6>
                     <div className="cardPrivateRecipe-star">
-                      <FontAwesomeIcon icon="star" />
-                      <FontAwesomeIcon icon="star" />
-                      <FontAwesomeIcon icon="star" />
-                      <FontAwesomeIcon icon="star" />
-                      <FontAwesomeIcon icon="star-half-alt" />
-
+                      {starNum(index)}
                       <span className="font-400S cardPrivateRecipe-star-num">
                         {value.star_rate}
                       </span>
@@ -67,16 +137,15 @@ function PrivateRecipeCard(props) {
                         icon="heart"
                         className="cardPrivateRecipe-stat-heart"
                       />
-                      <span>{value.like_qty}</span>
-                      <div></div>
+                      {likeNum(value, index)}
                       <FontAwesomeIcon
                         icon="eye"
                         className="cardPrivateRecipe-stat-eye"
                       />
-                      <span>{value.view_qty}</span>
+                      {viewNum(value, index)}
                     </div>
-                  </div>
-                </Link>
+                  </Link>
+                </div>
               </div>
             )
           })}

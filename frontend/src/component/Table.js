@@ -2,7 +2,7 @@ import React from 'react'
 import '../style/table.css'
 
 function Table(props) {
-  const { unitList, setUnitList } = props
+  const { tableList } = props
   return (
     <>
       <table className="table-food">
@@ -13,11 +13,11 @@ function Table(props) {
           </tr>
         </thead>
         <tbody className="font-400M">
-          {unitList.map((v, i) => {
+          {tableList.map((value, index) => {
             return (
-              <tr key={i}>
-                <td className="table-left">{v.name}</td>
-                <td className="table-right">{v.unit}</td>
+              <tr key={index}>
+                <td className="table-left">{value.ingred}</td>
+                <td className="table-right">{value.ingred_unit}</td>
               </tr>
             )
           })}

@@ -19,10 +19,8 @@
 }
 .PrivateRecipeComment-star {
   margin-top: 8px;
-}
-.PrivateRecipeComment-star i {
   color: var(--color-primary-A);
-  margin: 0 1px;
+  /* margin: 0 10px; */
 }
 
 .PrivateRecipeComment-date {
@@ -30,9 +28,17 @@
   color: var(--color-secondary);
 }
 .PrivateRecipeComment {
-  margin-top: 20px;
+  display: inline-block;
+  display: -webkit-box;
+  height: 160px;
+  margin-top: 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 7;
   color: var(--color-secondary);
 }
+
 .PrivateRecipeComment-more {
   color: var(--color-blue-C);
   margin-top: 8px;

@@ -1,148 +1,367 @@
-/* 共同 */
-.home-height {
-  /* height: calc(100vh - 104px); */
-  overflow: hidden;
+/*便當*/
+.h-bento-bg {
+  background: url('../images/homebento_bg.png') center center;
+  background-size: cover;
+}
+.h-bento-articlegroup {
+  position: absolute;
+}
+.h-bento-dialog {
+  max-width: 300px;
+}
+.h-bento-group {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 120px 0px 0px 0px;
+}
+.h-bento-img {
+  max-width: 900px;
+  padding: 0px 0px 0px 0px;
+}
+.h-bento-contentgroup {
+  display: flex;
+  flex-direction: column;
+  width: 900px;
+}
+.h-bento-titlegroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.h-bento-title {
+  font-size: 80px;
+  font-weight: bold;
+  letter-spacing: 9.5px;
+  color: var(--color-secondary);
+  text-align: center;
+  margin-bottom: 60px;
+  line-height: 100px;
+}
+.h-bento-subtitle {
+  max-width: 480px;
+  margin-bottom: 60px;
+}
+/* 向下箭頭*/
+.h-bento-arrowdown {
+  font-size: 35px;
+  text-align: center;
+  position: absolute;
+  margin-right: auto;
+  margin-left: auto;
+  left: 0;
+  right: 0;
+  bottom: 50px;
+  z-index: 1;
+  color: var(--color-secondary);
+}
+
+/*精選食譜*/
+.h-feature-bg {
+  background: url('../images/homefeature_bg.jpg') center center;
+  background-size: cover;
+}
+/*左邊標題*/
+.h-feature-titleleft {
+  position: absolute;
+  left: 3%;
+  top: 15%;
+}
+/*中間內容*/
+.f-feature-contentgroup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 0px 200px 80px;
+}
+.f-feature-contentbigimg {
+  width: 580px;
+  filter: drop-shadow(7px 7px 4px rgba(0, 0, 0, 0.25));
+}
+
+/*下面內容*/
+.f-feature-bottomgrouop {
+  position: absolute;
+  width: 1080px;
+  height: 280px;
+  margin-right: auto;
+  margin-left: auto;
+  left: 0;
+  right: 0;
+  bottom: 8%;
+  background: rgba(0, 0, 0, 0.66);
+  border-radius: 54px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px 60px;
+}
+.f-feature-cardsgroup {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   position: relative;
 }
-.home-cover-fit {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-}
-.h-btn {
-  background: var(--color-primary);
-  color: var(--color-white);
-  border-radius: 8px;
-  padding: 7px 40px;
-  height: 42px;
-}
-.h-btn:hover {
-  color: var(--color-white);
-  background: var(--color-primary-A);
-}
-a,
-a:hover {
+.f-feature-card {
+  width: 165px;
+  height: 257px;
+  border-radius: 15px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0px 10px;
   text-decoration: none;
 }
-/* 便當 */
-.home-page1 {
-  height: calc(100vh - 104px);
-  background: url('../images/home_bg1.png') center center no-repeat;
-  background-size: cover;
+.f-feature-card:hover {
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.25);
 }
-.p1-dialog {
-  color: var(--color-grey-800);
-  position: absolute;
-  top: 50px;
-  left: 57%;
+.f-feature-cardimg {
+  width: 130px;
+  height: 130px;
 }
-.p1-title {
-  color: var(--color-secondary);
-  position: absolute;
-  top: 200px;
-  left: 65%;
+.f-feature-card p {
+  height: 85px;
+  display: inline-block;
+  text-align: center;
+  padding: 10px 0px 0px 0px;
+  margin: 0px;
 }
-.p1-entitle {
+.f-feature-icon {
   color: var(--color-white);
-  position: absolute;
-  top: 330px;
-  left: 67%;
 }
-.p1-btn {
+/* 向下箭頭*/
+.h-feature-arrowdown {
+  font-size: 35px;
+  text-align: center;
   position: absolute;
-  top: 510px;
-  left: 63%;
+  margin-right: auto;
+  margin-left: auto;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  z-index: 1;
+  color: var(--color-white);
+}
+/*背景漸變*/
+.h-feature-gradientbg {
+  height: 500px;
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #000000 100%);
 }
 
-/* 精選食譜 */
-.home-page2 {
-  height: calc(100vh - 104px);
-  background: linear-gradient(transparent 50%, rgba(0, 0, 0, 0.7)),
-    url('../images/home_bg2.png') top center no-repeat;
-  background-size: cover;
-  padding: 50px;
+/*私藏食譜*/
+.h-recipe-bg {
+  background: url('../images/homerecipe_bg.jpg') center no-repeat;
+  background-size: 2100px auto;
 }
-.p2-top {
-  padding-right: 200px;
+.h-recipe-content {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 100px 120px 0px 0px;
 }
-.p2-top-title {
-  color: var(--color-primary);
+/*左邊標題*/
+.h-recipe-titlegroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 120px 50px;
 }
-.p2-top-subtitle {
-  color: var(--color-grey-500);
+.h-recipe-titlegroup h1 {
+  margin: 0px 0px 50px 0px;
 }
-.p2-top-image figure {
-  margin: 50px;
-  width: 600px;
-  height: 400px;
-  box-shadow: 7px 7px 4px rgba(0, 0, 0, 0.25);
+/*右邊內容*/
+.h-recipe-imggroup {
+  display: flex;
+  align-items: center;
 }
-.p2-top-classify,
-.p2-top-name {
-  color: var(--color-white);
-}
-/* 第二頁下半部 */
-.p2-bottom {
-  margin: 0 auto;
-  width: 1075px;
-  height: 300px;
-  background: var(--color-secondary);
-  opacity: 0.9;
-  border-radius: 54px;
-  padding: 20px 20px;
+/*中間大圖*/
+.f-recipe-plateimg {
   position: relative;
 }
-.p2-bottom-card {
-  width: 165px;
-  height: 260px;
-  border-radius: 15px;
-  padding: 10px;
-  z-index: 3;
+.h-recipe-plate {
+  max-width: 750px;
 }
-.p2-bottom-card:hover {
-  width: 165px;
-  height: 260px;
-  border-radius: 15px;
-  padding: 10px;
-  z-index: 3;
-  background: rgba(255, 255, 255, 0.2);
+.f-recipe-img {
+  width: 550px;
+  height: 550px;
+  position: absolute;
+  border-radius: 50%;
+  overflow: hidden;
+  top: 14%;
+  left: 13%;
 }
-/* 按下去產生這個class */
-.p2-bottom-card-hover {
-  width: 165px;
-  height: 260px;
-  border-radius: 15px;
-  padding: 10px;
-  z-index: 3;
-  background: rgba(255, 255, 255, 0.2);
+/*右邊小圖*/
+.h-recipe-cardsgroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0px 0px 0px 50px;
 }
-
-.p2-bottom-text {
+.h-recipe-cards {
   text-align: center;
+  margin: 6px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.p2-bottom-image {
-  width: 133px;
-  height: 133px;
+.h-recipe-cardimg {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 10px 0px;
 }
-.p2-bottom-title {
-  color: var(--color-white);
-  height: 60px;
-}
-.p2-bottom-subtitle {
-  color: var(--color-white);
+/* 向下箭頭*/
+.h-recipe-arrowdown {
+  font-size: 35px;
+  text-align: center;
+  position: absolute;
+  margin-right: auto;
+  margin-left: auto;
+  left: 0;
+  right: 0;
+  bottom: 30px;
+  z-index: 1;
+  color: var(--color-secondary);
 }
 
-/* 私藏食譜 */
-.home-page3 {
-  height: calc(100vh - 104px);
-  background: url('../images/home_bg3.png') bottom left no-repeat;
-  background-size: cover;
+/*購物商城*/
+.h-shop-bg {
+  background: url('../images/homeshop_bg.png') -500px no-repeat;
+  background-size: 1525px auto;
 }
-.plate {
-  height: 500px;
-  background: url('../images/home_plate.png') top center no-repeat;
-  background-size: 500px;
+/*右邊標題*/
+.h-shop-titlegroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: absolute;
+  right: 8%;
+  top: 20%;
+  z-index: 2;
 }
-
-/* 商城 */
-/* 要記得放入margin-bottom: -60px; */
+.h-shop-title {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+}
+.h-shop-titlebtn {
+  display: inline-block;
+  background: var(--color-primary);
+  padding: 8.5px 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--color-white);
+  text-decoration: none;
+}
+.h-shop-titlebtn:hover {
+  color: var(--color-white);
+}
+/*圖片內容*/
+.h-shop-cardgroup {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  position: absolute;
+  top: 200px;
+  margin-right: auto;
+  margin-left: auto;
+  left: 0;
+  right: 0;
+}
+.h-shop-cardimg {
+  margin: 0px 10px;
+}
+.h-shop-imgbigclass {
+  width: 610px;
+  height: 490px;
+  border-radius: 4px;
+  background: var(--color-white);
+  position: relative;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.h-shop-imgbig {
+  width: 600px;
+  height: 480px;
+  border-radius: 4px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+}
+.h-shop-cardfont {
+  max-width: 550px;
+  text-align: center;
+  padding: 20px 0px 0px 0px;
+  margin: 0 auto;
+}
+.h-shop-cardfont p {
+  margin: 0px 0px;
+}
+.h-shop-cardfont h5 {
+  margin: 0px 0px 20px 0px;
+}
+.h-shop-imgclass {
+  width: 320px;
+  height: 290px;
+  border-radius: 4px;
+  background: var(--color-white);
+  position: relative;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin: 10px 0px 0px 0px;
+}
+.h-shop-img {
+  width: 310px;
+  height: 280px;
+  border-radius: 4px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+}
+.h-shop-cardline {
+  width: 220px;
+  border: 1px solid var(--color-white);
+  margin: 0 auto;
+}
+.h-shop-cardfontsmall {
+  max-width: 310px;
+  text-align: center;
+  margin: 0 auto;
+}
+.h-shop-cardfontsmall p {
+  margin: 0px 0px;
+}
+.h-shop-cardfontsmalltwo {
+  max-width: 200px;
+  text-align: center;
+  margin: 0 auto;
+}
+.h-shop-cardfontsmall p {
+  margin: 0px 0px;
+}
+/*footer*/
+.h-footer {
+  /* height: 100px; */
+  position: absolute;
+  /* margin-top: -300px; */
+}
+.h-footer-div {
+  height: 305px;
+}
+.h-footer-100vh {
+  position: relative;
+  top: 0;
+}
+.h-footer-logo {
+  position: relative;
+  max-width: 700px;
+  margin: 0 auto;
+}

@@ -4,8 +4,13 @@ import Ig from '../../../component/Ig'
 import '../../../style/featureContentIntro.css'
 import '../../../style/featureComponent.css'
 import avatar from '../../../images/lonyo63.jpg'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import '../../../component/FontawsomeIcons'
 
-function FeatureContentIntro() {
+function FeatureContentIntro(props) {
+  const { linkImg, listName, qty, linkName, featureimg } = props
+  // console.log('introfeatureimg', featureimg)
+
   return (
     <>
       <div className="fintro-boxsize">
@@ -14,18 +19,22 @@ function FeatureContentIntro() {
           <a href="#/" className="text-decoration-none">
             <div className="fintro-ig">
               <figure className="fintro-avatar-bg">
-                <img className="fintro-avatar" src={avatar} alt="" />
+                <img
+                  className="fintro-avatar"
+                  src={`http://localhost:3001/feature/igavatar/${linkImg}`}
+                  alt=""
+                />
               </figure>
-              <Ig />
+              <Ig linkName={linkName} />
             </div>
           </a>
           {/* 中間標題 */}
           <div className="d-flex flex-column">
-            <h2 className="fs-color900 mb-3 mt-4">香煎菲力牛排</h2>
+            <h2 className="fs-color900 mb-3 mt-4">{listName}</h2>
             {/* 份數 */}
             <div className="d-flex">
               <p className="fcolor-900 font-400SL me-3">份量</p>
-              <p className="fcolor-900 font-400SL">1人份</p>
+              <p className="fcolor-900 font-400SL">{qty}人份</p>
             </div>
           </div>
         </div>
@@ -35,10 +44,20 @@ function FeatureContentIntro() {
           <HeartViewNum />
           {/* 收藏btn */}
           <button className="fintro-btnlike font-700M">
-            <i className="far fa-bookmark fa-fw me-2"></i>按讚
+            <FontAwesomeIcon
+              className="me-2"
+              icon={['far', 'bookmark']}
+              fixedWidth
+            />
+            按讚
           </button>
           <button className="fintro-btnsave font-700M">
-            <i className="far fa-bookmark fa-fw me-2"></i>加入收藏
+            <FontAwesomeIcon
+              className="me-2"
+              icon={['far', 'bookmark']}
+              fixedWidth
+            />
+            加入收藏
           </button>
         </div>
       </div>

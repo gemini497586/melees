@@ -1,33 +1,54 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import img from '../../../images/005.jpg'
 import '../../../style/cartDetailRowBtn.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
+import { API_URL } from '../../../utils/config'
+import useCart from '../../../utils/useCart'
 
 function CartDetailRow(props) {
+  const { carts, removeCart, productsAll, minusAmount, plusAmount } = useCart()
+  const index = props.index
+  const productID = carts[index].id - 1
+  // console.log(productsAll)
   return (
     <div className="cart-btn-detail-row">
-      <img src={img} alt="商品圖片" />
-      <p className="font-400S cart-btn-detail-category">食材</p>
-      <h6 className="cart-btn-detail-name">美國Choice嫩肩里肌肉片</h6>
-      <p className="font-400S cart-btn-detail-specs">
-        重量：100g±5% <br />
-        原產地：美國 <br />
-        保存方式：請置於冷凍-18℃保存
+      <img src={`${API_URL}/market/${carts[index].img}`} alt="商品圖片" />
+      <p className="font-400S cart-btn-detail-category">
+        {carts[index].category}
       </p>
+      <h6 className="cart-btn-detail-name">{carts[index].name}</h6>
+      <p className="font-400S cart-btn-detail-specs">{carts[index].specs}</p>
       <p className="cart-btn-detail-price">
-        <FontAwesomeIcon icon="dollar-sign" /> 310
+        <FontAwesomeIcon icon="dollar-sign" /> {carts[index].price}
       </p>
       <div className="cart-btn-detail-amount">
-        <FontAwesomeIcon icon="minus" className="operation" />
-        5
-        <FontAwesomeIcon icon="plus" className="operation" />
+        <p>{carts[index].amount}</p>
+        <button
+          className="btn minus"
+          onClick={() => {
+            minusAmount(index)
+          }}
+        >
+          <FontAwesomeIcon icon="minus" />
+        </button>
+        <button
+          className="btn plus"
+          onClick={() => {
+            plusAmount(index)
+          }}
+        >
+          <FontAwesomeIcon icon="plus" />
+        </button>
       </div>
       <h5 className="cart-btn-detail-total">
         NT <FontAwesomeIcon icon="dollar-sign" />
-        1,550
+        {carts[index].amount * carts[index].price}
       </h5>
-      <button className="btn cart-btn-detail-delete">
+      <button
+        className="btn cart-btn-detail-delete"
+        onClick={() => removeCart(index)}
+      >
         <FontAwesomeIcon icon="trash-alt" />
       </button>
     </div>

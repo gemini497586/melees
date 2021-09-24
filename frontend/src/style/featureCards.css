@@ -3,6 +3,13 @@
   filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.3));
 }
 
+.fc-list {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
 /* 食譜照片 */
 .fc-food-img {
   width: 275px;

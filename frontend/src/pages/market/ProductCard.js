@@ -1,39 +1,60 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import '../../style/productCard.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
-import productImg from '../../images/005.jpg'
 import { Link } from 'react-router-dom'
 import { API_URL } from '../../utils/config'
 import axios from 'axios'
+import useCart from '../../utils/useCart'
+import useSearch from '../../utils/useSearch'
 
-function ProductCard() {
+function ProductCard(props) {
   const [product, setProduct] = useState([])
-  const [cart, setCart] = useState([])
+  const { carts, addCart, setProductsAll, selectIndex } = useCart()
+  const { searching, setSearching } = useSearch()
 
   useEffect(() => {
-    // console.log(API_URL)
-    axios.get(`${API_URL}/market`).then((response) => {
-      setProduct(response.data)
+    // 商品分類跟排序
+    axios
+      .get(`${API_URL}/market/home/${props.category}/${selectIndex}`)
+      .then((response) => {
+        setProduct(response.data)
+      })
+  }, [props.category])
+
+  useEffect(() => {
+    // 商品分類跟排序
+    axios
+      .get(`${API_URL}/market/home/${props.category}/${selectIndex}`)
+      .then((response) => {
+        setProduct(response.data)
+      })
+  }, [selectIndex])
+
+  useEffect(() => {
+    // 取得所有商品資料用
+    axios.get(`${API_URL}/market/home/undefined`).then((response) => {
+      setProductsAll(response.data)
     })
   }, [])
+
+  useEffect(() => {
+    // 取得查詢的商品資料
+    axios.get(`${API_URL}/search/${searching}`).then((response) => {
+      setProduct(response.data)
+    })
+  }, [searching])
 
   // 查表法 --> O(1)
   let category = { 1: '食材', 2: '鍋具', 3: '調味料' }
 
-  // 新增至購物車(onClick)
-  const handleCart = (e) => {
-    setCart([...cart, e.target.id])
-    console.log(cart)
-  }
-
   const handleProductCard = product.map((e) => {
     return (
       <div className="product-card col-6" key={e.id}>
-        <Link to={{ pathname: `/market/product/${e.id}` }}>
+        <Link to={`/market/product/${e.id}`}>
           <div className="product-img">
-            <img src={productImg} alt="好想吃威靈頓牛排" />
-            <FontAwesomeIcon icon="bookmark" className="bookmark" />
+            <img src={`${API_URL}/market/${e.image}`} alt={`商品${e.id}圖片`} />
+            {/* <FontAwesomeIcon icon="bookmark" className="bookmark" /> */}
           </div>
           <p className="font-700S product-category">{category[e.category]}</p>
           <h6 className="product-name">{e.name}</h6>
@@ -45,14 +66,21 @@ function ProductCard() {
         <button
           className="btn font-700M product-add-to-cart-btn"
           id={e.id}
-          onClick={(e) => {
-            handleCart(e)
+          onClick={() => {
+            addCart({
+              id: e.id,
+              name: e.name,
+              amount: 1,
+              price: e.price,
+              category: category[e.category],
+              specs: e.specs,
+              img: e.image,
+            })
           }}
         >
           <FontAwesomeIcon icon="cart-plus" className="cart-plus" />
           加入購物車
         </button>
-        {cart}
       </div>
     )
   })

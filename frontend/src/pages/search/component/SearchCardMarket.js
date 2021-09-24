@@ -17,11 +17,11 @@ function SearchCardShop(props) {
               </figure>
               <div className="s-market-text">
                 <h6 className="s-market-title">{v.name}</h6>
-                <ul className="list-unstyled">
-                  <li className="font-400L">{v.intro}</li>
-                  {/* <li>重量：100g±5%</li>
+                <ul className="list-unstyled font-400L">
+                  {/* <li className="font-400L"></li> */}
+                  <li>重量：100g±5%</li>
                   <li>原產地：美國</li>
-                  <li>保存方式：請置於冷凍-18℃保存</li> */}
+                  <li>保存方式：請置於冷凍-18℃保存</li>
                 </ul>
               </div>
               <div className="s-market-price font-400L">${v.price}</div>
@@ -35,7 +35,7 @@ function SearchCardShop(props) {
                 >
                   <FontAwesomeIcon icon="minus" className="" />
                 </button>
-                <span className="s-market-num">{v.count}</span>
+                <span className="s-market-num">{counts}</span>
                 <button
                   className="s-market-btn"
                   onClick={() => {

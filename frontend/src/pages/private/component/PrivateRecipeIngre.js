@@ -1,19 +1,14 @@
 // 只有要放一個table
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import '../../../style/table.css'
-import Axios from 'axios'
 
 function PrivateRecipeIngre(props) {
-  const { id } = props
-  const [ingred, setIngred] = useState([])
+  const { id, tableList } = props
 
-  useEffect(() => {
-    Axios.get(`http://localhost:3001/api/private/ingred/${id}`).then((res) => {
-      setIngred(res.data)
-    })
-  }, [])
   return (
     <>
+      <pre>{JSON.stringify(tableList, null, 2)}</pre>
+
       <table className="table-food">
         <thead className="font-700L">
           <tr>
@@ -22,10 +17,10 @@ function PrivateRecipeIngre(props) {
           </tr>
         </thead>
         <tbody className="font-400M">
-          {ingred.map((value, index) => {
+          {tableList.map((value, index) => {
             return (
               <>
-                <tr>
+                <tr key={id}>
                   <td className="table-left">{value.ingred}</td>
                   <td className="table-right">{value.ingred_unit}</td>
                 </tr>

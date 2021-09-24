@@ -1,28 +1,86 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+// import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { API_URL } from '../../utils/config'
 import axios from 'axios'
 import '../../style/global.css'
 import '../../style/member.css'
 import '../../style/login.css'
 import logo from '../../images/logo.png'
+import useCart from '../../utils/useCart'
+import { HandleCart } from '../../utils/HandleCart'
 
 function Login() {
-  const [account, setAccount] = useState('meleesadmin')
-  const [password, setPassword] = useState('123456')
+  // 測試搬家版本
+  // const { login, setLogin, signIn, signOut } = useCart()
+
+  const { login, setLogin } = useContext(HandleCart) //登入用
+
+  const [errorMsg, setErrorMsg] = useState()
+  const [formValues, setFormValues] = useState({
+    // account: '',
+    // password: '',
+    account: 'meleesadmin',
+    password: '123456',
+  })
+
+  const handleFormValuesChange = (e) => {
+    setFormValues({
+      ...formValues,
+      [e.target.name]: e.target.value,
+    })
+    // console.log(formValues)
+  }
+
+  // 使用者修改欄位時，清空該欄位的錯誤訊息
+  const handleFormChange = (e) => {
+    setErrorMsg('')
+  }
+
+  // 檢驗表單的值有沒有不合法
+  const handleFormValuesInvalid = (e) => {
+    // 擋住錯誤訊息的預設方式(跳出的訊息泡泡)
+    e.preventDefault()
+
+    if (!formValues.account || !formValues.password) {
+      setErrorMsg('請確實填寫帳號密碼')
+    }
+  }
+
+  // 登入後導回前一頁或首頁
+  const history = useHistory()
+  const location = useLocation()
+  const loginRedirect = () => {
+    let { from } = location.state || { from: { pathname: '/' } }
+    history.push(from)
+    // history.replace(from)
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
-    let result = await axios.post(
-      `${API_URL}/auth/login`,
-      {
-        account,
-        password,
-      },
-      {
-        // 設定可以跨源送 cookie
-        withCredentials: true,
+    try {
+      let account = formValues.account
+      let password = formValues.password
+      let response = await axios.post(
+        `${API_URL}/auth/login`,
+        {
+          account,
+          password,
+        },
+        {
+          // 設定可以跨源送 cookie
+          withCredentials: true,
+        }
+      )
+      console.log(response)
+      setLogin(true)
+      loginRedirect()
+    } catch (err) {
+      console.error(err.response)
+      if (err.response.status === 400) {
+        alert('帳號或密碼輸入錯誤')
       }
-    )
-    console.log(result)
+    }
   }
   return (
     <>
@@ -37,29 +95,37 @@ function Login() {
             </div>
             <div className="login-form">
               <h4>會員登入</h4>
-              <form onSubmit={handleSubmit}>
+              <form
+                onSubmit={handleSubmit}
+                onChange={handleFormChange}
+                // onInvalid={handleFormValuesInvalid}
+              >
                 <input
                   type="text"
                   id="account"
                   name="account"
-                  value={account}
-                  onChange={(e) => {
-                    setAccount(e.target.value)
-                  }}
+                  value={formValues.account}
+                  onChange={handleFormValuesChange}
+                  onBlur={handleFormValuesInvalid}
                   placeholder="請輸入帳號"
                 />
                 <input
                   type="password"
                   id="password"
                   name="password"
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value)
-                  }}
-                  placeholder="請輸入6-12位舊密碼"
+                  value={formValues.password}
+                  onChange={handleFormValuesChange}
+                  onBlur={handleFormValuesInvalid}
+                  placeholder="請輸入6-12位密碼"
                 />
-                <p className="font-400S login-form-errorMsg">
-                  預留錯誤訊息的位置
+                <p
+                  className={
+                    errorMsg
+                      ? 'font-400S member-form-errorMsg errorMsg-show'
+                      : 'font-400S member-form-errorMsg'
+                  }
+                >
+                  {errorMsg ? errorMsg : '預留錯誤訊息的位置'}
                 </p>
                 <button className="login-form-loginBtn" type="submit">
                   登入

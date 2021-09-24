@@ -18,11 +18,11 @@ app.use(
   })
 );
 
-// // 告訴 express 我們用哪一種樣板語言
-// // 樣板語言其實不止一種
-// app.set("view engine", "pug");
-// // 告訴 express 我們的樣板檔案放在哪裡
-// app.set("views", path.join(__dirname, "views"));
+// 告訴 express 我們用哪一種樣板語言
+// 樣板語言其實不止一種
+app.set("view engine", "pug");
+// 告訴 express 我們的樣板檔案放在哪裡
+app.set("views", path.join(__dirname, "views"));
 
 // 啟用 session 機制
 const expressSession = require("express-session");
@@ -34,10 +34,12 @@ app.use(
   })
 );
 
-// 使用這個中間件才可以讀到 body 的資料
+// 使用這個中間件，才可以讀到 body 的資料
 app.use(express.urlencoded({ extended: true }));
 // 使用這個中間件，才可以解析到 json 的資料
 app.use(express.json());
+// 使用這個中間件，才可以設定靜態檔案的位置
+app.use(express.static(path.join(__dirname, "images")));
 
 app.use((req, res, next) => {
   let current = new Date();
@@ -49,12 +51,17 @@ app.get("/", (req, res, next) => {
   res.send("Hello with nodemon");
 });
 
-app.get("/market", (req, res, next) => {
-  const sqlSelect = "SELECT * FROM product";
-  connection.query(sqlSelect, (err, result) => {
-    res.json(result);
-  });
-});
+// 引入 feature 中間件
+let featureRouter = require("./routers/feature");
+app.use("/feature", featureRouter);
+
+// 引入 search router 中間件
+let searchRouter = require("./routers/search");
+app.use("/search", searchRouter);
+
+// 引入 market router 中間件，包含會員專區功能
+let marketRouter = require("./routers/market");
+app.use("/market", marketRouter);
 
 // 引入 auth router 中間件，包含資料驗證、登入、註冊
 let authRouter = require("./routers/auth");
@@ -64,9 +71,17 @@ app.use("/auth", authRouter);
 let memberRouter = require("./routers/member");
 app.use("/member", memberRouter);
 
-// 引入 private router 中間件，包含會員專區功能
+// 引入 private router 中間件，包含私藏食譜
 let privateRouter = require("./routers/private");
-app.use("/api/private", privateRouter);
+app.use("/private", privateRouter);
+
+// 引入 box router 中間件，包含客製化便當
+let boxRouter = require("./routers/box");
+app.use("/box", boxRouter);
+
+// 引入 order 中間件
+let orderRouter = require("./routers/order");
+app.use("/order", orderRouter);
 
 // 前面都沒有任何符合的路由網址就進入這邊統一 404 來處理
 app.use((req, res, next) => {
@@ -77,7 +92,7 @@ app.use((req, res, next) => {
   res.status(404).json({ message: "NOT FOUND" });
 });
 
-// multer 用來處理 From-data
+// multer 用來處理 From-data (Content-Type: multipart/form-data)
 const multer = require("multer");
 app.use((err, req, res, next) => {
   // multer 丟出來的 exception 不符合我們制定的格式
@@ -87,17 +102,10 @@ app.use((err, req, res, next) => {
     // 到這裡表示我們知道這一次來的 err 其實是 MulterError
     // 而且我們有觀察到 MulterError 有一個 code 可以辨別錯誤
     if (err.code === "LIMIT_FILE_SIZE") {
-      return res.status(400).json({ code: 320001, message: "檔案太大啦" });
+      return res.status(400).json({ message: "檔案太大啦" });
     }
     return res.status(400).json({ message: err.message });
   }
-  // 如果不符合上述特殊的錯誤類別，那表示就是我們自訂的
-  // 我們自己拋出的錯誤有自己制定的格式
-  // {
-  //   code: "330001",
-  //   status: 401,
-  //   message: "沒有登入不能用喔",
-  // }
   res.status(err.status).json({ message: err.message });
 });
 

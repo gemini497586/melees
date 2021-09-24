@@ -1,16 +1,84 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../../style/global.css'
 import '../../style/member.css'
 import MinorBar from './component/MinorBar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
+import { API_URL } from '../../utils/config'
+import axios from 'axios'
+import validationInfo from './component/validationInfo'
 
 function EditPassword() {
+  const [errors, setErrors] = useState({})
+  const [formValues, setFormValues] = useState({
+    oldPassword: '',
+    password: '',
+    rePassword: '',
+  })
+
+  const handleFormValuesChange = (e) => {
+    setFormValues({
+      ...formValues,
+      [e.target.name]: e.target.value,
+    })
+    // console.log(formValues)
+  }
+
+  // 使用者修改欄位時，清空該欄位的錯誤訊息
+  const handleFormChange = (e) => {
+    // console.log('更新欄位：', e.target.name)
+
+    // 清空該欄位的錯誤訊息
+    const updateErrors = {
+      ...errors,
+      [e.target.name]: '',
+    }
+    setErrors(updateErrors)
+  }
+
+  // 檢驗表單的值有沒有不合法
+  const handleFormValuesInvalid = (e) => {
+    // 擋住錯誤訊息的預設方式(跳出的訊息泡泡)
+    e.preventDefault()
+    setErrors(validationInfo(formValues))
+    console.log(errors)
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      let oldPassword = formValues.oldPassword
+      let password = formValues.password
+      let rePassword = formValues.rePassword
+      let response = await axios.post(
+        `${API_URL}/member/editpwd`,
+        {
+          oldPassword,
+          password,
+          rePassword,
+        },
+        {
+          // 設定可以跨源送 cookie
+          withCredentials: true,
+        }
+      )
+      console.log(response)
+    } catch (err) {
+      console.error(err.response)
+      if (err.response.data.message === '密碼輸入錯誤') {
+        alert('密碼輸入錯誤')
+      }
+    }
+  }
   return (
     <>
       <div className="page-group">
         <MinorBar />
-        <form className="member-form member-form-forEditMemberInfo">
+        <form
+          className="member-form member-form-forEditMemberInfo"
+          onSubmit={handleSubmit}
+          onChange={handleFormChange}
+        >
           <div className="member-form-title">
             <div className="member-form-title-icon">
               <FontAwesomeIcon
@@ -23,35 +91,88 @@ function EditPassword() {
           </div>
           <div className="member-form-group-content">
             <div className="member-form-group row">
-              <label className="font-700SL col-2" htmlFor="">
+              <label className="font-700SL col-2" htmlFor="oldPassword">
                 舊密碼*
               </label>
               <div className="col-4">
-                <input type="text" placeholder="請輸入6-12位舊密碼" />
-                <p className="font-400S member-form-errorMsg">
-                  預留錯誤訊息的位置
+                <input
+                  type="password"
+                  id="oldPassword"
+                  name="oldPassword"
+                  value={formValues.oldPassword}
+                  onChange={handleFormValuesChange}
+                  onBlur={handleFormValuesInvalid}
+                  placeholder="請輸入6-12位舊密碼"
+                  required
+                  minlength="6"
+                  maxlength="12"
+                />
+                <p
+                  className={
+                    errors.oldPassword
+                      ? 'font-400S member-form-errorMsg errorMsg-show'
+                      : 'font-400S member-form-errorMsg'
+                  }
+                >
+                  {errors.oldPassword
+                    ? errors.oldPassword
+                    : '預留錯誤訊息的位置'}
                 </p>
               </div>
             </div>
             <div className="member-form-group row">
-              <label className="font-700SL col-2" htmlFor="">
+              <label className="font-700SL col-2" htmlFor="password">
                 新密碼*
               </label>
               <div className="col-4">
-                <input type="text" placeholder="請輸入6-12位新密碼" />
-                <p className="font-400S member-form-errorMsg">
-                  預留錯誤訊息的位置
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={formValues.password}
+                  onChange={handleFormValuesChange}
+                  onBlur={handleFormValuesInvalid}
+                  placeholder="請輸入6-12位新密碼"
+                  required
+                  minlength="6"
+                  maxlength="12"
+                />
+                <p
+                  className={
+                    errors.password
+                      ? 'font-400S member-form-errorMsg errorMsg-show'
+                      : 'font-400S member-form-errorMsg'
+                  }
+                >
+                  {errors.password ? errors.password : '預留錯誤訊息的位置'}
                 </p>
               </div>
             </div>
             <div className="member-form-group row">
-              <label className="font-700SL col-2" htmlFor="">
+              <label className="font-700SL col-2" htmlFor="rePassword">
                 確認新密碼*
               </label>
               <div className="col-4">
-                <input type="text" placeholder="請輸入6-12位新密碼" />
-                <p className="font-400S member-form-errorMsg">
-                  預留錯誤訊息的位置
+                <input
+                  type="password"
+                  id="rePassword"
+                  name="rePassword"
+                  value={formValues.rePassword}
+                  onChange={handleFormValuesChange}
+                  onBlur={handleFormValuesInvalid}
+                  placeholder="請輸入6-12位確認新密碼"
+                  required
+                  minlength="6"
+                  maxlength="12"
+                />
+                <p
+                  className={
+                    errors.rePassword
+                      ? 'font-400S member-form-errorMsg errorMsg-show'
+                      : 'font-400S member-form-errorMsg'
+                  }
+                >
+                  {errors.rePassword ? errors.rePassword : '預留錯誤訊息的位置'}
                 </p>
               </div>
             </div>

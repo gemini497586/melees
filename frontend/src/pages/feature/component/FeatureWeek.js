@@ -2,6 +2,7 @@ import React from 'react'
 import '../../../style/featureWeek.css'
 import food from '../../../images/1.jpg'
 import HeartViewNum from '../../../component/HeartViewNum'
+import { Link } from 'react-router-dom'
 
 function FeatureWeek() {
   return (
@@ -15,45 +16,65 @@ function FeatureWeek() {
         {/* button */}
         <div className="fw-date">
           <div className="fw-cards">
-            <a href="#/" role="button" className="fw-btn font-700M">
+            <Link
+              to="/feature/stepweek/"
+              role="button"
+              className="fw-btn font-700M"
+            >
               07/05
-            </a>
+            </Link>
             <p className="text-center font-400SL fcolor-grey-900 pt-3">
               蒜香蛤蜊炒烏龍
             </p>
             <HeartViewNum />
           </div>
           <div className="fw-cards">
-            <a href="#/" role="button" className="fw-btn font-700M">
+            <Link
+              to="/feature/stepweek/"
+              role="button"
+              className="fw-btn font-700M"
+            >
               07/05
-            </a>
+            </Link>
             <p className="text-center font-400SL fcolor-grey-900 pt-3">
               蒜香蛤蜊炒烏龍
             </p>
             <HeartViewNum />
           </div>
           <div className="fw-cards">
-            <a href="#/" role="button" className="fw-btn font-700M">
+            <Link
+              to="/feature/stepweek/"
+              role="button"
+              className="fw-btn font-700M"
+            >
               07/05
-            </a>
+            </Link>
             <p className="text-center font-400SL fcolor-grey-900 pt-3">
               蒜香蛤蜊炒烏龍
             </p>
             <HeartViewNum />
           </div>
           <div className="fw-cards">
-            <a href="#/" role="button" className="fw-btn font-700M">
+            <Link
+              to="/feature/stepweek/"
+              role="button"
+              className="fw-btn font-700M"
+            >
               07/05
-            </a>
+            </Link>
             <p className="text-center font-400SL fcolor-grey-900 pt-3">
               蒜香蛤蜊炒烏龍
             </p>
             <HeartViewNum />
           </div>
           <div className="fw-cards">
-            <a href="#/" role="button" className="fw-btn font-700M">
+            <Link
+              to="/feature/stepweek/"
+              role="button"
+              className="fw-btn font-700M"
+            >
               07/05
-            </a>
+            </Link>
             <p className="text-center font-400SL fcolor-grey-900 pt-3">
               蒜香蛤蜊炒烏龍
             </p>

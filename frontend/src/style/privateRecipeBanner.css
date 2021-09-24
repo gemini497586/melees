@@ -1,11 +1,12 @@
 .privateRecipeBanner-figure {
-  width: 1920px;
+  width: 100%;
+  /* width: 1920px; */
   height: 864px;
   overflow: hidden;
 }
 .privateRecipeBanner-slogan {
   position: absolute;
-  top: 320px;
+  top: 340px;
   left: 327px;
 }
 .privateRecipeBanner-slogan h1 {
@@ -17,7 +18,7 @@
 .privateRecipeBanner-btn {
   display: block;
   position: absolute;
-  top: 500px;
+  top: 520px;
   left: 327px;
   width: 286px;
   height: 43px;
@@ -26,16 +27,14 @@
   text-decoration: none;
 }
 .privateRecipeBanner-plus-icon {
-  margin: 13px;
-  margin-left: 91px;
+  height: 100%;
+  margin: 0 auto;
   color: var(--color-white);
-  transform: scale(1.5);
 }
-/* .privateRecipeBanner-btn i {
+.privateRecipeBanner-plus-icon .plus-icon {
   margin: auto 0;
-  margin-left: 91px;
-  color: var(--color-white);
-} */
+}
+
 .privateRecipeBanner-btn span {
   margin-top: 7.5px;
   margin-left: 14px;
@@ -44,7 +43,6 @@
 @media only screen and (min-width: 321px) and (max-width: 768px) {
   .privateRecipeBanner-figure {
     width: 414px;
-    /* height: 864px; */
     overflow: hidden;
   }
   .privateRecipeBanner-slogan {

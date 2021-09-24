@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../../../style/featureContentImg.css'
 import food from '../../../images/1.jpg'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import '../../../component/FontawsomeIcons/'
 
-function FeatureContentImg() {
+function FeatureContentImg(props) {
+  const { linkImg, listName, qty, linkName, featureimg } = props
+  console.log('imgfeatureimg', featureimg)
+  // const [featureimg123, setFeatureimg123] = useState(featureimg)
+  // console.log('imgfeatureimg123', featureimg123)
   return (
     <>
       {/* 食譜照片 */}
@@ -13,17 +19,23 @@ function FeatureContentImg() {
         </figure>
         {/* 很多縮圖 */}
         <div className="fimg-small-img">
-          <a href="#/">
-            <img className="fimg-img-size" src={food} alt="" />
-          </a>
-          <a href="#/">
-            <img className="fimg-img-size" src={food} alt="" />
-          </a>
-          <a href="#/">
-            <img className="fimg-img-size" src={food} alt="" />
-          </a>
+          {props.featureimg.map((v, i) => {
+            return (
+              <a href="#/">
+                <img
+                  className="fimg-img-size"
+                  src={`http://localhost:3001/feature/featurefood/${[v]}`}
+                  alt=""
+                />
+              </a>
+            )
+          })}
           <button className="fimg-btn-fontawesome">
-            <i className="fas fa-chevron-right fcolor-grey-800"></i>
+            <FontAwesomeIcon
+              className="fcolor-grey-800"
+              icon={['fas', 'chevron-right']}
+              fixedWidth
+            />
           </button>
         </div>
       </div>

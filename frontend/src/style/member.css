@@ -71,11 +71,15 @@
 }
 
 .member-form-errorMsg {
-  color: var(--color-grey-800);
+  color: var(--color-red-C);
   margin: 0 0 0 5px;
 
   /* 暫時隱藏錯誤訊息 */
   opacity: 0;
+}
+
+.errorMsg-show {
+  opacity: 1;
 }
 
 .member-form-submitBtn {
@@ -102,12 +106,11 @@
 .member-form-group-picture figure {
   width: 100%;
   height: 100%;
-  background-color: #e0e0e0;
-  border-radius: 50%;
 }
 .member-form-group-picture img {
   width: 100%;
   height: 100%;
+  border-radius: 50%;
 }
 
 /* 修改密碼 */

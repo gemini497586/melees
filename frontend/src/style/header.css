@@ -45,15 +45,25 @@
   color: var(--color-secondary);
   border-right: 1px solid var(--color-secondary);
   border-radius: 4px 0px 0px 4px;
+  align-self: center;
+  padding: 10px;
+  position: relative;
 }
 
 .header-search-dropdown-btn:focus {
   box-shadow: 0px 0px 8px var(--color-primary);
 }
 
-.input-dropdown {
-  min-width: 90px;
-  height: 120px;
+.header-dropdown-item {
+  position: absolute;
+  width: 94px;
+  height: 40px;
+  top: 42px;
+  left: -2px;
+  line-height: 40px;
+  border: 1px solid var(--color-secondary);
+  border-top: none;
+  border-radius: 4px;
 }
 
 .dropdown-menu li a:focus {
@@ -139,3 +149,26 @@
   border-bottom: 2px solid var(--color-primary);
 }
 /* 選取(當前頁面)結束 */
+
+/* 購物車彈出視窗 */
+.header-cart {
+  width: 500px;
+  min-height: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  top: 80px;
+  right: 60px;
+  border-radius: 4px;
+  border: 1px solid var(--color-grey-300);
+  padding: 10px;
+}
+
+/* 註冊及登入 */
+.header-register,
+.header-login {
+  line-height: 40px;
+  color: var(--color-grey-900);
+}
+.header-register {
+  color: var(--color-primary);
+  border-right: 1px solid var(--color-grey-500);
+}

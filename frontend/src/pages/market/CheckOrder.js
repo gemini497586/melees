@@ -3,7 +3,6 @@ import '../../style/checkOrder.css'
 import img from '../../images/005.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
-import OrderProgressBar from './component/OrderProgressBar'
 import CartDetailRow from './component/CartDetailRow'
 
 const cartArray = [1, 2, 3]
@@ -11,7 +10,6 @@ const cartArray = [1, 2, 3]
 function ProductDetails(props) {
   return (
     <div className="container">
-      <OrderProgressBar />
       <div className="check-order">
         <div className="check-order-deliver-info">
           <div className="deliver-info-icon">
