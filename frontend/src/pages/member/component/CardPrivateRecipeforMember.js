@@ -2,8 +2,10 @@ import React from 'react'
 import '../../../style/cardPrivateRecipe.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
-import food from '../../../images/default_food2.jpg'
-import avatar from '../../../images/default_avatar1.jpg'
+import { Link } from 'react-router-dom'
+import { API_URL } from '../../../utils/config'
+// import food from '../../../images/default_food2.jpg'
+// import avatar from '../../../images/default_avatar1.jpg'
 
 function CardPrivateRecipeforMember(props) {
   const { recipeDataDetails } = props
@@ -65,44 +67,49 @@ function CardPrivateRecipeforMember(props) {
   return (
     <>
       <div className="cardPrivateRecipe">
-        <figure className="cardPrivateRecipe-img">
-          <img src={recipeDataDetails.recipe_img} className="w-100" alt="" />
-        </figure>
-        <span className="cardPrivateRecipe-bookmark">
-          <i className="fas fa-bookmark fa-2x"></i>
-        </span>
-        <figure className="cardPrivateRecipe-avatar">
-          <img
-            src={recipeDataDetails.recipe_author_avatar}
-            className="h-100"
-            alt=""
-          />
-        </figure>
-        <div className="cardPrivateRecipe-box">
-          <span className="font-700S cardPrivateRecipe-type">私藏食譜</span>
-        </div>
-        <div className="d-flex cardPrivateRecipe-like">
-          <i className="far fa-heart"></i>
-        </div>
-        <h6 className="font-700S cardPrivateRecipe-name">
-          {recipeDataDetails.recipe_name}
-        </h6>
-        <div className="cardPrivateRecipe-star">
-          {starScore(recipeDataDetails.recipe_star_rate)}
-          <span className="font-400S cardPrivateRecipe-star-num">
-            {recipeDataDetails.recipe_star_rate}
+        <Link to={'/private/detail/' + recipeDataDetails.recipe_id}>
+          <figure className="cardPrivateRecipe-img">
+            <img src={recipeDataDetails.recipe_img} className="w-100" alt="" />
+          </figure>
+          <span className="cardPrivateRecipe-bookmark">
+            <i className="fas fa-bookmark fa-2x"></i>
           </span>
-        </div>
-        <div className="cardPrivateRecipe-stat">
-          <FontAwesomeIcon
-            icon="heart"
-            className="cardPrivateRecipe-stat-heart"
-          />
-          <span>{recipeDataDetails.recipe_like}</span>
-          <div></div>
-          <FontAwesomeIcon icon="eye" className="cardPrivateRecipe-stat-eye" />
-          <span>{recipeDataDetails.recipe_view}</span>
-        </div>
+          <figure className="cardPrivateRecipe-avatar">
+            <img
+              src={recipeDataDetails.recipe_author_avatar}
+              className="h-100"
+              alt=""
+            />
+          </figure>
+          <div className="cardPrivateRecipe-box">
+            <span className="font-700S cardPrivateRecipe-type">私藏食譜</span>
+          </div>
+          <div className="d-flex cardPrivateRecipe-like">
+            <i className="far fa-heart"></i>
+          </div>
+          <h6 className="font-700S cardPrivateRecipe-name">
+            {recipeDataDetails.recipe_name}
+          </h6>
+          <div className="cardPrivateRecipe-star">
+            {starScore(recipeDataDetails.recipe_star_rate)}
+            <span className="font-400S cardPrivateRecipe-star-num">
+              {recipeDataDetails.recipe_star_rate}
+            </span>
+          </div>
+          <div className="cardPrivateRecipe-stat">
+            <FontAwesomeIcon
+              icon="heart"
+              className="cardPrivateRecipe-stat-heart"
+            />
+            <span>{recipeDataDetails.recipe_like}</span>
+            <div></div>
+            <FontAwesomeIcon
+              icon="eye"
+              className="cardPrivateRecipe-stat-eye"
+            />
+            <span>{recipeDataDetails.recipe_view}</span>
+          </div>
+        </Link>
       </div>
     </>
   )
