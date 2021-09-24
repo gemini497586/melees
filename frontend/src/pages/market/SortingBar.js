@@ -7,10 +7,10 @@ function SortingBar() {
   const { selectIndex, setSelectIndex } = useCart()
 
   const [itemList, setItemList] = useState([
+    '時間由舊至新',
+    '時間由新至舊',
     '價格由低至高',
     '價格由高至低',
-    '時間由新至舊',
-    '時間由舊至新',
   ])
 
   return (
@@ -24,7 +24,7 @@ function SortingBar() {
                 setIsDropDown(!isDropDown)
               }}
             >
-              {selectIndex ? selectIndex : '請選擇排序方式'}
+              {selectIndex ? selectIndex : '時間由舊至新'}
             </div>
             {isDropDown ? (
               <div className="market-items-holder font-400SL">

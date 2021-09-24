@@ -7,23 +7,23 @@ const connection = require("../utils/db");
 
 // 商品ID
 router.post("/product/:id", async (req, res, next) => {
-  let member_id = req.session.member.id;
-  // let member_id = 37;
-
-  let getSave = await connection.queryAsync("SELECT * FROM product_save WHERE member_id=? AND product_id=?", [member_id, req.params.id]);
-
-  console.log("商品", req.params.id);
+  let productImg = await connection.queryAsync("SELECT * FROM product_img WHERE product_id=?", [req.params.id]);
 
   let product = await connection.queryAsync("SELECT * FROM product WHERE id = ?", [req.params.id]);
-  // console.log("1111", sqlSelectSave);
-  // console.log("2222", sqlSelectID);
-  res.json({ product, getSave });
+
+  if (req.session.member === undefined) {
+    res.json({ product, productImg });
+  } else {
+    let getSave = await connection.queryAsync("SELECT * FROM product_save WHERE member_id=? AND product_id=?", [req.session.member.id, req.params.id]);
+
+    res.json({ product, productImg, getSave });
+  }
 });
 
 // 商品首頁分類
 router.get("/home/:category?/:sort?", (req, res, next) => {
-  console.log("s:", req.params.sort);
-  console.log("c:", req.params.category);
+  // console.log("s:", req.params.sort);
+  // console.log("c:", req.params.category);
   if (req.params.category === "undefined") {
     switch (req.params.sort) {
       case "價格由高至低":
@@ -52,41 +52,35 @@ router.get("/home/:category?/:sort?", (req, res, next) => {
         });
         break;
     }
-    // connection.query("SELECT * FROM product", (err, result) => {
-    //   // console.log("select All");
-    //   res.json(result);
-    // });
   } else {
+    let category = req.params.category;
     switch (req.params.sort) {
       case "價格由高至低":
-        connection.query("SELECT * FROM product WHERE category = ? ORDER BY price DESC", req.params.category, (err, result) => {
+        connection.query("SELECT * FROM product WHERE category = ? ORDER BY price DESC", category, (err, result) => {
           res.json(result);
         });
         break;
       case "價格由低至高":
-        connection.query("SELECT * FROM product WHERE category = ? ORDER BY price", req.params.category, (err, result) => {
+        connection.query("SELECT * FROM product WHERE category = ? ORDER BY price", category, (err, result) => {
           res.json(result);
         });
         break;
       case "時間由新至舊":
-        connection.query("SELECT * FROM product WHERE category = ? ORDER BY id DESC", req.params.category, (err, result) => {
+        connection.query("SELECT * FROM product WHERE category = ? ORDER BY id DESC", category, (err, result) => {
           res.json(result);
         });
         break;
       case "時間由舊至新":
-        connection.query("SELECT * FROM product WHERE category = ? ORDER BY id", req.params.category, (err, result) => {
+        connection.query("SELECT * FROM product WHERE category = ? ORDER BY id", category, (err, result) => {
           res.json(result);
         });
         break;
       default:
-        connection.query("SELECT * FROM product WHERE category = ? ORDER BY id", req.params.category, (err, result) => {
+        connection.query("SELECT * FROM product WHERE category = ? ORDER BY id", category, (err, result) => {
           res.json(result);
         });
         break;
     }
-    // connection.query("SELECT * FROM product WHERE category = ? ORDER BY price", req.params.category, (err, result) => {
-    //   res.json(result);
-    // });
   }
 });
 

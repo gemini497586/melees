@@ -10,7 +10,7 @@
 .product-detail p,
 .product-detail h2,
 .product-detail h3,
-.product-detail img,
+.main-img,
 .product-detail div {
   position: absolute;
 }
@@ -30,15 +30,12 @@
   left: 60px;
 }
 
-.img1 {
-  width: 100px;
-  height: 120px;
-}
-
-.img2 {
-  width: 100px;
-  height: 120px;
-  left: 120px;
+.side-img {
+  width: 110px;
+  height: 110px;
+  margin: 10px 10px 0px 0px;
+  border: 5px solid var(--color-orange-lee);
+  cursor: pointer;
 }
 
 .product-detail-save {

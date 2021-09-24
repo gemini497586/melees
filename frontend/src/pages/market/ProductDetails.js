@@ -11,6 +11,7 @@ function ProductDetails(props) {
   const { id } = useParams()
   const [product, setProduct] = useState([])
   const [save, setSave] = useState(false)
+  const [sideImg, setSideImg] = useState([])
   const { addCart } = useCart()
 
   useEffect(() => {
@@ -19,10 +20,14 @@ function ProductDetails(props) {
         withCredentials: true,
       })
       .then((response) => {
-        if (response.data.getSave[0] !== undefined) {
+        console.log(response.data)
+        if (response.data.getSave && response.data.getSave.length > 0) {
           // 如果回傳不是undefined，代表資料庫有資料，那就是該會員有收藏過，所以把按鈕設成true
           setSave(true)
         }
+
+        setSideImg(response.data.productImg)
+        console.log(sideImg)
 
         response.data.product[0].specs = response.data.product[0].specs
           .split('\n')
@@ -94,22 +99,20 @@ function ProductDetails(props) {
       <div className="product-detail">
         <img src={mainImg} alt={`商品${product.id}圖片`} className="main-img" />
         <div className="thumbnail">
-          <img
-            src={`${API_URL}/market/${'002.jpg'}`}
-            alt="圖1"
-            className="img1"
-            onClick={(e) => {
-              HandleImg(e)
-            }}
-          />
-          <img
-            src={`${API_URL}/market/${'005.jpg'}`}
-            alt="圖2"
-            className="img2"
-            onClick={(e) => {
-              HandleImg(e)
-            }}
-          />
+          {sideImg &&
+            sideImg.map((v) => {
+              console.log(v)
+              return (
+                <img
+                  src={`${API_URL}/market/${v.image}`}
+                  alt="圖1"
+                  className="side-img"
+                  onClick={(e) => {
+                    HandleImg(e)
+                  }}
+                />
+              )
+            })}
         </div>
         {/* 收藏功能 */}
         <div

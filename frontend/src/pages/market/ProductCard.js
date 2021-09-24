@@ -6,10 +6,12 @@ import { Link } from 'react-router-dom'
 import { API_URL } from '../../utils/config'
 import axios from 'axios'
 import useCart from '../../utils/useCart'
+import useSearch from '../../utils/useSearch'
 
 function ProductCard(props) {
   const [product, setProduct] = useState([])
   const { carts, addCart, setProductsAll, selectIndex } = useCart()
+  const { searching, setSearching } = useSearch()
 
   useEffect(() => {
     // 商品分類跟排序
@@ -35,6 +37,13 @@ function ProductCard(props) {
       setProductsAll(response.data)
     })
   }, [])
+
+  useEffect(() => {
+    // 取得查詢的商品資料
+    axios.get(`${API_URL}/search/${searching}`).then((response) => {
+      setProduct(response.data)
+    })
+  }, [searching])
 
   // 查表法 --> O(1)
   let category = { 1: '食材', 2: '鍋具', 3: '調味料' }
