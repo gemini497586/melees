@@ -41,6 +41,7 @@
 .memberRecipeComment-figure img {
   width: 72px;
   height: 72px;
+  border-radius: 50%;
 }
 .memberRecipeComment-figure figcaption {
   margin-left: 10px;

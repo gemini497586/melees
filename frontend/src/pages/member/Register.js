@@ -13,6 +13,7 @@ function Register() {
   const [pictureErrors, setPictureErrors] = useState(false)
   const [formValues, setFormValues] = useState({
     // picture: '',
+    // previewPicture: '',
     // account: '',
     // password: '',
     // rePassword: '',
@@ -23,7 +24,6 @@ function Register() {
     // cellphone: '',
     // email: '',
     // address: '',
-    picture: avatar,
     account: 'test123er',
     password: '123456',
     rePassword: '123456',
@@ -53,11 +53,17 @@ function Register() {
     if (selectedPic && ALLOWED_TPYES.includes(selectedPic.type)) {
       const reader = new FileReader()
       reader.onloadend = () => {
+        // 圖片預覽
         // 必須用 reader.result 來存入物件內，這樣才能即時顯示
         // 使用 e.target.files[0] 來存入物件內，無法即時顯示
+
+        // 傳送到後端
+        // reader.result 所傳送的資料型態是 base 64 ，後端「無法用」 multer 套件解讀
+        // e.target.files[0] 所傳送的資料型態是 binary ，後端用 multer 套件解讀
         setFormValues({
           ...formValues,
-          picture: reader.result,
+          previewPicture: reader.result,
+          picture: e.target.files[0],
         })
       }
       reader.readAsDataURL(selectedPic)
@@ -108,9 +114,9 @@ function Register() {
       console.log(response)
     } catch (err) {
       console.error(err.response)
-      if (err.response.data.message === '此帳號已有人使用') {
-        alert('此帳號已有人使用')
-      }
+      // if (err.response.data.message === '此帳號已有人使用') {
+      //   alert('此帳號已有人使用')
+      // }
     }
   }
 
@@ -131,7 +137,9 @@ function Register() {
           <div className="member-form-group-picture">
             <figure>
               <img
-                src={formValues.picture ? formValues.picture : avatar}
+                src={
+                  formValues.previewPicture ? formValues.previewPicture : avatar
+                }
                 alt="使用者頭像"
               />
             </figure>

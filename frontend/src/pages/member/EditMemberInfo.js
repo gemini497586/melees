@@ -9,14 +9,13 @@ import '../../component/FontawsomeIcons'
 import { API_URL } from '../../utils/config'
 import axios from 'axios'
 import validationInfo from './component/validationInfo'
-import { HandleCart } from '../../utils/HandleCart'
 
 function EditMemberInfo() {
-  // const { login } = useContext(HandleCart)
   const [errors, setErrors] = useState({})
   const [pictureErrors, setPictureErrors] = useState(false)
   const [formValues, setFormValues] = useState({
     picture: '',
+    previewPicture: '',
     name: '',
     gender: '',
     nickname: '',
@@ -38,16 +37,24 @@ function EditMemberInfo() {
     const selectedPic = e.target.files[0]
     const ALLOWED_TPYES = ['image/png', 'image/jpeg', 'image/jpg']
 
+    // 上傳時，先清空「舊的錯誤訊息」
     setPictureErrors(false)
+
     // 有上傳照片且格式符合才寫入表單資料
     if (selectedPic && ALLOWED_TPYES.includes(selectedPic.type)) {
       const reader = new FileReader()
       reader.onloadend = () => {
+        // 圖片預覽
         // 必須用 reader.result 來存入物件內，這樣才能即時顯示
         // 使用 e.target.files[0] 來存入物件內，無法即時顯示
+
+        // 傳送到後端
+        // reader.result 所傳送的資料型態是 base 64 ，後端「無法用」 multer 套件解讀
+        // e.target.files[0] 所傳送的資料型態是 binary ，後端用 multer 套件解讀
         setFormValues({
           ...formValues,
-          picture: reader.result,
+          previewPicture: reader.result,
+          picture: e.target.files[0],
         })
       }
       reader.readAsDataURL(selectedPic)
@@ -59,7 +66,6 @@ function EditMemberInfo() {
   // 使用者修改欄位時，清空該欄位的錯誤訊息
   const handleFormChange = (e) => {
     // console.log('更新欄位：', e.target.name)
-
     // 清空該欄位的錯誤訊息
     const updateErrors = {
       ...errors,
@@ -78,6 +84,11 @@ function EditMemberInfo() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    handleFormValuesInvalid(e)
+    // console.log('errors.length: ', errors.length)
+    // if (errors.length > 0) {
+    //   return false
+    // } 
     try {
       let formData = new FormData()
       formData.append('picture', formValues.picture)
@@ -97,6 +108,7 @@ function EditMemberInfo() {
       console.error(e.result)
     }
   }
+
   useEffect(() => {
     const testLoginCheck = async () => {
       try {
@@ -104,11 +116,11 @@ function EditMemberInfo() {
           // 設定可以跨源送 cookie
           withCredentials: true,
         })
-        // console.log(response)
-        console.log(response.data)
         let memberInfo = response.data
+        // console.log(memberInfo)
+
         setFormValues({
-          picture: `${API_URL}/member/${memberInfo.picture}`,
+          previewPicture: `${API_URL}/member/${memberInfo.picture}`,
           name: memberInfo.name,
           gender: memberInfo.gender,
           nickname: memberInfo.nickname,
@@ -153,7 +165,11 @@ function EditMemberInfo() {
             <div className="member-form-group-picture">
               <figure>
                 <img
-                  src={formValues.picture ? formValues.picture : avatar}
+                  src={
+                    formValues.previewPicture
+                      ? formValues.previewPicture
+                      : avatar
+                  }
                   alt="使用者頭像"
                 />
               </figure>
