@@ -16,19 +16,15 @@ function Page1(props) {
           </div>
           {/* 右邊介紹 */}
           <div className="col-12 col-md-7 b-page1-right font-700L">
-            <div>
-              <p>你的基礎代謝率: {bmr > 0 ? bmr : ''}</p>
-              <p>你的每日總消耗熱量: {tdee > 0 ? tdee + ' 大卡' : ''}</p>
-              <div className="b-page1-image">
-                <p className="font-700M b-page1-note">
-                  請填入資料並按下開始計算
-                </p>
-                <img
-                  className="b-contain-fit b-page1-woman"
-                  src="http://localhost:3000/images/woman.png"
-                  alt="woman"
-                />
-              </div>
+            <p>{bmr > 0 ? `你的基礎代謝率: ${bmr}` : ''}</p>
+            <p>{tdee > 0 ? `你的每日總消耗熱量: ${tdee}` + ' 大卡' : ''}</p>
+            <div className="b-page1-image" data-aos="fade-left">
+              <p className="font-700M b-page1-note">請填入資料並按下開始計算</p>
+              <img
+                className="b-contain-fit b-page1-woman"
+                src="http://localhost:3000/images/woman.png"
+                alt="woman"
+              />
             </div>
           </div>
         </div>

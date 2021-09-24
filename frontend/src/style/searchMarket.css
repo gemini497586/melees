@@ -1,66 +1,86 @@
-/* 商城 */
 .s-market-top {
   color: var(--color-grey-900);
-  padding: 20px 0;
+  padding: 20px 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.s-market-bottom {
+.s-market-card {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   padding: 20px 0;
+  border-bottom: 1px solid var(--color-grey-500);
+}
+.s-market-info {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .s-market-image {
-  width: 190px;
+  width: 30%;
   height: 150px;
   border-radius: 4px;
   overflow: hidden;
-  margin: 0;
 }
-.s-market-title {
-  color: var(--color-grey-900);
+.s-market-intro {
+  width: 65%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .s-market-text {
-  width: 300px;
+  width: 70%;
+  color: var(--color-grey-900);
 }
 .s-market-text ul {
   display: block;
 }
 .s-market-text li {
   color: var(--color-grey-800);
-  font-size: 14px;
-  line-height: 19.6px;
-  letter-spacing: 3px;
-  height: 20px;
   margin: 0;
-  text-align: left;
 }
 .s-market-price {
-  color: var(--color-grey-900);
-  width: 100px;
+  width: 20%;
+  text-align: end;
 }
-.s-market-count {
-  background: var(--color-grey-300);
-  color: var(--color-grey-900);
-  padding: 5px 20px;
-  border-radius: 50px;
-  width: 150px;
-  display: flex;
-  justify-content: space-between;
-}
-.s-market-btn {
-  color: var(--color-grey-900);
-  border: 1px solid transparent;
-  padding: 0;
-}
-.s-market-btn:hover {
-  color: var(--color-grey-500);
-}
-.s-market-add {
+.s-market-add button {
   background: var(--color-white);
   color: var(--color-primary);
   border: 1px solid var(--color-primary);
   border-radius: 8px;
-  padding: 0 40px;
+  padding: 0 20px;
   height: 42px;
+  z-index: 1;
+  white-space: nowrap;
 }
-.s-market-add:hover {
+.s-market-add button:hover {
   color: var(--color-primary-A);
   border: 1px solid var(--color-primary-A);
+}
+
+@media screen and (max-width: 768px) {
+  .s-market-top {
+    padding-bottom: 20px;
+  }
+  .s-market-top,
+  .s-market-card,
+  .s-market-intro {
+    display: block;
+  }
+  .s-market-info,
+  .s-market-text,
+  .s-market-price,
+  .s-market-add,
+  .s-market-add button {
+    width: 100%;
+    padding: 10px 0;
+  }
+  .s-market-image {
+    width: 40%;
+  }
+  .s-market-intro {
+    width: 55%;
+  }
 }

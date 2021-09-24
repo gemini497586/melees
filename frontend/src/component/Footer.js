@@ -7,9 +7,9 @@ function Footer() {
     {
       header: '關於MELLEs',
       content: [
-        { url: '/a', title: '關於我們' },
-        { url: '/b', title: '加入MELEEs' },
-        { url: '/c', title: '異業合作' },
+        { url: '/about', title: '關於我們' },
+        { url: '/', title: '加入MELEEs' },
+        { url: '/', title: '異業合作' },
       ],
     },
     {
@@ -23,7 +23,7 @@ function Footer() {
       header: '客戶服務',
       content: [
         { url: '/member/orderlist', title: '進度查詢' },
-        { url: '/b', title: '取消訂單' },
+        { url: '/member/orderlist', title: '取消訂單' },
         { url: '/member/saveproduct', title: '追蹤清單' },
         { url: '/d', title: '常見問答' },
         { url: '/e', title: '聯絡我們' },
@@ -55,11 +55,26 @@ function Footer() {
     },
   ]
   const bottom = [
-    '隱私權政策',
-    '使用者條款',
-    '服務契約',
-    '法律聲明',
-    '網站地圖',
+    {
+      url: '/privacy',
+      title: '隱私權政策',
+    },
+    {
+      url: '/privacy',
+      title: '使用者條款',
+    },
+    {
+      url: '/privacy',
+      title: '服務契約',
+    },
+    {
+      url: '/privacy',
+      title: '法律聲明',
+    },
+    {
+      url: '/privacy',
+      title: '網站地圖',
+    },
   ]
   return (
     <>
@@ -101,7 +116,7 @@ function Footer() {
             {bottom.map((v, i) => {
               return (
                 <li key={i}>
-                  <a href="#/">{v}</a>
+                  <Link to={v.url}>{v.title}</Link>
                 </li>
               )
             })}

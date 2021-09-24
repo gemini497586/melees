@@ -14,22 +14,24 @@ function Page2(props) {
   return (
     <>
       <div className="container b-step position-relative">
-        <h4 className="b-title">2. 客製屬於你的便當</h4>
-        <div className="b-page2-dialog">
+        <h4 className="b-title" data-aos="fade-right">
+          2. 客製屬於你的便當
+        </h4>
+        <div className="b-page2-dialog" data-aos="fade-left">
           <img
             className="b-contain-fit"
             src="http://localhost:3000/images/dialog.png"
             alt="dialog"
           />
         </div>
-        <p className="font-700M b-page2-note">
+        <p className="font-700M b-page2-note" data-aos="fade-left">
           請點選以下主食一樣，配菜最多可挑選四樣。
         </p>
         <div className="b-page2-bento">
           <div className="d-block d-md-flex">
             <div className="col-md-3 b-page2-left">
               {bento.length > 0 ? (
-                <div className="b-page2-select font-400L b-bentotext">
+                <div className="b-page2-select font-400L animation-bentotext">
                   已選擇食材
                   {bento.map((v, i) => {
                     return (
@@ -62,7 +64,8 @@ function Page2(props) {
                         key={v.id}
                         src={`${API_URL}/box/${v.inside_image}`}
                         alt={v.name}
-                        className="b-bentoIn"
+                        className="animation-bentoIn"
+                        id={v.id}
                       />
                     )
                   })}

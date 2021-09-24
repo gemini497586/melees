@@ -51,6 +51,9 @@ import MemberRecipeComment from './pages/member/MemberRecipeComment'
 import Coupon from './pages/member/Coupon'
 import MyRecipe from './pages/member/MyRecipe'
 
+import About from './pages/about/About'
+import Privacy from './pages/about/Privacy'
+
 // useContext。CartProvider 跟購物車商品有關; CheckoutInfoProvider 跟個人購買資料有關
 import { CheckoutInfoProvider } from './utils/CheckoutInfoContext'
 import { CartProvider } from './utils/CartContext'
@@ -73,8 +76,15 @@ function App() {
                   <Route exact path="/">
                     <Home />
                   </Route>
-                  {/* 客製化 */}
 
+                  {/* footer */}
+                  <Route exact path="/privacy">
+                    <Privacy />
+                  </Route>
+                  <Route exact path="/about">
+                    <About />
+                  </Route>
+                  {/* 客製化 */}
                   <Route exact path="/box">
                     <Box />
                   </Route>
@@ -104,15 +114,13 @@ function App() {
                   <Route path="/feature/index/:typeid?">
                     <FeatureIndex />
                   </Route>
-
                   {/* 搜尋 */}
-                  <Route path="/search/recipe">
+                  <Route path="/search/recipe/:word?">
                     <SearchRecipe />
                   </Route>
-                  <Route path="/search/market">
+                  <Route path="/search/market/:word?">
                     <SearchMarket />
                   </Route>
-
                   {/* 會員相關 */}
                   <Route path="/login">
                     <Login />
@@ -120,7 +128,6 @@ function App() {
                   <Route path="/register">
                     <Register />
                   </Route>
-
                   <ProtectedRoute path="/member/editinfo" isAuth={login}>
                     <EditMemberInfo />
                   </ProtectedRoute>
@@ -183,14 +190,6 @@ function App() {
                       <MarketMainPage />
                     </Route>
                   </CheckoutInfoProvider>
-
-                  {/* 搜尋 */}
-                  <Route path="/search/recipe">
-                    <SearchRecipe />
-                  </Route>
-                  <Route path="/search/market">
-                    <SearchMarket />
-                  </Route>
                 </Switch>
               </ScrollToTop>
               <Footer />

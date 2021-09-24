@@ -9,6 +9,12 @@ import CardRecipe from '../../component/CardRecipe'
 import CardShopping from '../../component/CardShopping'
 import { API_URL } from '../../utils/config'
 import useAlert from '../../utils/useAlert'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+AOS.init({
+  offset: 50,
+  duration: 500,
+})
 
 function Box() {
   const [data, setData] = useState([])
@@ -37,7 +43,7 @@ function Box() {
   }, [])
 
   // 點選圖片
-  const handleCheck = (v) => {
+  const handleCheck = async (v) => {
     // 先抓到便當裡面食材的名稱
     let getName = bento.map((item) => {
       return item.name
@@ -79,13 +85,20 @@ function Box() {
       setCal(newCal)
       // console.log('現在的卡路里 ', newCal)
     }
+
+    // console.log(v.name)
+    // try {
+    //   let res = await Axios.get(`${API_URL}/box/recommend`,{
+
+    //   })
+    // } catch (e) {
+    //   console.log(e)
+    // }
   }
 
   // 把食材刪除
   const handleRemove = (v) => {
-    // console.log(v)
     const name = v.name
-
     // 現在便當裡面食材的卡路里
     const getCal = bento.map((item) => {
       return item.cal
@@ -95,7 +108,6 @@ function Box() {
     newCal = newCal - v.cal
 
     setBento(bento.filter((v) => v.name !== name))
-    // console.log(tableList)
     setTableList(tableList.filter((v) => v.ingred !== name))
     setCal(newCal)
   }

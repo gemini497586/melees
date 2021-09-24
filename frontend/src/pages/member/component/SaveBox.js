@@ -25,6 +25,7 @@ function SaveBox(props) {
     }
     return e
   }
+
   // 把原本的陣列->轉成對應的中文名->轉回字串
   const getName = (e) => {
     e = e.split(',')
@@ -48,7 +49,11 @@ function SaveBox(props) {
       />
       {data.map((value) => {
         return (
-          <div className="col-12 col-md-4 member-box-card" key={value.id}>
+          <div
+            className="col-12 col-md-4 member-box-card"
+            key={value.id}
+            data-aos="zoom-in"
+          >
             <div className="b-page2-box">
               <img
                 src="http://localhost:3000/images/box_up.png"

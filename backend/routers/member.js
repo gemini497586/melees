@@ -218,7 +218,7 @@ router.post("/deletesavebox", async (req, res, next) => {
 router.get("/readsavebox", async (req, res, next) => {
     const memberId = req.session.member.id;
     // const memberId = 37;
-    console.log("read ", memberId);
+    // console.log("read ", memberId);
     let result = await connection.queryAsync(
         "SELECT * FROM box_save WHERE member_id=? ORDER BY id DESC",
         [memberId]
@@ -231,24 +231,6 @@ router.get("/readsavebox", async (req, res, next) => {
 });
 
 // 收藏商品
-router.post("/saveproduct", async (req, res, next) => {
-    const memberId = req.session.member.id;
-    let result = await connection.queryAsync(
-        "INSERT IGNORE INTO product_save (member_id,product_id) VALUE (?)",
-        [[memberId, req.body.id]]
-    );
-    res.json();
-});
-router.post("/deletesaveproduct", async (req, res, next) => {
-    // console.log(req.body.id);
-    const memberId = req.session.member.id;
-
-    let result = await connection.queryAsync(
-        "DELETE FROM product_save WHERE member_id=? AND product_id=? ",
-        [memberId, req.body.id]
-    );
-    res.json();
-});
 router.get("/readsaveproduct", async (req, res, next) => {
     // const memberId = req.session.member.id;
     const memberId = 37;
@@ -262,7 +244,7 @@ router.get("/readsaveproduct", async (req, res, next) => {
     });
     // console.log(productIds);
     let result2 = await connection.queryAsync(
-        "SELECT id,category,image,name,price FROM product WHERE id IN ?",
+        "SELECT * FROM product WHERE id IN ?",
         [[productIds]]
     );
     res.json({ result, result2 });

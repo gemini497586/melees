@@ -62,7 +62,9 @@ function Page3(props) {
         setTableList={setTableList}
       />
       <div className="container b-step">
-        <h4 className="b-title">3. 計算便當卡路里</h4>
+        <h4 data-aos="fade-right" className="b-title">
+          3. 計算便當卡路里
+        </h4>
         <div className="b-page3">
           {/* 左邊 */}
           <div className="col-12 col-md-6 b-page3-left">
@@ -79,7 +81,7 @@ function Page3(props) {
                 alt="Man"
               />
             </div>
-            <div className="b-page3-note font-700M">
+            <div className="b-page3-note font-700M" data-aos="zoom-in">
               * 如需使用收藏便當功能，請先登入會員
             </div>
             <div className="b-page3-btn">

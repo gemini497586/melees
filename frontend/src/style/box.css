@@ -9,11 +9,6 @@
   width: 100%;
   object-fit: contain;
 }
-.list-unstyled {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
 .b-step {
   padding-top: 20px;
   padding-bottom: 20px;
@@ -234,17 +229,18 @@
   height: 100%;
   position: relative;
 }
-.b-page2-mask:hover .b-page2-slider-cal {
-  opacity: 1;
-}
 .b-page2-mask:hover .b-page2-slider-image {
   opacity: 0.5;
+}
+.b-page2-mask:hover .b-page2-slider-cal {
+  opacity: 1;
 }
 
 @media screen and (max-width: 414px) {
   .b-page2-left,
   .b-page2-image,
-  .b-page2-right {
+  .b-page2-right,
+  .b-page2-box {
     width: 100%;
   }
   .b-page2-dialog {
@@ -256,12 +252,6 @@
     top: 0;
     padding-left: 30px;
     width: 90%;
-  }
-  .b-page2-menu {
-    overflow: hidden;
-  }
-  .b-page2-box {
-    width: 100%;
   }
   .b-page2-slider {
     margin-bottom: 0;
@@ -430,7 +420,7 @@
 }
 
 /* 動畫 */
-.b-bentotext {
+.animation-bentotext {
   animation: bentoText;
   animation-duration: 1s;
 }
@@ -442,7 +432,7 @@
     opacity: 1;
   }
 }
-.b-bentoIn {
+.animation-bentoIn {
   animation: bentoIn;
   animation-duration: 1s;
 }
@@ -458,4 +448,15 @@
     opacity: 1;
   }
 }
-
+.animation-bentoOut {
+  animation: bentoOut;
+  animation-duration: 1s;
+}
+@keyframes bentoOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

@@ -11,7 +11,7 @@ router.get("/", async (req, res, next) => {
     const memberId = req.session.member.id;
     // const memberId = 37;
     let result = await connection.queryAsync(
-        "SELECT * FROM order_main_list WHERE member_id =? ORDER BY id DESC",
+        "SELECT id,payment_method,create_date,status,total_price FROM order_main_list WHERE member_id =? ORDER BY id DESC",
         [memberId]
     );
     // 訂單編號補足四位數字
@@ -21,8 +21,31 @@ router.get("/", async (req, res, next) => {
         if ((item.id < 1000) & (item.id >= 100)) item.id = "0" + item.id;
         return item;
     });
+
+    // 把日期轉成數字樣式 2021-09-24
+    const transformDate = (rawDate, n) => {
+        rawDate.setDate(rawDate.getDate() + n);
+        let year = rawDate.getFullYear();
+        let month = rawDate.getMonth() + 1;
+        if (month < 10) month = "0" + month;
+        let date = rawDate.getDate();
+        if (date < 10) date = "0" + date;
+        let newDate = `${year}-${month}-${date}`;
+        return newDate;
+    };
+
+    // 把原本的陣列，新增兩個日期
+    result = result.map((v) => {
+        let rawDate = new Date(v.create_date);
+        let shipmentDate = transformDate(rawDate, 3);
+        let refundDate = transformDate(rawDate, 10);
+        v["shipment_date"] = shipmentDate;
+        v["refund_date"] = refundDate;
+        return v;
+    });
+
     let count = await connection.queryAsync(
-        "SELECT COUNT(*) AS total FROM order_main_list WHERE member_id =?",
+        "SELECT COUNT(*) AS count FROM order_main_list WHERE member_id =?",
         [memberId]
     );
     if (count.length > 0) {

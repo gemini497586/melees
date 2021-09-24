@@ -55,15 +55,29 @@ function Form2(props) {
   // 驗證
   const handleFormInvalid = (e) => {
     e.preventDefault()
-    const updatedFieldError = {
-      ...fieldErrors,
-      [e.target.name]: e.target.validationMessage,
+
+    let ErrorMessage = ''
+    switch (e.target.name) {
+      case 'gender':
+        ErrorMessage = '請選擇性別'
+        break
+      case 'active':
+        ErrorMessage = '請選擇活動量'
+        break
+      default:
+        ErrorMessage = '請輸入正確資料'
+        break
     }
-    setFieldsErrors(updatedFieldError)
+
+    const updatedFieldErrors = {
+      ...fieldErrors,
+      [e.target.name]: ErrorMessage,
+    }
+    setFieldsErrors(updatedFieldErrors)
   }
   // 表單變動時
   const handleFormChange = (e) => {
-    console.log('目前正在更新這個欄位 ', e.target.name)
+    // console.log('目前正在更新這個欄位 ', e.target.name)
     const updatedFieldError = { ...fieldErrors, [e.target.name]: '' }
     setFieldsErrors(updatedFieldError)
   }
@@ -109,6 +123,7 @@ function Form2(props) {
           handleFieldChange={handleFieldChange}
           name={'年齡'}
           value={'age'}
+          max={'100'}
         />
         <Input
           fields={fields.height}
@@ -116,6 +131,7 @@ function Form2(props) {
           handleFieldChange={handleFieldChange}
           name={'身高'}
           value={'height'}
+          max={'200'}
         />
         <Input
           fields={fields.weight}
@@ -123,6 +139,7 @@ function Form2(props) {
           handleFieldChange={handleFieldChange}
           name={'體重'}
           value={'weight'}
+          max={'150'}
         />
         <Select
           fields={fields.active}
