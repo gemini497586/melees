@@ -6,7 +6,7 @@ import Page2 from './component/Page2'
 import Page3 from './component/Page3'
 import CardRecipe from '../../component/CardRecipe'
 import CardShopping from '../../component/CardShopping'
-import BoxData from '../../data/box.json'
+import BoxData from '../../data/Box.json'
 
 function Box() {
   const [data, setData] = useState([])
