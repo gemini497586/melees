@@ -24,10 +24,13 @@ router.post("/product/:id", async (req, res, next) => {
 router.get("/home/:category?/:sort?", (req, res, next) => {
   // console.log("s:", req.params.sort);
   // console.log("c:", req.params.category);
+  let pageAmount = 10;
+  let page = 1;
+
   if (req.params.category === "undefined") {
     switch (req.params.sort) {
       case "價格由高至低":
-        connection.query("SELECT * FROM product ORDER BY price DESC", (err, result) => {
+        connection.query(`SELECT * FROM product ORDER BY price DESC LIMIT ${(page - 1) * pageAmount}, ${pageAmount}`, (err, result) => {
           res.json(result);
         });
         break;
