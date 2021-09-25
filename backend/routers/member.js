@@ -232,8 +232,8 @@ router.get("/readsavebox", async (req, res, next) => {
 
 // 收藏商品
 router.get("/readsaveproduct", async (req, res, next) => {
-    // const memberId = req.session.member.id;
-    const memberId = 37;
+    const memberId = req.session.member.id;
+    // const memberId = 37;
 
     let result = await connection.queryAsync(
         "SELECT * FROM product_save WHERE member_id=? ORDER BY id DESC",

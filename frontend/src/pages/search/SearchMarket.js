@@ -17,19 +17,15 @@ function SearchMarket(props) {
   const itemList = [
     {
       name: '時間由新至舊',
-      value: '1',
     },
     {
       name: '時間由舊至新',
-      value: '2',
     },
     {
       name: '價位由高至低',
-      value: '3',
     },
     {
       name: '價位由低至高',
-      value: '4',
     },
   ]
 

@@ -12,22 +12,18 @@ function MemberBox() {
   const [prep, setPrep] = useState([])
   const [prepList, setprepList] = useState(null)
   const [sortBy, setSortBy] = useState(0)
-  const sortList = [
+  const itemList = [
     {
       name: '時間由新至舊',
-      value: '1',
     },
     {
       name: '時間由舊至新',
-      value: '2',
     },
     {
       name: '卡路里由多至少',
-      value: '3',
     },
     {
       name: '卡路里由少至多',
-      value: '4',
     },
   ]
 
@@ -90,7 +86,7 @@ function MemberBox() {
           <div className="container">
             <div className="d-flex justify-content-end">
               <DropDown2
-                itemList={sortList}
+                itemList={itemList}
                 sortBy={sortBy}
                 setSortBy={setSortBy}
               />
