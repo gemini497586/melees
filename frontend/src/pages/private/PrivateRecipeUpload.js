@@ -5,19 +5,37 @@ import '../../style/privateRecipeUpload.css'
 import React, { useState } from 'react'
 import Axios from 'axios'
 import { API_URL } from '../../utils/config'
+import PrivateReicpeAnimate from './component/PrivateRecipeAnimate'
 
 function PrivateRecipeUpload() {
   // 要送出的資料初始狀態
   const [recipePhoto, setRecipePhoto] = useState()
-  const [recipeName, setRecipeName] = useState('三杯雞')
+  const [recipeName, setRecipeName] = useState('')
   const [recipeIntro, setRecipeIntro] = useState('')
   const [recipeQty, setRecipeQty] = useState('')
   const [ingredList, setIngredList] = useState([
     { ingred: '', ingred_unit: '' },
   ])
   const [steps, setSteps] = useState([{ step: '' }])
+  const [imgPreview, setImgPreview] = useState(null)
+  const [error, setError] = useState(false)
+
   const title = ['新增']
 
+  const handleImageChange = (e) => {
+    const seleted = e.target.files[0]
+    const ALLOW_TYPES = ['image/png', 'image/jpg', 'image/jpeg']
+    if (seleted && ALLOW_TYPES.includes(seleted.type)) {
+      let reader = new FileReader()
+      reader.onloadend = () => {
+        setImgPreview(reader.result)
+        setRecipePhoto(seleted)
+      }
+      reader.readAsDataURL(seleted)
+    } else {
+      alert('not found')
+    }
+  }
   // 食材的部分
   const ChangeIngred = (e, index) => {
     const { name, value } = e.target
@@ -74,7 +92,9 @@ function PrivateRecipeUpload() {
       formData.append('ingred', JSON.stringify(ingredList))
       formData.append('steps', JSON.stringify(steps))
 
-      let res = await Axios.post(`${API_URL}/private/upload/main`, formData)
+      let res = await Axios.post(`${API_URL}/private/upload/main`, formData, {
+        withCredentials: true,
+      })
 
       console.log(res)
     } catch (e) {
@@ -84,6 +104,7 @@ function PrivateRecipeUpload() {
   return (
     <>
       <div className="page-group">
+        <PrivateReicpeAnimate />
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-6">
@@ -91,14 +112,47 @@ function PrivateRecipeUpload() {
               <PrivateRecipeHeading title={title[0]} />
               <div className="privateRecipeUpload">
                 <form action="" onSubmit={handleSubmit}>
-                  <input
-                    type="file"
-                    id="photo"
-                    name="photo"
-                    onChange={(e) => {
-                      setRecipePhoto(e.target.files[0])
-                    }}
-                  />
+                  <div className="privateRecipeUpload-img">
+                    {error && <p>file not supported</p>}
+                    <div
+                      className="privateRecipeUpload-img-preview"
+                      style={{
+                        background: imgPreview
+                          ? `url("${imgPreview}") no-repeat center/cover`
+                          : '',
+                      }}
+                    >
+                      {!imgPreview && (
+                        <>
+                          <label htmlFor="photo">
+                            <FontAwesomeIcon
+                              className="previewIcon"
+                              icon={['far', 'image']}
+                              size="10x"
+                            />
+                            <p>add an image</p>
+                            <span>(jpg, jpeg, png)</span>
+                          </label>
+                          <input
+                            type="file"
+                            id="photo"
+                            name="photo"
+                            onChange={handleImageChange}
+                          />
+                        </>
+                      )}
+                    </div>
+                    {imgPreview && (
+                      <button
+                        className="font-700M"
+                        onClick={(e) => {
+                          setImgPreview(null)
+                        }}
+                      >
+                        移除圖片
+                      </button>
+                    )}
+                  </div>
                   <br />
                   {/* 食譜名稱 */}
                   <label htmlFor="name" className="privateRecipeUpload-label">
@@ -215,7 +269,7 @@ function PrivateRecipeUpload() {
                   })}
                   <div className="d-flex justify-content-center">
                     <div
-                      className="privateRecipeUpload-add-ingred"
+                      className="privateRecipeUpload-add-steps"
                       onClick={AddStep}
                     >
                       <FontAwesomeIcon icon="plus" size="lg" />
