@@ -82,7 +82,7 @@ function App() {
                 <Route exact path="/private/upload">
                   <PrivateRecipeUpload />
                 </Route>
-                <Route exact path="/private/edit">
+                <Route exact path="/private/edit/:id">
                   <PrivateRecipeEdit />
                 </Route>
                 <Route exact path="/private/detail/:id">
