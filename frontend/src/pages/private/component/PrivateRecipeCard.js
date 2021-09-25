@@ -2,29 +2,41 @@ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../style/cardPrivateRecipe.css'
-import food from '../../../images/default_food2.jpg'
-import avatar from '../../../images/default_avatar1.jpg'
 import Axios from 'axios'
 import { API_URL } from '../../../utils/config'
 
-function PrivateRecipeCard() {
-  const [itemInfo, setItemInfo] = useState([])
-  const [likeList, setLikeList] = useState([])
-  const [viewList, setViewList] = useState([])
+function PrivateRecipeCard(props) {
+  const { itemInfo, likeList, viewList } = props
+
   const [saveState, setSaveState] = useState([])
   const [likeState, setLikeState] = useState([])
+  const [memberInfo, setMemberInfo] = useState([])
 
   useEffect(() => {
     Axios.get(`${API_URL}/private/index`, {
       withCredentials: true,
     }).then((res) => {
-      setItemInfo(res.data.result)
-      setLikeList(res.data.result2)
-      setViewList(res.data.result3)
       setSaveState(res.data.result4)
       setLikeState(res.data.result5)
+      setMemberInfo(res.data.memResult)
     })
   }, [])
+
+  const avatar1 = (value, index) => {
+    const avatar = []
+    for (let i = 0; i < memberInfo.length; i++) {
+      if (value.member_id === memberInfo[i].id) {
+        avatar.push(
+          <img
+            src={`${API_URL}/member/${memberInfo[i].picture}`}
+            className="b-cover-fit"
+            alt=""
+          />
+        )
+      }
+    }
+    return avatar
+  }
   // 星星評分數
   const starNum = (index) => {
     const row = []
@@ -82,12 +94,18 @@ function PrivateRecipeCard() {
   }
   const likeToggled = (value, index) => {
     const like = []
+
     for (let i = 0; i < likeState.length; i++) {
-      if (value.id !== likeState[i].private_id) {
-        like.push()
-      } else {
+      if (value.id === likeState[i].private_id) {
         like.push(
           <div className="d-flex cardPrivateRecipe-like-active">
+            <FontAwesomeIcon icon="heart" size="lg" />
+          </div>
+        )
+        break
+      } else {
+        like.push(
+          <div className="d-flex cardPrivateRecipe-like">
             <FontAwesomeIcon icon="heart" size="lg" />
           </div>
         )
@@ -114,7 +132,7 @@ function PrivateRecipeCard() {
                     {saveToggled(value, index)}
 
                     <figure className="cardPrivateRecipe-avatar">
-                      <img src={avatar} className="h-100" alt="" />
+                      {avatar1(value, index)}
                     </figure>
                     <div className="cardPrivateRecipe-box">
                       <span className="font-700S cardPrivateRecipe-type">

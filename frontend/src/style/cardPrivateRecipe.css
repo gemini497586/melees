@@ -5,13 +5,14 @@
   border-radius: 8px;
   margin: auto;
   margin-bottom: 30px;
+  box-shadow: 0 0 5px 5px var(--color-grey-300);
 }
 .cardPrivateRecipe a {
   text-decoration: none;
 }
 .cardPrivateRecipe:hover {
   box-shadow: 0px 0px 15px var(--color-grey-800);
-  transition: 0.2s;
+  transition: 0.4s;
 }
 .cardPrivateRecipe-img {
   width: 306px;
