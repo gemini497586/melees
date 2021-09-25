@@ -8,28 +8,7 @@ import { API_URL } from '../../../utils/config'
 // import avatar from '../../../images/default_avatar1.jpg'
 
 function CardPrivateRecipeforMember(props) {
-  const { recipeDataDetails } = props
-
-  const starScore = (star_rate) => {
-    const starRow = []
-    let solidStar = Math.floor(star_rate)
-    let emptyStar = 5 - Math.ceil(star_rate)
-    let halfStar = 5 - solidStar - emptyStar
-    for (let i = 0; i < solidStar; i++) {
-      starRow.push(<FontAwesomeIcon icon="star" className="icon-star" />)
-    }
-    if (halfStar > 0) {
-      starRow.push(
-        <FontAwesomeIcon icon="star-half-alt" className="icon-star" />
-      )
-    }
-    for (let j = 0; j < emptyStar; j++) {
-      starRow.push(
-        <FontAwesomeIcon icon={['far', 'star']} className="icon-star" />
-      )
-    }
-    return starRow
-  }
+  const { recipeDataDetails, starScore } = props
 
   // recipeData = {
   //   id: 54,

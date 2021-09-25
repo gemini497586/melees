@@ -60,11 +60,13 @@ function MemberRecipeCommentRow(props) {
         setShowModal={setShowEditModal}
         openEditModal={openEditModal}
         recipeData={recipeData}
+        starScore={starScore}
       />
       <DeleteModal
         showDeleteModal={showDeleteModal}
         setDeleteModal={setShowDeleteModal}
         openDeleteModal={openDeleteModal}
+        id={recipeData.id}
       />
       <div className="row align-items-center">
         <figure className="col-6 col-md-2 memberRecipeComment-figure">

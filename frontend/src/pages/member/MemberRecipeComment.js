@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import '../../style/global.css'
 import '../../style/member.css'
 import '../../style/memberRecipeComment.css'
@@ -7,14 +7,18 @@ import MemberRecipeCommentRow from './component/MemberRecipeCommentRow'
 import DropDown from '../../component/DropDown'
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import avatar from '../../images/Avatar.png'
+import axios from 'axios'
+import { API_URL } from '../../utils/config'
 
 // testJson
 import food from '../../images/default_food2.jpg'
 import recipePic from '../../images/member-recipe-comment-ellipse-342.png'
 
 function MemberRecipeComment() {
+  const [recipeDataList, setRecipeDataList] = useState([])
+
   // 檢視整個表格時，基本所需的資料
-  const [testJson, setTestJson] = useState({
+  const testJson = {
     id: 54,
     member_id: 37,
     // member_avatar: avatar,
@@ -23,7 +27,7 @@ function MemberRecipeComment() {
     // member_like: true,
     // member_save: true,
     comment:
-    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis molestias temporibus obcaecati, delectus ducimus nesciunt maiores labore laudantium ut eaque natus animi! Reprehenderit ipsam, deserunt asperiores id, est atque maiores officiis ratione ad tenetur perspiciatis aut, architecto possimus laboriosam magnam ullam fuga',
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis molestias temporibus obcaecati, delectus ducimus nesciunt maiores labore laudantium ut eaque natus animi! Reprehenderit ipsam, deserunt asperiores id, est atque maiores officiis ratione ad tenetur perspiciatis aut, architecto possimus laboriosam magnam ullam fuga',
     comment_time: '2021/09/18',
 
     recipe_id: 120,
@@ -33,11 +37,11 @@ function MemberRecipeComment() {
     // recipe_author_avatar: avatar,
     // recipe_like: 523,
     // recipe_view: 1648,
-  })
+  }
 
   // 開啟 EditModal 時，所需的資料
   // 缺少的更詳細資料，等使用者開啟 Modal 時再發 axios post request 到後端撈資料
-  const [testEditModal, setTestEditModal] = useState({
+  const testJson_EditModal = {
     id: 54,
     member_id: 37,
     member_avatar: avatar,
@@ -46,7 +50,7 @@ function MemberRecipeComment() {
     member_like: true,
     member_save: true,
     comment:
-    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis molestias temporibus obcaecati, delectus ducimus nesciunt maiores labore laudantium ut eaque natus animi! Reprehenderit ipsam, deserunt asperiores id, est atque maiores officiis ratione ad tenetur perspiciatis aut, architecto possimus laboriosam magnam ullam fuga',
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis molestias temporibus obcaecati, delectus ducimus nesciunt maiores labore laudantium ut eaque natus animi! Reprehenderit ipsam, deserunt asperiores id, est atque maiores officiis ratione ad tenetur perspiciatis aut, architecto possimus laboriosam magnam ullam fuga',
     comment_time: '2021/09/18',
 
     recipe_id: 120,
@@ -56,77 +60,92 @@ function MemberRecipeComment() {
     recipe_author_avatar: avatar,
     recipe_like: 523,
     recipe_view: 1648,
-  })
+  }
 
-
-  const [recipeDataList, setRecipeDataList] = useState([
+  const dataForMap = [
     {
       id: 51,
-      member_id: 37,
-      private_id: 120,
-      private_img: recipePic,
-      private_name: '麻油蝦1',
+      member_id: 39,
       comment:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis molestias temporibus obcaecati, delectus ducimitecto possimus laboriosam magnam ullam fuga',
-      comment_time: '2021/06/08',
-      star_rate: 4.2,
+        'ALorem ipsum dolo ducimus nesciunt maiores labore laudantium ut eaque natus animi! Reprehenderit ipsam, deserunt asperiores id, est atque maiores officiis ratione ad tenetur perspiciatis aut, architecto possimus laboriosam magnam ullam fuga',
+      comment_time: '2021/06/18',
+      recipe_id: 120,
+      recipe_img: food,
+      recipe_name: '麻油雞',
+      recipe_star_rate: 2.7,
     },
     {
       id: 52,
-      member_id: 37,
-      private_id: 120,
-      private_img: recipePic,
-      private_name: '麻油蝦2',
+      member_id: 45,
       comment:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis molestias temporibus obcaecati, delectus dures id, est atque maiores officiis ratione ad tenetur perspiciatis aut, architecto possimus laboriosam magnam ullam fuga',
+        'BLsum dolor sit amet consectetur adipisicing elit. Quis molestias temporibus obcaecati, delectus dserunt aspossimus laboriosam magnam ullam fuga',
+      comment_time: '2021/05/10',
+      recipe_id: 120,
+      recipe_img: food,
+      recipe_name: '麻油松阪豬',
+      recipe_star_rate: 3.6,
+    },
+    {
+      id: 53,
+      member_id: 3,
+      comment:
+        'CLorem s labore laudantium ut eaque natus animi! Reprehenderit ipsam, deserunt asperiores id, est atque maiores officiis ratione ad tenetur perspiciatis aut, architecto possimus laboriosam magnam ullam fuga',
+      comment_time: '2021/09/08',
+      recipe_id: 120,
+      recipe_img: food,
+      recipe_name: '麻油蝦',
+      recipe_star_rate: 3.4,
+    },
+    {
+      id: 54,
+      member_id: 7,
+      comment:
+        'XLorem ipcimus nesciunt maiores labore laudantium ut eaque natus animi! Reprehenderit ipsam, deserunt asperiores id, est atque maiores officiis ratione ad tenetur perspiciatis aut,imus laboriosam magnam ullam fuga',
+      comment_time: '2021/12/28',
+      recipe_id: 120,
+      recipe_img: food,
+      recipe_name: '鹹酥蝦',
+      recipe_star_rate: 4.1,
+    },
+    {
+      id: 55,
+      member_id: 34,
+      comment:
+        'YLoloimus nesciunt maiores labore laudantium ut eaque natus animi! Reprehenderit ipsam, deserunt asperiores id, est atque maiores officiis ratione ad tenetur perspiciatis aut, architecto possimus laboriosam magnam ullam fuga',
+      comment_time: '2021/04/03',
+      recipe_id: 120,
+      recipe_img: food,
+      recipe_name: '橄欖油蝦排',
+      recipe_star_rate: 3.9,
+    },
+    {
+      id: 56,
+      member_id: 12,
+      comment:
+        'Zonsectetur adipisicing elit. Quis molestias temporibus obcaecati, delectus ducimus nesciunt maiores labore laudantium ut eaque natus animi! Reprehenderit ipsam, deserunt asperiores id, est atque maiores officiis ratione ad tenetur perspiciatis aut, architecto possimus laboriosam magnam ullam fuga',
       comment_time: '2021/09/18',
-      star_rate: 3.4,
+      recipe_id: 120,
+      recipe_img: food,
+      recipe_name: '南瓜蒸小排',
+      recipe_star_rate: 4.4,
     },
-    {
-      id: 54,
-      member_id: 37,
-      private_id: 120,
-      private_img: recipePic,
-      private_name: '麻油蝦3',
-      comment:
-        'Lorem ipsum dolor sit as nesciunt maiores labore laudantium ut eaque natus animi! Reprehenderit ipsam, deserunt asperiores id, est atque maiores officiis ratione ad tenetur perspiciatis aut, architecto possimus laboriosam magnam ullam fuga',
-      comment_time: '2021/09/03',
-      star_rate: 4.1,
-    },
-    {
-      id: 54,
-      member_id: 37,
-      private_id: 120,
-      private_img: recipePic,
-      private_name: '麻油蝦4',
-      comment:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis molestias temporibus obcaecati, delectus ducimus nesciunt maiores labore laudantium ut eaque natus animi! Reprehenderit ipsam, deserunt asperiores id, est atque maiores officiis ratione ad tenetur perspiciatis aut, architecto possimus laboriosam magnam ullam fuga',
-      comment_time: '2021/09/24',
-      star_rate: 3.5,
-    },
-    {
-      id: 54,
-      member_id: 37,
-      private_id: 120,
-      private_img: recipePic,
-      private_name: '麻油蝦5',
-      comment:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis molestias temporibus  tenetur perspiciatis aut, architecto possimus laboriosam magnam ullam fuga',
-      comment_time: '2021/09/05',
-      star_rate: 4.4,
-    },
-    {
-      id: 54,
-      member_id: 37,
-      private_id: 120,
-      private_img: recipePic,
-      private_name: '麻油蝦6',
-      comment:
-        'Lorem-6 ipsum dolor sit amet consectetur adipisicing elit. Quis molestias temporibus obcaecati architecto possimus laboriosam magnam ullam fuga',
-      comment_time: '2021/09/16',
-      star_rate: 2.6,
-    },
-  ])
+  ]
+
+  useEffect(() => {
+    //   const getComment = async () => {
+    //     try {
+    //       let response = await axios.get(`${API_URL}/member/XXX`, {
+    //         // 設定可以跨源送 cookie
+    //         withCredentials: true,
+    //       })
+    //       setRecipeDataList(response.data)
+    //     } catch (err) {
+    //       console.error(err.response)
+    //     }
+    //   }
+    //   getComment()
+    setRecipeDataList(dataForMap)
+  }, [])
 
   return (
     <>
@@ -142,19 +161,11 @@ function MemberRecipeComment() {
               <p className="font-700L col-2">評分</p>
               <p className="font-700L col-6">我的評論內容</p>
             </div>
-            <MemberRecipeCommentRow recipeData={testJson} />
-            <MemberRecipeCommentRow recipeData={testJson} />
-            <MemberRecipeCommentRow recipeData={testJson} />
-            <MemberRecipeCommentRow recipeData={testJson} />
-            <MemberRecipeCommentRow recipeData={testJson} />
-
-            {/* {recipeDataList.map((value, index) => {
-              return <MemberRecipeCommentRow recipeData={value} />
-            })} */}
-
-            {/* {weekdata.map((value, index) => {
-              return <featureWeek key={index} weekdataDetail={value}/>
-            })} */}
+            {recipeDataList.map((value, index) => {
+              return (
+                <MemberRecipeCommentRow key={value.id} recipeData={value} />
+              )
+            })}
           </div>
         </div>
       </div>

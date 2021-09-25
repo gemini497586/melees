@@ -10,35 +10,25 @@ import axios from 'axios'
 import author_avatar from '../../../images/default_avatar1.jpg'
 
 function EditModal(props) {
-  const { showEditModal, openEditModal, recipeData } = props
+  const { showEditModal, openEditModal, recipeData, starScore } = props
   const [recipeDataDetails, setRecipeDataDetails] = useState({})
+  const [newComment, setNewComment] = useState()
+  const [newStarScore, setnewStarScore] = useState()
 
-  const starScore = (star_rate) => {
-    const starRow = []
-    let solidStar = Math.floor(star_rate)
-    let emptyStar = 5 - Math.ceil(star_rate)
-    let halfStar = 5 - solidStar - emptyStar
-    for (let i = 0; i < solidStar; i++) {
-      starRow.push(<FontAwesomeIcon icon="star" className="icon-star" />)
-    }
-    if (halfStar > 0) {
-      starRow.push(
-        <FontAwesomeIcon icon="star-half-alt" className="icon-star" />
-      )
-    }
-    for (let j = 0; j < emptyStar; j++) {
-      starRow.push(
-        <FontAwesomeIcon icon={['far', 'star']} className="icon-star" />
-      )
-    }
-    return starRow
+  const handleCancelEdit = () => {
+    // 清除：編輯中評論，並關閉 Modal
+    setNewComment('')
+    openEditModal()
   }
 
   useEffect(() => {
     // 正式從資料庫生成資料
     // const queryRecipeDetails = async () => {
     //   try {
-    //     let response = await axios.post()
+    //     let response = await axios.post(`${API_URL}/member/XXXXXXX`, formData, {
+    //   // 設定可以跨源送 cookie
+    //   withCredentials: true,
+    // })
     //     setRecipeDataDetails({
     //       ...recipeData,
     //       member_avatar: avatar,
@@ -103,15 +93,39 @@ function EditModal(props) {
   // recipe_like: 523,
   // recipe_view: 1648,
   // }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    try {
+      // let data = {
+      //   id: recipeDataDetails,
+      //   newComment: newComment,
+      //   starScore: newStarScore,
+      // }
+      // let response = await axios.post(`${API_URL}/member/XXXXXXX`, data, {
+      //   // 設定可以跨源送 cookie
+      //   withCredentials: true,
+      // })
+      // if (response) {
+        console.log('Edit id: ' + recipeDataDetails.id + ' successful')
+        openEditModal()
+      // }
+    } catch (err) {
+      // 刪除失敗
+    }
+  }
   return (
     <>
       <Black modal={showEditModal} closeModal={openEditModal} />
       {showEditModal ? (
         <div class="modal-edit-recipeComment-wrapper">
-          <button className="b-modal-close " onClick={openEditModal}>
+          <button className="b-modal-close " onClick={handleCancelEdit}>
             <FontAwesomeIcon icon="times" className="" />
           </button>
-          <CardPrivateRecipeforMember recipeDataDetails={recipeDataDetails} />
+          <CardPrivateRecipeforMember
+            recipeDataDetails={recipeDataDetails}
+            starScore={starScore}
+          />
           <div className="modal-edit-recipeComment-comment">
             <div className="modal-edit-recipeComment-title">
               <div className="modal-edit-recipeComment-title-shadow"></div>
@@ -127,14 +141,21 @@ function EditModal(props) {
                 {recipeDataDetails.member_star_rate}
               </span>
             </div>
-            <textarea
-              className="modal-edit-recipeComment-text"
-              value={recipeDataDetails.comment}
-              // onChange={(e) => {
-              //   return e.target.value
-              // }}
-            />
-            <button className="modal-edit-recipeComment-editBtn">修改</button>
+            <form onSubmit={handleSubmit}>
+              <textarea
+                className="modal-edit-recipeComment-text"
+                value={newComment ? newComment : recipeDataDetails.comment}
+                onChange={(e) => {
+                  setNewComment(e.target.value)
+                }}
+              />
+              <button
+                className="modal-edit-recipeComment-editBtn"
+                type="submit"
+              >
+                修改
+              </button>
+            </form>
           </div>
         </div>
       ) : null}
