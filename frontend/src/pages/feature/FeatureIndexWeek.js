@@ -8,6 +8,7 @@ import CardShopping from '../../component/CardShopping'
 import MinorBar from './component/MinorBar'
 import { API_URL } from '../../utils/config'
 import Axios from 'axios'
+import { useParams } from 'react-router'
 
 function FeatureIndexWeek() {
   /* 排序搜尋 */
@@ -40,24 +41,20 @@ function FeatureIndexWeek() {
   ]
 
   const [weekdata, setWeekdata] = useState([])
-
+  // const [weekimg, setWeekimg] = useState([])
   useEffect(() => {
     Axios.post(`${API_URL}/feature/weeklist`).then((response) => {
       let weekdata = response.data
       setWeekdata(weekdata)
       // console.log('weekdata', weekdata[0])
     })
+    // Axios.post(`${API_URL}/feature/weekimg`).then((response) => {
+    //   let weekimg = response.data
+    //   setWeekimg(weekimg)
+    // })
   }, [])
 
-  // const weekdataCards = weekdata.map((e) => {
-  //   // console.log(e)
-  //   e.map((v) => {
-  //     // return v
-  //     console.log(v)
-  //   })
-  //   return e
-  // })
-
+  // console.log('weekdata', weekdata)
   return (
     <>
       <div className="page-group">
@@ -79,6 +76,7 @@ function FeatureIndexWeek() {
           {weekdata.map((v, i) => {
             return <FeatureWeek weekdataCards={v} key={i} />
           })}
+          k
         </div>
         <div className="fpaginf-mf">
           <Paging />

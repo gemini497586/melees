@@ -18,7 +18,7 @@ function FeatureContentImg(props) {
   // 縮圖使用
   const smallimg = (e) => {
     setLargeimg(e.target.src)
-    console.log('etarget', e.target)
+    // console.log('etarget', e.target)
   }
 
   // 套件的控制項

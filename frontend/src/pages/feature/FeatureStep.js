@@ -42,6 +42,11 @@ function FeatureStep() {
       setStepList(response.data)
       // console.log(response.data.steps)
     })
+
+    Axios.get(`${API_URL}/feature/prep/${listId}`).then((response) => {
+      setIngred(response.data)
+      // console.log(response.data.steps)
+    })
   }, [listId])
 
   // 將食材資料分半
