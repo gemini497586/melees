@@ -102,10 +102,10 @@ function App() {
                     <PrivateRecipeIntro />
                   </Route>
                   {/* 精選 */}
-                  <Route path="/feature/week">
+                  <Route path="/feature/index/4">
                     <FeatureIndexWeek />
                   </Route>
-                  <Route path="/feature/stepweek">
+                  <Route path="/feature/stepweek/:listId">
                     <FeatureStepWeek />
                   </Route>
                   <Route path="/feature/step/:listId?">
