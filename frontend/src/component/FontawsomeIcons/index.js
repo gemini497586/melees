@@ -27,6 +27,7 @@ import {
   faPencilAlt,
   faEllipsisH,
   faExclamation,
+  faCheck,
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -67,5 +68,6 @@ library.add(
   faPencilAlt,
   faEllipsisH,
   farStar,
-  faExclamation
+  faExclamation,
+  faCheck
 )

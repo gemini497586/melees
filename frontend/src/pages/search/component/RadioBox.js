@@ -1,21 +1,21 @@
 import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function RadioBox(props) {
-  const { value, name, checked, setChecked } = props
+  const { value, checked, setChecked } = props
   return (
     <>
-      <div className="form-check">
+      <div className="s-radiobox">
         <input
-          className="form-check-input"
           type="radio"
           value={value}
-          id={name}
+          id={value}
           checked={checked === value}
           onChange={(e) => {
             setChecked(e.target.value)
           }}
         />
-        <label className="form-check-label me-2 font-400S" htmlFor={name}>
+        <label className="font-400S" htmlFor={value}>
           {value}
         </label>
       </div>

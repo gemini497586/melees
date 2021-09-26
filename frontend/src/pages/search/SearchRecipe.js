@@ -6,6 +6,7 @@ import SearchCardPrivate from './component/SearchCardPrivate.js'
 import RadioBox from './component/RadioBox'
 import Axios from 'axios'
 import { API_URL } from '../../utils/config'
+import DropDown2 from '../../component/DropDown2'
 
 function SearchRecipe() {
   const { word } = useParams()
@@ -19,6 +20,8 @@ function SearchRecipe() {
 
   const [checked, setChecked] = useState('精選食譜')
   const checkList = ['精選食譜', '私藏食譜']
+  const [sortBy, setSortBy] = useState(0)
+
   const itemList = [
     {
       name: '時間由新至舊',
@@ -58,76 +61,17 @@ function SearchRecipe() {
     getData()
   }, [word])
 
-  // const handleRadio = (totalRecipe, checked) => {
-  //   let newData = [...totalRecipe]
-  //   if (checked === '精選食譜') {
-  //     newData = [...totalRecipe].filter((v) => {
-  //       return v.type === '精選食譜'
-  //     })
-  //   }
-  //   if (checked === '私藏食譜') {
-  //     newData = [...totalRecipe].filter((v) => {
-  //       return v.type === '私藏食譜'
-  //     })
-  //   }
-  //   return newData
-  // }
-
-  // 排序功能
-  // const handleSortBy = (feature, sortBy) => {
-  //   let newData = [...feature]
-  //   if (sortBy === 0) {
-  //     newData = [...newData].sort((a, b) => b.listId - a.listId)
-  //   }
-  //   if (sortBy === 1) {
-  //     newData = [...newData].sort((a, b) => a.listId - b.listId)
-  //   }
-  //   if (sortBy === 2) {
-  //     newData = [...newData].sort((a, b) => b.like_qty - a.like_qty)
-  //   }
-  //   if (sortBy === 3) {
-  //     newData = [...newData].sort((a, b) => a.like_qty - b.like_qty)
-  //   }
-  //   if (sortBy === 4) {
-  //     newData = [...newData].sort((a, b) => b.view_qty - a.view_qty)
-  //   }
-  //   if (sortBy === 5) {
-  //     newData = [...newData].sort((a, b) => a.view_qty - b.view_qty)
-  //   }
-  //   return newData
-  // }
-
-  // 重新渲染
-  // useEffect(() => {
-  //   let newData = []
-  //   newData = handleSortBy(feature, sortBy)
-  //   // newData = handleRadio(newData, checked)
-  //   setDisplayFeature(newData)
-  // }, [sortBy])
-
   return (
     <>
       <section className="page-group">
         <div className="container">
-          <div className="col-12 s-recipe-check">
-            {checkList.map((v, i) => {
-              return (
-                <RadioBox
-                  key={i}
-                  name={v}
-                  value={v}
-                  checked={checked}
-                  setChecked={setChecked}
-                />
-              )
-            })}
-          </div>
-
-          {/* <div className="s-recipe-top">
+          <div className="s-recipe-top">
             <div className="s-recipe-keyword">
               <div className="col-12 col-md-6">
                 <h4>
-                  關於 {word} 的食譜共有 {count} 筆
+                  {checked === '精選食譜'
+                    ? `關於 ${word} 的精選食譜共有 ${featureCount} 筆`
+                    : `關於 ${word} 的私藏食譜共有 ${privateCount} 筆`}
                 </h4>
               </div>
               <DropDown2
@@ -136,25 +80,33 @@ function SearchRecipe() {
                 setSortBy={setSortBy}
               />
             </div>
-          </div> */}
-          {/* <div className="s-recipe-bottom"> */}
+            <div className="col-12 s-recipe-check">
+              {checkList.map((v, i) => {
+                return (
+                  <RadioBox
+                    key={i}
+                    value={v}
+                    checked={checked}
+                    setChecked={setChecked}
+                  />
+                )
+              })}
+            </div>
+          </div>
           {checked === '精選食譜' ? (
             <SearchCardFeature
-              word={word}
-              itemList={itemList}
               featureList={displayFeature}
               setDisplayFeature={setDisplayFeature}
-              featureCount={featureCount}
+              sortBy={sortBy}
             />
-          ) : (
+          ) : null}
+          {checked === '私藏食譜' ? (
             <SearchCardPrivate
               privateList={displayPrivate}
-              word={word}
-              itemList={itemList}
               setDisplayPrivate={setDisplayPrivate}
-              privateCount={privateCount}
+              sortBy={sortBy}
             />
-          )}
+          ) : null}
         </div>
       </section>
     </>

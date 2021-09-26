@@ -45,7 +45,7 @@ import EditPassword from './pages/member/EditPassword'
 import OrderDetails from './pages/member/OrderDetails'
 import OrderList from './pages/member/OrderList'
 import MemberBox from './pages/member/MemberBox'
-import MemberFeature from './pages/member/MemberFeature'
+import MemberSaveRecipe from './pages/member/MemberSaveRecipe'
 import MemberSaveProduct from './pages/member/MemberSaveProduct'
 import MemberRecipeComment from './pages/member/MemberRecipeComment'
 import Coupon from './pages/member/Coupon'
@@ -144,7 +144,7 @@ function App() {
                     <MemberBox />
                   </ProtectedRoute>
                   <ProtectedRoute path="/member/saverecipe" isAuth={login}>
-                    <MemberFeature />
+                    <MemberSaveRecipe />
                   </ProtectedRoute>
                   <ProtectedRoute path="/member/saveproduct" isAuth={login}>
                     <MemberSaveProduct />

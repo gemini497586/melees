@@ -3,13 +3,10 @@ import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
 import HeartViewNum from '../../../component/HeartViewNum'
-import Avatar from '../../../images/Avatar.png'
 import { API_URL } from '../../../utils/config'
-import DropDown2 from '../../../component/DropDown2'
 
 function SearchCardPrivate(props) {
-  const { word, itemList, privateList, setDisplayPrivate, privateCount } = props
-  const [sortBy, setSortBy] = useState(0)
+  const { privateList, setDisplayPrivate, sortBy } = props
 
   // 排序功能
   const handleSortBy = (privateList, sortBy) => {
@@ -43,20 +40,6 @@ function SearchCardPrivate(props) {
 
   return (
     <>
-      <div className="s-recipe-top">
-        <div className="s-recipe-keyword">
-          <div className="col-12 col-md-6">
-            <h4>
-              關於 {word} 的私藏食譜共有 {privateCount} 筆
-            </h4>
-          </div>
-          <DropDown2
-            itemList={itemList}
-            sortBy={sortBy}
-            setSortBy={setSortBy}
-          />
-        </div>
-      </div>
       <div className="s-recipe-bottom">
         {privateList.map((v, i) => {
           return (
@@ -88,7 +71,32 @@ function SearchCardPrivate(props) {
                 </div>
               </div>
               <div className="s-recipe-count font-400M">
-                <HeartViewNum />
+                {/* <HeartViewNum /> */}
+                <div className="hvn-size fcolor-grey-800">
+                  <div className="hvn-flex">
+                    <div className="hvn-icon-flex">
+                      <span>
+                        <FontAwesomeIcon
+                          className="ficon-size me-2"
+                          icon={['fas', 'heart']}
+                          fixedWidth
+                        />
+                      </span>
+                      <span className="font-400S">{v.like_qty}</span>
+                    </div>
+                    <div className="fline-g500"></div>
+                    <div className="hvn-icon-flex">
+                      <span>
+                        <FontAwesomeIcon
+                          className="ficon-size me-2"
+                          icon={['fas', 'eye']}
+                          fixedWidth
+                        />
+                      </span>
+                      <span className="font-400S">{v.view_qty}</span>
+                    </div>
+                  </div>
+                </div>
                 <div className="s-recipe-count-user">
                   <div className="s-recipe-count-circle">
                     <img
@@ -97,7 +105,7 @@ function SearchCardPrivate(props) {
                       alt={v.member_name}
                     ></img>
                   </div>
-                  <p className="font-400SL">1234</p>
+                  <p className="font-400SL">{v.member_name}</p>
                 </div>
               </div>
               <div className="s-recipe-read">

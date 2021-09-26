@@ -5,11 +5,9 @@ import '../../../component/FontawsomeIcons'
 import HeartViewNum from '../../../component/HeartViewNum'
 import Ig from '../../../component/Ig'
 import { API_URL } from '../../../utils/config'
-import DropDown2 from '../../../component/DropDown2'
 
 function SearchCardFeature(props) {
-  const { word, itemList, featureList, setDisplayFeature, featureCount } = props
-  const [sortBy, setSortBy] = useState(0)
+  const { featureList, setDisplayFeature, sortBy } = props
 
   // 排序功能
   const handleSortBy = (featureList, sortBy) => {
@@ -49,20 +47,6 @@ function SearchCardFeature(props) {
   }
   return (
     <>
-      <div className="s-recipe-top">
-        <div className="s-recipe-keyword">
-          <div className="col-12 col-md-6">
-            <h4>
-              關於 {word} 的精選食譜共有 {featureCount} 筆
-            </h4>
-          </div>
-          <DropDown2
-            itemList={itemList}
-            sortBy={sortBy}
-            setSortBy={setSortBy}
-          />
-        </div>
-      </div>
       <div className="s-recipe-bottom">
         {featureList.map((v, i) => {
           return (
@@ -96,7 +80,32 @@ function SearchCardFeature(props) {
                 </div>
               </div>
               <div className="s-recipe-count font-400M">
-                <HeartViewNum featureList={featureList} />
+                {/* <HeartViewNum /> */}
+                <div className="hvn-size fcolor-grey-800">
+                  <div className="hvn-flex">
+                    <div className="hvn-icon-flex">
+                      <span>
+                        <FontAwesomeIcon
+                          className="ficon-size me-2"
+                          icon={['fas', 'heart']}
+                          fixedWidth
+                        />
+                      </span>
+                      <span className="font-400S">{v.like_qty}</span>
+                    </div>
+                    <div className="fline-g500"></div>
+                    <div className="hvn-icon-flex">
+                      <span>
+                        <FontAwesomeIcon
+                          className="ficon-size me-2"
+                          icon={['fas', 'eye']}
+                          fixedWidth
+                        />
+                      </span>
+                      <span className="font-400S">{v.view_qty}</span>
+                    </div>
+                  </div>
+                </div>
                 <a href={v.link} target="_blank">
                   <Ig linkName={v.linkName} />
                 </a>
