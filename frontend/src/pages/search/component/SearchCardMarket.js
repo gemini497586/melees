@@ -10,6 +10,16 @@ function SearchCardShop(props) {
   const { addCart } = useCart()
   let category = { 1: '食材', 2: '鍋具', 3: '調味料' }
 
+  // 把介紹拆開來
+  const getSpecs = (value) => {
+    value = value.split('\n')
+    let specs = []
+    for (let i = 0; i <= 2; i++) {
+      specs.push(<li className="font-400S">{value[i]}</li>)
+    }
+    return specs
+  }
+
   return (
     <>
       {marketList.map((v, i) => {
@@ -27,7 +37,7 @@ function SearchCardShop(props) {
                 <div className="s-market-text">
                   <h6 className="s-market-name">{v.name}</h6>
                   <ul className="list-unstyled font-400L">
-                    <li className="font-400S">{v.specs}</li>
+                    {getSpecs(v.specs)}
                   </ul>
                 </div>
                 <div className="s-market-price font-400L">${v.price}</div>

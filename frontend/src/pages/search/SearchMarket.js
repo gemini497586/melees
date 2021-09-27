@@ -48,6 +48,7 @@ function SearchMarket(props) {
   }
   // 重新渲染
   useEffect(() => {
+    // 重網址抓關鍵字，去後端打api
     const getData = async () => {
       try {
         let res = await axios.get(`${API_URL}/search/market/?word=${word}`, {
@@ -58,13 +59,14 @@ function SearchMarket(props) {
         setData(data)
         setDisplayData(data)
         setCount(count)
-        console.log(res)
+        // console.log(res)
       } catch (e) {
         console.log(e)
       }
     }
     getData()
 
+    // 重新排列
     let newData = []
     newData = handleSortBy(data, sortBy)
     setDisplayData(newData)

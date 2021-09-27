@@ -10,6 +10,7 @@ router.get("/", async (req, res, next) => {
     // 確認是否拿到會員id
     const memberId = req.session.member.id;
     // const memberId = 37;
+    console.log(memberId);
     let result = await connection.queryAsync(
         "SELECT id,payment_method,create_date,status,total_price FROM order_main_list WHERE member_id =? ORDER BY id DESC",
         [memberId]

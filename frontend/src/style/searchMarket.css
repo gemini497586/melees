@@ -34,9 +34,6 @@
   width: 70%;
   color: var(--color-grey-900);
 }
-.s-market-text ul {
-  display: block;
-}
 .s-market-text li {
   color: var(--color-grey-800);
   margin: 0;
@@ -60,7 +57,7 @@
   border: 1px solid var(--color-primary-A);
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 414px) {
   .s-market-top {
     padding-bottom: 20px;
   }
@@ -82,5 +79,9 @@
   }
   .s-market-intro {
     width: 55%;
+  }
+  .s-market-text ul {
+    max-height: 40px;
+    overflow: hidden;
   }
 }

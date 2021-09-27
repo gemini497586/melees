@@ -21,6 +21,8 @@ function Box() {
   const [subData, setSubData] = useState([])
   const [bento, setBento] = useState([])
   const [tableList, setTableList] = useState([])
+  const [recommendRecipe, seRecommendRecipe] = useState([])
+
   const [bmr, setBmr] = useState(0)
   const [tdee, setTdee] = useState(0)
   const [cal, setCal] = useState(0)

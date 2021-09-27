@@ -11,7 +11,7 @@ import AlertModal from '../../../component/AlertModal'
 function Page3(props) {
   const { cal, setCal, tdee, tableList, setTableList, bento, setBento } = props
   const { openAlertModal, message, alertmodal } = useAlert()
-  const history = useHistory()
+  // const history = useHistory()
   const location = useLocation()
   const [redirect, setRedirect] = useState(false)
   const { login, setLogin } = useContext(HandleCart)
