@@ -16,7 +16,7 @@
   color: var(--color-white);
 }
 .privateRecipeBanner-btn {
-  display: block;
+  /* display: block; */
   position: absolute;
   top: 520px;
   left: 327px;
@@ -25,6 +25,7 @@
   border-radius: 8px;
   background: var(--color-primary);
   text-decoration: none;
+  z-index: 1;
 }
 .privateRecipeBanner-plus-icon {
   height: 100%;
