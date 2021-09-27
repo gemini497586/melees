@@ -81,7 +81,7 @@ const uploader = multer({
 });
 
 // 先檢查是否已登入
-router.use(loginCheckMiddleware);
+// router.use(loginCheckMiddleware);
 
 // 會員資料修改 --> 進入編輯頁面 --> 需要撈資料庫
 router.get("/editinfo", async (req, res, next) => {
@@ -128,7 +128,8 @@ router.post(
     console.log("post-editinfo req.file: ", req.file);
 
     let filename = req.file ? "/" + req.file.filename : "";
-    let sql ="UPDATE member SET name = ?, gender = ?, nickname = ?, birthday = ?, phone = ?, email = ?, address = ?";
+    let sql =
+      "UPDATE member SET name = ?, gender = ?, nickname = ?, birthday = ?, phone = ?, email = ?, address = ?";
     let updateData = [
       req.body.name,
       req.body.gender,
@@ -146,7 +147,7 @@ router.post(
     sql += " WHERE id = ?";
     updateData.push(memberId);
     let result = await connection.queryAsync(sql, updateData);
-    
+
     console.log("存入資料庫的內容：", result);
     res.status(200).json({ message: "會員資料更新成功" });
   }
@@ -268,6 +269,98 @@ router.get("/readsaveproduct", async (req, res, next) => {
     [[productIds]]
   );
   res.json({ result, result2 });
+});
+
+// 食譜評論 Recipe Comment
+router.post("/recipecomment/read", async (req, res, next) => {
+  // L84 被註解了
+  let result = await connection.queryAsync(
+    "SELECT private_comment.*, private_recipe.picture, private_recipe.star_rate AS recipe_star_rate, private_recipe.name FROM private_comment LEFT JOIN private_recipe ON private_comment.private_id = private_recipe.id WHERE private_comment.member_id=?",
+    // [req.session.member.id]
+    [37] // 僅測試用
+  );
+  res.json(result);
+});
+
+router.post("/recipecomment/modal/read", async (req, res, next) => {
+  console.log(req.body);
+  // req.body = { recipe_id: XX } VVVVV
+
+  let like = await connection.queryAsync(
+    "SELECT * FROM private_like WHERE user_id=? AND private_id=?",
+    [req.session.member.id, req.body.recipe_id]
+    // [37, 120] // 僅測試用
+  );
+
+  let save = await connection.queryAsync(
+    "SELECT * FROM private_save WHERE user_id=? AND private_id=?",
+    [req.session.member.id, req.body.recipe_id]
+    // [37, 120] // 僅測試用
+  );
+
+  let recipe_like = await connection.queryAsync(
+    "SELECT count(*) AS count FROM private_like WHERE private_id=?",
+    [req.body.recipe_id]
+    // [120] // 僅測試用
+  );
+
+  let recipe_view = await connection.queryAsync(
+    "SELECT count(*) AS count FROM private_view WHERE private_id=?",
+    [req.body.recipe_id]
+    // [119] // 僅測試用
+  );
+
+  let author_avatar = await connection.queryAsync(
+    "SELECT picture FROM member WHERE id=?",
+    [req.session.member.id]
+    // [38] // 僅測試用
+  );
+
+  // console.log('like', like);
+  // console.log('save', save);
+  // console.log('recipe_like', recipe_like);
+  // console.log('recipe_view', recipe_view);
+
+  // 僅 某一特定食譜評論 --> 用 id 去篩選
+  let newResult = {
+    member_avatar: req.session.member.picture,
+    member_name: req.session.member.name,
+    // member_star_rate: 4, --XXX
+    member_like: like.length > 0 ? true : false,
+    member_save: save.length > 0 ? true : false,
+    recipe_author_avatar: author_avatar[0].picture,
+    recipe_like: recipe_like[0].count,
+    recipe_view: recipe_view[0].count,
+  };
+
+  res.json(newResult);
+});
+
+router.post("/recipecomment/modal/edit", async (req, res, next) => {
+  console.log("try to update", req.body);
+
+  let result = await connection.queryAsync(
+    "UPDATE private_comment SET comment = ?, star_rate = ?, comment_time = ? WHERE id = ?",
+    [
+      req.body.newComment,
+      req.body.starScore,
+      moment().format("YYYYMMDD"),
+      req.body.id,
+    ]
+  );
+
+  res.status(200).json({ message: "Update successfully!" });
+});
+
+router.post("/recipecomment/modal/delete", async (req, res, next) => {
+  console.log("try to delete", req.body);
+
+  let result = await connection.queryAsync(
+    "DELETE FROM private_comment WHERE id = ?",
+    [req.body.id]
+  );
+
+  res.status(200).json({ message: "Delete successfully!" });
 });
 
 router.get("/", (req, res, next) => {

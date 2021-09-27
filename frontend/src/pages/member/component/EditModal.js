@@ -98,7 +98,7 @@ function EditModal(props) {
     e.preventDefault()
     try {
       // let data = {
-      //   id: recipeDataDetails,
+      //   id: recipeDataDetails.id,
       //   newComment: newComment,
       //   starScore: newStarScore,
       // }
