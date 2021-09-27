@@ -7,19 +7,37 @@ import { useParams } from 'react-router'
 import { API_URL } from '../../../utils/config'
 import avatar from '../../../images/default_avatar1.jpg'
 
-function PrivateRecipeStarComment(props) {
-  const { id } = useParams()
-  const [comment, setComment] = useState('')
+const colors = {
+  yellow: '#ffcf0d',
+  grey: '#c2c2c2',
+}
 
-  const starRate = () => {
-    console.log('hello')
+function PrivateRecipeStarComment() {
+  const { id } = useParams()
+  const stars = Array(5).fill(0)
+  const [comment, setComment] = useState('')
+  const [currentValue, setCurrentValue] = useState(0)
+  const [hoverValue, setHoverValue] = useState(undefined)
+
+  const handleClick = (index) => {
+    setCurrentValue(index)
   }
+
+  const handleMouseOver = (index) => {
+    setHoverValue(index)
+  }
+
+  const handleMouseLeave = () => {
+    setHoverValue(undefined)
+  }
+
   const addComment = async () => {
     try {
       let res = await Axios.post(
         `${API_URL}/private/comment/upload/${id}`,
         {
           comment: comment,
+          starValue: currentValue,
         },
         { withCredentials: true }
       )
@@ -52,17 +70,27 @@ function PrivateRecipeStarComment(props) {
                 />
                 <div className="d-flex justify-content-between">
                   <div className="PrivateRecipeStarComment-star">
-                    <FontAwesomeIcon
-                      icon="star"
-                      size="2x"
-                      onClick={() => {
-                        starRate()
-                      }}
-                    />
-                    <FontAwesomeIcon icon="star" size="2x" />
-                    <FontAwesomeIcon icon="star" size="2x" />
-                    <FontAwesomeIcon icon="star" size="2x" />
-                    <FontAwesomeIcon icon="star" size="2x" />
+                    {stars.map((value, index) => {
+                      return (
+                        <FontAwesomeIcon
+                          icon="star"
+                          size="2x"
+                          key={index}
+                          color={
+                            (hoverValue || currentValue) > index
+                              ? colors.yellow
+                              : colors.grey
+                          }
+                          onClick={() => {
+                            handleClick(index + 1)
+                          }}
+                          onMouseOver={() => {
+                            handleMouseOver(index + 1)
+                          }}
+                          onMouseLeave={handleMouseLeave}
+                        />
+                      )
+                    })}
                   </div>
 
                   <button className="PrivateRecipeStarComment-btn font-700M">
@@ -77,4 +105,5 @@ function PrivateRecipeStarComment(props) {
     </>
   )
 }
+
 export default PrivateRecipeStarComment
