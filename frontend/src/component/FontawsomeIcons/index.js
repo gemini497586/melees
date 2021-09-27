@@ -27,7 +27,6 @@ import {
   faPencilAlt,
   faEllipsisH,
   faExclamation,
-  faCheck,
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -35,6 +34,7 @@ import {
   faBookmark as farBookmark,
   faHeart as farHeart,
   faStar as farStar,
+  faImage,
 } from '@fortawesome/free-regular-svg-icons'
 
 library.add(
@@ -69,5 +69,5 @@ library.add(
   faEllipsisH,
   farStar,
   faExclamation,
-  faCheck
+  faImage
 )
