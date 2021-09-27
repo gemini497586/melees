@@ -80,10 +80,8 @@ function PrivateRecipeUpload() {
   }
 
   const handleTag = async () => {
-    let res = await setDisplayTag([...displayTag, tag])
-    console.log(res)
-    // setTag('')
-    console.log(displayTag)
+    await setDisplayTag([...displayTag, tag])
+    await setTag('')
   }
   const deleteTag = (index) => {
     const list = [...displayTag]
