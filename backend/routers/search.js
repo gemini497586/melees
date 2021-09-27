@@ -33,7 +33,6 @@ router.get("/recipe", async (req, res, next) => {
             "GROUP BY a.id ORDER BY id DESC",
         [word]
     );
-
     // 精選
     let feature = await connection.queryAsync(
         "SELECT a.id AS listId, a.type_id, a.name AS listName, a.create_date, " +

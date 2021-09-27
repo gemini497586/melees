@@ -24,6 +24,7 @@ function PrivateRecipePhotoIntro(props) {
       setLikeState(res.data.liked)
       setSaveState(res.data.saved)
       setMemberInfo(res.data.memResult[0])
+      console.log(res.data)
     })
   }, [])
 

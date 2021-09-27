@@ -243,7 +243,6 @@ router.get("/readsaveproduct", async (req, res, next) => {
     let productIds = result.map((v) => {
         return v.product_id;
     });
-    console.log(productIds);
     // console.log(productIds);
     let result2 = await connection.queryAsync(
         "SELECT * FROM product WHERE id IN ?",

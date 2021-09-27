@@ -177,9 +177,13 @@ function App() {
                     <Route exact path="/market/shoppingcart">
                       <Shoppingcart />
                     </Route>
-                    <Route exact path="/market/checkout-personalData">
+                    <ProtectedRoute
+                      exact
+                      path="/market/checkout-personalData"
+                      isAuth={login}
+                    >
                       <CheckoutPersonalData />
-                    </Route>
+                    </ProtectedRoute>
                     <Route exact path="/market/cart-detail">
                       <CartDetail />
                     </Route>

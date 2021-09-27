@@ -1,14 +1,15 @@
+.paging {
+  margin: 0px 0px 30px;
+}
+
 .paging-btn {
   border-radius: 4px;
   margin: 30px 8px 0px;
   width: 48px;
   height: 48px;
-  /* border: 1px solid #413d3c;
+  border: 1px solid #413d3c;
   background: none;
-  color: var(--color-secondary); */
-  color: #fff;
-  background: var(--color-primary);
-  border: 1px solid var(--color-primary);
+  color: var(--color-secondary);
 }
 
 .paging-btn:focus {
@@ -17,9 +18,12 @@
 }
 
 .paging-btn + .active {
-  /* color: #fff;
+  color: #fff;
   background: var(--color-primary);
-  border: 1px solid var(--color-primary); */
+  border: 1px solid var(--color-primary);
+}
+
+.paging > .paging-btn:not(:focus) {
   border: 1px solid #413d3c;
   background: none;
   color: var(--color-secondary);

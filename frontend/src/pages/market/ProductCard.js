@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../../style/productCard.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
@@ -6,29 +6,48 @@ import { Link } from 'react-router-dom'
 import { API_URL } from '../../utils/config'
 import axios from 'axios'
 import useCart from '../../utils/useCart'
+import useSearch from '../../utils/useSearch'
 
 function ProductCard(props) {
-  const [product, setProduct] = useState([])
-  const { carts, addCart, setProductsAll } = useCart()
+  const { category, product, setProduct, currentPage, setCurrentPage } = props
+  const { carts, addCart, setProductsAll, selectIndex } = useCart()
+  const { searching, setSearching } = useSearch()
 
   useEffect(() => {
-    // 顯示商品分類用
-    axios.get(`${API_URL}/market/home/${props.category}`).then((response) => {
-      setProduct(response.data)
-    })
-  }, [props.category])
+    // 商品分類跟排序
+    axios
+      .get(`${API_URL}/market/home/${category}/${selectIndex}`)
+      .then((response) => {
+        setProduct(response.data)
+        setCurrentPage(1)
+      })
+  }, [category, selectIndex])
 
   useEffect(() => {
     // 取得所有商品資料用
-    axios.get(`${API_URL}/market/home/undefined`).then((response) => {
+    axios.get(`${API_URL}/market/home`).then((response) => {
       setProductsAll(response.data)
     })
   }, [])
 
-  // 查表法 --> O(1)
-  let category = { 1: '食材', 2: '鍋具', 3: '調味料' }
+  // useEffect(() => {
+  //   // 取得查詢的商品資料
+  //   axios.get(`${API_URL}/search/${searching}`).then((response) => {
+  //     setProduct(response.data)
+  //   })
+  // }, [searching])
 
-  const handleProductCard = product.map((e) => {
+  // 查表法 --> O(1)
+  let category1 = { 1: '食材', 2: '鍋具', 3: '調味料' }
+
+  // const [currentPage, setCurrentPage] = useState(1)
+  const [perPage, setPerPage] = useState(10)
+
+  const lastNumber = currentPage * perPage
+  const firstNumber = lastNumber - perPage
+  const currentNumber = product.slice(firstNumber, lastNumber)
+
+  const handleProductCard = currentNumber.map((e) => {
     return (
       <div className="product-card col-6" key={e.id}>
         <Link to={`/market/product/${e.id}`}>
@@ -36,7 +55,7 @@ function ProductCard(props) {
             <img src={`${API_URL}/market/${e.image}`} alt={`商品${e.id}圖片`} />
             {/* <FontAwesomeIcon icon="bookmark" className="bookmark" /> */}
           </div>
-          <p className="font-700S product-category">{category[e.category]}</p>
+          <p className="font-700S product-category">{category1[e.category]}</p>
           <h6 className="product-name">{e.name}</h6>
           <p className="product-price">
             <FontAwesomeIcon icon="dollar-sign" />
@@ -52,7 +71,7 @@ function ProductCard(props) {
               name: e.name,
               amount: 1,
               price: e.price,
-              category: category[e.category],
+              category: category1[e.category],
               specs: e.specs,
               img: e.image,
             })

@@ -14,6 +14,11 @@ function Header(props) {
   const { login, setLogin } = useContext(HandleCart)
   const [word, setWord] = useState('')
   const [search, setSearch] = useState('找食譜')
+
+  const [isDropDown, setIsDropDown] = useState(false)
+  const [recipe, setRecipe] = useState('找食譜')
+  const [goods, setGoods] = useState('找商品')
+
   const location = useLocation()
   const history = useHistory()
   // useLocation
@@ -29,35 +34,31 @@ function Header(props) {
     let toMarket = document.getElementById('toMarket')
     let toMember = document.getElementById('toMember')
     // switch、array -> number
-    if (now.includes('member')) {
-      toMember.classList.add('header-active', 'font-700SL')
-    } else if (now.includes('market')) {
-      toMarket.classList.add('header-active', 'font-700SL')
-    } else if (now.includes('private')) {
-      toPrivate.classList.add('header-active', 'font-700SL')
-    } else if (now.includes('feature')) {
-      toFeature.classList.add('header-active', 'font-700SL')
-    } else if (now.includes('box')) {
-      toBox.classList.add('header-active', 'font-700SL')
-    } else {
+    const removeActive = () => {
       for (let i = 0; i < header.childElementCount; i++) {
         header.children[i].classList.remove('header-active', 'font-700SL')
       }
     }
-  }, [location])
 
-  // 讓header-active隨著點擊的頁面切換，並取消其他的.active
-  useEffect(() => {
-    let header = document.getElementById('header')
-    header.addEventListener('click', (e) => {
-      if (e.target.children.length === 0) {
-        for (let i = 0; i < header.childElementCount; i++) {
-          header.children[i].classList.remove('header-active', 'font-700SL')
-        }
-        e.target.parentElement.classList.add('header-active', 'font-700SL')
-      }
-    })
-  }, [])
+    if (now.includes('member')) {
+      removeActive()
+      toMember.classList.add('header-active', 'font-700SL')
+    } else if (now.includes('market')) {
+      removeActive()
+      toMarket.classList.add('header-active', 'font-700SL')
+    } else if (now.includes('private')) {
+      removeActive()
+      toPrivate.classList.add('header-active', 'font-700SL')
+    } else if (now.includes('feature')) {
+      removeActive()
+      toFeature.classList.add('header-active', 'font-700SL')
+    } else if (now.includes('box')) {
+      removeActive()
+      toBox.classList.add('header-active', 'font-700SL')
+    } else {
+      removeActive()
+    }
+  }, [location])
 
   // 顯示header購物車
   const [hidden, setHidden] = useState(false)
@@ -78,12 +79,12 @@ function Header(props) {
     }
   }
 
-  const handleSubmit = async (e) => {
-    if (search === '找商品') {
+  const handleSubmit = (e) => {
+    if (recipe === '找商品') {
       history.push(`/search/market/${word}`)
       // window.location.href = `http://localhost:3000/search/market/${word}`
     }
-    if (search === '找食譜') {
+    if (recipe === '找食譜') {
       history.replace(`/search/recipe/${word}`)
       // window.location.href = `http://localhost:3000/search/recipe/${word}`
     }
@@ -117,38 +118,26 @@ function Header(props) {
       <ul className="header-bar-main-ul">
         <li>
           <div className="header-search-input-group">
-            <button
-              className="font-400SL btn dropdown-toggle header-search-dropdown-btn"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
+            <div
+              className="font-400SL btn header-search-dropdown-btn"
+              onClick={(e) => {
+                setIsDropDown(!isDropDown)
+              }}
             >
-              {search}
-            </button>
-            <ul className="dropdown-menu input-dropdown">
-              <li className="font-400SL">
-                <a
-                  class="dropdown-item"
-                  href="#/"
+              <div className="dropdown-toggle">{recipe}</div>
+              {isDropDown ? (
+                <div
+                  className="header-dropdown-item"
                   onClick={(e) => {
-                    setSearch('找食譜')
+                    setIsDropDown(!isDropDown)
+                    setRecipe(goods)
+                    setGoods(recipe)
                   }}
                 >
-                  找食譜
-                </a>
-              </li>
-              <li className="font-400SL">
-                <a
-                  class="dropdown-item"
-                  href="#/"
-                  onClick={(e) => {
-                    setSearch('找商品')
-                  }}
-                >
-                  找商品
-                </a>
-              </li>
-            </ul>
+                  {goods}
+                </div>
+              ) : null}
+            </div>
             <input
               type="text"
               className="font-400SL header-search-input"
@@ -158,9 +147,9 @@ function Header(props) {
                 setWord(e.target.value)
               }}
             />
-            <div className="header-search-btn" onClick={handleSubmit}>
+            <button className="header-search-btn btn" onClick={handleSubmit}>
               <FontAwesomeIcon icon="search" />
-            </div>
+            </button>
           </div>
         </li>
         <li className="cart-btn">
