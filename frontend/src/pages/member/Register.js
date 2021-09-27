@@ -3,7 +3,7 @@ import '../../style/global.css'
 import '../../style/member.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
-import avatar from '../../images/Avatar.png'
+import avatar from '../../images/default_member_avatar.png'
 import { API_URL } from '../../utils/config'
 import axios from 'axios'
 import validationInfo from './component/validationInfo'
@@ -24,16 +24,16 @@ function Register() {
     // cellphone: '',
     // email: '',
     // address: '',
-    account: 'test123er',
-    password: '123456',
-    rePassword: '123456',
-    name: 'testname',
-    gender: '',
-    nickname: 'testnnickname',
-    birthday: '1992-08-01',
-    cellphone: '0988456654',
-    email: 'meleestest@gmail.com',
-    address: '桃園市中壢區中央路300號',
+    // account: 'meleesadmin',
+    // password: '123456',
+    // rePassword: '123456',
+    // name: 'meleesadmintester1715',
+    // gender: '男',
+    // nickname: 'testnickname',
+    // birthday: '1992-08-01',
+    // cellphone: '0988456654',
+    // email: 'meleestest@gmail.com',
+    // address: '桃園市中壢區中央路300號',
   })
   const handleFormValuesChange = (e) => {
     setFormValues({
