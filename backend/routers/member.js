@@ -81,7 +81,7 @@ const uploader = multer({
 });
 
 // 先檢查是否已登入
-// router.use(loginCheckMiddleware);
+router.use(loginCheckMiddleware);
 
 // 會員資料修改 --> 進入編輯頁面 --> 需要撈資料庫
 router.get("/editinfo", async (req, res, next) => {
