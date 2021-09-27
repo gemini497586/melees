@@ -55,6 +55,10 @@ app.get("/", (req, res, next) => {
 let featureRouter = require("./routers/feature");
 app.use("/feature", featureRouter);
 
+// 引入 search router 中間件
+let searchRouter = require("./routers/search");
+app.use("/search", searchRouter);
+
 // 引入 market router 中間件，包含會員專區功能
 let marketRouter = require("./routers/market");
 app.use("/market", marketRouter);

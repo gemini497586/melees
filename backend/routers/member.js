@@ -222,44 +222,16 @@ router.post("/deletesavebox", async (req, res, next) => {
 router.get("/readsavebox", async (req, res, next) => {
   const memberId = req.session.member.id;
   // const memberId = 37;
-  let result = await connection.queryAsync(
-    "SELECT * FROM box_save WHERE member_id=? ORDER BY id DESC",
-    [memberId]
-  );
-
-  let result2 = await connection.queryAsync(
-    "SELECT id,name,inside_image FROM box"
-  );
+  let result = await connection.queryAsync("SELECT * FROM box_save WHERE member_id=? ORDER BY id DESC", [memberId]);
+  let result2 = await connection.queryAsync("SELECT id,name,inside_image FROM box");
   res.json({ result2, result });
 });
 
-// 收藏商品
-router.post("/saveproduct", async (req, res, next) => {
-  const memberId = req.session.member.id;
-  let result = await connection.queryAsync(
-    "INSERT IGNORE INTO product_save (member_id,product_id) VALUE (?)",
-    [[memberId, req.body.id]]
-  );
-  res.json();
-});
-router.post("/deletesaveproduct", async (req, res, next) => {
-  // console.log(req.body.id);
-  const memberId = req.session.member.id;
-
-  let result = await connection.queryAsync(
-    "DELETE FROM product_save WHERE member_id=? AND product_id=? ",
-    [memberId, req.body.id]
-  );
-  res.json();
-});
 router.get("/readsaveproduct", async (req, res, next) => {
   const memberId = req.session.member.id;
   // const memberId = 37;
 
-  let result = await connection.queryAsync(
-    "SELECT * FROM product_save WHERE member_id=? ORDER BY id DESC",
-    [[memberId]]
-  );
+  let result = await connection.queryAsync("SELECT * FROM product_save WHERE member_id=? ORDER BY id DESC", [[memberId]]);
   let productIds = result.map((v) => {
     return v.product_id;
   });
@@ -359,7 +331,7 @@ router.post("/recipecomment/modal/delete", async (req, res, next) => {
     "DELETE FROM private_comment WHERE id = ?",
     [req.body.id]
   );
-
+  
   res.status(200).json({ message: "Delete successfully!" });
 });
 
