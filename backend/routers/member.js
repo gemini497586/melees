@@ -253,54 +253,76 @@ router.get("/readsaveproduct", async (req, res, next) => {
 });
 
 router.get("/readsaverecipe", async (req, res, next) => {
-    // const memberId = req.session.member.id;
-    const memberId = 37;
-    
-    // 私藏 -> 拿到該會員收藏的食譜id -> 再去撈出那些食譜的詳細內容
+    const memberId = req.session.member.id;
+    // const memberId = 55;
+    let result = { private: [], feature: [] };
+
+    // 私藏 -> 確認是否收藏
+    // 有 -> 拿到該會員收藏的食譜id -> 再去撈出那些食譜的詳細內容
     let private_save = await connection.queryAsync(
         "SELECT * FROM private_save WHERE user_id=? ORDER BY id DESC",
         [memberId]
     );
-    // console.log(private_save);
-    let privateIds = private_save.map((v) => {
-        return v.private_id;
-    });
-    // console.log(privateIds);
-    let private = await connection.queryAsync(
-        "SELECT a.id, a.picture, a.name, a.create_date, " +
-            "b.id AS member_id, b.name AS member_name, b.picture AS member_pic, " +
-            "(SELECT COUNT(user_id) FROM private_like WHERE a.id=private_id) AS like_qty, " +
-            "(SELECT COUNT(user_id) FROM private_view WHERE a.id=private_id)AS view_qty " +
-            "FROM private_recipe AS a INNER JOIN member AS b ON a.member_id = b.id " +
-            "WHERE a.id IN ? " +
-            "GROUP BY a.id ORDER BY id DESC",
-        [[privateIds]]
-    );
+    // console.log("private_save ", private_save);
+    if (private_save.length > 0) {
+        let privateIds = private_save.map((v) => {
+            return v.private_id;
+        });
+        // console.log("privateIds ", privateIds);
+        let private = await connection.queryAsync(
+            "SELECT a.id, a.picture, a.name, a.create_date, " +
+                "b.id AS member_id, b.name AS member_name, b.picture AS member_pic, " +
+                "(SELECT COUNT(user_id) FROM private_like WHERE a.id=private_id) AS like_qty, " +
+                "(SELECT COUNT(user_id) FROM private_view WHERE a.id=private_id)AS view_qty " +
+                "FROM private_recipe AS a INNER JOIN member AS b ON a.member_id = b.id " +
+                "WHERE a.id IN ? " +
+                "GROUP BY a.id ORDER BY a.id DESC",
+            [[privateIds]]
+        );
+        result["private"] = private;
+    }
 
-    // 精選 -> 拿到該會員收藏的食譜id -> 再去撈出那些食譜的詳細內容
+    // 精選 -> 確認是否收藏
+    // 有 -> 拿到該會員收藏的食譜id -> 再去撈出那些食譜的詳細內容
     let feature_save = await connection.queryAsync(
         "SELECT * FROM feature_save WHERE member_id=?",
         [[memberId]]
     );
-    // console.log(feature_save);
-    let featureIds = feature_save.map((v) => {
-        return v.feature_id;
-    });
-    // console.log(featureIds);
-    let feature = await connection.queryAsync(
-        "SELECT a.id AS listId, a.type_id, a.name AS listName, a.create_date, " +
-            "b.id AS linkId, b.link, b.name AS linkName, b.img AS linkImg, " +
-            "c.id AS imgid, c.feature_id AS imgfeatureid, GROUP_CONCAT(c.file_type ORDER BY c.file_type) AS featureimg, " +
-            "(SELECT COUNT(member_id) FROM feature_like WHERE a.id=feature_id) AS like_qty ," +
-            "(SELECT COUNT(member_id) FROM feature_view WHERE a.id=feature_id) AS view_qty " +
-            "FROM feature_list AS a INNER JOIN feature_link AS b ON a.link_id=b.id INNER JOIN feature_img AS c ON a.id=c.feature_id " +
-            "WHERE a.id IN ? GROUP BY a.id ORDER BY a.id DESC",
-        [[featureIds]]
-    );
-    for (let i = 0; i < feature.length; i++) {
-        feature[i].featureimg = feature[i].featureimg.split(",");
+    // console.log("feature_save ", feature_save);
+    if (feature_save.length > 0) {
+        let featureIds = feature_save.map((v) => {
+            return v.feature_id;
+        });
+        // console.log("featureIds ", featureIds);
+        let feature = await connection.queryAsync(
+            "SELECT a.id AS listId, a.type_id, a.name AS listName, a.create_date, " +
+                "b.id AS linkId, b.link, b.name AS linkName, b.img AS linkImg, " +
+                "c.id AS imgid, c.feature_id AS imgfeatureid, GROUP_CONCAT(c.file_type ORDER BY c.file_type) AS featureimg, " +
+                "(SELECT COUNT(member_id) FROM feature_like WHERE a.id=feature_id) AS like_qty ," +
+                "(SELECT COUNT(member_id) FROM feature_view WHERE a.id=feature_id) AS view_qty " +
+                "FROM feature_list AS a INNER JOIN feature_link AS b ON a.link_id=b.id INNER JOIN feature_img AS c ON a.id=c.feature_id " +
+                "WHERE a.id IN ? GROUP BY a.id ORDER BY a.id DESC",
+            [[featureIds]]
+        );
+        for (let i = 0; i < feature.length; i++) {
+            feature[i].featureimg = feature[i].featureimg.split(",");
+        }
+        result["feature"] = feature;
     }
-    res.json({ private, feature });
+
+    // console.log(result.private.length === 0);
+    // console.log(result.feature.length === 0);
+    // 檢查兩種食譜是否都有被收藏
+    // 沒有 -> 回傳訊息
+    // 有 -> 回傳資料
+    if (result.private.length === 0 && result.feature.length === 0) {
+        return next({
+            status: 400,
+            message: "您好，目前尚未收藏任何食譜",
+        });
+    } else {
+        res.json(result);
+    }
 });
 
 router.get("/", (req, res, next) => {

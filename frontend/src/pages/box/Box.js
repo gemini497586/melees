@@ -85,15 +85,6 @@ function Box() {
       setCal(newCal)
       // console.log('現在的卡路里 ', newCal)
     }
-
-    // console.log(v.name)
-    // try {
-    //   let res = await Axios.get(`${API_URL}/box/recommend`,{
-
-    //   })
-    // } catch (e) {
-    //   console.log(e)
-    // }
   }
 
   // 把食材刪除

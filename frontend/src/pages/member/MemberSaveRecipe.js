@@ -38,38 +38,24 @@ function MemberFeature() {
       name: '瀏覽數由少至多',
     },
   ]
-  console.log(displayFeature)
   // 初始化
   useEffect(() => {
     const getData = async () => {
       try {
-        let res = await Axios.get(`${API_URL}/member/readsaverecipe`)
+        let res = await Axios.get(`${API_URL}/member/readsaverecipe`, {
+          withCredentials: true,
+        })
         setRecipe(res.data.private)
         setDisplayPrivate(res.data.private)
         setFeature(res.data.feature)
         setDisplayFeature(res.data.feature)
+        console.log(res)
       } catch (e) {
         console.log(e)
       }
     }
     getData()
   }, [])
-
-  // 分類功能
-  // const handleRadio = (data, checked) => {
-  //   let newData = [...data]
-  //   if (checked === '精選食譜') {
-  //     newData = [...data].filter((item) => {
-  //       return item.classify === '精選食譜'
-  //     })
-  //   }
-  //   if (checked === '私藏食譜') {
-  //     newData = [...data].filter((item) => {
-  //       return item.classify === '私藏食譜'
-  //     })
-  //   }
-  //   return newData
-  // }
 
   return (
     <>
@@ -83,7 +69,6 @@ function MemberFeature() {
                   return (
                     <RadioBox
                       key={i}
-                      name={v}
                       value={v}
                       checked={checked}
                       setChecked={setChecked}

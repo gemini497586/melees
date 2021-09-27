@@ -22,9 +22,9 @@ function CartDetailRow(props) {
                 <h6 className="orderDetail-productname">
                   {productList && productList[value.product_id].name}
                 </h6>
-                <p className="font-400S orderDetail-activity">
+                {/* <p className="font-400S orderDetail-activity">
                   生鮮肉品，3件85折起
-                </p>
+                </p> */}
               </div>
             </div>
             <div className="orderDetail-count">

@@ -69,9 +69,10 @@ function SearchRecipe() {
             <div className="s-recipe-keyword">
               <div className="col-12 col-md-6">
                 <h4>
-                  {checked === '精選食譜'
+                  關於 {word} 的食譜共有 {privateCount + featureCount} 筆
+                  {/* {checked === '精選食譜'
                     ? `關於 ${word} 的精選食譜共有 ${featureCount} 筆`
-                    : `關於 ${word} 的私藏食譜共有 ${privateCount} 筆`}
+                    : `關於 ${word} 的私藏食譜共有 ${privateCount} 筆`} */}
                 </h4>
               </div>
               <DropDown2

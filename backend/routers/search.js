@@ -42,7 +42,7 @@ router.get("/recipe", async (req, res, next) => {
             "(SELECT COUNT(member_id) FROM feature_like WHERE a.id=feature_id) AS like_qty ," +
             "(SELECT COUNT(member_id) FROM feature_view WHERE a.id=feature_id) AS view_qty " +
             "FROM feature_list AS a INNER JOIN feature_link AS b ON a.link_id=b.id INNER JOIN feature_img AS c ON a.id=c.feature_id " +
-            "WHERE a.name LIKE ? GROUP BY a.id ORDER BY create_date DESC",
+            "WHERE a.name LIKE ? GROUP BY a.id ORDER BY a.id DESC",
         [word]
     );
     for (let i = 0; i < feature.length; i++) {

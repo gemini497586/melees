@@ -80,32 +80,7 @@ function SearchCardFeature(props) {
                 </div>
               </div>
               <div className="s-recipe-count font-400M">
-                {/* <HeartViewNum /> */}
-                <div className="hvn-size fcolor-grey-800">
-                  <div className="hvn-flex">
-                    <div className="hvn-icon-flex">
-                      <span>
-                        <FontAwesomeIcon
-                          className="ficon-size me-2"
-                          icon={['fas', 'heart']}
-                          fixedWidth
-                        />
-                      </span>
-                      <span className="font-400S">{v.like_qty}</span>
-                    </div>
-                    <div className="fline-g500"></div>
-                    <div className="hvn-icon-flex">
-                      <span>
-                        <FontAwesomeIcon
-                          className="ficon-size me-2"
-                          icon={['fas', 'eye']}
-                          fixedWidth
-                        />
-                      </span>
-                      <span className="font-400S">{v.view_qty}</span>
-                    </div>
-                  </div>
-                </div>
+                <HeartViewNum likeqty={v.like_qty} viewqty={v.view_qty}/>
                 <a href={v.link} target="_blank">
                   <Ig linkName={v.linkName} />
                 </a>
