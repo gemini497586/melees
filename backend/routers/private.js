@@ -52,24 +52,48 @@ router.get("/index", async function (req, res, next) {
   const userId = req.session.member ? req.session.member.id : ""
   
   let recipe = "SELECT * FROM private_recipe ORDER BY id DESC";
-  let result = await connection.queryAsync(recipe);
+  let recipeInfo = await connection.queryAsync(recipe);
+  let recipeList = []
+  recipeInfo.map((value) => {recipeList.push(value.id)})
 
-  let member = "SELECT * FROM member"
+
+  let member = "SELECT id, nickname, picture FROM member"
   let memResult = await connection.queryAsync(member)
 
   let like = "SELECT private_id, count(*) as count FROM private_like GROUP BY private_id";
-  let result2 = await connection.queryAsync(like);
-
+  let likeResult = await connection.queryAsync(like);
+  // 做一個空陣列
+  let likeList = []
+  likeResult.map((value) => {likeList.push(value.private_id)})
+  let subLike = recipeList.filter((e) => {return likeList.indexOf(e) === -1})
+  subLike.forEach((value) => {likeResult.push({private_id: value,count: 0,},)})
+  
   let view = "SELECT private_id, count(*) as count FROM private_view GROUP BY private_id";
-  let result3 = await connection.queryAsync(view);
+  let viewResult = await connection.queryAsync(view);
+  // 做一個空陣列
+  let viewList = []
+  viewResult.map((value) => {viewList.push(value.private_id)})
+  let subView = recipeList.filter((e) => {return viewList.indexOf(e) === -1})
+  subView.forEach((value) => {viewResult.push({private_id: value,count: 0,},)})
+  
 
-  let saveState = "SELECT * FROM private_save WHERE user_id = ?";
-  let result4 = await connection.queryAsync(saveState, [userId]);
+  let comment = "SELECT private_id, count(*) as count FROM private_comment GROUP BY private_id";
+  let commentResult = await connection.queryAsync(comment);
+  // 做一個空陣列
+  let commentList = []
+  commentResult.map((value) => {commentList.push(value.private_id)})
+  let subComment = recipeList.filter((e) => {return commentList.indexOf(e) === -1})
+  subComment.forEach((value) => {commentResult.push({private_id: value,count: 0,},)})
 
-  let likeState = "SELECT * FROM private_like WHERE user_id = ?";
-  let result5 = await connection.queryAsync(likeState, [userId]);
+  // 選取使用者有沒有對這個食譜按收藏
+  let saveSql = "SELECT * FROM private_save WHERE user_id = ?";
+  let result4 = await connection.queryAsync(saveSql, [userId]);
 
-  res.json({ result, memResult, result2, result3, result4, result5 });
+  // 選取使用者有沒有對這個食譜按讚
+  let likeSql = "SELECT * FROM private_like WHERE user_id = ?";
+  let result5 = await connection.queryAsync(likeSql, [userId]);
+
+  res.json({ recipeInfo, memResult, likeResult, viewResult, commentResult, result4, result5 });
 });
 
 // 進入食譜的資料 (內頁)
@@ -416,9 +440,18 @@ router.get("/myrecipe", async function (req, res, next) {
   let sql4 = "SELECT * FROM private_view WHERE user_id = ?";
   let viewResult = await connection.queryAsync(sql4, [memberId]);
 
-  let sql5 = "SELECT * FROM private_follow WHERE user_id = ?";
-  let followResult = await connection.queryAsync(sql5, [memberId]);
-  res.json({ result, commentResult, likeResult, viewResult, followResult });
+  let memSql = "SELECT id FROM private_recipe WHERE member_id = ?"
+  let numResult = await connection.queryAsync(memSql, [memberId])
+  console.log(numResult)
+  let recipeId = numResult.map((value) => {
+    return value.id
+  })
+  let many = "SELECT count(*) AS count FROM private_follow WHERE private_id IN ?"
+  let followTotal = await connection.queryAsync(many, [[recipeId]])
+  console.log(followTotal)
+  // let sql5 = "SELECT * FROM private_follow WHERE user_id = ?";
+  // let followResult = await connection.queryAsync(sql5, [memberId]);
+  res.json({ result, commentResult, likeResult, viewResult, followTotal});
 });
 // 先檢查是否已登入
 // router.use(loginCheckMiddleware);

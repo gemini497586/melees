@@ -17,7 +17,7 @@ function MyRecipe() {
   const [commentList, setCommentList] = useState([])
   const [likeList, setLikeList] = useState([])
   const [viewList, setViewList] = useState([])
-  const [followList, setFollowList] = useState([])
+  const [followList, setFollowList] = useState()
 
   useEffect(() => {
     Axios.get(`${API_URL}/private/myrecipe`, {
@@ -27,7 +27,7 @@ function MyRecipe() {
       setCommentList(res.data.commentResult)
       setLikeList(res.data.likeResult)
       setViewList(res.data.viewResult)
-      setFollowList(res.data.followResult)
+      setFollowList(res.data.followTotal[0].count)
     })
   }, [])
 
@@ -88,19 +88,7 @@ function MyRecipe() {
     }
     return <td className="font-400L">{x}</td>
   }
-  // 追蹤數總計
-  const followTotal = (index) => {
-    let x = 0
-    for (let i = 0; i < followList.length; i++) {
-      if (followList[i].private_id === recipeList[index].id) {
-        x++
-      }
-    }
-    if (x > 0) {
-      return <td className="font-400L">{x}</td>
-    }
-    return <td className="font-400L">{x}</td>
-  }
+
   return (
     <>
       <div className="page-group">
@@ -136,7 +124,7 @@ function MyRecipe() {
                   </div>
                   <div className="MyRecipe-fans">
                     <div className="MyRecipe-recipe-num">
-                      <h2>{followList.length}</h2>
+                      <h2>{followList}</h2>
                     </div>
                     <span className="font-700M">粉絲</span>
                   </div>
@@ -170,7 +158,6 @@ function MyRecipe() {
                     <th className="font-700L">份量</th>
                     <th className="font-700L">愛心數</th>
                     <th className="font-700L">瀏覽數</th>
-                    <th className="font-700L">評論數</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -210,7 +197,6 @@ function MyRecipe() {
                         <td className="font-400L">{value.qty} 份</td>
                         {likeTotal(index)}
                         {viewTotal(index)}
-                        {followTotal(index)}
                         <td>
                           <div className="d-flex justify-content-around">
                             <div className="MyRecipe-edit">

@@ -80,11 +80,16 @@ function PrivateRecipeCard(props) {
   const saveToggled = (value, index) => {
     const save = []
     for (let i = 0; i < saveState.length; i++) {
-      if (value.id !== saveState[i].private_id) {
-        save.push()
-      } else {
+      if (value.id === saveState[i].private_id) {
         save.push(
           <span className="cardPrivateRecipe-bookmark-active">
+            <FontAwesomeIcon icon="bookmark" size="2x" />
+          </span>
+        )
+        break
+      } else {
+        save.push(
+          <span className="cardPrivateRecipe-bookmark">
             <FontAwesomeIcon icon="bookmark" size="2x" />
           </span>
         )

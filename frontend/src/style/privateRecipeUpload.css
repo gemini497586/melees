@@ -1,5 +1,3 @@
-
-
 .privateRecipeUpload-img {
   width: 100%;
   height: 600px;
@@ -22,12 +20,13 @@
 }
 
 .privateRecipeUpload-img-preview .previewIcon {
-  width: 100%;
-  margin: auto;
-  margin-top: 200px;
-  margin-bottom: 20px;
+  position: relative;
+  top: 200px;
   color: var(--color-grey-300);
   transform: scale(1.5);
+}
+.privateRecipeUpload-img-preview p {
+  margin-top: 230px;
 }
 .privateRecipeUpload-img button {
   width: 100%;
@@ -84,6 +83,22 @@
   color: var(--color-primary);
   background: var(--color-white);
 }
+
+.privateRecipeUpload-add-tags {
+  width: 43px;
+  height: 43px;
+  margin-left: 19px;
+  border-radius: 8px;
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+.privateRecipeUpload-tag-add {
+  height: 100%;
+  margin: auto 0;
+  margin-left: 15px;
+  margin-right: 20px;
+  cursor: pointer;
+}
 .privateRecipeUpload-add-ingred:hover,
 .privateRecipeUpload-add-steps:hover {
   border: 2px solid var(--color-primary-A);
@@ -107,6 +122,20 @@
   cursor: pointer;
   color: var(--color-red-C);
 }
+
+.tag-box {
+  padding: 6px 18px;
+  border-radius: 60px;
+  background: var(--color-secondary);
+  color: var(--color-white);
+  cursor: pointer;
+}
+.tag-box:hover {
+  transition: 0.2s;
+  color: var(--color-white);
+  background: var(--color-grey-500);
+}
+
 /* 送出跟取消按鈕 */
 .privateRecipeUpload-btn {
   margin-top: 93px;

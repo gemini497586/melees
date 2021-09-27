@@ -18,6 +18,9 @@ function PrivateRecipeUpload() {
   ])
   const [steps, setSteps] = useState([{ step: '' }])
   const [imgPreview, setImgPreview] = useState(null)
+  const [tag, setTag] = useState('')
+  // const displayTag = ['肉']
+  const [displayTag, setDisplayTag] = useState([])
   const [error, setError] = useState(false)
 
   const title = ['新增']
@@ -76,6 +79,18 @@ function PrivateRecipeUpload() {
     setSteps(list)
   }
 
+  const handleTag = async () => {
+    let res = await setDisplayTag([...displayTag, tag])
+    console.log(res)
+    // setTag('')
+    console.log(displayTag)
+  }
+  const deleteTag = (index) => {
+    const list = [...displayTag]
+    list.splice(index, 1)
+    setDisplayTag(list)
+    console.log(displayTag)
+  }
   // 上傳食譜 function
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -276,7 +291,53 @@ function PrivateRecipeUpload() {
                       <span className="font-700M">添加</span>
                     </div>
                   </div>
-
+                  {/* 標籤 */}
+                  <label htmlFor="tag" className="privateRecipeUpload-label">
+                    <h4>標籤</h4>
+                  </label>
+                  <div className="d-flex">
+                    <input
+                      className="w-100"
+                      type="text"
+                      id="tag"
+                      name="tag"
+                      placeholder="輸入食材名稱, ex:豬肉"
+                      value={tag}
+                      onChange={(e) => {
+                        setTag(e.target.value)
+                      }}
+                    />
+                    <div
+                      className="privateRecipeUpload-add-tags"
+                      onClick={(e) => {
+                        handleTag()
+                      }}
+                    >
+                      <FontAwesomeIcon
+                        className="privateRecipeUpload-tag-add"
+                        icon="plus"
+                        size="lg"
+                      />
+                    </div>
+                  </div>
+                  <div className="d-flex justify-content-start flex-wrap">
+                    {displayTag.map((value, index) => {
+                      return (
+                        <div
+                          className="tag-box mt-3 mx-2"
+                          key={index}
+                          onClick={(e) => {
+                            deleteTag(index)
+                          }}
+                        >
+                          <div className="font-400SS">
+                            {value + ' '}
+                            <FontAwesomeIcon icon="times" size="1x" />
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
                   {/* 送出跟取消 */}
                   <div className="d-flex justify-content-around privateRecipeUpload-btn ">
                     <button className="privateRecipeUpload-btn-upload font-700M">

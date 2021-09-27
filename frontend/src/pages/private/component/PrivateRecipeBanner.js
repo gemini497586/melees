@@ -1,10 +1,8 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import '../../../style/privateRecipeBanner.css'
-import banner from '../../../images/privaterecipebanner.jpg'
-import Home from '../../home/Home'
-
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import banner from '../../../images/privaterecipebanner.jpg'
+import '../../../style/privateRecipeBanner.css'
 
 function PrivateRecipeBanner() {
   return (
@@ -20,6 +18,7 @@ function PrivateRecipeBanner() {
             是真的肉圓
           </h1>
         </div>
+        {/* <h1>1231321</h1> */}
         <Link to="/private/upload" className="privateRecipeBanner-btn">
           <div className="d-flex justify-content-center privateRecipeBanner-plus-icon">
             <FontAwesomeIcon icon="plus" className="plus-icon" />

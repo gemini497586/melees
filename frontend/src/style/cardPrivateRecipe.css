@@ -76,12 +76,12 @@
 }
 .cardPrivateRecipe-like {
   position: absolute;
-  right: 20px;
+  right: 30px;
   color: var(--color-grey-800);
 }
 .cardPrivateRecipe-like-active {
   position: absolute;
-  right: 20px;
+  right: 30px;
   color: var(--color-red-C);
 }
 .cardPrivateRecipe-stat {
