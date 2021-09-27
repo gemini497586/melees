@@ -11,7 +11,7 @@ import { API_URL } from '../../utils/config'
 
 function OrderDetails(props) {
   // 從網址上拿到訂單編號，打後端的API
-  const order_id = props.match.params.order_id
+  const id = props.match.params.id
 
   const [detail, setDetail] = useState([])
   const [mainList, setMainList] = useState([])
@@ -29,7 +29,7 @@ function OrderDetails(props) {
   useEffect(() => {
     const getData = async () => {
       try {
-        let res = await Axios.get(`${API_URL}/order/detail/${order_id}`, {
+        let res = await Axios.get(`${API_URL}/order/detail/${id}`, {
           withCredentials: true,
         })
         let data = res.data.result
@@ -53,7 +53,7 @@ function OrderDetails(props) {
           <ProgressBar step={step} />
           {/* <!-- 訂單編號 --> */}
           <div className="orderList-title">
-            <div className="font-700L">訂單編號為: {order_id}</div>
+            <div className="font-700L">訂單編號為: {id}</div>
             <h6> </h6>
           </div>
           {/* <!-- 訂單查詢 --> */}

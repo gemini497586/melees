@@ -13,9 +13,7 @@ function MemberRecipeComment() {
       <div className="page-group">
         <MinorBar />
         <div className="memberRecipeComment-container">
-          <div className="memberRecipeComment-filter">
-            <DropDown />
-          </div>
+          <div className="memberRecipeComment-filter">{/* <DropDown /> */}</div>
           <div className="memberRecipeComment-table">
             <div className="memberRecipeComment-table-title row align-items-center">
               <p className="font-700L col-2">食譜名稱</p>

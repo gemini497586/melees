@@ -13,9 +13,7 @@ function OrderListRow(props) {
           <div className="orderList-row font-400SL" key={value.id}>
             <div className="orderList-row-date">{value.create_date}</div>
             <div className="orderList-row-10">
-              <Link to={`/member/orderdetail/${value.order_number}`}>
-                {value.order_number}
-              </Link>
+              <Link to={`/member/orderdetail/${value.id}`}>000{value.id}</Link>
             </div>
             <div className="orderList-row-10 orderList-web">
               {payment_method[value.payment_method]}
