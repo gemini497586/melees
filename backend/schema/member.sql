@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： localhost
--- 產生時間： 2021 年 09 月 13 日 15:43
+-- 產生時間： 2021 年 09 月 27 日 09:15
 -- 伺服器版本： 10.4.19-MariaDB
 -- PHP 版本： 8.0.7
 
@@ -48,9 +48,11 @@ CREATE TABLE `member` (
 --
 
 INSERT INTO `member` (`id`, `name`, `nickname`, `account`, `password`, `gender`, `birthday`, `phone`, `email`, `address`, `picture`, `create_date`, `valid`) VALUES
-(36, 'meleesadmintester', '管理員', 'meleesadmintestertest', '$2b$10$6nZ1jYsfkGAZT4tZEY0wbeMXBKc/vAbMyYyvJV2sSq0m8vzgLL1HS', '男', '1991-09-08', '0988456654', 'meleestest@gmail.com', '桃園市中壢區中央路300號', '/143b0047-594b-4f82-bea5-a5e7ebfd8ca8.png', '2021-09-13', 1),
-(37, 'meleesadmintester', '我是管理員2', 'meleesadmin', '$2b$10$8/LutYco1U8p5uKOvpGxYe4WHDeRy4kl1oyapWjvUqWlD26TBbUr2', '男', '1991-09-02', '0988789789', 'meleestest@gmail.com', '桃園市中壢區中央路300號', '/1d4f5cf0-70ec-4c20-83e8-34e6cf3fa0e1.jpg', '2021-09-13', 1),
-(38, 'meleesadmintester2', 'mmeleesadmin', 'meleesadmin2', '$2b$10$PNtUkVRAbcfB0s9EgFEpK.xjSv8nb9ywz0FY3jn8KbiJ8aPnfijua', '女', '1991-02-01', '0988456654', 'meleestest@gmail.com', '桃園市中壢區中央路300號', '/f5bffdd5-2885-4437-84b7-72c2106565b2.jpg', '2021-09-13', 1);
+(1, 'meleesadmintester', 'Mia', 'meleesadminx1', '$2b$10$.529agju8wschORQL1yZO.6GvYZlJY9dPh.IRRaD5a4W3DIJG9y0.', '女', '1992-08-01', '0988456654', 'meleestest@gmail.com', '桃園市中壢區中央路300號', '/2f623546-eff6-4e52-8e9b-cf5678136754.jpg', '2021-09-27', 1),
+(2, 'admintester', 'Amelia', 'meleesadminx2', '$2b$10$Ui1OeB6BEdJjEqRI7ucKm.JoZ4X/NEK7.vJ4CprN9QP4rxAU.dY66', '女', '1988-06-17', '0988456654', 'meleestest@gmail.com', '桃園市中壢區中央路300號', '/3413349c-5e52-4ed1-8e8e-de85b81690ba.jpg', '2021-09-27', 1),
+(3, 'admintester', 'Olive', 'meleesadminx3', '$2b$10$HIIGp3UZrI7oXLjaZbNIMulplyAU1iK1q3k2Rj1DiTU2X1n84GNpu', '女', '1990-09-04', '0988456654', 'meleestest@gmail.com', '桃園市中壢區中央路300號', '/9b19bd54-2bab-46d3-8ab0-936e4346b64d.jpg', '2021-09-27', 1),
+(4, 'admintester', 'Kristen', 'meleesadminx4', '$2b$10$lHQn6kmpUXKQwN3nffmU3O5jPYvdha5qmVE1ZNP9MnRKCr9Md0UKS', '女', '1990-09-04', '0988456654', 'meleestest@gmail.com', '桃園市中壢區中央路300號', '/754c6476-0221-4257-9e9f-a857a62a48c7.jpg', '2021-09-27', 1),
+(5, 'admintester', 'Jennifer', 'meleesadminx5', '$2b$10$OafVDsdm4QEa.mj0TUQyMe7MWLZ5FVZFuNxJPwmhKdcjOogT7Iooa', '女', '1997-09-27', '0988456654', 'meleestest@gmail.com', '桃園市中壢區中央路300號', '/7f5224b8-bc7e-49d0-a88b-e1f4768b60ec.jpg', '2021-09-27', 1);
 
 --
 -- 已傾印資料表的索引
@@ -70,7 +72,7 @@ ALTER TABLE `member`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `member`
 --
 ALTER TABLE `member`
-  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

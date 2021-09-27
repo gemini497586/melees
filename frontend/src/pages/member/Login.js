@@ -20,7 +20,7 @@ function Login() {
   const [formValues, setFormValues] = useState({
     // account: '',
     // password: '',
-    account: 'meleesadmin',
+    account: 'meleesadminx1',
     password: '123456',
   })
 
@@ -52,6 +52,7 @@ function Login() {
   const location = useLocation()
   const loginRedirect = () => {
     let { from } = location.state || { from: { pathname: '/' } }
+    // console.log('from of login.js: ', from)
     history.push(from)
     // history.replace(from)
   }

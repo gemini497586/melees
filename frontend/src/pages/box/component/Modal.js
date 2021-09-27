@@ -43,7 +43,7 @@ function Modal(props) {
       // console.log(res)
     } catch (e) {
       console.log(e)
-      alert(e.response.data.message)
+      // alert(e.response.data.message)
     }
   }
 
