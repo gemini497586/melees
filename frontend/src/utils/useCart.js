@@ -9,8 +9,8 @@ const useCart = () => {
     setProductsAll,
     selectIndex,
     setSelectIndex,
-    login,
-    setLogin,
+    pageArray,
+    setPageArray,
   ] = useContext(CartContext)
   // console.log(cartList)
   const addCart = (e) => {
@@ -80,6 +80,8 @@ const useCart = () => {
     clearCart,
     selectIndex,
     setSelectIndex,
+    pageArray,
+    setPageArray,
   }
 }
 
