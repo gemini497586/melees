@@ -10,16 +10,20 @@ function DeleteModal(props) {
   const { showDeleteModal, openDeleteModal, id } = props
   const handleDelete = async () => {
     try {
-      // let response = await axios.post(`${API_URL}/member/XXXXXXX`, {id}, {
-      //   // 設定可以跨源送 cookie
-      //   withCredentials: true,
-      // })
-      // if (response) {
+      let response = await axios.post(
+        `${API_URL}/member/recipecomment/modal/delete`,
+        { id },
+        {
+          // 設定可以跨源送 cookie
+          withCredentials: true,
+        }
+      )
+      if (response) {
         console.log('Delete id: ' + id + ' successful')
         openDeleteModal()
-      // }
+      }
     } catch (err) {
-      // 刪除失敗
+      console.error(err)
     }
   }
   return (

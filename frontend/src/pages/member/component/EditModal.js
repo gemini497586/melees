@@ -6,55 +6,64 @@ import '../../../component/FontawsomeIcons'
 import avatar from '../../../images/Avatar.png'
 import Black from '../../box/Black'
 import axios from 'axios'
-// import food from '../../../images/default_food2.jpg'
-import author_avatar from '../../../images/default_avatar1.jpg'
 import { API_URL } from '../../../utils/config'
 
 function EditModal(props) {
   const { showEditModal, openEditModal, recipeDataDetails, starScore } = props
   const [newComment, setNewComment] = useState()
-  // const [newStarScore, setNewStarScore] = useState()
+  const [newStarScore, setNewStarScore] = useState()
   const starRow = Array(5).fill(0)
   const [current, setCurrent] = useState(0)
   const [hover, setHover] = useState(undefined)
-  const starClick = (index) => {
-    setCurrent(index)
+  const starClick = (qty) => {
+    setCurrent(qty)
+    setNewStarScore(qty)
   }
-  const starMouseOver = (index) => {
-    setHover(index)
+  const starMouseOver = (qty) => {
+    setHover(qty)
   }
   const starMouseLeave = () => {
     setHover(undefined)
   }
+  useEffect(() => {
+    setCurrent(recipeDataDetails.member_star_rate)
+  }, [recipeDataDetails])
+
   const handleCancelEdit = () => {
     // 清除：編輯中評論，並關閉 Modal
     setNewComment('')
     openEditModal()
   }
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      // let data = {
-      //   id: recipeDataDetails.id,
-      //   newComment: newComment,
-      //   starScore: newStarScore,
-      // }
-      // let response = await axios.post(`${API_URL}/member/XXXXXXX`, data, {
-      //   // 設定可以跨源送 cookie
-      //   withCredentials: true,
-      // })
-      // if (response) {
-      console.log('Edit id: ' + recipeDataDetails.id + ' successful')
-      openEditModal()
-      // }
+      // 評論與評分都沒有更新，丟錯誤訊息
+      if (!newComment && !newStarScore) {
+        throw 'nothing to update!'
+      }
+
+      // 評論與評分有更新，發axios送到後端
+      let data = {
+        id: recipeDataDetails.id,
+        newComment: newComment,
+        starScore: newStarScore,
+      }
+      let response = await axios.post(
+        `${API_URL}/member/recipecomment/modal/edit`,
+        data,
+        {
+          // 設定可以跨源送 cookie
+          withCredentials: true,
+        }
+      )
+      if (response) {
+        // console.log(`id: ${recipeDataDetails.id} edits successfully`)
+        openEditModal()
+      }
     } catch (err) {
-      // 刪除失敗
+      console.error(err)
     }
   }
-
-  useEffect(() => {
-    setCurrent(recipeDataDetails.member_star_rate)
-  }, [recipeDataDetails])
 
   return (
     <>

@@ -56,7 +56,7 @@ function MemberRecipeCommentRow(props) {
           withCredentials: true,
         }
       )
-      console.log(response.data)
+      // console.log(response.data)
       setRecipeDataDetails({
         ...recipeData,
         member_avatar: response.data.member_avatar,

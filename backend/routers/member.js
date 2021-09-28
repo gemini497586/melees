@@ -258,20 +258,11 @@ router.post("/recipecomment/read", async (req, res, next) => {
     [req.session.member.id]
     // [1] // 僅測試用
   );
-  // private_comment.id,
-  // private_comment.member_id,
-  // private_comment.comment,
-  // private_comment.comment_time,
-  // private_comment.private_id AS recipe_id,
-  // private_recipe.name AS recipe_name,
-
-  // private_comment.star_rate AS member_star_rate,
-
   res.json(result);
 });
 
 router.post("/recipecomment/modal/read", async (req, res, next) => {
-  console.log('recipecomment modal read', req.body);
+  console.log("recipecomment modal read", req.body);
   // req.body = { recipe_id: XX } VVVVV
 
   let like = await connection.queryAsync(
@@ -303,7 +294,7 @@ router.post("/recipecomment/modal/read", async (req, res, next) => {
     [req.body.recipe_id]
     // [38] // 僅測試用
   );
-  
+
   let author_avatar = await connection.queryAsync(
     "SELECT picture FROM member WHERE id=?",
     [author_id[0].member_id]
@@ -330,17 +321,35 @@ router.post("/recipecomment/modal/read", async (req, res, next) => {
 });
 
 router.post("/recipecomment/modal/edit", async (req, res, next) => {
-  console.log("try to update", req.body);
+  console.log("update recipecomment", req.body);
+  console.log('req.body.length: ', req.body.length);
+  // 評論與評分都沒有更新，丟錯誤訊息，只有 id 一欄
+  if (!req.body.newComment && !req.body.starScore) {
+    return next({
+      status: 400,
+      message: "評論與評分都沒有更新",
+    });
+  }
 
-  let result = await connection.queryAsync(
-    "UPDATE private_comment SET comment = ?, star_rate = ?, comment_time = ? WHERE id = ?",
-    [
-      req.body.newComment,
-      req.body.starScore,
-      moment().format("YYYYMMDD"),
-      req.body.id,
-    ]
-  );
+  let sql = "UPDATE private_comment SET";
+  let updateData = [];
+
+  // 評論有更新，新增sql語法，更新comment欄位
+  if (req.body.newComment) {
+    sql += " comment = ?,";
+    updateData.push(req.body.newComment);
+  }
+
+  // 評分有更新，新增sql語法，更新star_rate欄位
+  if (req.body.starScore) {
+    sql += " star_rate = ?,";
+    updateData.push(req.body.starScore);
+  }
+
+  sql += " comment_time = ? WHERE id = ?";
+  updateData.push(moment().format("YYYYMMDD"), req.body.id);
+  let result = await connection.queryAsync(sql, updateData);
+  console.log('updated result: ', result);
 
   res.status(200).json({ message: "Update successfully!" });
 });
@@ -354,42 +363,6 @@ router.post("/recipecomment/modal/delete", async (req, res, next) => {
   );
 
   res.status(200).json({ message: "Delete successfully!" });
-});
-
-router.post("/recipecomment/insert", async (req, res, next) => {
-  console.log("try to insert");
-
-  // insert 1個Row --> VALUES(?), Data = [[Row1]]
-  // insert N個Row --> VALUES ? , Data = [[[Row1], [Row2], [Row3], [Row4], [Row5]]]
-
-  // let sqlComment =
-  //   "INSERT INTO private_comment (private_id, member_id, comment, star_rate, comment_time) VALUES ?";
-  // let insertComment = [
-  // [1, 1, "之前的蔥雞湯是我家人的最愛，我們每個星期都會做蔥雞湯來吃。現在又學會了蒜頭雞。太棒了！", 3, "2021-09-01"],
-  // [1, 2, "這裡也變冷了，看到這個太開心，做法也不難，可以來做一下暖個胃了", 3, "2021-09-02"],
-  // [1, 3, "剛煮好，蒜頭沒有炒著很酥香，但是一樣超好吃!!!太感謝了~~~", 4, "2021-09-03"],
-  // [1, 4, "學到了明天就買來做做看保證好吃的耶謝謝囉，感覺好溫暖喔", 4, "2021-09-04"],
-  // [1, 5, "這絕對好吃的啊！", 5, "2021-09-05"],
-  // [1, 1, "你的教學,簡易好操作,說明清楚簡單", 5, "2021-09-06"],
-  // [1, 2, "我昨天貼給我媽媽看，他今天就煮，今天晚餐吃，超級好吃~~終於可以吃到不同口味的雞湯!!", 5, "2021-09-07"],
-  // [1, 3, "感謝您的教學!!!簡單料理卻美味十足!!!", 4, "2021-09-08"],
-  // [1, 4, "感謝分享，用一般的電鍋類(如大同，聲寶)燉1小時完全是另一個層次，首先蒜頭化了，化成末狀完全融入湯內。湯頭內繁星點點(蒜頭化開而成的蒜末)味道才是棒極了。", 5, "2021-09-09"],
-  // [1, 5, "看似簡單，卻是滿滿營養且好濃郁！最近天氣濕冷冷～家人容易感冒，蒜頭雞湯真的是提身免疫力的好方法！", 5, "2021-09-10"],
-  // [1, 1, "剛做完，第一次煮雞湯，很簡單又超好喝，我還加了澳洲馬鈴薯進去也超搭", 5, "2021-09-11"],
-  // [1, 2, "推，越簡單越好，這集就感覺很容易在家做，而且冬天很讚", 5, "2021-09-12"],
-  // [1, 3, "每個步驟講解的很清楚仔細，好像好好吃的感覺，改天煮來吃", 4, "2021-09-13"],
-  // ];
-  // let resultComment = await connection.queryAsync(sqlComment, [insertComment]);
-  // console.log(resultComment);
-
-  // let sqlRecipe = "INSERT INTO private_recipe (picture, name, intro, qty, create_date, member_id, valid, star_rate) VALUES ? "
-  // let insertRecipe = [
-  //   ['015d879e-d10e-48b4-98ad-07818d33fc18.jpg', '蒜頭雞湯', '冬天的時候，我很喜歡在家裡煮一碗大鍋的湯在餐桌上跟家人一起分享，是件很幸福的事除了蔥雞湯之外，這道 #蒜頭雞湯 也是我很喜歡的在餐館喝到的蒜頭雞湯，蒜頭都會先炸過，把蒜頭的香氣提出來但在家裡，想吃到這樣香氣的蒜頭其實不用那麼麻煩把蒜頭跟雞肉多炒一下，也能呈現相同的感受！做料理，總是希望可以用簡單的方式呈現最好的味...', 4, '2021-08-18', 5, 1, 4.2],
-  //   ['3b43f07f-1754-4419-9e3b-600c394b3b3a.jpg', '鹽酥雞', '今天來分享大人小孩都喜歡的鹽酥雞，外酥肉多汁的鹽酥雞絕對完勝你家巷口的鹽酥雞攤。自己動手做的最安心，只要掌握一點小技巧，你也可以快速上手，有興趣的朋友就趁著假日來試試看吧!', 2, '2021-09-18', 5, 1, 3],
-  // ];
-  // let resultRecipe = await connection.queryAsync(sqlRecipe, [insertRecipe]);
-  // console.log(resultRecipe);
-  res.status(200).json({ message: "successful!!" });
 });
 
 router.get("/", (req, res, next) => {
