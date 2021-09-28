@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import '../../../style/global.css'
 import '../../../style/member.css'
 import '../../../style/memberRecipeComment.css'
@@ -10,7 +10,7 @@ import { API_URL } from '../../../utils/config'
 import axios from 'axios'
 
 function MemberRecipeCommentRow(props) {
-  const { recipeData } = props
+  const { recipeData, setReRender } = props
   const [recipeDataDetails, setRecipeDataDetails] = useState({})
   const [showEditModal, setShowEditModal] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
@@ -78,6 +78,7 @@ function MemberRecipeCommentRow(props) {
         showEditModal={showEditModal}
         setShowModal={setShowEditModal}
         openEditModal={openEditModal}
+        setReRender={setReRender}
         recipeDataDetails={recipeDataDetails}
         starScore={starScore}
       />
@@ -85,6 +86,7 @@ function MemberRecipeCommentRow(props) {
         showDeleteModal={showDeleteModal}
         setDeleteModal={setShowDeleteModal}
         openDeleteModal={openDeleteModal}
+        setReRender={setReRender}
         id={recipeData.id}
       />
       <div className="row align-items-center">

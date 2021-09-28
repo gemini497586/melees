@@ -9,7 +9,7 @@ import axios from 'axios'
 import { API_URL } from '../../../utils/config'
 
 function EditModal(props) {
-  const { showEditModal, openEditModal, recipeDataDetails, starScore } = props
+  const { showEditModal, openEditModal, recipeDataDetails, starScore, setReRender } = props
   const [newComment, setNewComment] = useState()
   const [newStarScore, setNewStarScore] = useState()
   const starRow = Array(5).fill(0)
@@ -59,6 +59,7 @@ function EditModal(props) {
       if (response) {
         // console.log(`id: ${recipeDataDetails.id} edits successfully`)
         openEditModal()
+        setReRender(true)
       }
     } catch (err) {
       console.error(err)

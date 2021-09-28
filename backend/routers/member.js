@@ -80,7 +80,7 @@ const uploader = multer({
 });
 
 // 先檢查是否已登入
-router.use(loginCheckMiddleware);
+// router.use(loginCheckMiddleware);
 
 // 會員資料修改 --> 進入編輯頁面 --> 需要撈資料庫
 router.get("/editinfo", async (req, res, next) => {
@@ -258,55 +258,57 @@ router.post("/recipecomment/read", async (req, res, next) => {
     [req.session.member.id]
     // [1] // 僅測試用
   );
+
+  result = [...result].sort(
+    (a, b) => moment(b.comment_time) - moment(a.comment_time)
+  )
   res.json(result);
 });
 
 router.post("/recipecomment/modal/read", async (req, res, next) => {
+  // 僅需要 特定一個食譜評論的詳細資料 --> 用 id 去篩選
+  // req.body = { recipe_id: 1 } 
   console.log("recipecomment modal read", req.body);
-  // req.body = { recipe_id: XX } VVVVV
+
+  // 所需資料有：
+  // member_avatar
+  // member_name
+  // member_like
+  // member_save
+  // recipe_author_avatar
+  // like_qty
+  // view_qty
 
   let like = await connection.queryAsync(
     "SELECT * FROM private_like WHERE user_id=? AND private_id=?",
     [req.session.member.id, req.body.recipe_id]
-    // [37, 120] // 僅測試用
   );
 
   let save = await connection.queryAsync(
     "SELECT * FROM private_save WHERE user_id=? AND private_id=?",
     [req.session.member.id, req.body.recipe_id]
-    // [37, 120] // 僅測試用
   );
 
   let like_qty = await connection.queryAsync(
     "SELECT count(*) AS count FROM private_like WHERE private_id=?",
     [req.body.recipe_id]
-    // [120] // 僅測試用
   );
 
   let view_qty = await connection.queryAsync(
     "SELECT count(*) AS count FROM private_view WHERE private_id=?",
     [req.body.recipe_id]
-    // [119] // 僅測試用
   );
 
   let author_id = await connection.queryAsync(
     "SELECT member_id FROM private_recipe WHERE id=?",
     [req.body.recipe_id]
-    // [38] // 僅測試用
   );
 
   let author_avatar = await connection.queryAsync(
     "SELECT picture FROM member WHERE id=?",
     [author_id[0].member_id]
-    // [38] // 僅測試用
   );
 
-  // console.log('like', like);
-  // console.log('save', save);
-  // console.log('like_qty', like_qty);
-  // console.log('view_qty', view_qty);
-
-  // 僅 某一特定食譜評論 --> 用 id 去篩選
   let newResult = {
     member_avatar: req.session.member.picture,
     member_name: req.session.member.name,
@@ -322,8 +324,8 @@ router.post("/recipecomment/modal/read", async (req, res, next) => {
 
 router.post("/recipecomment/modal/edit", async (req, res, next) => {
   console.log("update recipecomment", req.body);
-  console.log('req.body.length: ', req.body.length);
-  // 評論與評分都沒有更新，丟錯誤訊息，只有 id 一欄
+
+  // 評論與評分都沒有更新 --> next()丟錯誤訊息
   if (!req.body.newComment && !req.body.starScore) {
     return next({
       status: 400,
@@ -331,6 +333,7 @@ router.post("/recipecomment/modal/edit", async (req, res, next) => {
     });
   }
 
+  // 評論或評分有更新 --> 接續執行MySQL操作
   let sql = "UPDATE private_comment SET";
   let updateData = [];
 
@@ -355,7 +358,7 @@ router.post("/recipecomment/modal/edit", async (req, res, next) => {
 });
 
 router.post("/recipecomment/modal/delete", async (req, res, next) => {
-  console.log("try to delete", req.body);
+  console.log("delete recipecomment", req.body);
 
   let result = await connection.queryAsync(
     "DELETE FROM private_comment WHERE id = ?",

@@ -7,7 +7,7 @@ import axios from 'axios'
 import { API_URL } from '../../../utils/config'
 
 function DeleteModal(props) {
-  const { showDeleteModal, openDeleteModal, id } = props
+  const { showDeleteModal, openDeleteModal, id, setReRender } = props
   const handleDelete = async () => {
     try {
       let response = await axios.post(
@@ -21,6 +21,7 @@ function DeleteModal(props) {
       if (response) {
         console.log('Delete id: ' + id + ' successful')
         openDeleteModal()
+        setReRender(true)
       }
     } catch (err) {
       console.error(err)

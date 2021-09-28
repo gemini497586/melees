@@ -65,7 +65,7 @@
   color: var(--color-grey-900);
 
   /* 多行文字過長溢出省略 */
-  overflow : hidden;
+  overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   /* 最多 3 行 */
@@ -87,17 +87,20 @@
   margin-right: 25px;
 }
 
-.memberRecipeComment-iconGroup  button:hover {
+.memberRecipeComment-iconGroup button:hover {
   color: var(--color-primary-A);
   border: 1px solid var(--color-primary-A);
 }
 
-.memberRecipeComment-filter .melees-dropdown{
-    z-index: 1;
-    margin-left: auto;
-    padding-left: 0;
-    padding-right: 0;
-  }
+.memberRecipeComment-filter {
+  display: flex;
+  justify-content: end;
+}
+.memberRecipeComment-filter .melees-dropdown {
+  z-index: 1;
+  margin-right: 0;
+  margin-left: auto;
+}
 
 .modal-edit-recipeComment-wrapper .cardPrivateRecipe-img {
   width: 306px;
