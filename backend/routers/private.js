@@ -2,7 +2,7 @@ const express = require("express");
 const connection = require("../utils/db");
 const router = express.Router();
 const moment = require("moment");
-const { uuid } = require("uuidv4");
+const { v4 } = require("uuid");
 // nodejs 的物件
 const path = require("path");
 const { loginCheckMiddleware } = require("../middlewares/auth");
@@ -20,8 +20,8 @@ const storage = multer.diskStorage({
     // 檔案命名
     // 怎麼取新名字 ?
     let ext = file.originalname.split(".").pop();
-    console.log(`${uuid()}.${ext}`);
-    cb(null, `${uuid()}.${ext}`);
+    console.log(`${v4()}.${ext}`);
+    cb(null, `${v4()}.${ext}`);
   },
 });
 
