@@ -1,5 +1,5 @@
-import { useEffect, useState, useContext } from 'react'
-import { Link, Redirect, useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import '../../style/global.css'
 import '../../style/member.css'
 import avatar from '../../images/default_member_avatar.png'
@@ -88,7 +88,7 @@ function EditMemberInfo() {
     // console.log('errors.length: ', errors.length)
     // if (errors.length > 0) {
     //   return false
-    // } 
+    // }
     try {
       let formData = new FormData()
       formData.append('picture', formValues.picture)
