@@ -8,92 +8,29 @@ import Black from '../../box/Black'
 import axios from 'axios'
 // import food from '../../../images/default_food2.jpg'
 import author_avatar from '../../../images/default_avatar1.jpg'
+import { API_URL } from '../../../utils/config'
 
 function EditModal(props) {
-  const { showEditModal, openEditModal, recipeData, starScore } = props
-  const [recipeDataDetails, setRecipeDataDetails] = useState({})
+  const { showEditModal, openEditModal, recipeDataDetails, starScore } = props
   const [newComment, setNewComment] = useState()
-  const [newStarScore, setnewStarScore] = useState()
-
+  // const [newStarScore, setNewStarScore] = useState()
+  const starRow = Array(5).fill(0)
+  const [current, setCurrent] = useState(0)
+  const [hover, setHover] = useState(undefined)
+  const starClick = (index) => {
+    setCurrent(index)
+  }
+  const starMouseOver = (index) => {
+    setHover(index)
+  }
+  const starMouseLeave = () => {
+    setHover(undefined)
+  }
   const handleCancelEdit = () => {
     // 清除：編輯中評論，並關閉 Modal
     setNewComment('')
     openEditModal()
   }
-
-  useEffect(() => {
-    // 正式從資料庫生成資料
-    // const queryRecipeDetails = async () => {
-    //   try {
-    //     let response = await axios.post(`${API_URL}/member/XXXXXXX`, formData, {
-    //   // 設定可以跨源送 cookie
-    //   withCredentials: true,
-    // })
-    //     setRecipeDataDetails({
-    //       ...recipeData,
-    //       member_avatar: avatar,
-    //       member_name: 'volunteer',
-    //       member_star_rate: 4,
-    //       member_like: true,
-    //       member_save: true,
-    //       recipe_author_avatar: avatar,
-    //       recipe_like: 523,
-    //       recipe_view: 1648,
-    //     })
-    //   } catch (err) {
-    //     console.error(err)
-    //   }
-    // }
-    // queryRecipeDetails()
-
-    // 測試用死資料
-    setRecipeDataDetails({
-      ...recipeData,
-      member_avatar: avatar,
-      member_name: 'volunteer',
-      member_star_rate: 4,
-      member_like: true,
-      member_save: true,
-      recipe_author_avatar: author_avatar,
-      recipe_like: 523,
-      recipe_view: 1648,
-    })
-  }, [])
-
-  // recipeData = {
-  //   id: 54,
-  //   member_id: 37,
-  //   comment:
-  //   'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis molestias temporibus obcaecati, delectus ducimus nesciunt maiores labore laudantium ut eaque natus animi! Reprehenderit ipsam, deserunt asperiores id, est atque maiores officiis ratione ad tenetur perspiciatis aut, architecto possimus laboriosam magnam ullam fuga',
-  //   comment_time: '2021/09/18',
-
-  //   recipe_id: 120,
-  //   recipe_img: recipePic,
-  //   recipe_name: '麻油蝦',
-  //   recipe_star_rate: 3.4,
-  // }
-
-  // recipeDataDetails = {
-  // id: 54,
-  // member_id: 37,
-  // member_avatar: avatar,
-  // member_name: 'volunteer',
-  // member_star_rate: 4,
-  // member_like: true,
-  // member_save: true,
-  // comment:
-  // 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis molestias temporibus obcaecati, delectus ducimus nesciunt maiores labore laudantium ut eaque natus animi! Reprehenderit ipsam, deserunt asperiores id, est atque maiores officiis ratione ad tenetur perspiciatis aut, architecto possimus laboriosam magnam ullam fuga',
-  // comment_time: '2021/09/18',
-
-  // recipe_id: 120,
-  // recipe_img: recipePic,
-  // recipe_name: '麻油蝦',
-  // recipe_star_rate: 3.4,
-  // recipe_author_avatar: avatar,
-  // recipe_like: 523,
-  // recipe_view: 1648,
-  // }
-
   const handleSubmit = (e) => {
     e.preventDefault()
     try {
@@ -107,13 +44,18 @@ function EditModal(props) {
       //   withCredentials: true,
       // })
       // if (response) {
-        console.log('Edit id: ' + recipeDataDetails.id + ' successful')
-        openEditModal()
+      console.log('Edit id: ' + recipeDataDetails.id + ' successful')
+      openEditModal()
       // }
     } catch (err) {
       // 刪除失敗
     }
   }
+
+  useEffect(() => {
+    setCurrent(recipeDataDetails.member_star_rate)
+  }, [recipeDataDetails])
+
   return (
     <>
       <Black modal={showEditModal} closeModal={openEditModal} />
@@ -132,13 +74,31 @@ function EditModal(props) {
               <h3>評論</h3>
             </div>
             <figure>
-              <img src={recipeDataDetails.member_avatar} alt="avatar" />
+              <img
+                src={`${API_URL}/member/${recipeDataDetails.member_avatar}`}
+                alt="avatar"
+              />
               <figcaption>{recipeDataDetails.member_name}</figcaption>
             </figure>
             <div className="modal-edit-recipeComment-starScore">
-              {starScore(recipeDataDetails.member_star_rate)}
+              {starRow.map((value, index) => {
+                return (
+                  <FontAwesomeIcon
+                    key={index}
+                    className="icon-star"
+                    icon={(hover || current) > index ? 'star' : ['far', 'star']}
+                    onClick={() => {
+                      starClick(index + 1)
+                    }}
+                    onMouseOver={() => {
+                      starMouseOver(index + 1)
+                    }}
+                    onMouseLeave={starMouseLeave}
+                  />
+                )
+              })}
               <span className="font-400S">
-                {recipeDataDetails.member_star_rate}
+                {current ? current : recipeDataDetails.member_star_rate}
               </span>
             </div>
             <form onSubmit={handleSubmit}>

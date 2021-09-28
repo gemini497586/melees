@@ -5,7 +5,7 @@ import '../../style/memberRecipeComment.css'
 import MinorBar from './component/MinorBar'
 import MemberRecipeCommentRow from './component/MemberRecipeCommentRow'
 import DropDown from '../../component/DropDown'
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+// import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import avatar from '../../images/Avatar.png'
 import axios from 'axios'
 import { API_URL } from '../../utils/config'
@@ -18,49 +18,49 @@ function MemberRecipeComment() {
   const [recipeDataList, setRecipeDataList] = useState([])
 
   // 檢視整個表格時，基本所需的資料
-  const testJson = {
-    id: 54,
-    member_id: 37,
-    // member_avatar: avatar,
-    // member_name: 'volunteer',
-    // member_star_rate: 4,
-    // member_like: true,
-    // member_save: true,
-    comment:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis molestias temporibus obcaecati, delectus ducimus nesciunt maiores labore laudantium ut eaque natus animi! Reprehenderit ipsam, deserunt asperiores id, est atque maiores officiis ratione ad tenetur perspiciatis aut, architecto possimus laboriosam magnam ullam fuga',
-    comment_time: '2021/09/18',
+  // const testJson = {
+  //   id: 54,
+  //   member_id: 37,
+  //   // member_avatar: avatar,
+  //   // member_name: 'volunteer',
+  //   // member_star_rate: 4,
+  //   // member_like: true,
+  //   // member_save: true,
+  //   comment:
+  //     'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis molestias temporibus obcaecati, delectus ducimus nesciunt maiores labore laudantium ut eaque natus animi! Reprehenderit ipsam, deserunt asperiores id, est atque maiores officiis ratione ad tenetur perspiciatis aut, architecto possimus laboriosam magnam ullam fuga',
+  //   comment_time: '2021/09/18',
 
-    recipe_id: 120,
-    recipe_img: food,
-    recipe_name: '麻油蝦',
-    recipe_star_rate: 3.4,
-    // recipe_author_avatar: avatar,
-    // recipe_like: 523,
-    // recipe_view: 1648,
-  }
+  //   recipe_id: 120,
+  //   recipe_img: food,
+  //   recipe_name: '麻油蝦',
+  //   recipe_star_rate: 3.4,
+  //   // recipe_author_avatar: avatar,
+  //   // recipe_like: 523,
+  //   // recipe_view: 1648,
+  // }
 
   // 開啟 EditModal 時，所需的資料
   // 缺少的更詳細資料，等使用者開啟 Modal 時再發 axios post request 到後端撈資料
-  const testJson_EditModal = {
-    id: 54,
-    member_id: 37,
-    member_avatar: avatar,
-    member_name: 'volunteer',
-    member_star_rate: 4,
-    member_like: true,
-    member_save: true,
-    comment:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis molestias temporibus obcaecati, delectus ducimus nesciunt maiores labore laudantium ut eaque natus animi! Reprehenderit ipsam, deserunt asperiores id, est atque maiores officiis ratione ad tenetur perspiciatis aut, architecto possimus laboriosam magnam ullam fuga',
-    comment_time: '2021/09/18',
+  // const testJson_EditModal = {
+  //   id: 54,
+  //   member_id: 37,
+  //   member_avatar: avatar,
+  //   member_name: 'volunteer',
+  //   member_star_rate: 4,
+  //   member_like: true,
+  //   member_save: true,
+  //   comment:
+  //     'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis molestias temporibus obcaecati, delectus ducimus nesciunt maiores labore laudantium ut eaque natus animi! Reprehenderit ipsam, deserunt asperiores id, est atque maiores officiis ratione ad tenetur perspiciatis aut, architecto possimus laboriosam magnam ullam fuga',
+  //   comment_time: '2021/09/18',
 
-    recipe_id: 120,
-    recipe_img: recipePic,
-    recipe_name: '麻油蝦',
-    recipe_star_rate: 3.4,
-    recipe_author_avatar: avatar,
-    recipe_like: 523,
-    recipe_view: 1648,
-  }
+  //   recipe_id: 120,
+  //   recipe_img: recipePic,
+  //   recipe_name: '麻油蝦',
+  //   recipe_star_rate: 3.4,
+  //   recipe_author_avatar: avatar,
+  //   recipe_like: 523,
+  //   recipe_view: 1648,
+  // }
 
   const dataForMap = [
     {
@@ -132,19 +132,24 @@ function MemberRecipeComment() {
   ]
 
   useEffect(() => {
-    //   const getComment = async () => {
-    //     try {
-    //       let response = await axios.get(`${API_URL}/member/XXX`, {
-    //         // 設定可以跨源送 cookie
-    //         withCredentials: true,
-    //       })
-    //       setRecipeDataList(response.data)
-    //     } catch (err) {
-    //       console.error(err.response)
-    //     }
-    //   }
-    //   getComment()
-    setRecipeDataList(dataForMap)
+    const getComment = async () => {
+      try {
+        let response = await axios.post(
+          `${API_URL}/member/recipecomment/read`,
+          {},
+          {
+            // 設定可以跨源送 cookie
+            withCredentials: true,
+          }
+        )
+        console.log(response.data)
+        setRecipeDataList(response.data)
+      } catch (err) {
+        console.error(err.response)
+      }
+    }
+    getComment()
+    // setRecipeDataList(dataForMap)
   }, [])
 
   return (
