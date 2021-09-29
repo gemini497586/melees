@@ -3,7 +3,7 @@ const router = express.Router();
 const path = require("path");
 const connection = require("../utils/db");
 const bcrypt = require("bcrypt");
-const { uuid } = require("uuidv4");
+// const { uuid } = require("uuidv4");
 const moment = require("moment");
 
 // 資料驗證

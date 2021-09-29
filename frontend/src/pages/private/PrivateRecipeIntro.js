@@ -9,6 +9,8 @@ import PrivateRecipePhotoIntro from './component/PrivateRecipePhotoIntro'
 import PrivateRecipeHeading from './component/PrivateRecipeHeading'
 import PrivateRecipeStarComment from './component/PrivateRecipeStarComment'
 import PrivateRecipeComment from './component/PrivateRecipeComment'
+// CSS
+import '../../style/privateRecipeUpload.css'
 
 import Axios from 'axios'
 import { useParams } from 'react-router'
@@ -82,16 +84,20 @@ function PrivateRecipeIntro() {
         </div>
         <RecipeStep id={id} stepList={stepList} />
         <div className="container">
-          <div className="row">
+          <div className="row justify-content-center">
             <PrivateRecipeHeading title={heading[2]} />
-            {tags.map((value, index) => {
-              return <span>{value.tags}</span>
-            })}
+            <div className="d-flex justify-content-start flex-wrap">
+              {tags.map((value, index) => {
+                return (
+                  <div className="tag-box mt-3 mx-2" key={index}>
+                    <div className="font-400SS">{value.tags}</div>
+                  </div>
+                )
+              })}
+            </div>
           </div>
         </div>
-        <div className="container">
-          <div className="row"></div>
-        </div>
+
         <div className="container">
           <div className="row">
             <PrivateRecipeHeading title={heading[3]} />
