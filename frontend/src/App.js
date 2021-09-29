@@ -1,6 +1,6 @@
 // 必要的
 import { HandleCart } from './utils/HandleCart'
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import './style/global.css'
 import Header from './component/Header'
 import Home from './pages/home/Home'
@@ -57,7 +57,6 @@ import Privacy from './pages/about/Privacy'
 // useContext。CartProvider 跟購物車商品有關; CheckoutInfoProvider 跟個人購買資料有關
 import { CheckoutInfoProvider } from './utils/CheckoutInfoContext'
 import { CartProvider } from './utils/CartContext'
-import useCart from './utils/useCart'
 import { useState } from 'react'
 import { AlertProvider } from './utils/AlertContext'
 
@@ -76,7 +75,6 @@ function App() {
                   <Route exact path="/">
                     <Home />
                   </Route>
-
                   {/* footer */}
                   <Route exact path="/privacy">
                     <Privacy />

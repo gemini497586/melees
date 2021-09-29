@@ -11,6 +11,7 @@ function Modal(props) {
   const [name, setName] = useState('')
   const { openAlertModal, message, alertmodal } = useAlert()
 
+  console.log(alertmodal);
   const {
     showModal,
     setShowModal,
