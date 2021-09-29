@@ -3,7 +3,7 @@ const router = express.Router();
 const path = require("path");
 const connection = require("../utils/db");
 const bcrypt = require("bcrypt");
-// const { uuid } = require("uuidv4");
+const { v4 } = require("uuid");
 const moment = require("moment");
 
 // 資料驗證
@@ -59,7 +59,7 @@ const storage = multer.diskStorage({
   // 檔案命名
   filename: function (req, file, callback) {
     let ext = file.originalname.split(".").pop();
-    callback(null, `${uuid()}.${ext}`);
+    callback(null, `${v4()}.${ext}`);
   },
 });
 // 大頭貼驗證 --> 1.接受空值  2.檔案格式是否正確  3.重新命名
