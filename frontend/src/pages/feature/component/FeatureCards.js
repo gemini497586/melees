@@ -3,14 +3,13 @@ import HeartViewNum from '../../../component/HeartViewNum'
 import '../../../style/featureCards.css'
 import '../../../style/featureComponent.css'
 import iglogo from '../../../images/instagramLogo.jpg'
-import food from '../../../images/1.jpg'
 import Axios from 'axios'
 import { API_URL } from '../../../utils/config'
 import { Link } from 'react-router-dom'
 
 function FeatureCards(props) {
   // 撈後端資料
-  const [listdata, setListdata] = useState([])
+  // const [listdata, setListdata] = useState([])
 
   // 取得所有資料
   // useEffect(() => {
@@ -25,7 +24,7 @@ function FeatureCards(props) {
   // 取得分類
   useEffect(() => {
     // 查props發出什麼訊息，是否有正確發出API
-    console.log('typeid', props)
+    // console.log('typeid', props)
     Axios.get(`${API_URL}/feature/index/${props.typeid}`).then((response) => {
       setTypedata(response.data)
       // console.log('response.data', response.data)

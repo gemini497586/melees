@@ -23,7 +23,7 @@ function OrderQuery() {
       try {
         let res = await Axios.get(`${API_URL}/order`, { withCredentials: true })
         let data = res.data.result
-        let count = res.data.count.total
+        let count = res.data.count.count
         setData(data)
         setCount(count)
       } catch (e) {
@@ -33,6 +33,7 @@ function OrderQuery() {
     getData()
   }, [])
 
+  
   return (
     <>
       <div className="page-group">

@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Input(props) {
-  const { name, value, fields, fieldErrors, handleFieldChange } = props
+  const { name, value, fields, fieldErrors, handleFieldChange, max } = props
 
   return (
     <>
@@ -17,6 +17,7 @@ function Input(props) {
             value={fields}
             placeholder={`請輸入${name}`}
             min="0"
+            max={max}
             onChange={handleFieldChange}
             required
           />
@@ -26,7 +27,6 @@ function Input(props) {
           <div className="col-8 b-page1-errorMsg font-400S">{fieldErrors}</div>
         )}
       </div>
-      
     </>
   )
 }

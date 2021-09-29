@@ -1,36 +1,53 @@
-/* 食譜 */
 .s-recipe-top {
   color: var(--color-grey-900);
-  padding: 20px 0;
+  padding: 20px 0 40px;
 }
-.s-recipe-bottom {
-  padding: 20px 0;
+.s-recipe-keyword {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.s-recipe-check {
+  display: flex;
 }
 /* searchbar出來的card */
+.s-recipe-card {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--color-grey-500);
+  text-align: center;
+}
+.s-recipe-intro {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
 .s-recipe-image {
-  width: 190px;
+  width: 35%;
   height: 150px;
   border-radius: 4px;
   overflow: hidden;
-  margin: 0;
 }
-.s-recipe-classify {
+.s-recipe-info {
+  width: 60%;
+  display: flex;
+  align-items: center;
   color: var(--color-secondary);
 }
-.s-recipe-title {
-  color: var(--color-grey-900);
-}
 .s-recipe-text {
-  width: 200px;
+  width: 70%;
   align-self: center;
+}
+.s-recipe-classify {
+  width: 30%;
 }
 .s-recipe-text ul {
   display: block;
 }
 .s-recipe-text li {
-  /* height: 20px; */
   margin: 10px;
-  text-align: center;
 }
 .s-recipe-title {
   color: var(--color-grey-900);
@@ -38,88 +55,98 @@
 .s-recipe-subtitle {
   color: var(--color-grey-800);
 }
-.s-recipe-line {
-  border: 1px solid var(--color-grey-500);
-}
+
 .s-recipe-count {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-  width: 320px;
+  width: 25%;
 }
 .s-recipe-count a {
-  padding: 0 20px;
-  cursor: pointer;
+  text-decoration: none;
 }
-.s-recipe-count-bottom {
-  width: 315px;
-  height: 40px;
-  margin-top: 10px;
-  border-radius: 10px;
-  background: linear-gradient(
-    243.35deg,
-    #3542e0 -1.42%,
-    #3841df 16.37%,
-    #403fda 27.17%,
-    #4e3cd2 36.13%,
-    #6337c7 44.06%,
-    #7d31b9 51.33%,
-    #9e2aa8 58.09%,
-    #c32193 64.36%,
-    #c82091 65.05%,
-    #f62b37 79.97%,
-    #ffc658 105.87%
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.s-recipe-count-bottom .fab {
-  font-size: 24px;
-  color: var(--color-white);
-}
-.s-recipe-count-ig {
-  width: 262px;
-  height: 28px;
-  background-color: var(--color-white);
-  border-radius: 0px 10px 10px 0px;
-}
-.s-recipe-count-ig p {
-  color: var(--color-secondary);
-  padding-left: 10px;
-  margin: 0;
-  line-height: 28px;
-  text-align: left;
-}
-.s-recipe-btn {
+.s-recipe-read button {
   background: var(--color-primary);
   color: var(--color-white);
   border: 1px solid transparent;
   border-radius: 8px;
-  padding: 0 40px;
+  padding: 0 20px;
   height: 43px;
 }
-.s-recipe-btn:hover {
+.s-recipe-read button:hover {
   background: var(--color-primary-A);
 }
 
 /* 私藏食譜 */
 .s-recipe-count-user {
-  width: 315px;
-  padding-top: 10px;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .s-recipe-count-user p {
   margin: 0;
-  padding-left: 40px;
+  max-width: 80%;
 }
 .s-recipe-count-circle {
   width: 50px;
   height: 50px;
-  background: #000;
   border-radius: 100%;
   overflow: hidden;
+  margin-right: 20px;
+}
+
+@media screen and (max-width: 414px) {
+  .s-recipe-top {
+    padding-bottom: 20px;
+  }
+  .s-recipe-keyword,
+  .s-recipe-card {
+    display: block;
+  }
+  .s-recipe-intro,
+  .s-recipe-classify,
+  .s-recipe-text,
+  .s-recipe-count,
+  .s-recipe-read,
+  .s-recipe-read button {
+    width: 100%;
+    padding: 10px 0;
+  }
+  .s-recipe-image {
+    width: 50%;
+  }
+  .s-recipe-info {
+    flex-direction: column;
+    justify-content: space-around;
+    width: 50%;
+  }
+}
+
+/* radiobox */
+.s-radiobox {
+  position: relative;
+  display: flex;
+  width: 150px;
+  color: var(--color-grey-900);
+}
+.s-radiobox input {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 1px solid var(--color-grey-900);
+  margin-right: 10px;
+}
+
+.s-radiobox input:checked + label::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 8px;
+  height: 14px;
+  border-bottom: 3px solid var(--color-grey-900);
+  border-right: 3px solid var(--color-grey-900);
+  transform: rotate(45deg);
 }
