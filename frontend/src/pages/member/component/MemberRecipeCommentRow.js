@@ -6,9 +6,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
 import EditModal from './EditModal'
 import DeleteModal from './DeleteModal'
+import { API_URL } from '../../../utils/config'
+import axios from 'axios'
 
 function MemberRecipeCommentRow(props) {
-  const { recipeData } = props
+  const { recipeData, setReRender } = props
+  const [recipeDataDetails, setRecipeDataDetails] = useState({})
   const [showEditModal, setShowEditModal] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const openEditModal = () => {
@@ -17,7 +20,6 @@ function MemberRecipeCommentRow(props) {
   const openDeleteModal = () => {
     setShowDeleteModal((prev) => !prev)
   }
-  // console.log('recipeData', recipeData)
 
   const starScore = (star_rate) => {
     const starRow = []
@@ -40,37 +42,59 @@ function MemberRecipeCommentRow(props) {
     return starRow
   }
 
-  // recipeData = {
-  //   id: 54,
-  //   member_id: 37,
-  //   comment:
-  //   'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis molestias temporibus obcaecati, delectus ducimus nesciunt maiores labore laudantium ut eaque natus animi! Reprehenderit ipsam, deserunt asperiores id, est atque maiores officiis ratione ad tenetur perspiciatis aut, architecto possimus laboriosam magnam ullam fuga',
-  //   comment_time: '2021/09/18',
+  const recipeDetailsAPI = async () => {
+    console.log(
+      `recipe_id: ${recipeData.recipe_id} have called recipeDetailsAPI`
+    )
+    try {
+      let recipe_id = recipeData.recipe_id
+      let response = await axios.post(
+        `${API_URL}/member/recipecomment/modal/read`,
+        { recipe_id },
+        {
+          // 設定可以跨源送 cookie
+          withCredentials: true,
+        }
+      )
+      // console.log(response.data)
+      setRecipeDataDetails({
+        ...recipeData,
+        member_avatar: response.data.member_avatar,
+        member_name: response.data.member_name,
+        member_like: response.data.member_like,
+        member_save: response.data.member_save,
+        recipe_author_avatar: response.data.recipe_author_avatar,
+        like_qty: response.data.like_qty,
+        view_qty: response.data.view_qty,
+      })
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
-  //   recipe_id: 120,
-  //   recipe_img: recipePic,
-  //   recipe_name: '麻油蝦',
-  //   recipe_star_rate: 3.4,
-  // })
-  
   return (
     <>
       <EditModal
         showEditModal={showEditModal}
         setShowModal={setShowEditModal}
         openEditModal={openEditModal}
-        recipeData={recipeData}
+        setReRender={setReRender}
+        recipeDataDetails={recipeDataDetails}
         starScore={starScore}
       />
       <DeleteModal
         showDeleteModal={showDeleteModal}
         setDeleteModal={setShowDeleteModal}
         openDeleteModal={openDeleteModal}
+        setReRender={setReRender}
         id={recipeData.id}
       />
       <div className="row align-items-center">
         <figure className="col-6 col-md-2 memberRecipeComment-figure">
-          <img src={recipeData.recipe_img} alt={recipeData.recipe_name} />
+          <img
+            src={`${API_URL}/private/${recipeData.recipe_img}`}
+            alt={recipeData.recipe_name}
+          />
           <figcaption className="font-400SL">
             {recipeData.recipe_name}
           </figcaption>
@@ -84,7 +108,12 @@ function MemberRecipeCommentRow(props) {
           {recipeData.comment}
         </p>
         <div className="col-4 col-md-2 memberRecipeComment-iconGroup">
-          <button onClick={openEditModal}>
+          <button
+            onClick={() => {
+              recipeDetailsAPI()
+              openEditModal()
+            }}
+          >
             <FontAwesomeIcon icon="pen" size="1x" className="icon-item" />
           </button>
           <button onClick={openDeleteModal}>

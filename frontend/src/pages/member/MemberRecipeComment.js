@@ -5,154 +5,104 @@ import '../../style/memberRecipeComment.css'
 import MinorBar from './component/MinorBar'
 import MemberRecipeCommentRow from './component/MemberRecipeCommentRow'
 import DropDown from '../../component/DropDown'
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
-import avatar from '../../images/Avatar.png'
 import axios from 'axios'
 import { API_URL } from '../../utils/config'
-
-// testJson
-import food from '../../images/default_food2.jpg'
-import recipePic from '../../images/member-recipe-comment-ellipse-342.png'
+import moment from 'moment'
 
 function MemberRecipeComment() {
   const [recipeDataList, setRecipeDataList] = useState([])
-
-  // 檢視整個表格時，基本所需的資料
-  const testJson = {
-    id: 54,
-    member_id: 37,
-    // member_avatar: avatar,
-    // member_name: 'volunteer',
-    // member_star_rate: 4,
-    // member_like: true,
-    // member_save: true,
-    comment:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis molestias temporibus obcaecati, delectus ducimus nesciunt maiores labore laudantium ut eaque natus animi! Reprehenderit ipsam, deserunt asperiores id, est atque maiores officiis ratione ad tenetur perspiciatis aut, architecto possimus laboriosam magnam ullam fuga',
-    comment_time: '2021/09/18',
-
-    recipe_id: 120,
-    recipe_img: food,
-    recipe_name: '麻油蝦',
-    recipe_star_rate: 3.4,
-    // recipe_author_avatar: avatar,
-    // recipe_like: 523,
-    // recipe_view: 1648,
-  }
-
-  // 開啟 EditModal 時，所需的資料
-  // 缺少的更詳細資料，等使用者開啟 Modal 時再發 axios post request 到後端撈資料
-  const testJson_EditModal = {
-    id: 54,
-    member_id: 37,
-    member_avatar: avatar,
-    member_name: 'volunteer',
-    member_star_rate: 4,
-    member_like: true,
-    member_save: true,
-    comment:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis molestias temporibus obcaecati, delectus ducimus nesciunt maiores labore laudantium ut eaque natus animi! Reprehenderit ipsam, deserunt asperiores id, est atque maiores officiis ratione ad tenetur perspiciatis aut, architecto possimus laboriosam magnam ullam fuga',
-    comment_time: '2021/09/18',
-
-    recipe_id: 120,
-    recipe_img: recipePic,
-    recipe_name: '麻油蝦',
-    recipe_star_rate: 3.4,
-    recipe_author_avatar: avatar,
-    recipe_like: 523,
-    recipe_view: 1648,
-  }
-
-  const dataForMap = [
+  const [reRender, setReRender] = useState(false)
+  const [sortBy, setSortBy] = useState(0)
+  const sortList = [
     {
-      id: 51,
-      member_id: 39,
-      comment:
-        'ALorem ipsum dolo ducimus nesciunt maiores labore laudantium ut eaque natus animi! Reprehenderit ipsam, deserunt asperiores id, est atque maiores officiis ratione ad tenetur perspiciatis aut, architecto possimus laboriosam magnam ullam fuga',
-      comment_time: '2021/06/18',
-      recipe_id: 120,
-      recipe_img: food,
-      recipe_name: '麻油雞',
-      recipe_star_rate: 2.7,
+      name: '評論時間由新至舊',
+      value: '0',
     },
     {
-      id: 52,
-      member_id: 45,
-      comment:
-        'BLsum dolor sit amet consectetur adipisicing elit. Quis molestias temporibus obcaecati, delectus dserunt aspossimus laboriosam magnam ullam fuga',
-      comment_time: '2021/05/10',
-      recipe_id: 120,
-      recipe_img: food,
-      recipe_name: '麻油松阪豬',
-      recipe_star_rate: 3.6,
+      name: '評論時間由舊至新',
+      value: '1',
     },
     {
-      id: 53,
-      member_id: 3,
-      comment:
-        'CLorem s labore laudantium ut eaque natus animi! Reprehenderit ipsam, deserunt asperiores id, est atque maiores officiis ratione ad tenetur perspiciatis aut, architecto possimus laboriosam magnam ullam fuga',
-      comment_time: '2021/09/08',
-      recipe_id: 120,
-      recipe_img: food,
-      recipe_name: '麻油蝦',
-      recipe_star_rate: 3.4,
+      name: '評分由高至低',
+      value: '2',
     },
     {
-      id: 54,
-      member_id: 7,
-      comment:
-        'XLorem ipcimus nesciunt maiores labore laudantium ut eaque natus animi! Reprehenderit ipsam, deserunt asperiores id, est atque maiores officiis ratione ad tenetur perspiciatis aut,imus laboriosam magnam ullam fuga',
-      comment_time: '2021/12/28',
-      recipe_id: 120,
-      recipe_img: food,
-      recipe_name: '鹹酥蝦',
-      recipe_star_rate: 4.1,
-    },
-    {
-      id: 55,
-      member_id: 34,
-      comment:
-        'YLoloimus nesciunt maiores labore laudantium ut eaque natus animi! Reprehenderit ipsam, deserunt asperiores id, est atque maiores officiis ratione ad tenetur perspiciatis aut, architecto possimus laboriosam magnam ullam fuga',
-      comment_time: '2021/04/03',
-      recipe_id: 120,
-      recipe_img: food,
-      recipe_name: '橄欖油蝦排',
-      recipe_star_rate: 3.9,
-    },
-    {
-      id: 56,
-      member_id: 12,
-      comment:
-        'Zonsectetur adipisicing elit. Quis molestias temporibus obcaecati, delectus ducimus nesciunt maiores labore laudantium ut eaque natus animi! Reprehenderit ipsam, deserunt asperiores id, est atque maiores officiis ratione ad tenetur perspiciatis aut, architecto possimus laboriosam magnam ullam fuga',
-      comment_time: '2021/09/18',
-      recipe_id: 120,
-      recipe_img: food,
-      recipe_name: '南瓜蒸小排',
-      recipe_star_rate: 4.4,
+      name: '評分由低至高',
+      value: '3',
     },
   ]
 
+  const handleSort = (data, sortBy) => {
+    let newData = [...data]
+    if (sortBy === 0) {
+      newData = [...newData].sort(
+        (a, b) => moment(b.comment_time) - moment(a.comment_time)
+      )
+    }
+    if (sortBy === 1) {
+      newData = [...newData].sort(
+        (a, b) => moment(a.comment_time) - moment(b.comment_time)
+      )
+    }
+    if (sortBy === 2) {
+      newData = [...newData].sort(
+        (a, b) => b.recipe_star_rate - a.recipe_star_rate
+      )
+    }
+    if (sortBy === 3) {
+      newData = [...newData].sort(
+        (a, b) => a.recipe_star_rate - b.recipe_star_rate
+      )
+    }
+    return newData
+  }
+
+  const readCommentAPI = async () => {
+    try {
+      let response = await axios.post(
+        `${API_URL}/member/recipecomment/read`,
+        {},
+        {
+          // 設定可以跨源送 cookie
+          withCredentials: true,
+        }
+      )
+      setRecipeDataList(response.data)
+    } catch (err) {
+      console.error(err.response)
+    }
+  }
+
+  // 初始化，先去後端取資料
   useEffect(() => {
-    //   const getComment = async () => {
-    //     try {
-    //       let response = await axios.get(`${API_URL}/member/XXX`, {
-    //         // 設定可以跨源送 cookie
-    //         withCredentials: true,
-    //       })
-    //       setRecipeDataList(response.data)
-    //     } catch (err) {
-    //       console.error(err.response)
-    //     }
-    //   }
-    //   getComment()
-    setRecipeDataList(dataForMap)
+    readCommentAPI()
   }, [])
+
+  // 編輯或刪除成功，重新去後端取資料
+  useEffect(() => {
+    readCommentAPI()
+    setReRender(false)
+  }, [reRender])
+
+  // 隨著 排序選項 render 畫面
+  useEffect(() => {
+    let newData = []
+    newData = handleSort(recipeDataList, sortBy)
+    setRecipeDataList(newData)
+  }, [sortBy])
 
   return (
     <>
       <div className="page-group">
         <MinorBar />
         <div className="memberRecipeComment-container">
-          <div className="memberRecipeComment-filter">{/* <DropDown /> */}</div>
+          <div className="memberRecipeComment-filter">
+            <DropDown
+              sortList={sortList}
+              sortBy={sortBy}
+              setSortBy={setSortBy}
+            />
+          </div>
           <div className="memberRecipeComment-table">
             <div className="memberRecipeComment-table-title row align-items-center">
               <p className="font-700L col-2">食譜名稱</p>
@@ -161,7 +111,11 @@ function MemberRecipeComment() {
             </div>
             {recipeDataList.map((value, index) => {
               return (
-                <MemberRecipeCommentRow key={value.id} recipeData={value} />
+                <MemberRecipeCommentRow
+                  key={value.id}
+                  recipeData={value}
+                  setReRender={setReRender}
+                />
               )
             })}
           </div>
