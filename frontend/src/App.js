@@ -1,6 +1,6 @@
 // 必要的
 import { HandleCart } from './utils/HandleCart'
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import './style/global.css'
 import Header from './component/Header'
 import Home from './pages/home/Home'
@@ -76,6 +76,88 @@ function App() {
                   <Route exact path="/">
                     <Home />
                   </Route>
+
+                  {/* 客製化 */}
+                  <Route exact path="/box">
+                    <Box />
+                  </Route>
+                  {/* 私藏 */}
+                  <Route exact path="/private">
+                    <PrivateRecipe />
+                  </Route>
+                  <ProtectedRoute exact path="/private/upload" isAuth={login}>
+                    <PrivateRecipeUpload />
+                  </ProtectedRoute>
+                  <ProtectedRoute exact path="/private/edit/:id" isAuth={login}>
+                    <PrivateRecipeEdit />
+                  </ProtectedRoute>
+                  <Route exact path="/private/detail/:id">
+                    <PrivateRecipeIntro />
+                  </Route>
+                  {/* 精選 */}
+                  <Route path="/feature/week">
+                    <FeatureIndexWeek />
+                  </Route>
+                  <Route path="/feature/stepweek">
+                    <FeatureStepWeek />
+                  </Route>
+                  <Route path="/feature/step/:listId?">
+                    <FeatureStep />
+                  </Route>
+                  <Route path="/feature/index/:typeid?">
+                    <FeatureIndex />
+                  </Route>
+
+                  {/* 搜尋 */}
+                  <Route path="/search/recipe/:word">
+                    <SearchRecipe />
+                  </Route>
+                  <Route path="/search/market/:word">
+                    <SearchMarket />
+                  </Route>
+
+                  {/* 會員相關 */}
+                  <Route path="/login">
+                    <Login />
+                  </Route>
+                  <Route path="/register">
+                    <Register />
+                  </Route>
+
+                  <ProtectedRoute path="/member/editinfo" isAuth={login}>
+                    <EditMemberInfo />
+                  </ProtectedRoute>
+                  <ProtectedRoute path="/member/editpwd" isAuth={login}>
+                    <EditPassword />
+                  </ProtectedRoute>
+                  <ProtectedRoute path="/member/orderdetail" isAuth={login}>
+                    <OrderDetails />
+                  </ProtectedRoute>
+                  <ProtectedRoute path="/member/orderlist" isAuth={login}>
+                    <OrderList />
+                  </ProtectedRoute>
+                  <ProtectedRoute path="/member/savebox" isAuth={login}>
+                    <MemberBox />
+                  </ProtectedRoute>
+                  <ProtectedRoute path="/member/saverecipe" isAuth={login}>
+                    <MemberSaveRecipe />
+                  </ProtectedRoute>
+                  <ProtectedRoute path="/member/saveproduct" isAuth={login}>
+                    <MemberSaveProduct />
+                  </ProtectedRoute>
+                  <ProtectedRoute
+                    exact
+                    path="/member/recipecomment"
+                    isAuth={login}
+                  >
+                    <MemberRecipeComment />
+                  </ProtectedRoute>
+                  <ProtectedRoute path="/member/coupon" isAuth={login}>
+                    <Coupon />
+                  </ProtectedRoute>
+                  <ProtectedRoute exact path="/member" isAuth={login}>
+                    <MyRecipe />
+                  </ProtectedRoute>
 
                   {/* footer */}
                   <Route exact path="/privacy">
