@@ -17,9 +17,9 @@ function MinorBar() {
     <>
       <ul className="minor-bar">
         {/* map寫法 */}
-        {array.map((v) => {
+        {array.map((v, i) => {
           return (
-            <li>
+            <li key={i}>
               <Link to={v.url}>{v.title}</Link>
             </li>
           )

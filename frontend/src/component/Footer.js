@@ -7,24 +7,24 @@ function Footer() {
     {
       header: '關於MELLEs',
       content: [
-        { url: '/a', title: '關於我們' },
-        { url: '/b', title: '加入MELEEs' },
-        { url: '/c', title: '異業合作' },
+        { url: '/about', title: '關於我們' },
+        { url: '/', title: '加入MELEEs' },
+        { url: '/', title: '異業合作' },
       ],
     },
     {
       header: '客製化便當',
       content: [
-        { url: '/a', title: '代謝率計算' },
-        { url: '/b', title: '熱量計算' },
+        { url: '/box', title: '代謝率計算' },
+        { url: '/box', title: '熱量計算' },
       ],
     },
     {
       header: '客戶服務',
       content: [
-        { url: '/a', title: '進度查詢' },
-        { url: '/b', title: '取消訂單' },
-        { url: '/c', title: '追蹤清單' },
+        { url: '/member/orderlist', title: '進度查詢' },
+        { url: '/member/orderlist', title: '取消訂單' },
+        { url: '/member/saveproduct', title: '追蹤清單' },
         { url: '/d', title: '常見問答' },
         { url: '/e', title: '聯絡我們' },
       ],
@@ -40,26 +40,41 @@ function Footer() {
     {
       header: '精選食譜',
       content: [
-        { url: '/a', title: '健康長肉肉' },
-        { url: '/b', title: '健康不吃肉' },
-        { url: '/c', title: '一周不煩惱' },
-        { url: '/d', title: '家常好手藝' },
+        { url: '/feature/index/1', title: '健康長肉肉' },
+        { url: '/feature/index/2', title: '健康不吃肉' },
+        { url: '/feature/index/3', title: '家常好手藝' },
+        { url: '/feature/index/4', title: '一周不煩惱' },
       ],
     },
     {
       header: '私藏食譜',
       content: [
-        { url: '/a', title: '熱門食譜' },
-        { url: '/b', title: '上傳食譜' },
+        { url: '/private', title: '熱門食譜' },
+        { url: '/private/upload', title: '上傳食譜' },
       ],
     },
   ]
   const bottom = [
-    '隱私權政策',
-    '使用者條款',
-    '服務契約',
-    '法律聲明',
-    '網站地圖',
+    {
+      url: '/privacy',
+      title: '隱私權政策',
+    },
+    {
+      url: '/privacy',
+      title: '使用者條款',
+    },
+    {
+      url: '/privacy',
+      title: '服務契約',
+    },
+    {
+      url: '/privacy',
+      title: '法律聲明',
+    },
+    {
+      url: '/privacy',
+      title: '網站地圖',
+    },
   ]
   return (
     <>
@@ -101,7 +116,7 @@ function Footer() {
             {bottom.map((v, i) => {
               return (
                 <li key={i}>
-                  <a href="#/">{v}</a>
+                  <Link to={v.url}>{v.title}</Link>
                 </li>
               )
             })}

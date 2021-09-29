@@ -1,57 +1,42 @@
 import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import '../../style/searchMarket.css'
 import SearchCardMarket from './component/SearchCardMarket'
 import DropDown2 from '../../component/DropDown2'
-import ProductData from '../../data/Products'
-import Axios from 'axios'
+import axios from 'axios'
 import { API_URL } from '../../utils/config'
 
-function SearchMarket() {
-  const ProductDatas = ProductData.products
+function SearchMarket(props) {
+  // console.log(props)
+  const { word } = useParams()
   const [data, setData] = useState([])
   const [displayData, setDisplayData] = useState([])
   const [sortBy, setSortBy] = useState(0)
-  const [counts, setCounts] = useState(1)
+  const [amount, setAmount] = useState(1)
+  const [count, setCount] = useState(0)
   const itemList = [
     {
       name: '時間由新至舊',
-      value: '1',
     },
     {
       name: '時間由舊至新',
-      value: '2',
     },
     {
       name: '價位由高至低',
-      value: '3',
     },
     {
       name: '價位由低至高',
-      value: '4',
     },
   ]
-  // 初始化
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        let res = await Axios.get(`${API_URL}/market/2`)
-        let data = res.data
-        setData(data)
-        setDisplayData(data)
-      } catch (e) {
-        console.log(e)
-      }
-    }
-    getData()
-  }, [])
+
   // 排序功能
   const handleSortBy = (data, sortBy) => {
     let newData = [...data]
     if (sortBy === 0) {
-      newData = [...newData].sort((a, b) => a.id - b.id)
+      newData = [...newData].sort((a, b) => b.id - a.id)
     }
     if (sortBy === 1) {
-      newData = [...newData].sort((a, b) => b.id - a.id)
+      newData = [...newData].sort((a, b) => a.id - b.id)
     }
     if (sortBy === 2) {
       newData = [...newData].sort((a, b) => b.price - a.price)
@@ -63,34 +48,51 @@ function SearchMarket() {
   }
   // 重新渲染
   useEffect(() => {
+    // 重網址抓關鍵字，去後端打api
+    const getData = async () => {
+      try {
+        let res = await axios.get(`${API_URL}/search/market/?word=${word}`, {
+          word,
+        })
+        let data = res.data.result
+        let count = res.data.count.total
+        setData(data)
+        setDisplayData(data)
+        setCount(count)
+        // console.log(res)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    getData()
+
+    // 重新排列
     let newData = []
     newData = handleSortBy(data, sortBy)
     setDisplayData(newData)
-  }, [sortBy])
+  }, [sortBy,word])
 
   return (
     <>
       <section className="page-group">
         <div className="container">
           <div className="s-market-top">
-            <div className="d-flex justify-content-between align-items-center">
-              <div className="col-6">
-                <h4>
-                  關於 <span>000</span> 的商品共有 <span>00</span> 筆
-                </h4>
-              </div>
-              <DropDown2
-                itemList={itemList}
-                sortBy={sortBy}
-                setSortBy={setSortBy}
-              />
+            <div className="col-12 col-md-6">
+              <h4>
+                關於 {word} 的商品共有 {count} 筆
+              </h4>
             </div>
+            <DropDown2
+              itemList={itemList}
+              sortBy={sortBy}
+              setSortBy={setSortBy}
+            />
           </div>
           <div className="s-market-bottom">
             <SearchCardMarket
               marketList={displayData}
-              counts={counts}
-              setCounts={setCounts}
+              amount={amount}
+              setAmount={setAmount}
             />
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { Link, Redirect, useLocation } from 'react-router-dom'
+import { Link, Redirect, useLocation, useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import meleesLogo from '../images/meleesLogo.svg'
 import React, { useContext, useEffect, useState } from 'react'
@@ -9,11 +9,12 @@ import useCart from '../utils/useCart'
 import axios from 'axios'
 import { API_URL } from '../utils/config'
 import { HandleCart } from '../utils/HandleCart'
-import useSearch from '../utils/useSearch'
 
 function Header(props) {
   const { login, setLogin } = useContext(HandleCart)
-  const { searching, setSearching, handleSearchData } = useSearch()
+  const [word, setWord] = useState('')
+  const [search, setSearch] = useState('找食譜')
+
   const [isDropDown, setIsDropDown] = useState(false)
   const [recipe, setRecipe] = useState('找食譜')
   const [goods, setGoods] = useState('找商品')
@@ -22,6 +23,7 @@ function Header(props) {
   const [counting, setCounting] = useState(1)
 
   const location = useLocation()
+  const history = useHistory()
   // useLocation
 
   useEffect(() => {
@@ -89,6 +91,17 @@ function Header(props) {
     }
   }, [carts])
 
+  const handleSubmit = (e) => {
+    if (recipe === '找商品') {
+      history.push(`/search/market/${word}`)
+      // window.location.href = `http://localhost:3000/search/market/${word}`
+    }
+    if (recipe === '找食譜') {
+      history.replace(`/search/recipe/${word}`)
+      // window.location.href = `http://localhost:3000/search/recipe/${word}`
+    }
+  }
+
   return (
     <div className="header-bar">
       <div className="logo">
@@ -100,7 +113,6 @@ function Header(props) {
         <li className="font-400M" id="toBox">
           <Link to="/box">客製化便當</Link>
         </li>
-
         <li className="font-400M" id="toFeature">
           <Link to="/feature/index/1">精選食譜</Link>
         </li>
@@ -136,26 +148,18 @@ function Header(props) {
                 >
                   {goods}
                 </div>
-              ) : (
-                <></>
-              )}
+              ) : null}
             </div>
             <input
               type="text"
               className="font-400SL header-search-input"
               placeholder="請輸入搜尋關鍵字"
-              value={keyword}
+              value={word}
               onChange={(e) => {
-                setKeyword(e.target.value)
+                setWord(e.target.value)
               }}
             />
-            <button
-              className="header-search-btn btn"
-              type="submit"
-              onClick={() => {
-                handleSearchData(keyword)
-              }}
-            >
+            <button className="header-search-btn btn" onClick={handleSubmit}>
               <FontAwesomeIcon icon="search" />
             </button>
           </div>

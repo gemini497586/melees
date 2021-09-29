@@ -11,51 +11,46 @@ function MemberBox() {
   const [displayData, setDisplayData] = useState([])
   const [prep, setPrep] = useState([])
   const [prepList, setprepList] = useState(null)
-
   const [sortBy, setSortBy] = useState(0)
-  const sortList = [
+  const itemList = [
     {
       name: '時間由新至舊',
-      value: '1',
     },
     {
       name: '時間由舊至新',
-      value: '2',
     },
     {
       name: '卡路里由多至少',
-      value: '3',
     },
     {
       name: '卡路里由少至多',
-      value: '4',
     },
   ]
+
+  const getData = async () => {
+    try {
+      let res = await Axios.get(`${API_URL}/member/readsavebox`, {
+        withCredentials: true,
+      })
+      let data = res.data.result
+      let prep = res.data.result2
+      setData(data)
+      setDisplayData(data)
+      setPrep(prep)
+
+      // 把食材做成查表法
+      let newprepList = {}
+      prep.map((item) => {
+        newprepList[item.id] = item
+      })
+      setprepList(newprepList)
+    } catch (e) {
+      console.log(e)
+      alert(e.response.data.message)
+    }
+  }
   // 初始化資料
   useEffect(() => {
-    const getData = async () => {
-      try {
-        let res = await Axios.get(`${API_URL}/member/readsavebox`, {
-          withCredentials: true,
-        })
-        let data = res.data.result
-        let prep = res.data.result2
-        setData(data)
-        setDisplayData(data)
-        setPrep(prep)
-
-        // 把食材做成查表法
-        let newprepList = {}
-        prep.map((item) => {
-          newprepList[item.id] = item
-        })
-        setprepList(newprepList)
-        // console.log(newprepList)
-      } catch (e) {
-        console.log(e)
-        alert(e.response.data.message)
-      }
-    }
     getData()
   }, [])
 
@@ -78,10 +73,11 @@ function MemberBox() {
   }
 
   useEffect(() => {
+    getData()
     let newData = []
     newData = handleSort(data, sortBy)
     setDisplayData(newData)
-  }, [sortBy])
+  }, [sortBy, data])
   return (
     <>
       <div className="page-group">
@@ -90,7 +86,7 @@ function MemberBox() {
           <div className="container">
             <div className="d-flex justify-content-end">
               <DropDown2
-                itemList={sortList}
+                itemList={itemList}
                 sortBy={sortBy}
                 setSortBy={setSortBy}
               />

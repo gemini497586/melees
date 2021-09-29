@@ -14,30 +14,24 @@ function MemberFeature() {
   const [sortBy, setSortBy] = useState(0)
   const [checked, setChecked] = useState('全部')
   const checkList = ['全部', '精選食譜', '私藏食譜']
-  const sortList = [
+  const itemList = [
     {
       name: '時間由新至舊',
-      value: '1',
     },
     {
       name: '時間由舊至新',
-      value: '2',
     },
     {
       name: '按讚數由多至少',
-      value: '3',
     },
     {
       name: '按讚數由少至多',
-      value: '4',
     },
     {
       name: '瀏覽數由多至少',
-      value: '5',
     },
     {
       name: '瀏覽數由少至多',
-      value: '6',
     },
   ]
 
@@ -45,7 +39,7 @@ function MemberFeature() {
   useEffect(() => {
     const getData = async () => {
       try {
-        let res = await Axios.get(`${API_URL}/api/private`)
+        let res = await Axios.get(`${API_URL}/private`)
         let data = res.data.result
         setData(data)
         setDisplayData(data)
@@ -99,7 +93,6 @@ function MemberFeature() {
   useEffect(() => {
     let newData = []
     newData = handleSortBy(data, sortBy)
-    // newData = handleRadio(newData, checked)
     setDisplayData(newData)
   }, [sortBy])
 
@@ -124,7 +117,7 @@ function MemberFeature() {
                 })}
               </div>
               <DropDown2
-                itemList={sortList}
+                itemList={itemList}
                 sortBy={sortBy}
                 setSortBy={setSortBy}
               />
@@ -132,8 +125,8 @@ function MemberFeature() {
 
             <div className="member-box-bottom">
               <div className="row">
-                <SearchCardFeature featureList={displayData} />
-                <SearchCardPrivate privateList={displayData} />
+                {/* <SearchCardFeature featureList={displayData} />
+                <SearchCardPrivate privateList={displayData} /> */}
               </div>
             </div>
           </div>

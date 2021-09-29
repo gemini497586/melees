@@ -1,51 +1,100 @@
-import React from 'react'
-import Recipe02 from '../../../images/recipe_02.jpg'
-import HeartViewNum from '../../../component/HeartViewNum'
-import Avatar from '../../../images/Avatar.png'
+import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
+import HeartViewNum from '../../../component/HeartViewNum'
+import { API_URL } from '../../../utils/config'
 
 function SearchCardPrivate(props) {
-  const { privateList } = props
+  const { privateList, setDisplayPrivate, sortBy } = props
+
+  // 排序功能
+  const handleSortBy = (privateList, sortBy) => {
+    let newData = [...privateList]
+    if (sortBy === 0) {
+      newData = [...newData].sort((a, b) => b.id - a.id)
+    }
+    if (sortBy === 1) {
+      newData = [...newData].sort((a, b) => a.id - b.id)
+    }
+    if (sortBy === 2) {
+      newData = [...newData].sort((a, b) => b.like_qty - a.like_qty)
+    }
+    if (sortBy === 3) {
+      newData = [...newData].sort((a, b) => a.like_qty - b.like_qty)
+    }
+    if (sortBy === 4) {
+      newData = [...newData].sort((a, b) => b.view_qty - a.view_qty)
+    }
+    if (sortBy === 5) {
+      newData = [...newData].sort((a, b) => a.view_qty - b.view_qty)
+    }
+    return newData
+  }
+
+  useEffect(() => {
+    let newData = []
+    newData = handleSortBy(privateList, sortBy)
+    setDisplayPrivate(newData)
+  }, [sortBy])
+
   return (
     <>
-      {privateList.map((v, i) => {
-        return (
-          <div className="s-recipe-card">
-            <div className="d-flex justify-content-around align-items-center">
-              <figure className="s-recipe-image">
-                <img className="b-cover-fit" src={Recipe02} alt="Recipe02" />
-              </figure>
-              <div className="s-recipe-classify font-400SL">
-                <FontAwesomeIcon icon="bookmark" className="me-2 font-400L" />
-                私藏食譜
-              </div>
-              <div className="s-recipe-text">
-                <ul className="list-unstyled">
-                  <li className="s-recipe-date font-400S">{v.date}</li>
-                  <li className="s-recipe-title font-700L ">{v.name}</li>
-                </ul>
-              </div>
-              <div className="s-recipe-count font-400M">
-                <HeartViewNum />
-                <div className="s-recipe-count-user">
-                  <div className="s-recipe-count-circle">
-                    <img className="b-cover-fit" src={Avatar} alt=""></img>
+      <div className="s-recipe-bottom">
+        {privateList.map((v, i) => {
+          return (
+            <div className="s-recipe-card" key={i}>
+              <div className="s-recipe-intro">
+                <div className="s-recipe-image">
+                  <img
+                    className="b-cover-fit"
+                    src={`${API_URL}/private/${v.picture}`}
+                    alt={v.name}
+                  />
+                </div>
+                <div className="s-recipe-info font-400SL">
+                  <div className="s-recipe-classify">
+                    <FontAwesomeIcon
+                      icon="bookmark"
+                      className="me-2 font-400L"
+                    />
+                    私藏食譜
                   </div>
-                  <p className="font-400SL">{v.member_id}</p>
+                  <div className="s-recipe-text">
+                    <ul className="list-unstyled">
+                      <li className="s-recipe-subtitle font-400SL">
+                        {v.create_date}
+                      </li>
+                      <li className="s-recipe-title font-700L ">{v.name}</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
-              <div className="s-recipe-add">
-                <button className="s-recipe-btn font-700M">
-                  <FontAwesomeIcon icon="eye" className="me-2" />
-                  查看食譜
-                </button>
+              <div className="s-recipe-count font-400M">
+                <HeartViewNum likeqty={v.like_qty} viewqty={v.view_qty} />
+                <div className="s-recipe-count-user">
+                  <div className="s-recipe-count-circle">
+                    <img
+                      className="b-cover-fit"
+                      src={`${API_URL}/member/${v.member_pic}`}
+                      alt={v.member_nickname}
+                    ></img>
+                  </div>
+                  <p className="font-400SL">{v.member_nickname}</p>
+                </div>
+              </div>
+              <div className="s-recipe-read">
+                <Link to={`/private/detail/${v.id}`}>
+                  <button className="font-700M">
+                    <FontAwesomeIcon icon="eye" className="me-2" />
+                    查看食譜
+                  </button>
+                </Link>
               </div>
             </div>
-            <hr />
-          </div>
-        )
-      })}
+          )
+        })}
+      </div>
     </>
   )
 }

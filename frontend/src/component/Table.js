@@ -15,7 +15,7 @@ function Table(props) {
         <tbody className="font-400M">
           {tableList.map((value, index) => {
             return (
-              <tr key={index}>
+              <tr key={index} className="animation-table">
                 <td className="table-left">{value.ingred}</td>
                 <td className="table-right">{value.ingred_unit}</td>
               </tr>
