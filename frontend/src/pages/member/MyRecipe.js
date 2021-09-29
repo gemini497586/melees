@@ -27,7 +27,7 @@ function MyRecipe() {
       setCommentList(res.data.commentResult)
       setLikeList(res.data.likeResult)
       setViewList(res.data.viewResult)
-      setFollowList(res.data.followTotal[0].count)
+      setFollowList(res.data.followT)
     })
   }, [])
 
