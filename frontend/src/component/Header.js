@@ -13,11 +13,13 @@ import { HandleCart } from '../utils/HandleCart'
 function Header(props) {
   const { login, setLogin } = useContext(HandleCart)
   const [word, setWord] = useState('')
-  const [search, setSearch] = useState('找食譜')
 
   const [isDropDown, setIsDropDown] = useState(false)
   const [recipe, setRecipe] = useState('找食譜')
   const [goods, setGoods] = useState('找商品')
+
+  const { carts, countProduct, setCountProduct } = useCart()
+  const [counting, setCounting] = useState(1)
 
   const location = useLocation()
   const history = useHistory()
@@ -78,6 +80,15 @@ function Header(props) {
       console.error(err.response)
     }
   }
+
+  useEffect(() => {
+    if (carts.length > 0) {
+      setCountProduct(true)
+      setCounting(carts.length)
+    } else {
+      setCountProduct(false)
+    }
+  }, [carts])
 
   const handleSubmit = (e) => {
     if (recipe === '找商品') {
@@ -160,6 +171,11 @@ function Header(props) {
               setHidden(!hidden)
             }}
           >
+            {countProduct ? (
+              <div className="cartNum font-700SS">{counting}</div>
+            ) : (
+              <></>
+            )}
             <FontAwesomeIcon
               icon="shopping-cart"
               size="lg"

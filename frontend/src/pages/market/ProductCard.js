@@ -3,15 +3,13 @@ import '../../style/productCard.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
 import { Link } from 'react-router-dom'
-import { API_URL } from '../../utils/config'
+import { API_URL, P_CATEGORY } from '../../utils/config'
 import axios from 'axios'
 import useCart from '../../utils/useCart'
-import useSearch from '../../utils/useSearch'
 
 function ProductCard(props) {
   const { category, product, setProduct, currentPage, setCurrentPage } = props
-  const { carts, addCart, setProductsAll, selectIndex } = useCart()
-  const { searching, setSearching } = useSearch()
+  const { addCart, setProductsAll, selectIndex, setCountProduct } = useCart()
 
   useEffect(() => {
     // 商品分類跟排序
@@ -37,9 +35,6 @@ function ProductCard(props) {
   //   })
   // }, [searching])
 
-  // 查表法 --> O(1)
-  let category1 = { 1: '食材', 2: '鍋具', 3: '調味料' }
-
   // const [currentPage, setCurrentPage] = useState(1)
   const [perPage, setPerPage] = useState(10)
 
@@ -55,7 +50,7 @@ function ProductCard(props) {
             <img src={`${API_URL}/market/${e.image}`} alt={`商品${e.id}圖片`} />
             {/* <FontAwesomeIcon icon="bookmark" className="bookmark" /> */}
           </div>
-          <p className="font-700S product-category">{category1[e.category]}</p>
+          <p className="font-700S product-category">{P_CATEGORY[e.category]}</p>
           <h6 className="product-name">{e.name}</h6>
           <p className="product-price">
             <FontAwesomeIcon icon="dollar-sign" />
@@ -71,7 +66,7 @@ function ProductCard(props) {
               name: e.name,
               amount: 1,
               price: e.price,
-              category: category1[e.category],
+              category: P_CATEGORY[e.category],
               specs: e.specs,
               img: e.image,
             })

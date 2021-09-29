@@ -12,7 +12,9 @@ const useCart = () => {
     pageArray,
     setPageArray,
   ] = useContext(CartContext)
-  // console.log(cartList)
+
+  const [countProduct, setCountProduct] = useState(false) //購物車的小數字
+
   const addCart = (e) => {
     // 增加商品到購物車內
     // 1. 先從 sessionStorage 抓到原本的購物車，沒有的話就新增一個
@@ -67,6 +69,7 @@ const useCart = () => {
   const clearCart = () => {
     // 清除 sessionStorage 存的資料
     sessionStorage.removeItem('cartList')
+    setCarts([])
   }
 
   return {
@@ -82,6 +85,8 @@ const useCart = () => {
     setSelectIndex,
     pageArray,
     setPageArray,
+    countProduct,
+    setCountProduct,
   }
 }
 
