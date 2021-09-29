@@ -21,6 +21,8 @@ function PrivateRecipeEdit() {
     { ingred: '', ingred_unit: '' },
   ])
   const [steps, setSteps] = useState([{ steps: '' }])
+  const [tag, setTag] = useState('')
+  const [displayTag, setDisplayTag] = useState([])
 
   const [imgPreview, setImgPreview] = useState(null)
   const [error, setError] = useState(false)
@@ -34,6 +36,7 @@ function PrivateRecipeEdit() {
       let recipe = res.data.recipe[0]
       let ingred = res.data.ingred
       let steps = res.data.steps
+      let tags = res.data.tags
 
       console.log(res.data)
       setRecipeName(recipe.name)
@@ -42,6 +45,7 @@ function PrivateRecipeEdit() {
       setIngredList(ingred)
       setSteps(steps)
       setImgPreview(recipe.picture)
+      setDisplayTag(tags)
     }
     getData()
   }, [])
@@ -100,6 +104,19 @@ function PrivateRecipeEdit() {
     list.splice(index, 1)
     setSteps(list)
   }
+  const handleTag = async () => {
+    let res = await setDisplayTag([
+      ...displayTag,
+      { private_id: '', tags: `${tag}` },
+    ])
+    let res1 = await setTag('')
+  }
+  const deleteTag = (index) => {
+    const list = [...displayTag]
+    list.splice(index, 1)
+    setDisplayTag(list)
+    console.log(displayTag)
+  }
 
   // 上傳食譜 function
   const handleSubmit = async (e) => {
@@ -116,6 +133,7 @@ function PrivateRecipeEdit() {
       formData.append('qty', recipeQty)
       formData.append('ingred', JSON.stringify(ingredList))
       formData.append('step', JSON.stringify(steps))
+      formData.append('tags', JSON.stringify(displayTag))
 
       let res = await Axios.post(
         `${API_URL}/private/edit/post-data/${id}`,
@@ -307,7 +325,53 @@ function PrivateRecipeEdit() {
                       <span className="font-700M">添加</span>
                     </div>
                   </div>
-
+                  {/* 標籤 */}
+                  <label htmlFor="tag" className="privateRecipeUpload-label">
+                    <h4>標籤</h4>
+                  </label>
+                  <div className="d-flex">
+                    <input
+                      className="w-100"
+                      type="text"
+                      id="tag"
+                      name="tag"
+                      placeholder="輸入食材名稱, ex:豬肉"
+                      value={tag}
+                      onChange={(e) => {
+                        setTag(e.target.value)
+                      }}
+                    />
+                    <div
+                      className="privateRecipeUpload-add-tags"
+                      onClick={(e) => {
+                        handleTag()
+                      }}
+                    >
+                      <FontAwesomeIcon
+                        className="privateRecipeUpload-tag-add"
+                        icon="plus"
+                        size="lg"
+                      />
+                    </div>
+                  </div>
+                  <div className="d-flex justify-content-start flex-wrap">
+                    {displayTag.map((value, index) => {
+                      return (
+                        <div
+                          className="tag-box mt-3 mx-2"
+                          key={index}
+                          onClick={(e) => {
+                            deleteTag(index)
+                          }}
+                        >
+                          <div className="font-400SS">
+                            {value.tags + ' '}
+                            <FontAwesomeIcon icon="times" size="1x" />
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
                   {/* 送出跟取消 */}
                   <div className="d-flex justify-content-around privateRecipeUpload-btn ">
                     <button className="privateRecipeUpload-btn-upload font-700M">

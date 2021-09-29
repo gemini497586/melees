@@ -19,7 +19,6 @@ function PrivateRecipeUpload() {
   const [steps, setSteps] = useState([{ step: '' }])
   const [imgPreview, setImgPreview] = useState(null)
   const [tag, setTag] = useState('')
-  // const displayTag = ['肉']
   const [displayTag, setDisplayTag] = useState([])
   const [error, setError] = useState(false)
 
@@ -104,6 +103,8 @@ function PrivateRecipeUpload() {
       formData.append('qty', recipeQty)
       formData.append('ingred', JSON.stringify(ingredList))
       formData.append('steps', JSON.stringify(steps))
+      formData.append('tag', JSON.stringify(displayTag))
+
 
       let res = await Axios.post(`${API_URL}/private/upload/main`, formData, {
         withCredentials: true,
