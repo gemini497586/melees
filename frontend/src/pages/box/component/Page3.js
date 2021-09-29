@@ -10,7 +10,7 @@ import AlertModal from '../../../component/AlertModal'
 
 function Page3(props) {
   const { cal, setCal, tdee, tableList, setTableList, bento, setBento } = props
-  const { openAlertModal, message, alertmodal } = useAlert()
+  const { openAlertModal } = useAlert()
   const location = useLocation()
   const [redirect, setRedirect] = useState(false)
   const { login } = useContext(HandleCart)
@@ -45,11 +45,7 @@ function Page3(props) {
           }}
         />
       ) : null}
-      <AlertModal
-        message={message}
-        alertmodal={alertmodal}
-        openAlertModal={openAlertModal}
-      />
+      <AlertModal />
       <Modal
         showModal={showModal}
         setShowModal={setShowModal}

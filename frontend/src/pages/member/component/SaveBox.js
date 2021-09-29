@@ -4,7 +4,7 @@ import SaveBoxDelModal from './SaveBoxDelModal'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function SaveBox(props) {
-  const { data, prepList } = props
+  const { data, prepList, setDisplayData } = props
 
   const [showModal, setShowModal] = useState(false)
   const [boxId, setBoxId] = useState('')
@@ -45,13 +45,14 @@ function SaveBox(props) {
         setShowModal={setShowModal}
         openDeleteModal={openDeleteModal}
         id={boxId}
+        setDisplayData={setDisplayData}
       />
       {data.map((value) => {
         return (
           <div
             className="col-12 col-md-4 member-box-card"
             key={value.id}
-            data-aos="zoom-in"
+            // data-aos="zoom-in"
           >
             <div className="b-page2-box">
               <img

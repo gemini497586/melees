@@ -9,15 +9,21 @@ router.get("/market", async (req, res, next) => {
         "SELECT * FROM product WHERE name LIKE ? ORDER BY id DESC",
         [word]
     );
-    let count = await connection.queryAsync(
-        "SELECT COUNT(*) AS total FROM product WHERE name LIKE ? ",
-        [word]
-    );
-
-    if (count.length > 0) {
-        count = count[0];
+    if (result.length === 0) {
+        return next({
+            status: 400,
+            message: "您好，關於尚未販售該商品",
+        });
+    } else {
+        let count = await connection.queryAsync(
+            "SELECT COUNT(*) AS total FROM product WHERE name LIKE ? ",
+            [word]
+        );
+        if (count.length > 0) {
+            count = count[0];
+        }
+        res.json({ count, result });
     }
-    res.json({ count, result });
 });
 
 router.get("/recipe", async (req, res, next) => {
@@ -33,6 +39,10 @@ router.get("/recipe", async (req, res, next) => {
             "GROUP BY a.id ORDER BY id DESC",
         [word]
     );
+    private = private.map((v) => {
+        v["type"] = 1;
+        return v;
+    });
     // 精選
     let feature = await connection.queryAsync(
         "SELECT a.id, a.type_id, a.name AS name, " +
@@ -44,7 +54,10 @@ router.get("/recipe", async (req, res, next) => {
             "WHERE a.name LIKE ? GROUP BY a.id ORDER BY a.id DESC",
         [word]
     );
-
+    feature = feature.map((v) => {
+        v["type"] = 2;
+        return v;
+    });
     // 數量
     let privateCount = await connection.queryAsync(
         "SELECT COUNT(*) AS total FROM private_recipe WHERE name LIKE ? ",

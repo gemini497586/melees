@@ -86,7 +86,7 @@ function CardRecipe() {
                       alt={value.name}
                     />
                   </figure>
-                  {saveToggled(value.id)}
+                  {/* {saveToggled(value.id)} */}
                   <span className="cardRecipe-bookmark-stat-box">
                     <div className="cardRecipe-bookmark-stat-icon">
                       <FontAwesomeIcon icon="bookmark" size="lg" />

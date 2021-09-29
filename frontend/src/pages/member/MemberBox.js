@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import '../../style/memberBox.css'
 import SaveBox from './component/SaveBox'
 import MinorBar from './component/MinorBar'
@@ -12,6 +13,9 @@ function MemberBox() {
   const [prep, setPrep] = useState([])
   const [prepList, setprepList] = useState(null)
   const [sortBy, setSortBy] = useState(0)
+  const [page, setPage] = useState(1)
+  const [totalPage, setTotalPage] = useState(0)
+  const history = useHistory()
   const itemList = [
     {
       name: '時間由新至舊',
@@ -27,32 +31,55 @@ function MemberBox() {
     },
   ]
 
-  const getData = async () => {
-    try {
-      let res = await Axios.get(`${API_URL}/member/readsavebox`, {
-        withCredentials: true,
-      })
-      let data = res.data.result
-      let prep = res.data.result2
-      setData(data)
-      setDisplayData(data)
-      setPrep(prep)
-
-      // 把食材做成查表法
-      let newprepList = {}
-      prep.map((item) => {
-        newprepList[item.id] = item
-      })
-      setprepList(newprepList)
-    } catch (e) {
-      console.log(e)
-      alert(e.response.data.message)
+  const getPages = () => {
+    let pages = []
+    for (let i = 1; i <= totalPage; i++) {
+      pages.push(
+        <button
+          key={i}
+          className={pages === i ? 'btn paging-btn active' : 'btn paging-btn'}
+          onClick={() => {
+            setPage(i)
+          }}
+        >
+          {i}
+        </button>
+      )
     }
+    return pages
   }
+
   // 初始化資料
   useEffect(() => {
+    const getData = async () => {
+      try {
+        let res = await Axios.get(
+          `${API_URL}/member/readsavebox/?page=${page}`,
+          {
+            withCredentials: true,
+          }
+        )
+        let data = res.data.result
+        let prep = res.data.result2
+        let pagination = res.data.pagination.totalPage
+        setData(data)
+        setDisplayData(data)
+        setTotalPage(pagination)
+        history.push(`/member/savebox/${page}`)
+        setPrep(prep)
+        // 把食材做成查表法
+        let newprepList = {}
+        prep.map((item) => {
+          newprepList[item.id] = item
+        })
+        setprepList(newprepList)
+      } catch (e) {
+        console.log(e)
+        // alert(e.response.data.message)
+      }
+    }
     getData()
-  }, [])
+  }, [page])
 
   // 排序功能
   const handleSort = (data, sortBy) => {
@@ -73,7 +100,6 @@ function MemberBox() {
   }
 
   useEffect(() => {
-    getData()
     let newData = []
     newData = handleSort(data, sortBy)
     setDisplayData(newData)
@@ -92,8 +118,13 @@ function MemberBox() {
               />
             </div>
             <div className="row">
-              <SaveBox data={displayData} prepList={prepList} />
+              <SaveBox
+                data={displayData}
+                prepList={prepList}
+                setDisplayData={setDisplayData}
+              />
             </div>
+            <div className="d-flex justify-content-center">{getPages()}</div>
           </div>
         </section>
       </div>

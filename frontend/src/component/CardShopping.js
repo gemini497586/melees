@@ -81,7 +81,7 @@ function CardShopping() {
                       alt={value.name}
                     />
                   </figure>
-                  {saveToggled(value.id)}
+                  {/* {saveToggled(value.id)} */}
                   <span className="cardShopping-bookmark-stat-box">
                     <div className="cardShopping-bookmark-stat-icon">
                       <FontAwesomeIcon icon="bookmark" size="lg" />

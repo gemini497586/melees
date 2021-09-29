@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
@@ -7,62 +7,30 @@ import HeartViewNum from '../../../component/HeartViewNum'
 import Ig from '../../../component/Ig'
 
 function SearchCardRecipe(props) {
-  const { displayData, setDisplayData, sortBy } = props
-
-  console.log(displayData)
-
-  // 排序功能
-  const handleSortBy = (displayData, sortBy) => {
-    let newData = [...displayData]
-    if (sortBy === 0) {
-      newData = [...newData].sort((a, b) => b.id - a.id)
-    }
-    if (sortBy === 1) {
-      newData = [...newData].sort((a, b) => a.id - b.id)
-    }
-    if (sortBy === 2) {
-      newData = [...newData].sort((a, b) => b.like_qty - a.like_qty)
-    }
-    if (sortBy === 3) {
-      newData = [...newData].sort((a, b) => a.like_qty - b.like_qty)
-    }
-    if (sortBy === 4) {
-      newData = [...newData].sort((a, b) => b.view_qty - a.view_qty)
-    }
-    if (sortBy === 5) {
-      newData = [...newData].sort((a, b) => a.view_qty - b.view_qty)
-    }
-    return newData
-  }
-
-  useEffect(() => {
-    let newData = []
-    newData = handleSortBy(displayData, sortBy)
-    setDisplayData(newData)
-  }, [sortBy])
-
+  const { recipeData } = props
   let typeid = {
     1: '健康長肉肉',
     2: '健康不吃肉',
     3: '家常好手藝',
     4: '上班不煩惱',
   }
-
+  // 因為兩種食譜，儲存圖片跟網址路徑不同，所以做查表法
   let typerecipe = {
-    1: '私藏食譜',
-    2: '精選食譜',
+    1: ['私藏食譜', 'private/detail', 'private'],
+    2: ['精選食譜', 'feature/step', 'feature/featurefood'],
   }
+
   return (
     <>
       <div className="s-recipe-bottom">
-        {displayData.map((v, i) => {
+        {recipeData.map((v, i) => {
           return (
             <div className="s-recipe-card" key={i}>
               <div className="s-recipe-intro">
                 <div className="s-recipe-image">
                   <img
                     className="b-cover-fit"
-                    src={`${API_URL}/${v.picpath}/${v.picture}`}
+                    src={`${API_URL}/${typerecipe[v.type][2]}/${v.picture}`}
                     alt={v.name}
                   />
                 </div>
@@ -72,7 +40,7 @@ function SearchCardRecipe(props) {
                       icon="bookmark"
                       className="me-2 font-400L"
                     />
-                    {typerecipe[v.type]}
+                    {typerecipe[v.type][0]}
                   </div>
                   <div className="s-recipe-text">
                     <ul className="list-unstyled">
@@ -102,7 +70,7 @@ function SearchCardRecipe(props) {
                 )}
               </div>
               <div className="s-recipe-read">
-                <Link to={`/private/detail/${v.id}`}>
+                <Link to={`/${typerecipe[v.type][1]}/${v.id}`}>
                   <button className="font-700M">
                     <FontAwesomeIcon icon="eye" className="me-2" />
                     查看食譜

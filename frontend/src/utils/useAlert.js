@@ -6,11 +6,15 @@ const useAlert = () => {
     useContext(AlertContext)
 
   const openAlertModal = (msg) => {
-    setAlertModal((prev) => !prev)
+    setAlertModal(true)
     setMessage(msg)
   }
+  const closeAlertModal = () => {
+    setAlertModal(false)
+    setMessage('')
+  }
 
-  return { openAlertModal, message, alertmodal }
+  return { openAlertModal, closeAlertModal, message, alertmodal }
 }
 
 export default useAlert

@@ -9,9 +9,8 @@ import AlertModal from '../../../component/AlertModal'
 
 function Modal(props) {
   const [name, setName] = useState('')
-  const { openAlertModal, message, alertmodal } = useAlert()
+  const { openAlertModal } = useAlert()
 
-  console.log(alertmodal);
   const {
     showModal,
     setShowModal,
@@ -32,7 +31,7 @@ function Modal(props) {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      let res = await axios.post(
+      await axios.post(
         `${API_URL}/member/savebox`,
         {
           saveId,
@@ -57,11 +56,7 @@ function Modal(props) {
   return (
     <>
       <Black modal={showModal} closeModal={openModal} />
-      <AlertModal
-        message={message}
-        alertmodal={alertmodal}
-        openAlertModal={openAlertModal}
-      />
+      <AlertModal />
       {showModal ? (
         <div className="b-modal">
           <button className="b-modal-close" onClick={openModal}>

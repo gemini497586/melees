@@ -105,11 +105,7 @@ function Box() {
 
   return (
     <>
-      <AlertModal
-        message={message}
-        alertmodal={alertmodal}
-        openAlertModal={openAlertModal}
-      />
+      <AlertModal />
       <section className="page-group">
         <Page1 bmr={bmr} setBmr={setBmr} tdee={tdee} setTdee={setTdee} />
         <Page2
