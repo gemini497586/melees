@@ -162,43 +162,45 @@
   text-align: left;
 }
 .orderDetail-title-count {
-  width: 20%;
+  width: 40%;
   display: flex;
+  justify-content: flex-end;
   flex-direction: row;
+  text-align: center;
 }
 .orderDetail-title-price,
-.orderDetail-title-amount {
-  width: 50%;
-}
+.orderDetail-title-amount,
 .orderDetail-title-total {
-  width: 12%;
+  width: 30%;
 }
 
 .member-form-forOrderDetail .sumGroup {
-  width: 250px;
+  width: 30%;
   margin-left: auto;
   padding-top: 20px;
+  display: flex;
+  flex-direction: column;
 }
 .member-form-forOrderDetail .sumGroup-item {
   display: flex;
   justify-content: right;
+  align-items: center;
   text-align: right;
   padding-bottom: 16px;
 }
 
 .member-form-forOrderDetail .sumGroup-item-subtitle {
-  width: 110px;
+  width: 50%;
   color: var(--color-grey-800);
 }
-
+.member-form-forOrderDetail .sumGroup-item-money {
+  width: 50%;
+  margin-left: auto;
+}
 .member-form-forOrderDetail .sumGroup-item-total {
   color: var(--color-red-C);
   border-top: 1px solid var(--color-grey-800);
   padding-top: 16px;
-}
-
-.member-form-forOrderDetail .sumGroup-item-money {
-  margin-left: auto;
 }
 
 /* 訂單查詢內容的row */
@@ -227,30 +229,28 @@
   padding-left: 50px;
 }
 .orderDetail-count {
-  width: 20%;
+  width: 40%;
   display: flex;
   flex-direction: row;
   align-items: center;
-}
-.orderDetail-price {
-  width: 50%;
   text-align: center;
+  justify-content: flex-end;
+}
+.orderDetail-price,
+.orderDetail-total {
+  width: 30%;
   margin: 0;
 }
 .orderDetail-amount {
-  width: 50%;
+  width: 30%;
   background: var(--color-grey-300);
   height: 43px;
   line-height: 43px;
   border-radius: 100px;
-  text-align: center;
 }
 .orderDetail-total {
-  width: 12%;
   text-align: end;
-  margin: 0;
 }
-
 .orderDetail {
   width: 1320px;
   height: 900px;
@@ -338,23 +338,23 @@
     width: 30%;
     display: flex;
     flex-direction: column;
-    /* align-items: end; */
-    /* justify-content: end; */
-  }
-
-  .orderDetail-amount {
-    font-size: 16px;
-    line-height: 22.4px;
-    letter-spacing: 3px;
   }
   .orderDetail-price {
     text-align: end;
     width: 100%;
   }
-  .orderDetail-amount {
+  .orderDetail-amount,
+  .orderDetail-price {
     text-align: end;
     width: 100%;
     background: transparent;
+    font-size: 16px;
+    line-height: 22.4px;
+    letter-spacing: 3px;
+  }
+  .member-form-forOrderDetail .sumGroup {
+    width: 100%;
+    margin-left: auto;
   }
   .member-form-forOrderDetail .orderDetail-payInfo,
   .member-form-forOrderDetail .orderDetail-notes {

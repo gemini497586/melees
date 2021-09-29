@@ -61,7 +61,6 @@
 /* Img模組 */
 .fcover-fit {
   width: 100%;
-  height: 100%;
   object-fit: cover;
 }
 /* DropDowm模組*/

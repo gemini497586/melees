@@ -17,12 +17,8 @@ function OrderDetails(props) {
   const [mainList, setMainList] = useState([])
   const [step, setStep] = useState('')
   const [product, setProduct] = useState([])
+  const [productList, setProductList] = useState(null)
 
-  // 幫商品做成查表法
-  let productList = {}
-  product.map((item) => {
-    productList[item.id] = item.name
-  })
   const payment_method = { 1: '信用卡', 2: '貨到付款' }
 
   // 初始值
@@ -39,6 +35,12 @@ function OrderDetails(props) {
         setMainList(mainList)
         setStep(mainList.status)
         setProduct(product)
+        // 幫商品做成查表法
+        let newProductList = {}
+        product.map((item) => {
+          newProductList[item.id] = item
+        })
+        setProductList(newProductList)
       } catch (e) {
         console.log(e)
       }
@@ -74,35 +76,35 @@ function OrderDetails(props) {
                 <div className="orderDetail-title-count">
                   <div className="orderDetail-title-price">單價</div>
                   <div className="orderDetail-title-amount">數量</div>
+                  <div className="orderDetail-title-total">總價</div>
                 </div>
-                <div className="orderDetail-title-total">總價</div>
               </div>
               <OrderDetailRow detailList={detail} productList={productList} />
               {/* 總金額計算 */}
               <div className="sumGroup">
                 <div className="sumGroup-item">
-                  <div className="sumGroup-item-subtitle font-400S">
+                  <div className="sumGroup-item-subtitle font-400SL">
                     商品金額總計
                   </div>
-                  <div className="sumGroup-item-money font-700SL">
+                  <div className="sumGroup-item-money font-700M">
                     NT$ {mainList.total_price}
                   </div>
                 </div>
                 <div className="sumGroup-item">
-                  <div className="sumGroup-item-subtitle font-400S">
+                  <div className="sumGroup-item-subtitle font-400SL">
                     折扣金額
                   </div>
-                  <div className="sumGroup-item-money font-700SL">NT$ 0</div>
+                  <div className="sumGroup-item-money font-700M">NT$ 0</div>
                 </div>
                 <div className="sumGroup-item">
-                  <div className="sumGroup-item-subtitle font-400S">
+                  <div className="sumGroup-item-subtitle font-400SL">
                     物流費用
                   </div>
-                  <div className="sumGroup-item-money font-700SL">NT$ 0</div>
+                  <div className="sumGroup-item-money font-700M">NT$ 0</div>
                 </div>
                 <div className="sumGroup-item sumGroup-item-total">
-                  <div className="sumGroup-item-subtitle font-400S">總計</div>
-                  <div className="sumGroup-item-money font-700SL">
+                  <div className="sumGroup-item-subtitle font-400SL">總計</div>
+                  <div className="sumGroup-item-money font-700M">
                     NT$ {mainList.total_price}
                   </div>
                 </div>
@@ -147,7 +149,7 @@ function OrderDetails(props) {
                 </li>
                 <li className="font-400SL">
                   您可以隨時到本網站「
-                  <Link to={`/member/orderdetail/${mainList.order_number}`}>
+                  <Link to={`/member/orderdetail/${mainList.id}`}>
                     訂單查詢
                   </Link>
                   」，查詢目前訂單處理進度。

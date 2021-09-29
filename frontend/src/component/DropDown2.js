@@ -24,7 +24,7 @@ function DropDown2(props) {
             <div className="melees-items-holder font-400SL">
               {itemList.map((item, index) => (
                 <div
-                  key={item.value}
+                  key={index}
                   className="melees-dropdown-item"
                   onClick={(e) => {
                     setSortBy(index)

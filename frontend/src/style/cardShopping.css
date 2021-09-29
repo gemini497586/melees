@@ -23,10 +23,22 @@
 .cardShopping {
   position: relative;
   width: 306px;
-  height: 379px;
+  height: 400px;
   border-radius: 8px;
   margin: auto;
   margin-bottom: 60px;
+}
+.cardShopping:hover {
+  box-shadow: 0px 0px 15px var(--color-grey-800);
+  transition: 0.4s;
+}
+.cardShopping a,
+.cardShopping-others-more a {
+  text-decoration: none;
+  color: var(--color-grey-900);
+}
+.cardShopping-others-more a:hover {
+  color: var(--color-grey-800);
 }
 .cardShopping-img {
   width: 306px;
@@ -53,7 +65,7 @@
 .cardShopping-bookmark-stat-icon {
   position: absolute;
   left: 18px;
-  top: 5px;
+  top: 2px;
   color: var(--color-blue-C);
 }
 .cardShopping-book-mark-num {
@@ -75,6 +87,7 @@
   margin-top: 12px;
   margin-left: 12px;
   color: var(--color-grey-900);
+  height: 45px;
 }
 .cardShopping-price {
   position: relative;

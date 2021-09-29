@@ -6,9 +6,10 @@ import { API_URL } from '../../../utils/config'
 import Axios from 'axios'
 
 function SaveBoxDelModal(props) {
-  const { showModal, openDeleteModal, id } = props
+  const { showModal, setShowModal, openDeleteModal, id } = props
 
-  const handleDelete = async (e) => {
+  // 刪除收藏
+  const handleDelete = async (id) => {
     // e.preventDefault()
     try {
       let res = await Axios.post(
@@ -18,6 +19,7 @@ function SaveBoxDelModal(props) {
         },
         { withCredentials: true }
       )
+      setShowModal((prev) => !prev)
       // console.log(res)
     } catch (e) {
       console.log(e)
@@ -32,25 +34,28 @@ function SaveBoxDelModal(props) {
           <button className="b-modal-close " onClick={openDeleteModal}>
             <FontAwesomeIcon icon="times" />
           </button>
-
           <div className="icon-danger member-box-icon">
             <FontAwesomeIcon icon="exclamation" className="exclamation" />
           </div>
           <h1>確定要刪除嗎</h1>
           <p className="font-400M">確定要刪除這個便當嗎</p>
-          <form onSubmit={handleDelete}>
-            <button
-              className="btn-cancel"
-              onClick={() => {
-                openDeleteModal(id)
-              }}
-            >
-              取消
-            </button>
-            <button type="submit" className="btn-delete">
-              確定刪除
-            </button>
-          </form>
+          <button
+            className="btn-cancel"
+            onClick={() => {
+              openDeleteModal(id)
+            }}
+          >
+            取消
+          </button>
+          <button
+            type="submit"
+            className="btn-delete"
+            onClick={() => {
+              handleDelete(id)
+            }}
+          >
+            確定刪除
+          </button>
         </div>
       ) : null}
     </>
