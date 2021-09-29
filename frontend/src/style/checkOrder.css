@@ -90,7 +90,7 @@
 /* 訂單詳細資訊部分 */
 .check-order-main-detail {
   width: 1320px;
-  height: 1018px;
+  height: 600px;
   border: 1px solid #000;
   border-radius: 4px;
   margin-top: 65px;
@@ -132,7 +132,6 @@
 
 .main-detail-row-area {
   width: 1318px;
-  /* height: 500px; */
   margin-top: 150px;
   position: relative;
 }
@@ -143,27 +142,17 @@
   border-bottom: 2px solid var(--color-grey-500);
 }
 
-.main-detail-row {
-  margin-top: 36px;
-
-  width: 1318px;
-  height: 100%;
-}
-
 .main-detail-checkout-area {
   position: relative;
   width: 1318px;
-  height: 100px;
-  bottom: 0px;
-  /* background: pink; */
+  height: 50px;
+  margin-top: 45px;
 }
 
 .main-detail-checkout-area p,
 .main-detail-checkout-area h6 {
-  width: 100px;
-  height: 20px;
+  width: 120px;
   position: absolute;
-  letter-spacing: 0px;
 }
 
 .main-detail-total-amount {

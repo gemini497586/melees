@@ -114,6 +114,19 @@
   top: calc(50% - 12px);
   right: calc(50% - 12px);
 }
+
+.cartNum {
+  width: 20px;
+  height: 20px;
+  top: 5px;
+  left: 28px;
+  border-radius: 50%;
+  position: absolute;
+  background: var(--color-primary);
+  color: var(--color-white);
+  letter-spacing: 0px;
+  z-index: 2;
+}
 /* 購物車結束 */
 
 /* 使用者開始 */

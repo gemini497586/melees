@@ -45,7 +45,7 @@ function Modal(props) {
       setCal(0)
       setTableList([])
       setName('')
-      // openAlertModal('便當已收藏，可至會員專區查詢')
+      openAlertModal('便當已收藏，可至會員專區查詢')
       // console.log(res)
     } catch (e) {
       console.log('e', e.response)

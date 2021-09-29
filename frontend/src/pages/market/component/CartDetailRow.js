@@ -1,29 +1,46 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import img from '../../../images/005.jpg'
 import '../../../style/cartDetailRow.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
+import axios from 'axios'
+import { API_URL, P_CATEGORY } from '../../../utils/config'
 
-function CartDetailRow(props) {
+function CartDetailRow() {
+  const [product, setProduct] = useState([])
+  useEffect(() => {
+    axios
+      .post(`${API_URL}/market/order-productData`, null, {
+        withCredentials: true,
+      })
+      .then((result) => {
+        console.log(result.data)
+        setProduct(result.data)
+      })
+  }, [])
   return (
-    <div className="cart-detail-row">
-      <img src={img} alt="商品圖片" />
-      <p className="font-400S cart-detail-category">食材</p>
-      <h6 className="cart-detail-name">美國Choice嫩肩里肌肉片</h6>
-      <p className="font-400S cart-detail-specs">
-        重量：100g±5% <br />
-        原產地：美國 <br />
-        保存方式：請置於冷凍-18℃保存
-      </p>
-      <p className="cart-detail-price">
-        <FontAwesomeIcon icon="dollar-sign" /> 310
-      </p>
-      <div className="cart-detail-amount">5</div>
-      <h5 className="cart-detail-total">
-        NT <FontAwesomeIcon icon="dollar-sign" />
-        1,550
-      </h5>
-    </div>
+    <>
+      {product.map((v, i) => {
+        return (
+          <div className="cart-detail-row">
+            <img src={`${API_URL}/market/${v.image}`} alt="商品圖片" />
+            <p className="font-400S cart-detail-category">
+              {P_CATEGORY[v.category]}
+            </p>
+            <h6 className="cart-detail-name">{v.name}</h6>
+            {/* <p className="font-400S cart-detail-specs">{v.specs}</p> */}
+            <p className="cart-detail-price">
+              <FontAwesomeIcon icon="dollar-sign" /> {v.price}
+            </p>
+            <div className="cart-detail-amount">{v.amount}</div>
+            <h5 className="cart-detail-total">
+              NT <FontAwesomeIcon icon="dollar-sign" />
+              {v.price * v.amount}
+            </h5>
+          </div>
+        )
+      })}
+    </>
   )
 }
 

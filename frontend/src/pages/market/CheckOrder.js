@@ -1,13 +1,26 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import '../../style/checkOrder.css'
-import img from '../../images/005.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
 import CartDetailRow from './component/CartDetailRow'
+import axios from 'axios'
+import { API_URL } from '../../utils/config'
 
-const cartArray = [1, 2, 3]
+function ProductDetails() {
+  const [personalData, setPersonalData] = useState([])
+  useEffect(() => {
+    axios
+      .post(`${API_URL}/market/order-personalData`, null, {
+        // 設定可以跨源送 cookie
+        withCredentials: true,
+      })
+      .then((response) => {
+        console.log(response.data)
+        setPersonalData(response.data[0])
+      })
+  }, [])
 
-function ProductDetails(props) {
+  const payment = { 1: '貨到付款', 2: '信用卡付款' }
   return (
     <div className="container">
       <div className="check-order">
@@ -19,14 +32,19 @@ function ProductDetails(props) {
           <div className="deliver-info-w1100"></div>
           <div className="deliver-info-name">
             <label className="font-700SL">收件人</label>
-            <input type="text" readOnly value="周杰倫" className="font-400SL" />
+            <input
+              type="text"
+              readOnly
+              value={personalData.name}
+              className="font-400SL"
+            />
           </div>
           <div className="deliver-info-way">
             <label className="font-700SL">結帳方式</label>
             <input
               type="text"
               readOnly
-              value="信用卡付款"
+              value={payment[personalData.payment_method]}
               className="font-400SL"
             />
           </div>
@@ -43,16 +61,12 @@ function ProductDetails(props) {
               <p className="font-400L cart-detail-title-price">單價</p>
               <p className="font-400L cart-detail-title-amount">數量</p>
               <p className="font-400L cart-detail-title-total">總價</p>
-              <div className="main-detail-row">
-                {cartArray.map((v, i) => {
-                  return <CartDetailRow />
-                })}
-              </div>
             </div>
-          </div>
-          <div className="main-detail-checkout-area">
-            <p className="font-400S main-detail-total-amount">商品金額總計</p>
-            <h6 className="main-detail-total-amount-num">NT 2,820</h6>
+            <CartDetailRow />
+            <div className="main-detail-checkout-area">
+              <p className="font-400S main-detail-total-amount">商品金額總計</p>
+              <h6 className="main-detail-total-amount-num">NT 2,820</h6>
+            </div>
           </div>
         </div>
       </div>
