@@ -101,6 +101,7 @@ function PrivateRecipe() {
   useEffect(() => {
     let newData = []
     newData = handleSort(itemInfo, sortBy)
+    console.log(newData)
     setItemInfo(newData)
   }, [sortBy])
   return (

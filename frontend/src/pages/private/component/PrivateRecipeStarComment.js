@@ -31,7 +31,8 @@ function PrivateRecipeStarComment() {
     setHoverValue(undefined)
   }
 
-  const addComment = async () => {
+  const addComment = async (e) => {
+    e.preventDefault()
     try {
       let res = await Axios.post(
         `${API_URL}/private/comment/upload/${id}`,

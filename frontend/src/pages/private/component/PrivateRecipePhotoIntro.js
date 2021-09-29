@@ -9,6 +9,8 @@ function PrivateRecipePhotoIntro(props) {
   const { id } = props
   const [recipe, setRecipe] = useState([])
   const [memberInfo, setMemberInfo] = useState([])
+  const [totalRecipe, setTotalRecipe] = useState('')
+  const [totalFollow, setTotalFollow] = useState('')
 
   // 按鈕的狀態
   const [followState, setFollowState] = useState()
@@ -24,6 +26,8 @@ function PrivateRecipePhotoIntro(props) {
       setLikeState(res.data.liked)
       setSaveState(res.data.saved)
       setMemberInfo(res.data.memResult[0])
+      setTotalRecipe(res.data.memberT)
+      setTotalFollow(res.data.followT)
       console.log(res.data)
     })
   }, [])
@@ -142,7 +146,9 @@ function PrivateRecipePhotoIntro(props) {
                       "
                       >
                         <div class="font-700M">{memberInfo.nickname}</div>
-                        <div class="font-400SS">9 篇食譜 127 粉絲</div>
+                        <div class="font-400SS">
+                          {totalRecipe} 篇食譜 {totalFollow} 粉絲
+                        </div>
                       </div>
                       <button
                         onClick={followSwitch}
@@ -167,7 +173,7 @@ function PrivateRecipePhotoIntro(props) {
                           PrivateRecipePhotoIntro-star-num
                       "
                       >
-                        {value.star_rate}人評分過
+                        ({value.star_rate})
                       </span>
                     </div>
                     <h2 class="PrivateRecipePhotoIntro-recipe-name">
