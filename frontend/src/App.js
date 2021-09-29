@@ -57,7 +57,6 @@ import Privacy from './pages/about/Privacy'
 // useContext。CartProvider 跟購物車商品有關; CheckoutInfoProvider 跟個人購買資料有關
 import { CheckoutInfoProvider } from './utils/CheckoutInfoContext'
 import { CartProvider } from './utils/CartContext'
-import useCart from './utils/useCart'
 import { useState } from 'react'
 import { AlertProvider } from './utils/AlertContext'
 

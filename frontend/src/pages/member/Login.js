@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react'
-// import { useHistory } from 'react-router-dom'
 import { useHistory, useLocation } from 'react-router-dom'
 import { API_URL } from '../../utils/config'
 import axios from 'axios'
@@ -7,14 +6,10 @@ import '../../style/global.css'
 import '../../style/member.css'
 import '../../style/login.css'
 import logo from '../../images/logo.png'
-import useCart from '../../utils/useCart'
 import { HandleCart } from '../../utils/HandleCart'
 
 function Login() {
-  // 測試搬家版本
-  // const { login, setLogin, signIn, signOut } = useCart()
-
-  const { login, setLogin } = useContext(HandleCart) //登入用
+  const { setLogin } = useContext(HandleCart) //登入用
 
   const [errorMsg, setErrorMsg] = useState()
   const [formValues, setFormValues] = useState({

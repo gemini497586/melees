@@ -33,7 +33,6 @@ function OrderQuery() {
     getData()
   }, [])
 
-  
   return (
     <>
       <div className="page-group">
