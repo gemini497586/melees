@@ -57,7 +57,7 @@ function MemberRecipeComment() {
     return newData
   }
 
-  const getCommentAPI = async () => {
+  const readCommentAPI = async () => {
     try {
       let response = await axios.post(
         `${API_URL}/member/recipecomment/read`,
@@ -75,12 +75,12 @@ function MemberRecipeComment() {
 
   // 初始化，先去後端取資料
   useEffect(() => {
-    getCommentAPI()
+    readCommentAPI()
   }, [])
 
   // 編輯或刪除成功，重新去後端取資料
   useEffect(() => {
-    getCommentAPI()
+    readCommentAPI()
     setReRender(false)
   }, [reRender])
 

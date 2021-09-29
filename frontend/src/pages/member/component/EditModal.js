@@ -3,13 +3,18 @@ import '../../../style/memberModal.css'
 import CardPrivateRecipeforMember from './CardPrivateRecipeforMember'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
-import avatar from '../../../images/Avatar.png'
 import Black from '../../box/Black'
 import axios from 'axios'
 import { API_URL } from '../../../utils/config'
 
 function EditModal(props) {
-  const { showEditModal, openEditModal, recipeDataDetails, starScore, setReRender } = props
+  const {
+    showEditModal,
+    openEditModal,
+    recipeDataDetails,
+    starScore,
+    setReRender,
+  } = props
   const [newComment, setNewComment] = useState()
   const [newStarScore, setNewStarScore] = useState()
   const starRow = Array(5).fill(0)
@@ -34,12 +39,12 @@ function EditModal(props) {
     setNewComment('')
     openEditModal()
   }
-  const handleSubmit = async (e) => {
+  const handleEdit = async (e) => {
     e.preventDefault()
     try {
       // 評論與評分都沒有更新，丟錯誤訊息
       if (!newComment && !newStarScore) {
-        throw 'nothing to update!'
+        throw '評論與評分都沒有更新!'
       }
 
       // 評論與評分有更新，發axios送到後端
@@ -111,7 +116,7 @@ function EditModal(props) {
                 {current ? current : recipeDataDetails.member_star_rate}
               </span>
             </div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleEdit}>
               <textarea
                 className="modal-edit-recipeComment-text"
                 value={newComment ? newComment : recipeDataDetails.comment}
