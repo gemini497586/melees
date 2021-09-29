@@ -2,15 +2,18 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
-import HeartViewNum from '../../../component/HeartViewNum'
 import { API_URL } from '../../../utils/config'
+import HeartViewNum from '../../../component/HeartViewNum'
+import Ig from '../../../component/Ig'
 
-function SearchCardPrivate(props) {
-  const { privateList, setDisplayPrivate, sortBy } = props
+function SearchCardRecipe(props) {
+  const { displayData, setDisplayData, sortBy } = props
+
+  console.log(displayData)
 
   // 排序功能
-  const handleSortBy = (privateList, sortBy) => {
-    let newData = [...privateList]
+  const handleSortBy = (displayData, sortBy) => {
+    let newData = [...displayData]
     if (sortBy === 0) {
       newData = [...newData].sort((a, b) => b.id - a.id)
     }
@@ -34,21 +37,32 @@ function SearchCardPrivate(props) {
 
   useEffect(() => {
     let newData = []
-    newData = handleSortBy(privateList, sortBy)
-    setDisplayPrivate(newData)
+    newData = handleSortBy(displayData, sortBy)
+    setDisplayData(newData)
   }, [sortBy])
 
+  let typeid = {
+    1: '健康長肉肉',
+    2: '健康不吃肉',
+    3: '家常好手藝',
+    4: '上班不煩惱',
+  }
+
+  let typerecipe = {
+    1: '私藏食譜',
+    2: '精選食譜',
+  }
   return (
     <>
       <div className="s-recipe-bottom">
-        {privateList.map((v, i) => {
+        {displayData.map((v, i) => {
           return (
             <div className="s-recipe-card" key={i}>
               <div className="s-recipe-intro">
                 <div className="s-recipe-image">
                   <img
                     className="b-cover-fit"
-                    src={`${API_URL}/private/${v.picture}`}
+                    src={`${API_URL}/${v.picpath}/${v.picture}`}
                     alt={v.name}
                   />
                 </div>
@@ -58,12 +72,12 @@ function SearchCardPrivate(props) {
                       icon="bookmark"
                       className="me-2 font-400L"
                     />
-                    私藏食譜
+                    {typerecipe[v.type]}
                   </div>
                   <div className="s-recipe-text">
                     <ul className="list-unstyled">
                       <li className="s-recipe-subtitle font-400SL">
-                        {v.create_date}
+                        {v.type_id ? typeid[v.type_id] : v.create_date}
                       </li>
                       <li className="s-recipe-title font-700L ">{v.name}</li>
                     </ul>
@@ -72,16 +86,20 @@ function SearchCardPrivate(props) {
               </div>
               <div className="s-recipe-count font-400M">
                 <HeartViewNum likeqty={v.like_qty} viewqty={v.view_qty} />
-                <div className="s-recipe-count-user">
-                  <div className="s-recipe-count-circle">
-                    <img
-                      className="b-cover-fit"
-                      src={`${API_URL}/member/${v.member_pic}`}
-                      alt={v.member_nickname}
-                    ></img>
+                {v.linkName ? (
+                  <Ig linkName={v.linkName} />
+                ) : (
+                  <div className="s-recipe-count-user">
+                    <div className="s-recipe-count-circle">
+                      <img
+                        className="b-cover-fit"
+                        src={`${API_URL}/member/${v.member_pic}`}
+                        alt={v.member_nickname}
+                      ></img>
+                    </div>
+                    <p className="font-400SL">{v.member_nickname}</p>
                   </div>
-                  <p className="font-400SL">{v.member_nickname}</p>
-                </div>
+                )}
               </div>
               <div className="s-recipe-read">
                 <Link to={`/private/detail/${v.id}`}>
@@ -99,4 +117,4 @@ function SearchCardPrivate(props) {
   )
 }
 
-export default SearchCardPrivate
+export default SearchCardRecipe

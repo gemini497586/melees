@@ -4,7 +4,7 @@ import SaveBoxDelModal from './SaveBoxDelModal'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function SaveBox(props) {
-  const { data, prepList, setDisplayData } = props
+  const { data, prepList } = props
 
   const [showModal, setShowModal] = useState(false)
   const [boxId, setBoxId] = useState('')
@@ -45,7 +45,6 @@ function SaveBox(props) {
         setShowModal={setShowModal}
         openDeleteModal={openDeleteModal}
         id={boxId}
-        setDisplayData={setDisplayData}
       />
       {data.map((value) => {
         return (

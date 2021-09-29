@@ -2,6 +2,7 @@ const express = require("express");
 const connection = require("../utils/db");
 const router = express.Router();
 const { loginCheckMiddleware } = require("../middlewares/auth");
+const moment = require("moment");
 
 // 登入才可以使用
 router.use(loginCheckMiddleware);
@@ -9,12 +10,13 @@ router.use(loginCheckMiddleware);
 router.get("/", async (req, res, next) => {
     // 確認是否拿到會員id
     const memberId = req.session.member.id;
-    // const memberId = 37;
-    console.log(memberId);
+    // const memberId = 1;
+
     let result = await connection.queryAsync(
         "SELECT id,payment_method,create_date,status,total_price FROM order_main_list WHERE member_id =? ORDER BY id DESC",
         [memberId]
     );
+
     // 訂單編號補足四位數字
     result = result.map((item) => {
         if (item.id < 10) item.id = "000" + item.id;
@@ -23,28 +25,22 @@ router.get("/", async (req, res, next) => {
         return item;
     });
 
-    // 把日期轉成數字樣式 2021-09-24
-    const transformDate = (rawDate, n) => {
-        rawDate.setDate(rawDate.getDate() + n);
-        let year = rawDate.getFullYear();
-        let month = rawDate.getMonth() + 1;
-        if (month < 10) month = "0" + month;
-        let date = rawDate.getDate();
-        if (date < 10) date = "0" + date;
-        let newDate = `${year}-${month}-${date}`;
+    // 讓原本的日期可以增加天數
+    const getDate = (rawDate, n) => {
+        let newDate = moment(rawDate).add(n, "days").format("YYYY-MM-DD");
         return newDate;
     };
 
     // 把原本的陣列，新增兩個日期
     result = result.map((v) => {
-        let rawDate = new Date(v.create_date);
-        let shipmentDate = transformDate(rawDate, 3);
-        let refundDate = transformDate(rawDate, 10);
+        let shipmentDate = getDate(v.create_date, 3);
+        let refundDate = getDate(v.create_date, 10);
         v["shipment_date"] = shipmentDate;
         v["refund_date"] = refundDate;
         return v;
     });
 
+    // 取得該會員的總訂單數
     let count = await connection.queryAsync(
         "SELECT COUNT(*) AS count FROM order_main_list WHERE member_id =?",
         [memberId]
@@ -57,7 +53,7 @@ router.get("/", async (req, res, next) => {
 
 router.get("/detail/:id", async (req, res, next) => {
     const memberId = req.session.member.id;
-    // const memberId = 37;
+    // const memberId = 1;
     // console.log(memberId);
     let mainList = await connection.queryAsync(
         "SELECT * FROM order_main_list WHERE  member_id=? AND id =?",

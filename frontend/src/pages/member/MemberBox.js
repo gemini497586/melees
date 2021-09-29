@@ -27,31 +27,30 @@ function MemberBox() {
     },
   ]
 
+  const getData = async () => {
+    try {
+      let res = await Axios.get(`${API_URL}/member/readsavebox`, {
+        withCredentials: true,
+      })
+      let data = res.data.result
+      let prep = res.data.result2
+      setData(data)
+      setDisplayData(data)
+      setPrep(prep)
+
+      // 把食材做成查表法
+      let newprepList = {}
+      prep.map((item) => {
+        newprepList[item.id] = item
+      })
+      setprepList(newprepList)
+    } catch (e) {
+      console.log(e)
+      alert(e.response.data.message)
+    }
+  }
   // 初始化資料
   useEffect(() => {
-    const getData = async () => {
-      try {
-        let res = await Axios.get(`${API_URL}/member/readsavebox`, {
-          withCredentials: true,
-        })
-        let data = res.data.result
-        let prep = res.data.result2
-        setData(data)
-        setDisplayData(data)
-        setPrep(prep)
-
-        // 把食材做成查表法
-        let newprepList = {}
-        prep.map((item) => {
-          newprepList[item.id] = item
-        })
-        setprepList(newprepList)
-        // console.log(newprepList)
-      } catch (e) {
-        console.log(e)
-        alert(e.response.data.message)
-      }
-    }
     getData()
   }, [])
 
@@ -74,6 +73,7 @@ function MemberBox() {
   }
 
   useEffect(() => {
+    getData()
     let newData = []
     newData = handleSort(data, sortBy)
     setDisplayData(newData)
@@ -92,11 +92,7 @@ function MemberBox() {
               />
             </div>
             <div className="row">
-              <SaveBox
-                data={displayData}
-                prepList={prepList}
-                setDisplayData={setDisplayData}
-              />
+              <SaveBox data={displayData} prepList={prepList} />
             </div>
           </div>
         </section>

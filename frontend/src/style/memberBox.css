@@ -63,3 +63,8 @@
   font-size: 100px;
   margin-top: 25px;
 }
+
+/* saveproduct */
+.product-img > .bookmark-active {
+  color: var(--color-blue-C);
+}

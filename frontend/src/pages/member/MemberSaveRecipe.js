@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import '../../style/searchRecipe.css'
 import MinorBar from './component/MinorBar'
-import SearchCardFeature from '../search/component/SearchCardFeature.js'
-import SearchCardPrivate from '../search/component/SearchCardPrivate.js'
+import SearchCardFeature from '../search/component/SearchCardFeature'
+import SearchCardPrivate from '../search/component/SearchCardPrivate'
+import SearchCardRecipe from '../search/component/SearchCardRecipe'
 import RadioBox from '../search/component/RadioBox'
 import DropDown2 from '../../component/DropDown2'
 import Axios from 'axios'
@@ -15,9 +16,12 @@ function MemberFeature() {
   const [feature, setFeature] = useState([])
   const [displayFeature, setDisplayFeature] = useState([])
 
+  const [data, setData] = useState([])
+  const [displayData, setDisplayData] = useState([])
+
   const [sortBy, setSortBy] = useState(0)
-  const [checked, setChecked] = useState('精選食譜')
-  const checkList = ['精選食譜', '私藏食譜']
+  const [checked, setChecked] = useState('全部')
+  const checkList = ['全部', '精選食譜', '私藏食譜']
   const itemList = [
     {
       name: '時間由新至舊',
@@ -49,7 +53,11 @@ function MemberFeature() {
         setDisplayPrivate(res.data.private)
         setFeature(res.data.feature)
         setDisplayFeature(res.data.feature)
-        console.log(res)
+
+        let newData = res.data.private.concat(res.data.feature)
+        setData(newData)
+        setDisplayData(newData)
+        // console.log(res)
       } catch (e) {
         console.log(e)
       }
@@ -85,19 +93,29 @@ function MemberFeature() {
 
             <div className="member-box-bottom">
               <div className="row">
+                {checked === '全部' ? (
+                  <div>
+                    <SearchCardRecipe
+                      displayData={displayData}
+                      setDisplayData={setDisplayData}
+                      sortBy={sortBy}
+                    />
+                  </div>
+                ) : null}
                 {checked === '精選食譜' ? (
                   <SearchCardFeature
                     featureList={displayFeature}
                     setDisplayFeature={setDisplayFeature}
                     sortBy={sortBy}
                   />
-                ) : (
+                ) : null}
+                {checked === '私藏食譜' ? (
                   <SearchCardPrivate
                     privateList={displayPrivate}
                     setDisplayPrivate={setDisplayPrivate}
                     sortBy={sortBy}
                   />
-                )}
+                ) : null}
               </div>
             </div>
           </div>

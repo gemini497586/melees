@@ -25,7 +25,7 @@ router.get("/recipe", async (req, res, next) => {
     // 私藏
     let private = await connection.queryAsync(
         "SELECT a.id, a.picture, a.name, a.create_date, " +
-            "b.id AS member_id, b.name AS member_name, b.picture AS member_pic, " +
+            "b.id AS member_id, b.name AS member_name, b.nickname AS member_nickname, b.picture AS member_pic, " +
             "(SELECT COUNT(user_id) FROM private_like WHERE a.id=private_id) AS like_qty, " +
             "(SELECT COUNT(user_id) FROM private_view WHERE a.id=private_id)AS view_qty " +
             "FROM private_recipe AS a INNER JOIN member AS b ON a.member_id = b.id " +
@@ -35,18 +35,15 @@ router.get("/recipe", async (req, res, next) => {
     );
     // 精選
     let feature = await connection.queryAsync(
-        "SELECT a.id AS listId, a.type_id, a.name AS listName, a.create_date, " +
-            "b.id AS linkId, b.link, b.name AS linkName, b.img AS linkImg, " +
-            "c.id AS imgid, c.feature_id AS imgfeatureid, GROUP_CONCAT(c.file_type ORDER BY c.file_type) AS featureimg, " +
+        "SELECT a.id, a.type_id, a.name AS name, " +
+            "b.link, b.name AS linkName, b.img AS linkImg, " +
+            "c.file_type AS picture, " +
             "(SELECT COUNT(member_id) FROM feature_like WHERE a.id=feature_id) AS like_qty ," +
             "(SELECT COUNT(member_id) FROM feature_view WHERE a.id=feature_id) AS view_qty " +
             "FROM feature_list AS a INNER JOIN feature_link AS b ON a.link_id=b.id INNER JOIN feature_img AS c ON a.id=c.feature_id " +
             "WHERE a.name LIKE ? GROUP BY a.id ORDER BY a.id DESC",
         [word]
     );
-    for (let i = 0; i < feature.length; i++) {
-        feature[i].featureimg = feature[i].featureimg.split(",");
-    }
 
     // 數量
     let privateCount = await connection.queryAsync(

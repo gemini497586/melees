@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
@@ -13,10 +13,10 @@ function SearchCardFeature(props) {
   const handleSortBy = (featureList, sortBy) => {
     let newData = [...featureList]
     if (sortBy === 0) {
-      newData = [...newData].sort((a, b) => b.listId - a.listId)
+      newData = [...newData].sort((a, b) => b.id - a.id)
     }
     if (sortBy === 1) {
-      newData = [...newData].sort((a, b) => a.listId - b.listId)
+      newData = [...newData].sort((a, b) => a.id - b.id)
     }
     if (sortBy === 2) {
       newData = [...newData].sort((a, b) => b.like_qty - a.like_qty)
@@ -55,7 +55,7 @@ function SearchCardFeature(props) {
                 <div className="s-recipe-image">
                   <img
                     className="b-cover-fit"
-                    src={`${API_URL}/feature/featurefood/${v.featureimg[0]}`}
+                    src={`${API_URL}/feature/featurefood/${v.picture}`}
                     alt={v.name}
                   />
                 </div>
@@ -73,20 +73,20 @@ function SearchCardFeature(props) {
                         {typeid[v.type_id]}
                       </li>
                       <li className="s-recipe-title font-700L ">
-                        {v.listName}
+                        {v.name}
                       </li>
                     </ul>
                   </div>
                 </div>
               </div>
               <div className="s-recipe-count font-400M">
-                <HeartViewNum likeqty={v.like_qty} viewqty={v.view_qty}/>
+                <HeartViewNum likeqty={v.like_qty} viewqty={v.view_qty} />
                 <a href={v.link} target="_blank">
                   <Ig linkName={v.linkName} />
                 </a>
               </div>
               <div className="s-recipe-read">
-                <Link to={`/feature/step/${v.listId}`}>
+                <Link to={`/feature/step/${v.id}`}>
                   <button className="font-700M">
                     <FontAwesomeIcon icon="eye" className="me-2" />
                     查看食譜

@@ -3,7 +3,7 @@ import Modal from './Modal'
 import Table from '../../../component/Table'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
-import { Redirect, useHistory, useLocation } from 'react-router-dom'
+import { Redirect, useLocation } from 'react-router-dom'
 import { HandleCart } from '../../../utils/HandleCart'
 import useAlert from '../../../utils/useAlert'
 import AlertModal from '../../../component/AlertModal'
@@ -11,10 +11,9 @@ import AlertModal from '../../../component/AlertModal'
 function Page3(props) {
   const { cal, setCal, tdee, tableList, setTableList, bento, setBento } = props
   const { openAlertModal, message, alertmodal } = useAlert()
-  // const history = useHistory()
   const location = useLocation()
   const [redirect, setRedirect] = useState(false)
-  const { login, setLogin } = useContext(HandleCart)
+  const { login } = useContext(HandleCart)
 
   const [showModal, setShowModal] = useState(false)
   const openModal = () => {

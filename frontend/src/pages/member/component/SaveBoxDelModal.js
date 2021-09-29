@@ -6,7 +6,7 @@ import { API_URL } from '../../../utils/config'
 import Axios from 'axios'
 
 function SaveBoxDelModal(props) {
-  const { showModal, setShowModal, openDeleteModal, id, setDisplayData } = props
+  const { showModal, setShowModal, openDeleteModal, id } = props
 
   // 刪除收藏
   const handleDelete = async (id) => {
@@ -20,13 +20,6 @@ function SaveBoxDelModal(props) {
         { withCredentials: true }
       )
       setShowModal((prev) => !prev)
-
-      // 刪除後，重新抓原本的data
-      let res2 = await Axios.get(`${API_URL}/member/readsavebox`, {
-        withCredentials: true,
-      })
-      let data = res2.data.result
-      setDisplayData(data)
       // console.log(res)
     } catch (e) {
       console.log(e)

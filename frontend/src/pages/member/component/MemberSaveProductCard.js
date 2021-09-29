@@ -8,8 +8,6 @@ import useCart from '../../../utils/useCart'
 function MemberSaveProdcutCard(props) {
   const { saveList, productList } = props
   const { addCart } = useCart()
-
-  console.log(saveList)
   let category = { 1: '食材', 2: '鍋具', 3: '調味料' }
   return (
     <>
@@ -25,7 +23,10 @@ function MemberSaveProdcutCard(props) {
                   alt={productList && productList[v.product_id].name}
                   className="b-cover-fit"
                 />
-                <FontAwesomeIcon icon="bookmark" className="bookmark" />
+                <FontAwesomeIcon
+                  icon="bookmark"
+                  className="bookmark bookmark-active"
+                />
               </div>
               <p className="font-700S product-category">
                 {productList && category[productList[v.product_id].category]}
