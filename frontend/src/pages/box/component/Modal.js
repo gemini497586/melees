@@ -4,18 +4,22 @@ import '../../../component/FontawsomeIcons'
 import Black from '../Black'
 import axios from 'axios'
 import { API_URL } from '../../../utils/config'
+import useAlert from '../../../utils/useAlert'
+import AlertModal from '../../../component/AlertModal'
 
 function Modal(props) {
   const [name, setName] = useState('')
+  const { openAlertModal, message, alertmodal } = useAlert()
+
   const {
-    modal,
-    setModal,
-    closeModal,
+    showModal,
+    setShowModal,
+    openModal,
     bento,
     setBento,
     cal,
     setCal,
-    setUnitList,
+    setTableList,
   } = props
 
   // 抓到便當裡食材的id，陣列把它轉成字串
@@ -36,23 +40,30 @@ function Modal(props) {
         },
         { withCredentials: true }
       )
-      setModal(false)
+      setShowModal(false)
       setBento([])
       setCal(0)
-      setUnitList([])
+      setTableList([])
+      setName('')
+      // openAlertModal('便當已收藏，可至會員專區查詢')
       // console.log(res)
     } catch (e) {
-      console.log(e)
+      console.log('e', e.response)
       // alert(e.response.data.message)
     }
   }
 
   return (
     <>
-      <Black modal={modal} closeModal={closeModal} />
-      {modal ? (
+      <Black modal={showModal} closeModal={openModal} />
+      <AlertModal
+        message={message}
+        alertmodal={alertmodal}
+        openAlertModal={openAlertModal}
+      />
+      {showModal ? (
         <div className="b-modal">
-          <button className="b-modal-close" onClick={closeModal}>
+          <button className="b-modal-close" onClick={openModal}>
             <FontAwesomeIcon icon="times" />
           </button>
           <div className="b-modal-box">
@@ -69,13 +80,11 @@ function Modal(props) {
                 <div className="b-page2-indside">
                   {bento.map((v, i) => {
                     return (
-                      <>
-                        <img
-                          key={v.id}
-                          src={`${API_URL}/box/${v.inside_image}`}
-                          alt={v.name}
-                        />
-                      </>
+                      <img
+                        key={v.id}
+                        src={`${API_URL}/box/${v.inside_image}`}
+                        alt={v.name}
+                      />
                     )
                   })}
                 </div>
@@ -102,7 +111,7 @@ function Modal(props) {
                     value={name}
                     className="col-8 mb-3"
                     placeholder={name}
-                    maxlength="8"
+                    maxLength="8"
                     onChange={(e) => {
                       setName(e.target.value)
                     }}

@@ -3,13 +3,11 @@ import HeartViewNum from '../../../component/HeartViewNum'
 import Ig from '../../../component/Ig'
 import '../../../style/featureContentIntro.css'
 import '../../../style/featureComponent.css'
-import avatar from '../../../images/lonyo63.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
 
 function FeatureContentIntro(props) {
-  const { linkImg, listName, qty, linkName, featureimg } = props
-  // console.log('introfeatureimg', featureimg)
+  const { linkImg, listName, qty, linkName } = props
 
   return (
     <>

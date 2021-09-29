@@ -9,11 +9,6 @@
   width: 100%;
   object-fit: contain;
 }
-.list-unstyled {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
 .b-step {
   padding-top: 20px;
   padding-bottom: 20px;
@@ -35,23 +30,10 @@
   height: 43px;
   border: 1px solid transparent;
   border-radius: 8px;
-  white-space: nowrap;
   transition: 0.4s;
 }
-.b-btn:hover,
-.b-btnblue:hover {
+.b-btn:hover {
   background: var(--color-primary-A);
-}
-.b-btnblue {
-  background: var(--color-FBblue);
-  color: var(--color-white);
-  padding: 0 20px;
-  height: 43px;
-  border: 1px solid transparent;
-  border-radius: 8px;
-}
-.b-btnblue:hover {
-  background: var(--color-blue-B);
 }
 .b-btn-active {
   background: var(--color-grey-500);
@@ -60,7 +42,6 @@
   height: 43px;
   border: 1px solid transparent;
   border-radius: 8px;
-  white-space: nowrap;
   pointer-events: none;
 }
 @media screen and (max-width: 414px) {
@@ -101,7 +82,6 @@
   height: 45px;
 }
 .b-page1-calc button {
-  width: 50%;
   margin: 0 auto;
 }
 .b-page1-errorMsg {
@@ -126,7 +106,7 @@
   color: var(--color-grey-800);
   position: absolute;
   top: 30px;
-  left: 40px;
+  left: 50px;
 }
 
 @media screen and (max-width: 414px) {
@@ -143,20 +123,6 @@
 }
 
 /* 第二段 */
-.b-page2-title {
-  animation-name: page2title;
-  animation-duration: 2s;
-}
-
-@keyframes page2title {
-  0% {
-    top: 100px;
-  }
-  100% {
-    top: 200px;
-  }
-}
-
 .b-page2-dialog {
   position: absolute;
   top: 0;
@@ -168,7 +134,8 @@
   color: var(--color-grey-800);
   position: absolute;
   top: 45px;
-  left: 45px;
+  right: 95px;
+  width: 220px;
 }
 .b-page2-bento {
   margin-bottom: 30px;
@@ -178,17 +145,17 @@
   height: 100%;
 }
 .b-page2-select {
-  border: 1px solid var(--color-grey-800);
   color: var(--color-grey-900);
-  width: 50%;
-  height: 80%;
+  width: 60%;
   padding: 10px;
   margin-left: 20px;
   border-radius: 8px;
+  box-shadow: 0 0 3px var(--color-grey-800);
 }
 .b-page2-select .times {
   margin-left: 10px;
   cursor: pointer;
+  transition: 0.5s;
 }
 .b-page2-select .times:hover {
   color: var(--color-grey-800);
@@ -215,7 +182,6 @@
   height: 100%;
 }
 .b-page2-indside img {
-  /* border: 1px solid #000; */
   position: absolute;
   left: 17%;
   top: 3%;
@@ -244,24 +210,48 @@
   cursor: pointer;
   height: 100%;
   width: 100%;
+  transition: 0.4s;
 }
 .b-page2-slider-text {
+  color: var(--color-grey-900);
   text-align: center;
+}
+.b-page2-slider-cal {
+  color: var(--color-grey-900);
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.b-page2-mask {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.b-page2-mask:hover .b-page2-slider-image {
+  opacity: 0.5;
+}
+.b-page2-mask:hover .b-page2-slider-cal {
+  opacity: 1;
 }
 
 @media screen and (max-width: 414px) {
   .b-page2-left,
-  .b-page2-image {
+  .b-page2-image,
+  .b-page2-right,
+  .b-page2-box {
     width: 100%;
   }
   .b-page2-dialog {
     display: none;
   }
-  .b-page2-menu {
-    overflow: hidden;
-  }
-  .b-page2-box {
-    width: 100%;
+  .b-page2-note {
+    position: relative;
+    right: 0;
+    top: 0;
+    padding-left: 30px;
+    width: 90%;
   }
   .b-page2-slider {
     margin-bottom: 0;
@@ -277,11 +267,18 @@
     line-height: 20px;
     letter-spacing: 3px;
   }
+  .b-page2-btn {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    right: 0;
+    bottom: 0;
+  }
 }
 /* 第三段 */
 .b-page3 {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: flex-end;
   padding-bottom: 50px;
 }
@@ -295,16 +292,19 @@
 .b-page3-text {
   color: var(--color-grey-900);
   position: absolute;
-  left: 255px;
-  top: 28px;
+  left: 240px;
+  top: 30px;
 }
 .b-page3-btn {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 .b-page3-note {
-  display: flex;
-  justify-content: center;
+  color: var(--color-grey-800);
+  position: absolute;
+  bottom: 50px;
+  left: 230px;
 }
 .b-page3-right {
   height: 320px;
@@ -327,18 +327,25 @@
     top: 0;
     padding-left: 30px;
   }
+  .b-page3-note {
+    position: relative;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
   .b-page3-btn {
     justify-content: center;
     margin-bottom: 20px;
   }
 }
 /* Modal */
-
 .b-modal {
   position: fixed;
-  top: 50%;
+  top: 10%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   z-index: 110;
   width: 50%;
   background: var(--color-white);
@@ -410,4 +417,46 @@
   left: 0;
   top: 0;
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* 動畫 */
+.animation-bentotext {
+  animation: bentoText;
+  animation-duration: 1s;
+}
+@keyframes bentoText {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.animation-bentoIn {
+  animation: bentoIn;
+  animation-duration: 1s;
+}
+@keyframes bentoIn {
+  0% {
+    transform: translateY(-200px);
+    opacity: 0.7;
+  }
+  80% {
+    transform: translateY(0px);
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.animation-bentoOut {
+  animation: bentoOut;
+  animation-duration: 1s;
+}
+@keyframes bentoOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

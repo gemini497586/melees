@@ -55,10 +55,6 @@ app.get("/", (req, res, next) => {
 let featureRouter = require("./routers/feature");
 app.use("/feature", featureRouter);
 
-// 引入 search router 中間件
-let searchRouter = require("./routers/search");
-app.use("/search", searchRouter);
-
 // 引入 market router 中間件，包含會員專區功能
 let marketRouter = require("./routers/market");
 app.use("/market", marketRouter);
@@ -82,6 +78,10 @@ app.use("/box", boxRouter);
 // 引入 order 中間件
 let orderRouter = require("./routers/order");
 app.use("/order", orderRouter);
+
+// 引入 search 中間件
+let searchRouter = require("./routers/search");
+app.use("/search", searchRouter);
 
 // 前面都沒有任何符合的路由網址就進入這邊統一 404 來處理
 app.use((req, res, next) => {
