@@ -79,12 +79,12 @@ function App() {
                 <Route exact path="/private">
                   <PrivateRecipe />
                 </Route>
-                <Route exact path="/private/upload">
+                <ProtectedRoute exact path="/private/upload" isAuth={login}>
                   <PrivateRecipeUpload />
-                </Route>
-                <Route exact path="/private/edit/:id">
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/private/edit/:id" isAuth={login}>
                   <PrivateRecipeEdit />
-                </Route>
+                </ProtectedRoute>
                 <Route exact path="/private/detail/:id">
                   <PrivateRecipeIntro />
                 </Route>
