@@ -1,0 +1,95 @@
+.coupon-top {
+  background: var(--color-primary);
+  width: 100%;
+  padding: 20px 50px;
+  display: flex;
+  margin-bottom: 30px;
+}
+.coupon-top button {
+  border: transparent;
+  background: transparent;
+  color: var(--color-white);
+  margin-right: 20px;
+  white-space: nowrap;
+  text-align: center;
+}
+.coupon-active {
+  color: var(--color-secondary);
+}
+
+.coupon-card {
+  display: flex;
+  position: relative;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+}
+.coupon-left {
+  width: 35%;
+  background: var(--color-primary);
+  text-align: center;
+  padding: 30px 0;
+}
+.coupon-left:before {
+  content: '';
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  height: 100%;
+  width: 20px;
+  background-image: radial-gradient(var(--color-white) 40%, transparent 40%);
+  background-size: 20px 20px;
+  background-position: -10px 0;
+  background-repeat: repeat-y;
+}
+.coupon-logo {
+  height: 120px;
+}
+.coupon-text {
+  color: var(--color-white);
+}
+.coupon-right {
+  width: 65%;
+  padding: 30px;
+  position: relative;
+}
+.coupon-right ul li {
+  margin-bottom: 10px;
+}
+.coupon-right a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+.coupon-title {
+  height: 70px;
+}
+.coupon-btn {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  background: var(--color-secondary);
+  color: var(--color-white);
+  padding: 0 20px;
+  height: 43px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  transition: 0.4s;
+}
+
+@media screen and (max-width: 768px) {
+  .coupon-top {
+    justify-content: space-between;
+    padding: 20px;
+  }
+  .coupon-btn button {
+    margin-right: 0;
+  }
+  .coupon-title {
+    font-size: 20px;
+    line-height: 22px;
+    height: 70px;
+  }
+  .coupon-left,
+  .coupon-right {
+    padding: 20px 10px;
+  }
+}

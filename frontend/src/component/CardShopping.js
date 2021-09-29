@@ -1,15 +1,55 @@
-import React from 'react'
-import '../style/cardShopping.css'
-import food from '../images/default_food3.jpg'
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import '../style/cardShopping.css'
+import { API_URL } from '../utils/config'
+import Axios from 'axios'
 
-const marketList = [
-  { id: 1, picture: '1.jpg', name: '紐西蘭小羔羊薄切片' },
-  { id: 2, picture: '1.jpg', name: '紐西蘭小羔羊薄切片' },
-  { id: 3, picture: '1.jpg', name: '紐西蘭小羔羊薄切片' },
-  { id: 4, picture: '1.jpg', name: '紐西蘭小羔羊薄切片' },
-]
 function CardShopping() {
+  const [marketList, setMarketList] = useState([])
+  const [saveState, setSaveState] = useState([])
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        let result = await Axios.get(`${API_URL}/box/product`, {
+          withCredentials: true,
+        })
+        setMarketList(result.data.product)
+        setSaveState(result.data.member_save)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    getData()
+  }, [])
+
+  // console.log(saveState);
+  // 檢查該商品是否有被會員收藏
+  const saveToggled = (value) => {
+    const save = []
+    for (let i = 0; i < saveState.length; i++) {
+      if (value === saveState[i].product_id) {
+        save.push(
+          <span className="cardPrivateRecipe-bookmark-active">
+            <FontAwesomeIcon icon="bookmark" size="2x" />
+          </span>
+        )
+        break
+      } else {
+        save.push(
+          <span className="cardShopping-bookmark">
+            <FontAwesomeIcon icon="bookmark" size="2x" />
+          </span>
+        )
+        break
+      }
+    }
+    return save
+  }
+
+  let category1 = { 1: '食材', 2: '鍋具', 3: '調味料' }
+
   return (
     <div className="container">
       <div className="row">
@@ -22,32 +62,42 @@ function CardShopping() {
                 size="lg"
                 className="more-arrow"
               />
-              <span class="font-700M">看更多</span>
+              <Link to="/market/home">
+                <span class="font-700M">看更多</span>
+              </Link>
             </div>
           </div>
           <div class="cardShopping-others-hr w-100"></div>
         </div>
-        {marketList.map((value, index) => {
+        {marketList.map((value) => {
           return (
             <div className="col-12 col-md-3" key={value.id}>
               <div className="cardShopping">
-                <figure className="cardShopping-img">
-                  <img src={food} className="w-100" alt="" />
-                </figure>
-                <span className="cardShopping-bookmark">
-                  <FontAwesomeIcon icon="bookmark" size="2x" />
-                </span>
-                <span className="cardShopping-bookmark-stat-box">
-                  <div className="cardShopping-bookmark-stat-icon">
-                    <FontAwesomeIcon icon="bookmark" size="lg" />
-                  </div>
-                  <span className="cardShopping-book-mark-num font-400S">
-                    1000
+                <Link to={`/market/product/${value.id}`}>
+                  <figure className="cardShopping-img">
+                    <img
+                      src={`${API_URL}/market/${value.image}`}
+                      className="b-cover-fit"
+                      alt={value.name}
+                    />
+                  </figure>
+                  {saveToggled(value.id)}
+                  <span className="cardShopping-bookmark-stat-box">
+                    <div className="cardShopping-bookmark-stat-icon">
+                      <FontAwesomeIcon icon="bookmark" size="lg" />
+                    </div>
+                    <span className="cardShopping-book-mark-num font-400S">
+                      {value.save_qty}
+                    </span>
                   </span>
-                </span>
-                <span className="font-700S cardShopping-type">食材</span>
-                <h6 className="cardShopping-name">{value.name}</h6>
-                <span className="font-700S cardShopping-price">$190</span>
+                  <span className="font-700S cardShopping-type">
+                    {category1[value.category]}
+                  </span>
+                  <h6 className="cardShopping-name">{value.name}</h6>
+                  <span className="font-700S cardShopping-price">
+                    ${value.price}
+                  </span>
+                </Link>
               </div>
             </div>
           )

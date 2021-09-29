@@ -1,37 +1,60 @@
 import React, { useState, useEffect } from 'react'
-import { withRouter, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 import '../style/cardrecipe.css'
-import food from '../images/default_food1.jpg'
 import instagram from '../images/instagramLogo.jpg'
+import { API_URL } from '../utils/config'
+import Axios from 'axios'
 
-const recipeList = [
-  {
-    id: 1,
-    picture: '1.jpg',
-    name: '泰式涼拌海鮮寬粉',
-  },
-  {
-    id: 2,
-    picture: '2.jpg',
-    name: '檸檬蝦',
-  },
-  {
-    id: 3,
-    picture: '3.jpg',
-    name: '蜂蜜檸檬豬排',
-  },
-  {
-    id: 4,
-    picture: '4.jpg',
-    name: '咖啡牛排',
-  },
-]
+function CardRecipe() {
+  const [recipeList, setRecipeList] = useState([])
+  const [saveState, setSaveState] = useState([])
 
-function CardRecipe(props) {
-  const id = props.match.params.id
+  // 從資料庫抓資料
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        let result = await Axios.get(`${API_URL}/box/recipe`, {
+          withCredentials: true,
+        })
+        setRecipeList(result.data.feature)
+        setSaveState(result.data.member_save)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    getData()
+  }, [])
 
+  // 判斷出現的食譜，是否有被登入的會員收藏
+  const saveToggled = (value) => {
+    const save = []
+    for (let i = 0; i < saveState.length; i++) {
+      if (value === saveState[i].feature_id) {
+        save.push(
+          <span className="cardPrivateRecipe-bookmark-active">
+            <FontAwesomeIcon icon="bookmark" size="2x" />
+          </span>
+        )
+        break
+      } else {
+        save.push(
+          <span className="cardPrivateRecipe-bookmark">
+            <FontAwesomeIcon icon="bookmark" size="2x" />
+          </span>
+        )
+        break
+      }
+    }
+    return save
+  }
+
+  let typeid = {
+    1: '健康長肉肉',
+    2: '健康不吃肉',
+    3: '家常好手藝',
+    4: '上班不煩惱',
+  }
   return (
     <div className="container">
       <div className="row">
@@ -44,35 +67,41 @@ function CardRecipe(props) {
                 size="lg"
                 className="more-arrow"
               />
-              <span class="font-700M">看更多</span>
+              <Link to="feature/index/1">
+                <span class="font-700M">看更多</span>
+              </Link>
             </div>
           </div>
           <div class="cardRecipe-others-hr w-100"></div>
         </div>
-        {recipeList.map((value, index) => {
+        {recipeList.map((value) => {
           return (
-            <div className="col-12 col-md-3">
+            <div className="col-12 col-md-3" key={value.id}>
               <div className="cardRecipe">
-                <Link to={'/feature/'}>
+                <Link to={`/feature/step/${value.id}`}>
                   <figure className="cardRecipe-img">
-                    <img src={food} className="w-100" alt="" />
+                    <img
+                      src={`${API_URL}/feature/featurefood/${value.featureimg}`}
+                      className="b-cover-fit"
+                      alt={value.name}
+                    />
                   </figure>
-                  <span className="cardRecipe-bookmark">
-                    <FontAwesomeIcon icon="bookmark" size="2x" />
-                  </span>
+                  {saveToggled(value.id)}
                   <span className="cardRecipe-bookmark-stat-box">
                     <div className="cardRecipe-bookmark-stat-icon">
                       <FontAwesomeIcon icon="bookmark" size="lg" />
                     </div>
                     <span className="cardRecipe-bookmark-num font-400S">
-                      1000
+                      {value.save_qty}
                     </span>
                   </span>
-                  <span className="font-700S cardRecipe-type">健康長肉肉</span>
+                  <span className="font-700S cardRecipe-type">
+                    {typeid[value.type_id]}
+                  </span>
                   <h6 className="cardRecipe-name">{value.name}</h6>
                   <div className="f-flex cardRecipe-ig">
-                    <img src={instagram} alt="" />
-                    <span className="font-700S">謝戎宥- LON YO</span>
+                    <img src={instagram} alt="IG" />
+                    <span className="font-700S">{value.linkName}</span>
                   </div>
                 </Link>
               </div>
@@ -84,4 +113,4 @@ function CardRecipe(props) {
   )
 }
 
-export default withRouter(CardRecipe)
+export default CardRecipe
