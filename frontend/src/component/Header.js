@@ -18,6 +18,8 @@ function Header(props) {
   const [recipe, setRecipe] = useState('找食譜')
   const [goods, setGoods] = useState('找商品')
   const [keyword, setKeyword] = useState('')
+  const { carts, countProduct, setCountProduct } = useCart()
+  const [counting, setCounting] = useState(1)
 
   const location = useLocation()
   // useLocation
@@ -77,6 +79,15 @@ function Header(props) {
       console.error(err.response)
     }
   }
+
+  useEffect(() => {
+    if (carts.length > 0) {
+      setCountProduct(true)
+      setCounting(carts.length)
+    } else {
+      setCountProduct(false)
+    }
+  }, [carts])
 
   return (
     <div className="header-bar">
@@ -157,6 +168,11 @@ function Header(props) {
               setHidden(!hidden)
             }}
           >
+            {countProduct ? (
+              <div className="cartNum font-700SS">{counting}</div>
+            ) : (
+              <></>
+            )}
             <FontAwesomeIcon
               icon="shopping-cart"
               size="lg"

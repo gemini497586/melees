@@ -3,7 +3,7 @@ import '../../style/productDetails.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
 import { useParams } from 'react-router'
-import { API_URL } from '../../utils/config'
+import { API_URL, P_CATEGORY } from '../../utils/config'
 import axios from 'axios'
 import useCart from '../../utils/useCart'
 
@@ -36,7 +36,7 @@ function ProductDetails(props) {
       })
   }, [id])
 
-  let category = { 1: '食材', 2: '鍋具', 3: '調味料' }
+  // let category = { 1: '食材', 2: '鍋具', 3: '調味料' }
 
   const SaveProduct = async () => {
     try {
@@ -124,7 +124,9 @@ function ProductDetails(props) {
           {handleSave()}
         </div>
         <p className="font-400S product-detail-specs">{product.specs}</p>
-        <p className="product-detail-category">{category[product.category]}</p>
+        <p className="product-detail-category">
+          {P_CATEGORY[product.category]}
+        </p>
         <h2 className="product-detail-name">{product.name}</h2>
         <h2 className="product-detail-price">
           <FontAwesomeIcon icon="dollar-sign" />
@@ -139,7 +141,7 @@ function ProductDetails(props) {
               name: product.name,
               amount: 1,
               price: product.price,
-              category: category[product.category],
+              category: P_CATEGORY[product.category],
               specs: product.specs,
               img: product.image,
             })

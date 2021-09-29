@@ -1,3 +1,4 @@
+const { response } = require("express");
 const express = require("express");
 const router = express.Router();
 const moment = require("moment");
@@ -87,7 +88,15 @@ router.get("/home/:category?/:sort?", (req, res, next) => {
 
 let createDate = moment().format("YYYYMMDD");
 
+// 要登入才能使用
 router.use(loginCheckMiddleware);
+
+router.post("/get-personalData", (req, res, next) => {
+  let member_id = req.session.member.id;
+  connection.query("SELECT * FROM member WHERE id=?", member_id, (err, result) => {
+    res.json(result);
+  });
+});
 
 // 購物車資料
 router.post("/checkout-confirm", async (req, res, next) => {
@@ -120,6 +129,22 @@ router.post("/checkout-confirm", async (req, res, next) => {
     [member_id, req.body.name, req.body.phone, req.body.email, req.body.address, req.body.payment_method, createDate, req.body.status, req.body.total_price],
   ]);
   res.json({ reply: "收到" });
+});
+
+router.post("/order-personalData", (req, res, next) => {
+  let member_id = req.session.member.id;
+  connection.query("SELECT * FROM order_main_list WHERE member_id=? ORDER BY id DESC LIMIT 1", member_id, (err, response) => {
+    res.json(response);
+  });
+});
+
+router.post("/order-productData", async (req, res, next) => {
+  let lastId = await connection.queryAsync("SELECT * FROM order_main_list ORDER BY id DESC LIMIT 1");
+  let newID = lastId[0].id;
+
+  connection.query("SELECT P.*, OD.amount FROM order_detail_list OD, product P WHERE OD.order_id=? AND OD.product_id=P.id", newID, (err, response) => {
+    res.json(response);
+  });
 });
 
 // 收藏商品

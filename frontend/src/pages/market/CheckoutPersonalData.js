@@ -7,6 +7,8 @@ import CheckoutArea from './CheckoutArea'
 import OrderProgressBar from './component/OrderProgressBar'
 import { Link } from 'react-router-dom'
 import useCheckoutInfo from '../../utils/useCheckoutInfo'
+import axios from 'axios'
+import { API_URL } from '../../utils/config'
 
 function CheckoutPersonalData() {
   const [howToPay, setHowToPay] = useState('請選擇付款方式')
@@ -18,13 +20,35 @@ function CheckoutPersonalData() {
       payingBtn.classList.remove('dropdown-toggle')
     })
   }, [])
-  const { info, addInfo, total } = useCheckoutInfo()
+  const { info, addInfo } = useCheckoutInfo()
 
+  const [personalData, setPersonalData] = useState([])
   const [id, setId] = useState(1)
   const [name, setName] = useState(info[0].name)
   const [phone, setPhone] = useState(info[0].phone)
   const [email, setEmail] = useState(info[0].email)
   const [address, setAddress] = useState(info[0].address)
+
+  useEffect(() => {
+    // 拿到會員的資料
+    axios
+      .post(`${API_URL}/market/get-personalData`, null, {
+        // 設定可以跨源送 cookie
+        withCredentials: true,
+      })
+      .then((response) => {
+        setPersonalData(response.data[0])
+      })
+  }, [])
+
+  useEffect(() => {
+    // 在取得會員資料後預設帶入該會員的資料
+    setId(personalData.id)
+    setName(personalData.nickname)
+    setPhone(personalData.phone)
+    setEmail(personalData.email)
+    setAddress(personalData.address)
+  }, [personalData])
 
   return (
     <div className="container">
