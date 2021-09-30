@@ -70,6 +70,10 @@
   margin: 0 10px;
 }
 
+.form-input-invalid {
+  border: 2px solid var(--color-red-C);
+}
+
 .member-form-errorMsg {
   color: var(--color-red-C);
   margin: 2px 0 2px 5px;
