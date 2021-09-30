@@ -1,12 +1,14 @@
 import React, { useContext, useState } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
-import { API_URL } from '../../utils/config'
+import { Link, useHistory, useLocation } from 'react-router-dom'
+import { API_URL, FACEBOOK_APP_ID } from '../../utils/config'
 import axios from 'axios'
 import '../../style/global.css'
 import '../../style/member.css'
 import '../../style/login.css'
 import logo from '../../images/logo.png'
 import { HandleCart } from '../../utils/HandleCart'
+import FacebookLogin from 'react-facebook-login'
+import 'animate.css'
 
 function Login() {
   const { setLogin } = useContext(HandleCart) //登入用
@@ -52,8 +54,24 @@ function Login() {
     // history.replace(from)
   }
 
+  const componentClicked = () => {
+    console.log('clicked')
+  }
+
+  const responseFacebook = (response) => {
+    console.log(response)
+    // this.setState({
+    //   isLoggedIn: true,
+    //   userID: response.userID,
+    //   name: response.name,
+    //   email: response.email,
+    //   picture: response.picture.data.url,
+    // })
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setErrorMsg('')
     try {
       let account = formValues.account
       let password = formValues.password
@@ -74,7 +92,7 @@ function Login() {
     } catch (err) {
       console.error(err.response)
       if (err.response.status === 400) {
-        alert('帳號或密碼輸入錯誤')
+        setErrorMsg('帳號或密碼輸入錯誤')
       }
     }
   }
@@ -117,7 +135,7 @@ function Login() {
                 <p
                   className={
                     errorMsg
-                      ? 'font-400S member-form-errorMsg errorMsg-show'
+                      ? 'font-400S member-form-errorMsg errorMsg-show animate__animated  animate__shakeX'
                       : 'font-400S member-form-errorMsg'
                   }
                 >
@@ -139,10 +157,29 @@ function Login() {
                   <div></div>
                   使用Google登入
                 </button>
-                <button className="quickLogin-facebookBtn">
+                <FacebookLogin
+                  appId={FACEBOOK_APP_ID}
+                  autoLoad={true} //
+                  fields="name,email,picture" //
+                  onClick={componentClicked}
+                  callback={responseFacebook}
+                  cssClass="quickLogin-facebookBtn"
+                  icon="fa-facebook"
+                  textButton="使用Facebook登入"
+                />
+                {/* <FacebookLogin
+                  appId={FACEBOOK_APP_ID}
+                  autoLoad={true}
+                  fields="name,email,picture"
+                  callback={responseFacebook}
+                  cssClass="quickLogin-facebookBtn"
+                  icon="fa-facebook"
+                  textButton="使用Facebook登入"
+                /> */}
+                {/* <button className="quickLogin-facebookBtn">
                   <i className="fab fa-facebook"></i>
                   使用Facebook登入
-                </button>
+                </button> */}
               </div>
               <p className="shoppingRule font-400S">
                 當您使用MELEEs購物
@@ -151,8 +188,8 @@ function Login() {
                 <strong>隱私權政策</strong>
               </p>
               <div className="login-registerText font-400S">
-                <span>MELEEs新用戶？</span>
-                <a href="#/">註冊</a>
+                <span>MELEEs新用戶？ </span>
+                <Link to="/register">註冊</Link>
               </div>
             </div>
           </div>
