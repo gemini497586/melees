@@ -8,16 +8,6 @@ import { API_URL } from '../../../utils/config'
 import { Link } from 'react-router-dom'
 
 function FeatureCards(props) {
-  // 撈後端資料
-  // const [listdata, setListdata] = useState([])
-
-  // 取得所有資料
-  // useEffect(() => {
-  //   Axios.get(`${API_URL}/feature/index`).then((res) => {
-  //     setListdata(res.data)
-  //   })
-  // }, [])
-
   // 給頁面切換typeid資料用
   const [typedata, setTypedata] = useState([])
 
@@ -27,7 +17,8 @@ function FeatureCards(props) {
     // console.log('typeid', props)
     Axios.get(`${API_URL}/feature/index/${props.typeid}`).then((response) => {
       setTypedata(response.data)
-      // console.log('response.data', response.data)
+
+      console.log('response.data', response.data)
     })
   }, [props.typeid])
 
@@ -76,7 +67,7 @@ function FeatureCards(props) {
               {/* 瀏覽數和按讚數 */}
               <div className="fc-content-down">
                 <div className="fline-g500 mb-1"></div>
-                <HeartViewNum />
+                <HeartViewNum likeqty={e.likeqty} viewqty={e.viewqty} />
               </div>
             </div>
           </div>

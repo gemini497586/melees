@@ -8,7 +8,6 @@ import CardShopping from '../../component/CardShopping'
 import MinorBar from './component/MinorBar'
 import { API_URL } from '../../utils/config'
 import Axios from 'axios'
-import { useParams } from 'react-router'
 
 function FeatureIndexWeek() {
   /* 排序搜尋 */
@@ -41,20 +40,18 @@ function FeatureIndexWeek() {
   ]
 
   const [weekdata, setWeekdata] = useState([])
-  // const [weekimg, setWeekimg] = useState([])
+  const [weekindeximg, setWeekindeximg] = useState([])
   useEffect(() => {
     Axios.post(`${API_URL}/feature/weeklist`).then((response) => {
-      let weekdata = response.data
-      setWeekdata(weekdata)
-      // console.log('weekdata', weekdata[0])
+      setWeekdata(response.data)
     })
-    // Axios.post(`${API_URL}/feature/weekimg`).then((response) => {
-    //   let weekimg = response.data
-    //   setWeekimg(weekimg)
-    // })
+
+    Axios.post(`${API_URL}/feature/weekindeximg`).then((response) => {
+      setWeekindeximg(response.data)
+      console.log('weekindeximg', response.data)
+    })
   }, [])
 
-  // console.log('weekdata', weekdata)
   return (
     <>
       <div className="page-group">
@@ -73,10 +70,27 @@ function FeatureIndexWeek() {
             <div className="findexw-date font-400L">日期</div>
           </div>
           <div className="fline-g300"></div>
-          {weekdata.map((v, i) => {
-            return <FeatureWeek weekdataCards={v} key={i} />
-          })}
-          k
+          <div className="row m-0">
+            <div className="col-2">
+              {weekindeximg.map((v, i) => {
+                console.log('v', v)
+                return (
+                  <figure className="findexw-img">
+                    <img
+                      className="fcover-fit"
+                      src={`http://localhost:3001/feature/featurefood/${v.file_type}`}
+                      alt=""
+                    />
+                  </figure>
+                )
+              })}
+            </div>
+            <div className="col-10">
+              {weekdata.map((v, i) => {
+                return <FeatureWeek weekdataCards={v} key={i} />
+              })}
+            </div>
+          </div>
         </div>
         <div className="fpaginf-mf">
           <Paging />

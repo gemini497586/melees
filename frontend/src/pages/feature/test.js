@@ -53,14 +53,14 @@ function FeatureWeek(props) {
         let name = v[i].listName
         let id = v[i].listId
         let weekId = v[i].weekId
-        // let likeqty = v[i].likeqty
-        // let viewqty = v[i].viewqty
+        let likeqty = v[i].likeqty
+        let viewqty = v[i].viewqty
         recipeNames.push(
           <>
-            {/* <p className="text-center font-400SL fcolor-grey-900"> */}
-            <Link to={`/feature/stepweek/${weekId}/${id}`}>{name}</Link>
-            {/* </p> */}
-            {/* <HeartViewNum likeqty={likeqty} viewqty={viewqty} /> */}
+            <p className="text-center font-400SL fcolor-grey-900">
+              <Link to={`/feature/stepweek/${weekId}/${id}`}>{name}</Link>
+            </p>
+            <HeartViewNum likeqty={likeqty} viewqty={viewqty} />
           </>
         )
       }
@@ -69,9 +69,9 @@ function FeatureWeek(props) {
       return (
         <div className="fw-cards">
           <div className="fw-btn font-700M">{date1[i]}</div>
-          <p className="text-center font-400SL fcolor-grey-900">
-            {recipeNames}
-          </p>
+          {/* <p className="text-center font-400SL fcolor-grey-900"> */}
+          {recipeNames}
+          {/* </p> */}
           {/* <HeartViewNum likeqty={v[0].likeqty} viewqty={v[0].viewqty} /> */}
         </div>
       )
@@ -83,13 +83,13 @@ function FeatureWeek(props) {
       {/* 一周list */}
       <div className="fw-list">
         {/* img */}
-        {/* <figure className="fw-img fcover-fit">
+        <figure className="fw-img fcover-fit">
           <img className="fcover-fit" src={food} alt="" />
-        </figure> */}
+        </figure>
         {/* button */}
         <div className="fw-date">{mapWeekRecipe()}</div>
       </div>
-      {/* <div className="fline-g300"></div> */}
+      <div className="fline-g300"></div>
     </>
   )
 }

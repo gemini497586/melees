@@ -92,7 +92,7 @@ function App() {
                 <Route path="/feature/index/4">
                   <FeatureIndexWeek />
                 </Route>
-                <Route path="/feature/stepweek/:listId">
+                <Route path="/feature/stepweek/:weekId?/:listId?">
                   <FeatureStepWeek />
                 </Route>
                 <Route path="/feature/step/:listId?">

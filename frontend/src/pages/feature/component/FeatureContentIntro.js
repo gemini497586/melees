@@ -1,13 +1,52 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import HeartViewNum from '../../../component/HeartViewNum'
 import Ig from '../../../component/Ig'
 import '../../../style/featureContentIntro.css'
 import '../../../style/featureComponent.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
+import { useParams } from 'react-router'
+import Axios from 'axios'
+import { API_URL } from '../../../utils/config'
 
 function FeatureContentIntro(props) {
-  const { linkImg, listName, qty, linkName } = props
+  const { linkImg, listName, qty, linkName, likeqty, viewqty, listId } = props
+  const [likeList, setLikeList] = useState([])
+  const [viewList, setViewList] = useState([])
+  const [saveState, setSaveState] = useState([])
+  const [likeState, setLikeState] = useState([])
+
+  const likeSwitch = () => {
+    likeState ? setLikeState(false) : setLikeState(true)
+    likeState ? console.log('未按讚') : console.log('已按讚')
+    likeState ? deleteLike() : addLike()
+  }
+  const saveSwitch = () => {
+    saveState ? setSaveState(false) : setSaveState(true)
+    saveState ? deleteSave() : addSave()
+  }
+
+  // 新增按讚
+  const addLike = async () => {
+    let res = await Axios.get(`${API_URL}/feature/add-like/${listId}`)
+    console.log(res)
+  }
+  //刪除按讚
+  const deleteLike = async () => {
+    let res = await Axios.get(`${API_URL}/feature/remove-like/${listId}`)
+    console.log(res)
+  }
+
+  // 新增收藏
+  const addSave = async () => {
+    let res = await Axios.get(`${API_URL}/feature/add-save/${listId}`)
+    console.log(res)
+  }
+  //刪除收藏
+  const deleteSave = async () => {
+    let res = await Axios.get(`${API_URL}/feature/remove-save/${listId}`)
+    console.log(res)
+  }
 
   return (
     <>
@@ -39,23 +78,37 @@ function FeatureContentIntro(props) {
         {/* 下面按鈕 */}
         <div className="fintro-btngroup">
           {/* 愛心瀏覽數 */}
-          <HeartViewNum />
+          <HeartViewNum likeqty={likeqty} viewqty={viewqty} />
           {/* 收藏btn */}
-          <button className="fintro-btnlike font-700M">
+          <button
+            onClick={likeSwitch}
+            className={
+              likeState
+                ? 'fintro-btnlike font-700M'
+                : 'fintro-btnlike-active font-700M'
+            }
+          >
             <FontAwesomeIcon
               className="me-2"
-              icon={['far', 'bookmark']}
+              icon={['far', 'heart']}
               fixedWidth
             />
-            按讚
+            <span class="font-700M">{likeState ? '已按讚' : '按讚'}</span>
           </button>
-          <button className="fintro-btnsave font-700M">
+          <button
+            onClick={saveSwitch}
+            className={
+              saveState
+                ? 'fintro-btnsave font-700M'
+                : 'fintro-btnsave-active font-700M'
+            }
+          >
             <FontAwesomeIcon
               className="me-2"
               icon={['far', 'bookmark']}
               fixedWidth
             />
-            加入收藏
+            <span class="font-700M">{likeState ? '已按讚' : '按讚'}</span>
           </button>
         </div>
       </div>
