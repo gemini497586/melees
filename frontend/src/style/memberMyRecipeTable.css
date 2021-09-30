@@ -62,7 +62,7 @@
   color: var(--color-secondary);
 }
 
-/* 編輯跟刪除 */
+/* 編輯按鈕 */
 .MyRecipe-edit {
   width: 43px;
   height: 43px;
@@ -73,7 +73,7 @@
   height: 100%;
   color: var(--color-secondary);
 }
-
+/* 刪除按鈕 */
 .MyRecipe-delete {
   width: 43px;
   height: 43px;
@@ -83,4 +83,24 @@
 .MyRecipe-delete-icon {
   height: 100%;
   color: var(--color-secondary);
+}
+
+/* 編輯 hover 效果 */
+.MyRecipe-edit:hover {
+  border: 1px solid var(--color-primary-A);
+  transition: 0.2s;
+}
+.MyRecipe-edit-icon:hover {
+  color: var(--color-primary-A);
+  transition: 0.2s;
+}
+
+/* 刪除 hover 效果 */
+.MyRecipe-delete:hover {
+  border: 1px solid var(--color-red-C);
+  transition: 0.2s;
+}
+.MyRecipe-delete-icon:hover {
+  color: var(--color-red-C);
+  transition: 0.2s;
 }

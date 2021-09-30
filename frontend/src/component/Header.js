@@ -1,4 +1,4 @@
-import { Link, Redirect, useLocation } from 'react-router-dom'
+import { Link, Redirect, useLocation, useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import meleesLogo from '../images/meleesLogo.svg'
 import React, { useContext, useEffect, useState } from 'react'
@@ -12,8 +12,17 @@ import { HandleCart } from '../utils/HandleCart'
 
 function Header(props) {
   const { login, setLogin } = useContext(HandleCart)
+  const [word, setWord] = useState('')
+
+  const [isDropDown, setIsDropDown] = useState(false)
+  const [recipe, setRecipe] = useState('找食譜')
+  const [goods, setGoods] = useState('找商品')
+
+  const { carts, countProduct, setCountProduct } = useCart()
+  const [counting, setCounting] = useState(1)
 
   const location = useLocation()
+  const history = useHistory()
   // useLocation
 
   useEffect(() => {
@@ -27,35 +36,31 @@ function Header(props) {
     let toMarket = document.getElementById('toMarket')
     let toMember = document.getElementById('toMember')
     // switch、array -> number
-    if (now.includes('member')) {
-      toMember.classList.add('header-active', 'font-700SL')
-    } else if (now.includes('market')) {
-      toMarket.classList.add('header-active', 'font-700SL')
-    } else if (now.includes('private')) {
-      toPrivate.classList.add('header-active', 'font-700SL')
-    } else if (now.includes('feature')) {
-      toFeature.classList.add('header-active', 'font-700SL')
-    } else if (now.includes('box')) {
-      toBox.classList.add('header-active', 'font-700SL')
-    } else {
+    const removeActive = () => {
       for (let i = 0; i < header.childElementCount; i++) {
         header.children[i].classList.remove('header-active', 'font-700SL')
       }
     }
-  }, [location])
 
-  // 讓header-active隨著點擊的頁面切換，並取消其他的.active
-  useEffect(() => {
-    let header = document.getElementById('header')
-    header.addEventListener('click', (e) => {
-      if (e.target.children.length === 0) {
-        for (let i = 0; i < header.childElementCount; i++) {
-          header.children[i].classList.remove('header-active', 'font-700SL')
-        }
-        e.target.parentElement.classList.add('header-active', 'font-700SL')
-      }
-    })
-  }, [])
+    if (now.includes('member')) {
+      removeActive()
+      toMember.classList.add('header-active', 'font-700SL')
+    } else if (now.includes('market')) {
+      removeActive()
+      toMarket.classList.add('header-active', 'font-700SL')
+    } else if (now.includes('private')) {
+      removeActive()
+      toPrivate.classList.add('header-active', 'font-700SL')
+    } else if (now.includes('feature')) {
+      removeActive()
+      toFeature.classList.add('header-active', 'font-700SL')
+    } else if (now.includes('box')) {
+      removeActive()
+      toBox.classList.add('header-active', 'font-700SL')
+    } else {
+      removeActive()
+    }
+  }, [location])
 
   // 顯示header購物車
   const [hidden, setHidden] = useState(false)
@@ -76,6 +81,26 @@ function Header(props) {
     }
   }
 
+  useEffect(() => {
+    if (carts.length > 0) {
+      setCountProduct(true)
+      setCounting(carts.length)
+    } else {
+      setCountProduct(false)
+    }
+  }, [carts])
+
+  const handleSubmit = (e) => {
+    if (recipe === '找商品') {
+      history.push(`/search/market/${word}`)
+      // window.location.href = `http://localhost:3000/search/market/${word}`
+    }
+    if (recipe === '找食譜') {
+      history.replace(`/search/recipe/${word}`)
+      // window.location.href = `http://localhost:3000/search/recipe/${word}`
+    }
+  }
+
   return (
     <div className="header-bar">
       <div className="logo">
@@ -87,7 +112,6 @@ function Header(props) {
         <li className="font-400M" id="toBox">
           <Link to="/box">客製化便當</Link>
         </li>
-
         <li className="font-400M" id="toFeature">
           <Link to="/feature/index/1">精選食譜</Link>
         </li>
@@ -105,35 +129,38 @@ function Header(props) {
       <ul className="header-bar-main-ul">
         <li>
           <div className="header-search-input-group">
-            <button
-              className="font-400SL btn dropdown-toggle header-search-dropdown-btn"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
+            <div
+              className="font-400SL btn header-search-dropdown-btn"
+              onClick={(e) => {
+                setIsDropDown(!isDropDown)
+              }}
             >
-              找食譜
-            </button>
-            <ul className="dropdown-menu input-dropdown">
-              <li className="font-400SL">
-                <a class="dropdown-item" href="#/">
-                  找商品
-                </a>
-              </li>
-              <li className="font-400SL">
-                <a class="dropdown-item" href="#/">
-                  找商品
-                </a>
-              </li>
-            </ul>
-
+              <div className="dropdown-toggle">{recipe}</div>
+              {isDropDown ? (
+                <div
+                  className="header-dropdown-item"
+                  onClick={(e) => {
+                    setIsDropDown(!isDropDown)
+                    setRecipe(goods)
+                    setGoods(recipe)
+                  }}
+                >
+                  {goods}
+                </div>
+              ) : null}
+            </div>
             <input
               type="text"
               className="font-400SL header-search-input"
               placeholder="請輸入搜尋關鍵字"
+              value={word}
+              onChange={(e) => {
+                setWord(e.target.value)
+              }}
             />
-            <div className="header-search-btn">
+            <button className="header-search-btn btn" onClick={handleSubmit}>
               <FontAwesomeIcon icon="search" />
-            </div>
+            </button>
           </div>
         </li>
         <li className="cart-btn">
@@ -144,6 +171,11 @@ function Header(props) {
               setHidden(!hidden)
             }}
           >
+            {countProduct ? (
+              <div className="cartNum font-700SS">{counting}</div>
+            ) : (
+              <></>
+            )}
             <FontAwesomeIcon
               icon="shopping-cart"
               size="lg"

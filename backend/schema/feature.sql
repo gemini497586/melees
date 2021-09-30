@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2021-09-23 16:38:04
+-- 產生時間： 2021-09-30 11:45:31
 -- 伺服器版本： 10.4.19-MariaDB
 -- PHP 版本： 8.0.7
 
@@ -30,240 +30,241 @@ SET time_zone = "+00:00";
 CREATE TABLE `feature_img` (
   `id` int(10) UNSIGNED NOT NULL,
   `feature_id` int(10) UNSIGNED NOT NULL,
-  `file_type` varchar(3000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+  `file_type` varchar(3000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `week_id` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- 傾印資料表的資料 `feature_img`
 --
 
-INSERT INTO `feature_img` (`id`, `feature_id`, `file_type`) VALUES
-(1, 1, 'type1-1.jpg'),
-(2, 1, 'type1-2.jpg'),
-(3, 2, 'type2-1.jpg'),
-(4, 2, 'type2-2.jpg'),
-(5, 3, 'type3-1.jpg'),
-(6, 4, 'type4-1.jpg'),
-(7, 4, 'type4-2.jpg'),
-(8, 5, 'type5-1.jpg'),
-(9, 5, 'type5-2.jpg'),
-(10, 5, 'type5-3.jpg'),
-(11, 5, 'type5-4.jpg'),
-(12, 6, 'type6-1.jpg'),
-(13, 6, 'type6-2.jpg'),
-(14, 6, 'type6-3.jpg'),
-(15, 7, 'type7-1.jpg'),
-(16, 7, 'type7-2.jpg'),
-(17, 8, 'type8-1.jpg'),
-(18, 8, 'type8-2.jpg'),
-(19, 8, 'type8-3.jpg'),
-(20, 9, 'type9-1.jpg'),
-(21, 9, 'type9-2.jpg'),
-(22, 9, 'type9-3.jpg'),
-(23, 10, 'type10-1.jpg'),
-(24, 11, 'type11-1.jpg'),
-(25, 11, 'type11-2.jpg'),
-(26, 12, 'type12-1.jpg'),
-(27, 13, 'type13-1.jpg'),
-(28, 13, 'type13-2.jpg'),
-(29, 14, 'type14-1.jpg'),
-(30, 15, 'type15-1.jpg'),
-(31, 16, 'type16-1.jpg'),
-(32, 17, 'type17-1.jpg'),
-(33, 18, 'type18-1.jpg'),
-(34, 18, 'type18-2.jpg'),
-(35, 19, 'type19-1.jpg'),
-(36, 19, 'type19-2.jpg'),
-(37, 19, 'type19-3.jpg'),
-(38, 19, 'type19-4.jpg'),
-(39, 20, 'type20-1.jpg'),
-(40, 20, 'type20-2.jpg'),
-(41, 21, 'type21-1.jpg'),
-(42, 21, 'type21-2.jpg'),
-(43, 21, 'type21-3.jpg'),
-(44, 22, 'type22-1.jpg'),
-(45, 22, 'type22-2.jpg'),
-(46, 22, 'type22-3.jpg'),
-(47, 23, 'type23-1.jpg'),
-(48, 23, 'type23-2.jpg'),
-(49, 23, 'type23-3.jpg'),
-(50, 24, 'type24-1.jpg'),
-(51, 24, 'type24-2.jpg'),
-(52, 25, 'type25-1.jpg'),
-(53, 25, 'type25-2.jpg'),
-(54, 26, 'type26-1.jpg'),
-(55, 26, 'type26-2.jpg'),
-(56, 27, 'type27-1.jpg'),
-(57, 27, 'type27-2.jpg'),
-(58, 27, 'type27-3.jpg'),
-(59, 28, 'type28-1.jpg'),
-(60, 28, 'type28-2.jpg'),
-(61, 28, 'type28-3.jpg'),
-(62, 29, 'type29-1.jpg'),
-(63, 29, 'type29-2.jpg'),
-(64, 30, 'type30-1.jpg'),
-(65, 30, 'type30-2.jpg'),
-(66, 31, 'type31-1.jpg'),
-(67, 32, 'type32-1.jpg'),
-(68, 32, 'type32-2.jpg'),
-(69, 33, 'type33-1.jpg'),
-(70, 33, 'type33-2.jpg'),
-(71, 33, 'type33-3.jpg'),
-(72, 34, 'type34-1.jpg'),
-(73, 34, 'type34-2.jpg'),
-(74, 35, 'type35-1.jpg'),
-(75, 36, 'type36-1.jpg'),
-(76, 36, 'type36-2.jpg'),
-(77, 36, 'type36-3.jpg'),
-(78, 36, 'type36-4.jpg'),
-(79, 36, 'type36-5.jpg'),
-(80, 36, 'type36-6.jpg'),
-(81, 36, 'type36-7.jpg'),
-(82, 36, 'type36-8.jpg'),
-(83, 36, 'type36-9.jpg'),
-(84, 36, 'type36-10.jpg'),
-(85, 37, 'type37-1.jpg'),
-(86, 37, 'type37-2.jpg'),
-(87, 37, 'type37-3.jpg'),
-(88, 37, 'type37-4.jpg'),
-(89, 37, 'type37-5.jpg'),
-(90, 37, 'type37-6.jpg'),
-(91, 37, 'type37-7.jpg'),
-(92, 37, 'type37-8.jpg'),
-(93, 37, 'type37-9.jpg'),
-(94, 37, 'type37-10.jpg'),
-(95, 38, 'type38-1.jpg'),
-(96, 38, 'type38-2.jpg'),
-(97, 38, 'type38-3.jpg'),
-(98, 38, 'type38-4.jpg'),
-(99, 38, 'type38-5.jpg'),
-(100, 38, 'type38-6.jpg'),
-(101, 38, 'type38-7.jpg'),
-(102, 38, 'type38-8.jpg'),
-(103, 38, 'type38-9.jpg'),
-(104, 38, 'type38-10.jpg'),
-(105, 39, 'type39-1.jpg'),
-(106, 39, 'type39-2.jpg'),
-(107, 40, 'type40-1.jpg'),
-(108, 40, 'type40-2.jpg'),
-(109, 40, 'type40-3.jpg'),
-(110, 40, 'type40-4.jpg'),
-(111, 40, 'type40-5.jpg'),
-(112, 40, 'type40-6.jpg'),
-(113, 40, 'type40-7.jpg'),
-(114, 41, 'type41-1.jpg'),
-(115, 41, 'type41-2.jpg'),
-(116, 41, 'type41-3.jpg'),
-(117, 41, 'type41-4.jpg'),
-(118, 41, 'type41-5.jpg'),
-(119, 41, 'type41-6.jpg'),
-(120, 41, 'type41-7.jpg'),
-(121, 41, 'type41-8.jpg'),
-(122, 41, 'type41-9.jpg'),
-(123, 41, 'type41-10.jpg'),
-(124, 42, 'type42-1.jpg'),
-(125, 42, 'type42-2.jpg'),
-(126, 42, 'type42-3.jpg'),
-(127, 42, 'type42-4.jpg'),
-(128, 42, 'type42-5.jpg'),
-(129, 42, 'type42-6.jpg'),
-(130, 42, 'type42-7.jpg'),
-(131, 42, 'type42-8.jpg'),
-(132, 42, 'type42-9.jpg'),
-(133, 43, 'type43-1.jpg'),
-(134, 43, 'type43-2.jpg'),
-(135, 43, 'type43-3.jpg'),
-(136, 43, 'type43-4.jpg'),
-(137, 43, 'type43-5.jpg'),
-(138, 43, 'type43-6.jpg'),
-(139, 43, 'type43-7.jpg'),
-(140, 43, 'type43-8.jpg'),
-(141, 43, 'type43-9.jpg'),
-(142, 43, 'type43-10.jpg'),
-(143, 44, 'type44-1.jpg'),
-(144, 44, 'type44-2.jpg'),
-(145, 44, 'type44-3.jpg'),
-(146, 44, 'type44-4.jpg'),
-(147, 44, 'type44-5.jpg'),
-(148, 44, 'type44-6.jpg'),
-(149, 44, 'type44-7.jpg'),
-(150, 44, 'type44-8.jpg'),
-(151, 44, 'type44-9.jpg'),
-(152, 45, 'type45-1.jpg'),
-(153, 45, 'type45-2.jpg'),
-(154, 45, 'type45-3.jpg'),
-(155, 45, 'type45-4.jpg'),
-(156, 45, 'type45-5.jpg'),
-(157, 45, 'type45-6.jpg'),
-(158, 45, 'type45-7.jpg'),
-(159, 45, 'type45-8.jpg'),
-(160, 45, 'type45-9.jpg'),
-(161, 46, 'type46-1.jpg'),
-(162, 46, 'type46-2.jpg'),
-(163, 46, 'type46-3.jpg'),
-(164, 46, 'type46-4.jpg'),
-(165, 46, 'type46-5.jpg'),
-(166, 46, 'type46-6.jpg'),
-(167, 46, 'type46-7.jpg'),
-(168, 46, 'type46-8.jpg'),
-(169, 46, 'type46-9.jpg'),
-(170, 47, 'type47-1.jpg'),
-(171, 47, 'type47-2.jpg'),
-(172, 47, 'type47-3.jpg'),
-(173, 47, 'type47-4.jpg'),
-(174, 47, 'type47-5.jpg'),
-(175, 47, 'type47-6.jpg'),
-(176, 47, 'type47-7.jpg'),
-(177, 47, 'type47-8.jpg'),
-(178, 47, 'type47-9.jpg'),
-(179, 47, 'type47-10.jpg'),
-(180, 48, 'type48-1.jpg'),
-(181, 48, 'type48-2.jpg'),
-(182, 49, 'type49-1.jpg'),
-(183, 49, 'type49-2.jpg'),
-(184, 49, 'type49-3.jpg'),
-(185, 49, 'type49-4.jpg'),
-(186, 49, 'type49-5.jpg'),
-(187, 49, 'type49-6.jpg'),
-(188, 49, 'type49-7.jpg'),
-(189, 50, 'type50-1.jpg'),
-(190, 50, 'type50-2.jpg'),
-(191, 51, 'type51-1.jpg'),
-(192, 51, 'type51-2.jpg'),
-(193, 51, 'type51-3.jpg'),
-(194, 52, 'type52-1.jpg'),
-(195, 52, 'type52-2.jpg'),
-(196, 52, 'type52-3.jpg'),
-(197, 52, 'type52-4.jpg'),
-(198, 53, 'type53-1.jpg'),
-(199, 53, 'type53-2.jpg'),
-(200, 53, 'type53-3.jpg'),
-(201, 53, 'type53-4.jpg'),
-(202, 54, 'type54-1.jpg'),
-(203, 54, 'type54-2.jpg'),
-(204, 54, 'type54-3.jpg'),
-(205, 54, 'type54-4.jpg'),
-(206, 55, 'type55-1.jpg'),
-(207, 55, 'type55-2.jpg'),
-(208, 56, 'type56-1.jpg'),
-(209, 56, 'type56-2.jpg'),
-(210, 56, 'type56-3.jpg'),
-(211, 57, 'type57-1.jpg'),
-(212, 58, 'type58-1.jpg'),
-(213, 59, 'type59-1.jpg'),
-(214, 59, 'type59-2.jpg'),
-(215, 60, 'type60-1.jpg'),
-(216, 60, 'type60-2.jpg'),
-(217, 61, 'type61-1.jpg'),
-(218, 62, 'type62-1.jpg'),
-(219, 62, 'type62-2.jpg'),
-(220, 62, 'type62-3.jpg'),
-(221, 63, 'type63-1.jpg'),
-(222, 63, 'type63-2.jpg'),
-(223, 64, 'type64-1.jpg'),
-(224, 64, 'type64-2.jpg'),
-(225, 65, 'type65-1.jpg'),
-(226, 66, 'type65-2.jpg');
+INSERT INTO `feature_img` (`id`, `feature_id`, `file_type`, `week_id`) VALUES
+(1, 1, 'type1-1.jpg', 2),
+(2, 1, 'type1-2.jpg', 2),
+(3, 2, 'type2-1.jpg', 7),
+(4, 2, 'type2-2.jpg', 7),
+(5, 3, 'type3-1.jpg', 5),
+(6, 4, 'type4-1.jpg', 3),
+(7, 4, 'type4-2.jpg', 3),
+(8, 5, 'type5-1.jpg', NULL),
+(9, 5, 'type5-2.jpg', NULL),
+(10, 5, 'type5-3.jpg', NULL),
+(11, 5, 'type5-4.jpg', NULL),
+(12, 6, 'type6-1.jpg', 1),
+(13, 6, 'type6-2.jpg', 1),
+(14, 6, 'type6-3.jpg', 1),
+(15, 7, 'type7-1.jpg', 8),
+(16, 7, 'type7-2.jpg', 8),
+(17, 8, 'type8-1.jpg', 3),
+(18, 8, 'type8-2.jpg', 3),
+(19, 8, 'type8-3.jpg', 3),
+(20, 9, 'type9-1.jpg', 4),
+(21, 9, 'type9-2.jpg', 4),
+(22, 9, 'type9-3.jpg', 4),
+(23, 10, 'type10-1.jpg', 1),
+(24, 11, 'type11-1.jpg', 8),
+(25, 11, 'type11-2.jpg', 8),
+(26, 12, 'type12-1.jpg', 4),
+(27, 13, 'type13-1.jpg', 1),
+(28, 13, 'type13-2.jpg', 1),
+(29, 14, 'type14-1.jpg', 5),
+(30, 15, 'type15-1.jpg', 5),
+(31, 16, 'type16-1.jpg', 5),
+(32, 17, 'type17-1.jpg', 7),
+(33, 18, 'type18-1.jpg', 9),
+(34, 18, 'type18-2.jpg', 9),
+(35, 19, 'type19-1.jpg', 9),
+(36, 19, 'type19-2.jpg', 9),
+(37, 19, 'type19-3.jpg', 9),
+(38, 19, 'type19-4.jpg', 9),
+(39, 20, 'type20-1.jpg', 3),
+(40, 20, 'type20-2.jpg', 3),
+(41, 21, 'type21-1.jpg', 3),
+(42, 21, 'type21-2.jpg', 3),
+(43, 21, 'type21-3.jpg', 3),
+(44, 22, 'type22-1.jpg', 1),
+(45, 22, 'type22-2.jpg', 1),
+(46, 22, 'type22-3.jpg', 1),
+(47, 23, 'type23-1.jpg', 10),
+(48, 23, 'type23-2.jpg', 10),
+(49, 23, 'type23-3.jpg', 10),
+(50, 24, 'type24-1.jpg', NULL),
+(51, 24, 'type24-2.jpg', NULL),
+(52, 25, 'type25-1.jpg', 7),
+(53, 25, 'type25-2.jpg', 7),
+(54, 26, 'type26-1.jpg', 3),
+(55, 26, 'type26-2.jpg', 3),
+(56, 27, 'type27-1.jpg', 4),
+(57, 27, 'type27-2.jpg', 4),
+(58, 27, 'type27-3.jpg', 4),
+(59, 28, 'type28-1.jpg', NULL),
+(60, 28, 'type28-2.jpg', NULL),
+(61, 28, 'type28-3.jpg', NULL),
+(62, 29, 'type29-1.jpg', 5),
+(63, 29, 'type29-2.jpg', 5),
+(64, 30, 'type30-1.jpg', NULL),
+(65, 30, 'type30-2.jpg', NULL),
+(66, 31, 'type31-1.jpg', 8),
+(67, 32, 'type32-1.jpg', NULL),
+(68, 32, 'type32-2.jpg', NULL),
+(69, 33, 'type33-1.jpg', NULL),
+(70, 33, 'type33-2.jpg', NULL),
+(71, 33, 'type33-3.jpg', NULL),
+(72, 34, 'type34-1.jpg', NULL),
+(73, 34, 'type34-2.jpg', NULL),
+(74, 35, 'type35-1.jpg', 2),
+(75, 36, 'type36-1.jpg', 5),
+(76, 36, 'type36-2.jpg', 5),
+(77, 36, 'type36-3.jpg', 5),
+(78, 36, 'type36-4.jpg', 5),
+(79, 36, 'type36-5.jpg', 5),
+(80, 36, 'type36-6.jpg', 5),
+(81, 36, 'type36-7.jpg', 5),
+(82, 36, 'type36-8.jpg', 5),
+(83, 36, 'type36-9.jpg', 5),
+(84, 36, 'type36-10.jpg', 5),
+(85, 37, 'type37-1.jpg', 4),
+(86, 37, 'type37-2.jpg', 4),
+(87, 37, 'type37-3.jpg', 4),
+(88, 37, 'type37-4.jpg', 4),
+(89, 37, 'type37-5.jpg', 4),
+(90, 37, 'type37-6.jpg', 4),
+(91, 37, 'type37-7.jpg', 4),
+(92, 37, 'type37-8.jpg', 4),
+(93, 37, 'type37-9.jpg', 4),
+(94, 37, 'type37-10.jpg', 4),
+(95, 38, 'type38-1.jpg', 9),
+(96, 38, 'type38-2.jpg', 9),
+(97, 38, 'type38-3.jpg', 9),
+(98, 38, 'type38-4.jpg', 9),
+(99, 38, 'type38-5.jpg', 9),
+(100, 38, 'type38-6.jpg', 9),
+(101, 38, 'type38-7.jpg', 9),
+(102, 38, 'type38-8.jpg', 9),
+(103, 38, 'type38-9.jpg', 9),
+(104, 38, 'type38-10.jpg', 9),
+(105, 39, 'type39-1.jpg', 7),
+(106, 39, 'type39-2.jpg', 7),
+(107, 40, 'type40-1.jpg', NULL),
+(108, 40, 'type40-2.jpg', NULL),
+(109, 40, 'type40-3.jpg', NULL),
+(110, 40, 'type40-4.jpg', NULL),
+(111, 40, 'type40-5.jpg', NULL),
+(112, 40, 'type40-6.jpg', NULL),
+(113, 40, 'type40-7.jpg', NULL),
+(114, 41, 'type41-1.jpg', 6),
+(115, 41, 'type41-2.jpg', 6),
+(116, 41, 'type41-3.jpg', 6),
+(117, 41, 'type41-4.jpg', 6),
+(118, 41, 'type41-5.jpg', 6),
+(119, 41, 'type41-6.jpg', 6),
+(120, 41, 'type41-7.jpg', 6),
+(121, 41, 'type41-8.jpg', 6),
+(122, 41, 'type41-9.jpg', 6),
+(123, 41, 'type41-10.jpg', 6),
+(124, 42, 'type42-1.jpg', 4),
+(125, 42, 'type42-2.jpg', 4),
+(126, 42, 'type42-3.jpg', 4),
+(127, 42, 'type42-4.jpg', 4),
+(128, 42, 'type42-5.jpg', 4),
+(129, 42, 'type42-6.jpg', 4),
+(130, 42, 'type42-7.jpg', 4),
+(131, 42, 'type42-8.jpg', 4),
+(132, 42, 'type42-9.jpg', 4),
+(133, 43, 'type43-1.jpg', 6),
+(134, 43, 'type43-2.jpg', 6),
+(135, 43, 'type43-3.jpg', 6),
+(136, 43, 'type43-4.jpg', 6),
+(137, 43, 'type43-5.jpg', 6),
+(138, 43, 'type43-6.jpg', 6),
+(139, 43, 'type43-7.jpg', 6),
+(140, 43, 'type43-8.jpg', 6),
+(141, 43, 'type43-9.jpg', 6),
+(142, 43, 'type43-10.jpg', 6),
+(143, 44, 'type44-1.jpg', 6),
+(144, 44, 'type44-2.jpg', 6),
+(145, 44, 'type44-3.jpg', 6),
+(146, 44, 'type44-4.jpg', 6),
+(147, 44, 'type44-5.jpg', 6),
+(148, 44, 'type44-6.jpg', 6),
+(149, 44, 'type44-7.jpg', 6),
+(150, 44, 'type44-8.jpg', 6),
+(151, 44, 'type44-9.jpg', 6),
+(152, 45, 'type45-1.jpg', 2),
+(153, 45, 'type45-2.jpg', 2),
+(154, 45, 'type45-3.jpg', 2),
+(155, 45, 'type45-4.jpg', 2),
+(156, 45, 'type45-5.jpg', 2),
+(157, 45, 'type45-6.jpg', 2),
+(158, 45, 'type45-7.jpg', 2),
+(159, 45, 'type45-8.jpg', 2),
+(160, 45, 'type45-9.jpg', 2),
+(161, 46, 'type46-1.jpg', NULL),
+(162, 46, 'type46-2.jpg', NULL),
+(163, 46, 'type46-3.jpg', NULL),
+(164, 46, 'type46-4.jpg', NULL),
+(165, 46, 'type46-5.jpg', NULL),
+(166, 46, 'type46-6.jpg', NULL),
+(167, 46, 'type46-7.jpg', NULL),
+(168, 46, 'type46-8.jpg', NULL),
+(169, 46, 'type46-9.jpg', NULL),
+(170, 47, 'type47-1.jpg', 10),
+(171, 47, 'type47-2.jpg', 10),
+(172, 47, 'type47-3.jpg', 10),
+(173, 47, 'type47-4.jpg', 10),
+(174, 47, 'type47-5.jpg', 10),
+(175, 47, 'type47-6.jpg', 10),
+(176, 47, 'type47-7.jpg', 10),
+(177, 47, 'type47-8.jpg', 10),
+(178, 47, 'type47-9.jpg', 10),
+(179, 47, 'type47-10.jpg', 10),
+(180, 48, 'type48-1.jpg', NULL),
+(181, 48, 'type48-2.jpg', NULL),
+(182, 49, 'type49-1.jpg', NULL),
+(183, 49, 'type49-2.jpg', NULL),
+(184, 49, 'type49-3.jpg', NULL),
+(185, 49, 'type49-4.jpg', NULL),
+(186, 49, 'type49-5.jpg', NULL),
+(187, 49, 'type49-6.jpg', NULL),
+(188, 49, 'type49-7.jpg', NULL),
+(189, 50, 'type50-1.jpg', 10),
+(190, 50, 'type50-2.jpg', 10),
+(191, 51, 'type51-1.jpg', 1),
+(192, 51, 'type51-2.jpg', 1),
+(193, 51, 'type51-3.jpg', 1),
+(194, 52, 'type52-1.jpg', 2),
+(195, 52, 'type52-2.jpg', 2),
+(196, 52, 'type52-3.jpg', 2),
+(197, 52, 'type52-4.jpg', 2),
+(198, 53, 'type53-1.jpg', 2),
+(199, 53, 'type53-2.jpg', 2),
+(200, 53, 'type53-3.jpg', 2),
+(201, 53, 'type53-4.jpg', 2),
+(202, 54, 'type54-1.jpg', 10),
+(203, 54, 'type54-2.jpg', 10),
+(204, 54, 'type54-3.jpg', 10),
+(205, 54, 'type54-4.jpg', 10),
+(206, 55, 'type55-1.jpg', 9),
+(207, 55, 'type55-2.jpg', 9),
+(208, 56, 'type56-1.jpg', 10),
+(209, 56, 'type56-2.jpg', 10),
+(210, 56, 'type56-3.jpg', 10),
+(211, 57, 'type57-1.jpg', 5),
+(212, 58, 'type58-1.jpg', 5),
+(213, 59, 'type59-1.jpg', 6),
+(214, 59, 'type59-2.jpg', 6),
+(215, 60, 'type60-1.jpg', 6),
+(216, 60, 'type60-2.jpg', 6),
+(217, 61, 'type61-1.jpg', 7),
+(218, 62, 'type62-1.jpg', 7),
+(219, 62, 'type62-2.jpg', 7),
+(220, 62, 'type62-3.jpg', 7),
+(221, 63, 'type63-1.jpg', 8),
+(222, 63, 'type63-2.jpg', 8),
+(223, 64, 'type64-1.jpg', 8),
+(224, 64, 'type64-2.jpg', 8),
+(225, 65, 'type65-1.jpg', 9),
+(226, 66, 'type65-2.jpg', NULL);
 
 -- --------------------------------------------------------
 
@@ -272,8 +273,9 @@ INSERT INTO `feature_img` (`id`, `feature_id`, `file_type`) VALUES
 --
 
 CREATE TABLE `feature_like` (
-  `feature_id` int(11) UNSIGNED NOT NULL,
-  `member_id` int(11) UNSIGNED NOT NULL
+  `id` int(10) UNSIGNED NOT NULL,
+  `feature_id` int(10) UNSIGNED NOT NULL,
+  `member_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -1023,9 +1025,17 @@ INSERT INTO `feature_prep` (`id`, `feature_id`, `prep`, `unit`) VALUES
 --
 
 CREATE TABLE `feature_save` (
-  `feature_id` int(11) UNSIGNED NOT NULL,
-  `member_id` int(11) UNSIGNED NOT NULL
+  `id` int(10) UNSIGNED NOT NULL,
+  `feature_id` int(10) UNSIGNED NOT NULL,
+  `member_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- 傾印資料表的資料 `feature_save`
+--
+
+INSERT INTO `feature_save` (`id`, `feature_id`, `member_id`) VALUES
+(1, 0, 5);
 
 -- --------------------------------------------------------
 
@@ -1443,8 +1453,9 @@ INSERT INTO `feature_step` (`id`, `feature_id`, `step`) VALUES
 --
 
 CREATE TABLE `feature_view` (
-  `feature_id` int(11) UNSIGNED NOT NULL,
-  `member_id` int(11) UNSIGNED NOT NULL
+  `id` int(10) UNSIGNED NOT NULL,
+  `feature_id` int(10) UNSIGNED NOT NULL,
+  `member_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -1946,7 +1957,7 @@ ALTER TABLE `feature_img`
 -- 資料表索引 `feature_like`
 --
 ALTER TABLE `feature_like`
-  ADD PRIMARY KEY (`feature_id`,`member_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- 資料表索引 `feature_link`
@@ -1970,7 +1981,7 @@ ALTER TABLE `feature_prep`
 -- 資料表索引 `feature_save`
 --
 ALTER TABLE `feature_save`
-  ADD PRIMARY KEY (`feature_id`,`member_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- 資料表索引 `feature_step`
@@ -1982,7 +1993,7 @@ ALTER TABLE `feature_step`
 -- 資料表索引 `feature_view`
 --
 ALTER TABLE `feature_view`
-  ADD PRIMARY KEY (`feature_id`,`member_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- 資料表索引 `feature_week`
@@ -2013,6 +2024,12 @@ ALTER TABLE `feature_img`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=227;
 
 --
+-- 使用資料表自動遞增(AUTO_INCREMENT) `feature_like`
+--
+ALTER TABLE `feature_like`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- 使用資料表自動遞增(AUTO_INCREMENT) `feature_link`
 --
 ALTER TABLE `feature_link`
@@ -2031,10 +2048,22 @@ ALTER TABLE `feature_prep`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=612;
 
 --
+-- 使用資料表自動遞增(AUTO_INCREMENT) `feature_save`
+--
+ALTER TABLE `feature_save`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- 使用資料表自動遞增(AUTO_INCREMENT) `feature_step`
 --
 ALTER TABLE `feature_step`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=392;
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `feature_view`
+--
+ALTER TABLE `feature_view`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `feature_week`

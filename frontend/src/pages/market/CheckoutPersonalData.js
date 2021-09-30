@@ -7,6 +7,8 @@ import CheckoutArea from './CheckoutArea'
 import OrderProgressBar from './component/OrderProgressBar'
 import { Link } from 'react-router-dom'
 import useCheckoutInfo from '../../utils/useCheckoutInfo'
+import axios from 'axios'
+import { API_URL } from '../../utils/config'
 
 function CheckoutPersonalData() {
   const [howToPay, setHowToPay] = useState('請選擇付款方式')
@@ -18,18 +20,40 @@ function CheckoutPersonalData() {
       payingBtn.classList.remove('dropdown-toggle')
     })
   }, [])
-  const { info, addInfo, total } = useCheckoutInfo()
+  const { info, addInfo } = useCheckoutInfo()
 
+  const [personalData, setPersonalData] = useState([])
   const [id, setId] = useState(1)
   const [name, setName] = useState(info[0].name)
   const [phone, setPhone] = useState(info[0].phone)
   const [email, setEmail] = useState(info[0].email)
   const [address, setAddress] = useState(info[0].address)
 
+  useEffect(() => {
+    // 拿到會員的資料
+    axios
+      .post(`${API_URL}/market/get-personalData`, null, {
+        // 設定可以跨源送 cookie
+        withCredentials: true,
+      })
+      .then((response) => {
+        setPersonalData(response.data[0])
+      })
+  }, [])
+
+  useEffect(() => {
+    // 在取得會員資料後預設帶入該會員的資料
+    setId(personalData.id)
+    setName(personalData.nickname)
+    setPhone(personalData.phone)
+    setEmail(personalData.email)
+    setAddress(personalData.address)
+  }, [personalData])
+
   return (
     <div className="container">
       <OrderProgressBar />
-      <div className="checkout-personal-data">
+      <form className="checkout-personal-data">
         <div className="form-icon">
           <FontAwesomeIcon icon="file-alt" />
         </div>
@@ -41,6 +65,7 @@ function CheckoutPersonalData() {
             className="checkout-personal-data-input"
             type="text"
             placeholder="請輸入您的大名"
+            required
             value={name}
             onChange={(e) => {
               setName(e.target.value)
@@ -53,6 +78,7 @@ function CheckoutPersonalData() {
             className="checkout-personal-data-input"
             type="text"
             placeholder="0912xxxxxx"
+            required
             value={phone}
             onChange={(e) => {
               setPhone(e.target.value)
@@ -65,6 +91,7 @@ function CheckoutPersonalData() {
             className="checkout-personal-data-input"
             type="email"
             placeholder="abc@gmail.com"
+            required
             value={email}
             onChange={(e) => {
               setEmail(e.target.value)
@@ -77,6 +104,7 @@ function CheckoutPersonalData() {
             type="text"
             className="checkout-personal-data-input"
             placeholder="請輸入收件地址"
+            required
             value={address}
             onChange={(e) => {
               setAddress(e.target.value)
@@ -121,6 +149,7 @@ function CheckoutPersonalData() {
           <Link to="/market/checkout-confirm">
             <button
               className="btn font-700M cart-checkout-btn"
+              type="submit"
               onClick={() =>
                 addInfo({
                   id: id,
@@ -141,7 +170,7 @@ function CheckoutPersonalData() {
             </button>
           </Link>
         </div>
-      </div>
+      </form>
     </div>
   )
 }

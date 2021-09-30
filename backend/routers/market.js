@@ -1,3 +1,4 @@
+const { response } = require("express");
 const express = require("express");
 const router = express.Router();
 const moment = require("moment");
@@ -5,32 +6,99 @@ const { loginCheckMiddleware } = require("../middlewares/auth");
 
 const connection = require("../utils/db");
 
-router.get("/product/:id", (req, res, next) => {
-  let sqlSelectID = "SELECT * FROM product WHERE id = ?";
-  console.log("商品", req.params.id);
-  connection.query(sqlSelectID, req.params.id, (err, result) => {
-    res.json(result);
-  });
+// 商品ID
+router.post("/product/:id", async (req, res, next) => {
+  let productImg = await connection.queryAsync("SELECT * FROM product_img WHERE product_id=?", [req.params.id]);
+
+  let product = await connection.queryAsync("SELECT * FROM product WHERE id = ?", [req.params.id]);
+
+  if (req.session.member === undefined) {
+    res.json({ product, productImg });
+  } else {
+    let getSave = await connection.queryAsync("SELECT * FROM product_save WHERE member_id=? AND product_id=?", [req.session.member.id, req.params.id]);
+
+    res.json({ product, productImg, getSave });
+  }
 });
 
-router.get("/home/:category?", (req, res, next) => {
+// 商品首頁分類
+router.get("/home/:category?/:sort?", (req, res, next) => {
+  // console.log("s:", req.params.sort);
+  // console.log("c:", req.params.category);
+
   if (req.params.category === "undefined") {
-    connection.query("SELECT * FROM product", (err, result) => {
-      // console.log("select All");
-      res.json(result);
-    });
+    switch (req.params.sort) {
+      case "價格由高至低":
+        connection.query("SELECT * FROM product ORDER BY price DESC", (err, result) => {
+          res.json(result);
+        });
+        break;
+      case "價格由低至高":
+        connection.query("SELECT * FROM product ORDER BY price", (err, result) => {
+          res.json(result);
+        });
+        break;
+      case "時間由新至舊":
+        connection.query("SELECT * FROM product ORDER BY id DESC", (err, result) => {
+          res.json(result);
+        });
+        break;
+      case "時間由舊至新":
+        connection.query("SELECT * FROM product ORDER BY id", (err, result) => {
+          res.json(result);
+        });
+        break;
+      default:
+        connection.query("SELECT * FROM product ORDER BY id", (err, result) => {
+          res.json(result);
+        });
+        break;
+    }
   } else {
-    connection.query("SELECT * FROM product WHERE category = ?", req.params.category, (err, result) => {
-      // console.log(req.params.category);
-      res.json(result);
-    });
+    let category = req.params.category;
+    switch (req.params.sort) {
+      case "價格由高至低":
+        connection.query("SELECT * FROM product WHERE category = ? ORDER BY price DESC", category, (err, result) => {
+          res.json(result);
+        });
+        break;
+      case "價格由低至高":
+        connection.query("SELECT * FROM product WHERE category = ? ORDER BY price", category, (err, result) => {
+          res.json(result);
+        });
+        break;
+      case "時間由新至舊":
+        connection.query("SELECT * FROM product WHERE category = ? ORDER BY id DESC", category, (err, result) => {
+          res.json(result);
+        });
+        break;
+      case "時間由舊至新":
+        connection.query("SELECT * FROM product WHERE category = ? ORDER BY id", category, (err, result) => {
+          res.json(result);
+        });
+        break;
+      default:
+        connection.query("SELECT * FROM product WHERE category = ? ORDER BY id", category, (err, result) => {
+          res.json(result);
+        });
+        break;
+    }
   }
 });
 
 let createDate = moment().format("YYYYMMDD");
 
-// router.use(loginCheckMiddleware);
+// 要登入才能使用
+router.use(loginCheckMiddleware);
 
+router.post("/get-personalData", (req, res, next) => {
+  let member_id = req.session.member.id;
+  connection.query("SELECT * FROM member WHERE id=?", member_id, (err, result) => {
+    res.json(result);
+  });
+});
+
+// 購物車資料
 router.post("/checkout-confirm", async (req, res, next) => {
   // console.log("資料-->: ", req.body);
   let member_id = req.session.member.id;
@@ -61,6 +129,48 @@ router.post("/checkout-confirm", async (req, res, next) => {
     [member_id, req.body.name, req.body.phone, req.body.email, req.body.address, req.body.payment_method, createDate, req.body.status, req.body.total_price],
   ]);
   res.json({ reply: "收到" });
+});
+
+router.post("/order-personalData", (req, res, next) => {
+  let member_id = req.session.member.id;
+  connection.query("SELECT * FROM order_main_list WHERE member_id=? ORDER BY id DESC LIMIT 1", member_id, (err, response) => {
+    res.json(response);
+  });
+});
+
+router.post("/order-productData", async (req, res, next) => {
+  let lastId = await connection.queryAsync("SELECT * FROM order_main_list ORDER BY id DESC LIMIT 1");
+  let newID = lastId[0].id;
+
+  connection.query("SELECT P.*, OD.amount FROM order_detail_list OD, product P WHERE OD.order_id=? AND OD.product_id=P.id", newID, (err, response) => {
+    res.json(response);
+  });
+});
+
+// 收藏商品
+router.post("/product-save/:id", async (req, res, next) => {
+  let member_id = req.session.member.id;
+
+  try {
+    console.log("收藏商品: ", req.params.id);
+    await connection.queryAsync("INSERT INTO product_save (member_id, product_id) VALUES (?);", [[member_id, req.params.id]]);
+    res.json({ reply: `已經成功收藏${req.params.id}商品` });
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+// 刪除收藏商品
+router.post("/product-delete/:id", async (req, res, next) => {
+  let member_id = req.session.member.id;
+
+  try {
+    console.log("取消收藏商品: ", req.params.id);
+    await connection.queryAsync("DELETE FROM product_save WHERE member_id=? AND product_id=?", [member_id, req.params.id]);
+    res.json({ reply: `已經取消收藏${req.params.id}商品` });
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 module.exports = router;

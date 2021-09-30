@@ -3,7 +3,7 @@ const router = express.Router();
 const path = require("path");
 const connection = require("../utils/db");
 const bcrypt = require("bcrypt");
-const { uuid } = require("uuidv4");
+const { v4 } = require("uuid");
 const moment = require("moment");
 
 // 資料驗證
@@ -194,7 +194,7 @@ router.post("/login", async (req, res, next) => {
 
 // 登出
 router.post("/logout", (req, res, next) => {
-  console.log('會員登出摟', req.body)
+  console.log('會員登出摟 !')
   req.session.member = null;
   res.sendStatus(202);
 });

@@ -45,15 +45,25 @@
   color: var(--color-secondary);
   border-right: 1px solid var(--color-secondary);
   border-radius: 4px 0px 0px 4px;
+  align-self: center;
+  padding: 10px;
+  position: relative;
 }
 
 .header-search-dropdown-btn:focus {
   box-shadow: 0px 0px 8px var(--color-primary);
 }
 
-.input-dropdown {
-  min-width: 90px;
-  height: 120px;
+.header-dropdown-item {
+  position: absolute;
+  width: 94px;
+  height: 40px;
+  top: 42px;
+  left: -2px;
+  line-height: 40px;
+  border: 1px solid var(--color-secondary);
+  border-top: none;
+  border-radius: 4px;
 }
 
 .dropdown-menu li a:focus {
@@ -103,6 +113,19 @@
   position: absolute;
   top: calc(50% - 12px);
   right: calc(50% - 12px);
+}
+
+.cartNum {
+  width: 20px;
+  height: 20px;
+  top: 5px;
+  left: 28px;
+  border-radius: 50%;
+  position: absolute;
+  background: var(--color-primary);
+  color: var(--color-white);
+  letter-spacing: 0px;
+  z-index: 2;
 }
 /* 購物車結束 */
 

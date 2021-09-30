@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './FontawsomeIcons'
 
 function HeartViewNum(props) {
-  const { viewqty, likeqty } = props
+  const { likeqty, viewqty } = props
   return (
     <>
       <div className="hvn-size fcolor-grey-800">

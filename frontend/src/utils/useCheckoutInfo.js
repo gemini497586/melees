@@ -6,8 +6,8 @@ const useCheckoutInfo = () => {
 
   //   function ...
   const addInfo = (e) => {
-    // 1. 先從 localStorage 抓到原本的個人資料，沒有的話就新增一個
-    const currentCart = JSON.parse(localStorage.getItem('checkoutInfo')) || []
+    // 1. 先從 sessionStorage 抓到原本的個人資料，沒有的話就新增一個
+    const currentCart = JSON.parse(sessionStorage.getItem('checkoutInfo')) || []
     // 2. 檢查有沒有重複
     const index = currentCart.findIndex((v) => v.id === e.id)
 
@@ -23,14 +23,19 @@ const useCheckoutInfo = () => {
       currentCart.push(e)
     }
 
-    localStorage.setItem('checkoutInfo', JSON.stringify(currentCart))
+    sessionStorage.setItem('checkoutInfo', JSON.stringify(currentCart))
     setInfo(currentCart)
     // console.log(currentCart)
     // console.log(info)
   }
 
+  const clearInfo = () => {
+    // 清除 sessionStorage 存的資料
+    sessionStorage.removeItem('checkoutInfo')
+  }
+
   // return function ...
-  return { info, setInfo, addInfo, total, setTotal }
+  return { info, setInfo, addInfo, total, setTotal, clearInfo }
 }
 
 export default useCheckoutInfo

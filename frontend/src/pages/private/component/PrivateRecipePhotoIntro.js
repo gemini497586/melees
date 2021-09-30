@@ -8,6 +8,9 @@ import { API_URL } from '../../../utils/config'
 function PrivateRecipePhotoIntro(props) {
   const { id } = props
   const [recipe, setRecipe] = useState([])
+  const [memberInfo, setMemberInfo] = useState([])
+  const [totalRecipe, setTotalRecipe] = useState('')
+  const [totalFollow, setTotalFollow] = useState('')
 
   // 按鈕的狀態
   const [followState, setFollowState] = useState()
@@ -15,20 +18,18 @@ function PrivateRecipePhotoIntro(props) {
   const [saveState, setSaveState] = useState()
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        let res = await Axios.get(`${API_URL}/private/index/${id}`, {
-          withCredentials: true,
-        })
-        setRecipe(res.data.result)
-        setFollowState(res.data.followed)
-        setLikeState(res.data.liked)
-        setSaveState(res.data.saved)
-      } catch (e) {
-        console.log(e)
-      }
-    }
-    getData()
+    Axios.get(`${API_URL}/private/index/recipe/${id}`, {
+      withCredentials: true,
+    }).then((res) => {
+      setRecipe(res.data.result)
+      setFollowState(res.data.followed)
+      setLikeState(res.data.liked)
+      setSaveState(res.data.saved)
+      setMemberInfo(res.data.memResult[0])
+      setTotalRecipe(res.data.memberT)
+      setTotalFollow(res.data.followT)
+      console.log(res.data)
+    })
   }, [])
 
   const followSwitch = () => {
@@ -46,34 +47,46 @@ function PrivateRecipePhotoIntro(props) {
   }
   // 新增追蹤
   const addFollow = async () => {
-    let res = await Axios.get(`${API_URL}/private/add-follow/${id}`)
+    let res = await Axios.get(`${API_URL}/private/add-follow/${id}`, {
+      withCredentials: true,
+    })
     console.log(res)
   }
   // 刪除追蹤
   const deleteFollow = async () => {
-    let res = await Axios.get(`${API_URL}/private/remove-follow/${id}`)
+    let res = await Axios.get(`${API_URL}/private/remove-follow/${id}`, {
+      withCredentials: true,
+    })
     console.log(res)
   }
 
   // 新增按讚
   const addLike = async () => {
-    let res = await Axios.get(`${API_URL}/private/add-like/${id}`)
+    let res = await Axios.get(`${API_URL}/private/add-like/${id}`, {
+      withCredentials: true,
+    })
     console.log(res)
   }
   //刪除按讚
   const deleteLike = async () => {
-    let res = await Axios.get(`${API_URL}/private/remove-like/${id}`)
+    let res = await Axios.get(`${API_URL}/private/remove-like/${id}`, {
+      withCredentials: true,
+    })
     console.log(res)
   }
 
   // 新增收藏
   const addSave = async () => {
-    let res = await Axios.get(`${API_URL}/private/add-save/${id}`)
+    let res = await Axios.get(`${API_URL}/private/add-save/${id}`, {
+      withCredentials: true,
+    })
     console.log(res)
   }
   //刪除收藏
   const deleteSave = async () => {
-    let res = await Axios.get(`${API_URL}/private/remove-save/${id}`)
+    let res = await Axios.get(`${API_URL}/private/remove-save/${id}`, {
+      withCredentials: true,
+    })
     console.log(res)
   }
   const starNum = (index) => {
@@ -103,6 +116,7 @@ function PrivateRecipePhotoIntro(props) {
                 <pre>追蹤 {JSON.stringify(followState, null, 2)}</pre>
                 <pre>按讚 {JSON.stringify(likeState, null, 2)}</pre>
                 <pre>收藏 {JSON.stringify(saveState, null, 2)}</pre>
+                <pre>收藏 {JSON.stringify(memberInfo, null, 2)}</pre>
 
                 <div class="col-12 col-md-6">
                   <div class="PrivateRecipePhotoIntro-left">
@@ -119,7 +133,11 @@ function PrivateRecipePhotoIntro(props) {
                   <div class="PrivateRecipePhotoIntro-right">
                     <div class="d-flex justify-content-between">
                       <figure class="PrivateRecipePhotoIntro-avatar">
-                        <img src={avatar} class="h-100" alt="" />
+                        <img
+                          src={`${API_URL}/member/${memberInfo.picture}`}
+                          class="b-cover-fit"
+                          alt=""
+                        />
                       </figure>
                       <div
                         class="
@@ -127,8 +145,10 @@ function PrivateRecipePhotoIntro(props) {
                           PrivateRecipePhotoIntro-user-info
                       "
                       >
-                        <div class="font-700M">sylvia</div>
-                        <div class="font-400SS">9 篇食譜 127 粉絲</div>
+                        <div class="font-700M">{memberInfo.nickname}</div>
+                        <div class="font-400SS">
+                          {totalRecipe} 篇食譜 {totalFollow} 粉絲
+                        </div>
                       </div>
                       <button
                         onClick={followSwitch}
@@ -153,7 +173,7 @@ function PrivateRecipePhotoIntro(props) {
                           PrivateRecipePhotoIntro-star-num
                       "
                       >
-                        {value.star_rate}人評分過
+                        ({value.star_rate})
                       </span>
                     </div>
                     <h2 class="PrivateRecipePhotoIntro-recipe-name">

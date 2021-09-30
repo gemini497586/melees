@@ -1,10 +1,8 @@
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { API_URL } from '../utils/config'
-import React, { useEffect, useState, useContext } from 'react'
+import React from 'react'
 import '../style/headerCartRow.css'
 import './FontawsomeIcons'
-// import { HandleCart } from '../utils/HandleCart'
 import useCart from '../utils/useCart'
 
 function HeaderCartRow(props) {
