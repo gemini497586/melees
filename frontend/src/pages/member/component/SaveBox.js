@@ -1,18 +1,38 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { API_URL } from '../../../utils/config'
 import SaveBoxDelModal from './SaveBoxDelModal'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Swal from 'sweetalert2'
 
 function SaveBox(props) {
-  const { data, prepList, setDisplayData } = props
+  const { data, prepList, setDisplayData, currentPage } = props
 
   const [showModal, setShowModal] = useState(false)
   const [boxId, setBoxId] = useState('')
 
+  const perPage = 10
+  const lastNumber = currentPage * perPage
+  const firstNumber = lastNumber - perPage
+  const currentNumber = data.slice(firstNumber, lastNumber)
+
   const openDeleteModal = (id) => {
-    setShowModal((prev) => !prev)
+    // setShowModal((prev) => !prev)
     setBoxId(id)
-    console.log(id)
+    Swal.fire({
+      title: '確定要刪除這個便當嗎?',
+      // text: "確定要刪除這個便當嗎?",
+      icon: 'warning',
+      iconColor: 'var(--color-red-C)',
+      showCancelButton: true,
+      confirmButtonColor: 'var(--color-red-C)',
+      cancelButtonColor: 'var(--color-grey-500)',
+      confirmButtonText: '確定刪除',
+      cancelButtonText: '取消',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('Deleted!', 'Your file has been deleted.', 'success')
+      }
+    })
   }
 
   // 把原本的陣列->轉成對應的圖片陣列
@@ -47,7 +67,7 @@ function SaveBox(props) {
         id={boxId}
         setDisplayData={setDisplayData}
       />
-      {data.map((value) => {
+      {currentNumber.map((value) => {
         return (
           <div
             className="col-12 col-md-4 member-box-card"

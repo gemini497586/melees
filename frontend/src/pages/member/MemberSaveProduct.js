@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import '../../style/member.css'
 import MinorBar from './component/MinorBar'
-import Paging from '../../component/Paging'
+import Paging from '../../pages/market/component/Paging'
 import MemberSaveProdcutCard from './component/MemberSaveProductCard'
 import DropDown2 from '../../component/DropDown2'
 import Axios from 'axios'
 import { API_URL } from '../../utils/config'
 
 function MemberSaveProdcut() {
-  const { currentPage } = useParams()
   const [data, setData] = useState([])
   const [displayData, setDisplayData] = useState([])
   const [sortBy, setSortBy] = useState(0)
   const [product, setProduct] = useState([])
   const [productList, setProductList] = useState(null)
-  const [page, setPage] = useState(parseInt(currentPage) || 1)
-  const [totalPage, setTotalPage] = useState(0)
   const sortList = [
     {
       name: '時間由新至舊',
@@ -31,55 +28,38 @@ function MemberSaveProdcut() {
       name: '價位由低至高',
     },
   ]
-  const history = useHistory()
-
-  const getPages = () => {
-    let pages = []
-    for (let i = 1; i <= totalPage; i++) {
-      pages.push(
-        <button
-          key={i}
-          className={pages === i ? 'btn paging-btn active' : 'btn paging-btn'}
-          onClick={() => {
-            setPage(i)
-          }}
-        >
-          {i}
-        </button>
-      )
-    }
-    return pages
-  }
+  const [currentPage, setCurrentPage] = useState(1)
 
   // 初始化
   useEffect(() => {
     const getData = async () => {
       try {
-        let res = await Axios.get(
-          `${API_URL}/member/readsaveproduct/?page=${page}`,
-          {
-            withCredentials: true,
-          }
-        )
-        let data = res.data.result
-        let product = res.data.result2
-        setData(data)
-        setDisplayData(data)
-        setProduct(product)
-        setTotalPage(res.data.pagination.totalPage)
-
-        // 先設定好查表法的內容
-        let newProductList = {}
-        product.map((item) => {
-          newProductList[item.id] = item
+        let res = await Axios.get(`${API_URL}/member/readsaveproduct`, {
+          withCredentials: true,
         })
-        setProductList(newProductList)
+        // 先檢查是否有收藏
+        if (res.data.message) {
+          console.log(`${res.data.message}`)
+          return
+        } else {
+          let data = res.data.result
+          let product = res.data.result2
+          setData(data)
+          setDisplayData(data)
+          setProduct(product)
+          // 先設定好查表法的內容
+          let newProductList = {}
+          product.map((item) => {
+            newProductList[item.id] = item
+          })
+          setProductList(newProductList)
+        }
       } catch (e) {
         console.log(e)
       }
     }
     getData()
-  }, [page])
+  }, [])
 
   // 排序功能
   const handleSortBy = (data, sortBy) => {
@@ -124,12 +104,28 @@ function MemberSaveProdcut() {
             />
           </div>
           <div className="row">
-            <MemberSaveProdcutCard
+            {data.length === 0 ? (
+              <div className="member-notice font-700L">
+                <Link to="/market/home">
+                  目前尚未收藏任何商品，馬上去逛逛購物商城吧！
+                </Link>
+              </div>
+            ) : (
+              <MemberSaveProdcutCard
+                saveList={displayData}
+                productList={productList}
+                currentPage={currentPage}
+              />
+            )}
+            {/* <MemberSaveProdcutCard
               saveList={displayData}
               productList={productList}
-            />
+              currentPage={currentPage}
+            /> */}
           </div>
-          <div className="d-flex justify-content-center">{getPages()}</div>
+          <div className="d-flex justify-content-center">
+            <Paging product={displayData} setCurrentPage={setCurrentPage} />
+          </div>
         </div>
       </div>
     </>

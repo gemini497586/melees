@@ -2,13 +2,12 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
-import { API_URL } from '../../../utils/config'
+import { API_URL, P_CATEGORY } from '../../../utils/config'
 import useCart from '../../../utils/useCart'
 
 function SearchCardShop(props) {
   const { marketList } = props
   const { addCart } = useCart()
-  let category = { 1: '食材', 2: '鍋具', 3: '調味料' }
 
   // 把介紹拆開來
   const getSpecs = (value) => {
@@ -52,7 +51,7 @@ function SearchCardShop(props) {
                     name: v.name,
                     amount: 1,
                     price: v.price,
-                    category: category[v.category],
+                    category: P_CATEGORY[v.category],
                     specs: v.specs,
                     img: v.image,
                   })

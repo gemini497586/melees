@@ -2,18 +2,13 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
-import { API_URL } from '../../../utils/config'
+import { API_URL, FEATURE_TYPE } from '../../../utils/config'
 import HeartViewNum from '../../../component/HeartViewNum'
 import Ig from '../../../component/Ig'
 
 function SearchCardRecipe(props) {
   const { recipeData } = props
-  let typeid = {
-    1: '健康長肉肉',
-    2: '健康不吃肉',
-    3: '家常好手藝',
-    4: '上班不煩惱',
-  }
+
   // 因為兩種食譜，儲存圖片跟網址路徑不同，所以做查表法
   let typerecipe = {
     1: ['私藏食譜', 'private/detail', 'private'],
@@ -45,7 +40,7 @@ function SearchCardRecipe(props) {
                   <div className="s-recipe-text">
                     <ul className="list-unstyled">
                       <li className="s-recipe-subtitle font-400SL">
-                        {v.type_id ? typeid[v.type_id] : v.create_date}
+                        {v.type_id ? FEATURE_TYPE[v.type_id] : v.create_date}
                       </li>
                       <li className="s-recipe-title font-700L ">{v.name}</li>
                     </ul>

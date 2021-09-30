@@ -70,7 +70,7 @@ function SearchMarket(props) {
     let newData = []
     newData = handleSortBy(data, sortBy)
     setDisplayData(newData)
-  }, [sortBy,word])
+  }, [sortBy, word])
 
   return (
     <>

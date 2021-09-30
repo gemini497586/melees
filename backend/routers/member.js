@@ -222,70 +222,53 @@ router.post("/deletesavebox", async (req, res, next) => {
 });
 
 router.get("/readsavebox", async (req, res, next) => {
-    // const memberId = req.session.member.id;
-    const memberId = 1;
-    // 計算頁數 筆數
-    let page = req.query.page || 1;
-    let perPage = 6;
-    let count = await connection.queryAsync(
-        "SELECT COUNT(*) AS count FROM box_save WHERE member_id=?",
-        [memberId]
-    );
-    let totalCount = count[0].count;
-    let totalPage = Math.ceil(totalCount / perPage);
-    let pagination = {
-        totalCount,
-        perPage,
-        totalPage,
-        page,
-    };
-    let offset = (page - 1) * perPage;
+    const memberId = req.session.member.id;
+    // const memberId = 1;
 
     let result = await connection.queryAsync(
-        "SELECT * FROM box_save WHERE member_id=? ORDER BY id DESC LIMIT ? OFFSET ?",
-        [memberId, perPage, offset]
+        "SELECT * FROM box_save WHERE member_id=? ORDER BY id DESC",
+        [memberId]
     );
-    let result2 = await connection.queryAsync(
-        "SELECT id,name,inside_image FROM box"
-    );
-    res.json({ pagination, result, result2 });
+    // 檢查是否有收藏
+    if (result.length === 0) {
+        res.json({ message: "您好，目前尚未收藏任何便當" });
+    } else {
+        let result2 = await connection.queryAsync(
+            "SELECT id,name,inside_image FROM box"
+        );
+        res.json({ result, result2 });
+    }
 });
 
 // 收藏商品
 router.get("/readsaveproduct", async (req, res, next) => {
-    // const memberId = req.session.member.id;
-    const memberId = 1;
+    const memberId = req.session.member.id;
+    // const memberId = 1;
 
-    // 計算頁數 筆數
-    let page = req.query.page || 1;
-    let perPage = 4;
-    let count = await connection.queryAsync(
-        "SELECT COUNT(*) AS count FROM product_save WHERE member_id=?",
+    let result = await connection.queryAsync(
+        "SELECT * FROM product_save WHERE member_id=? ORDER BY id DESC",
         [memberId]
     );
-    let totalCount = count[0].count;
-    let totalPage = Math.ceil(totalCount / perPage);
-    let pagination = {
-        totalCount,
-        perPage,
-        totalPage,
-        page,
-    };
-    let offset = (page - 1) * perPage;
-
-    // 抓資料
-    let result = await connection.queryAsync(
-        "SELECT * FROM product_save WHERE member_id=? ORDER BY id DESC LIMIT ? offset ?",
-        [memberId, perPage, offset]
-    );
-    let productIds = result.map((v) => {
-        return v.product_id;
-    });
-    let result2 = await connection.queryAsync(
-        "SELECT * FROM product WHERE id IN ?",
-        [[productIds]]
-    );
-    res.json({ pagination, result, result2 });
+    // 檢查是否有收藏
+    if (result.length === 0) {
+        res.json({ message: "您好，目前尚未收藏任何商品" });
+    } else {
+        let productIds = result.map((v) => {
+            return v.product_id;
+        });
+        console.log(productIds);
+        let result2 = await connection.queryAsync(
+            // "SELECT * FROM product WHERE id IN ?",
+            // "SELECT a.id, a.name, b.id AS saveId FROM product AS a INNER JOIN product_save AS b ON a.id = b.product_id WHERE id IN ? GROUP BY a.id",
+            "SELECT a.*, " +
+                "b.id AS saveId " +
+                "FROM product AS a INNER JOIN product_save AS b ON a.id = b.product_id " +
+                "WHERE a.id IN ? " +
+                "GROUP BY a.id ORDER BY saveId DESC",
+            [[productIds]]
+        );
+        res.json({ result, result2 });
+    }
 });
 
 router.get("/readsaverecipe", async (req, res, next) => {
@@ -357,13 +340,9 @@ router.get("/readsaverecipe", async (req, res, next) => {
     // 沒有 -> 回傳訊息
     // 有 -> 回傳資料
     if (result.private.length === 0 && result.feature.length === 0) {
-        return next({
-            status: 400,
-            message: "您好，目前尚未收藏任何食譜",
-        });
+        res.json({ message: "您好，目前尚未收藏任何食譜" });
     } else {
         res.json(result);
-        // res.json({ private_save, result });
     }
 });
 

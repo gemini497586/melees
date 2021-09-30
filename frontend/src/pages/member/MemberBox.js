@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import '../../style/memberBox.css'
 import SaveBox from './component/SaveBox'
 import MinorBar from './component/MinorBar'
 import DropDown2 from '../../component/DropDown2'
 import Axios from 'axios'
 import { API_URL } from '../../utils/config'
+import Paging from '../../pages/market/component/Paging'
 
 function MemberBox() {
   const [data, setData] = useState([])
@@ -13,9 +14,6 @@ function MemberBox() {
   const [prep, setPrep] = useState([])
   const [prepList, setprepList] = useState(null)
   const [sortBy, setSortBy] = useState(0)
-  const [page, setPage] = useState(1)
-  const [totalPage, setTotalPage] = useState(0)
-  const history = useHistory()
   const itemList = [
     {
       name: '時間由新至舊',
@@ -31,55 +29,37 @@ function MemberBox() {
     },
   ]
 
-  const getPages = () => {
-    let pages = []
-    for (let i = 1; i <= totalPage; i++) {
-      pages.push(
-        <button
-          key={i}
-          className={pages === i ? 'btn paging-btn active' : 'btn paging-btn'}
-          onClick={() => {
-            setPage(i)
-          }}
-        >
-          {i}
-        </button>
-      )
-    }
-    return pages
-  }
+  const [currentPage, setCurrentPage] = useState(1)
 
   // 初始化資料
   useEffect(() => {
     const getData = async () => {
       try {
-        let res = await Axios.get(
-          `${API_URL}/member/readsavebox/?page=${page}`,
-          {
-            withCredentials: true,
-          }
-        )
-        let data = res.data.result
-        let prep = res.data.result2
-        let pagination = res.data.pagination.totalPage
-        setData(data)
-        setDisplayData(data)
-        setTotalPage(pagination)
-        history.push(`/member/savebox/${page}`)
-        setPrep(prep)
-        // 把食材做成查表法
-        let newprepList = {}
-        prep.map((item) => {
-          newprepList[item.id] = item
+        let res = await Axios.get(`${API_URL}/member/readsavebox`, {
+          withCredentials: true,
         })
-        setprepList(newprepList)
+        // 檢查是否有收藏
+        if (res.data.message) {
+          console.log(`${res.data.message}`)
+        } else {
+          let data = res.data.result
+          let prep = res.data.result2
+          setData(data)
+          setDisplayData(data)
+          setPrep(prep)
+          // 把食材做成查表法
+          let newprepList = {}
+          prep.map((item) => {
+            newprepList[item.id] = item
+          })
+          setprepList(newprepList)
+        }
       } catch (e) {
         console.log(e)
-        // alert(e.response.data.message)
       }
     }
     getData()
-  }, [page])
+  }, [])
 
   // 排序功能
   const handleSort = (data, sortBy) => {
@@ -104,6 +84,7 @@ function MemberBox() {
     newData = handleSort(data, sortBy)
     setDisplayData(newData)
   }, [sortBy, data])
+
   return (
     <>
       <div className="page-group">
@@ -118,13 +99,30 @@ function MemberBox() {
               />
             </div>
             <div className="row">
+              {data.length === 0 ? (
+                <div className="member-notice font-700L">
+                  <Link to="/box">
+                    目前尚未收藏任何便當，馬上去客製化便當吧！
+                  </Link>
+                </div>
+              ) : (
+                <SaveBox
+                  data={displayData}
+                  prepList={prepList}
+                  setDisplayData={setDisplayData}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                />
+              )}
               <SaveBox
                 data={displayData}
                 prepList={prepList}
                 setDisplayData={setDisplayData}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
               />
             </div>
-            <div className="d-flex justify-content-center">{getPages()}</div>
+            <Paging product={displayData} setCurrentPage={setCurrentPage} />
           </div>
         </section>
       </div>

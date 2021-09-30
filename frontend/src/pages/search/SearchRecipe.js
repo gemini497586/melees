@@ -44,8 +44,9 @@ function SearchRecipe() {
     const getData = async () => {
       try {
         let res = await Axios.get(`${API_URL}/search/recipe?word=${word}`)
-        let privateData = res.data.private
-        let featureData = res.data.feature
+        let privateData = res.data.result.private
+        let featureData = res.data.result.feature
+        console.log(res.data)
         let totalData = privateData.concat(featureData)
         setData(totalData)
         setDisplayData(totalData)
@@ -134,15 +135,6 @@ function SearchRecipe() {
             <div className="s-recipe-keyword">
               <div className="col-12 col-md-6">
                 <h4>
-                  {/* {checked === '全部'
-                    ? `關於 ${word} 的食譜共有 ${totalCount} 筆`
-                    : null}
-                  {checked === '精選食譜'
-                    ? `關於 ${word} 的精選食譜共有 ${featurecount} 筆`
-                    : null}
-                  {checked === '私藏食譜'
-                    ? `關於 ${word} 的私藏食譜共有 ${privatecount} 筆`
-                    : null} */}
                   關於 {word} 的食譜共有 {totalCount} 筆
                 </h4>
               </div>

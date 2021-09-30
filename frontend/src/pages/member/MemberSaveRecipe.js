@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import '../../style/searchRecipe.css'
 import MinorBar from './component/MinorBar'
 import SearchCardRecipe from '../search/component/SearchCardRecipe'
@@ -6,6 +7,7 @@ import RadioBox from '../search/component/RadioBox'
 import DropDown2 from '../../component/DropDown2'
 import Axios from 'axios'
 import { API_URL } from '../../utils/config'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function MemberFeature() {
   const [data, setData] = useState([])
@@ -40,12 +42,18 @@ function MemberFeature() {
         let res = await Axios.get(`${API_URL}/member/readsaverecipe`, {
           withCredentials: true,
         })
-        let privateData = res.data.private
-        let featureData = res.data.feature
-        let totalData = privateData.concat(featureData)
-        setData(totalData)
-        setDisplayData(totalData)
-        // console.log(res)
+        // 判斷是否有收藏
+        if (res.data.message) {
+          console.log(`${res.data.message}`)
+        } else {
+          let privateData = res.data.private
+          let featureData = res.data.feature
+          let totalData = privateData.concat(featureData)
+
+          setData(totalData)
+          setDisplayData(totalData)
+          // console.log(res)
+        }
       } catch (e) {
         console.log(e)
       }
@@ -127,9 +135,23 @@ function MemberFeature() {
             </div>
             <div className="member-box-bottom">
               <div className="row">
-                <div>
+                {data.length === 0 ? (
+                  <div className="member-notice font-700L">
+                    目前尚未收藏任何便當，馬上去看看食譜吧！
+                    <br />
+                    <Link to="/feature/index/1">
+                      <FontAwesomeIcon icon="arrow-right" className="me-2" />
+                      精選食譜
+                    </Link>
+                    <br />
+                    <Link to="/private">
+                      <FontAwesomeIcon icon="arrow-right" className="me-2" />
+                      私藏食譜
+                    </Link>
+                  </div>
+                ) : (
                   <SearchCardRecipe recipeData={displayData} />
-                </div>
+                )}
               </div>
             </div>
           </div>
