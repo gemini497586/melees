@@ -6,6 +6,7 @@ import '../../../component/FontawsomeIcons'
 import Black from '../../box/Black'
 import axios from 'axios'
 import { API_URL } from '../../../utils/config'
+import Swal from 'sweetalert2'
 
 function EditModal(props) {
   const {
@@ -64,6 +65,13 @@ function EditModal(props) {
       if (response) {
         // console.log(`id: ${recipeDataDetails.id} edits successfully`)
         openEditModal()
+        Swal.fire({
+          icon: 'success',
+          title: '編輯成功!',
+          text: '點擊確認，繼續瀏覽 MELEEs!',
+          confirmButton: '確認',
+          confirmButtonColor: '#fe9900',
+        })
         setReRender(true)
       }
     } catch (err) {

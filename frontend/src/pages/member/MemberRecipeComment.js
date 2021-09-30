@@ -74,10 +74,6 @@ function MemberRecipeComment() {
   }
 
   // 初始化，先去後端取資料
-  useEffect(() => {
-    readCommentAPI()
-  }, [])
-
   // 編輯或刪除成功，重新去後端取資料
   useEffect(() => {
     readCommentAPI()
@@ -102,6 +98,7 @@ function MemberRecipeComment() {
               sortBy={sortBy}
               setSortBy={setSortBy}
             />
+            
           </div>
           <div className="memberRecipeComment-table">
             <div className="memberRecipeComment-table-title row align-items-center">

@@ -8,6 +8,25 @@ import EditModal from './EditModal'
 import DeleteModal from './DeleteModal'
 import { API_URL } from '../../../utils/config'
 import axios from 'axios'
+import Swal from 'sweetalert2'
+
+const colors = {
+  primary: '#fe9900',
+  secondary: '#413d3c',
+  primaryA: '#ffcf0d',
+  primaryE: '#ff590d',
+  redC: '#f5524f',
+  orangelee: '#ffdda9',
+  blueB: '#0c4fe8',
+  blueC: '#199cff',
+  brownD: '#574c4b',
+  FBblue: '#1877f2',
+  grey300: '#f0f0f0',
+  grey500: '#c2c2c2',
+  grey800: '#606060',
+  grey900: '#3c3c3c',
+  white: '#ffffff',
+}
 
 function MemberRecipeCommentRow(props) {
   const { recipeData, setReRender } = props
@@ -19,6 +38,56 @@ function MemberRecipeCommentRow(props) {
   }
   const openDeleteModal = () => {
     setShowDeleteModal((prev) => !prev)
+  }
+
+  const openDeleteModalSwal = () => {
+    Swal.fire({
+      icon: 'warning',
+      iconColor: colors.redC,
+      title: '確定要刪除嗎?',
+      text: '此評論將被刪除，無法回復!',
+      showCancelButton: true,
+      confirmButtonText: '刪除',
+      confirmButtonColor: colors.redC,
+      cancelButtonText: '取消',
+      cancelButtonColor: colors.grey500,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const deleteAPI = async () => {
+          let id = recipeData.id
+          try {
+            let response = await axios.post(
+              `${API_URL}/member/recipecomment/modal/delete`,
+              { id },
+              {
+                // 設定可以跨源送 cookie
+                withCredentials: true,
+              }
+            )
+            if (response) {
+              console.log('Delete id: ' + id + ' successful')
+              Swal.fire({
+                icon: 'success',
+                title: '刪除成功！',
+                confirmButtonColor: colors.primary,
+                confirmButtonText: '確認',
+              })
+            }
+            setReRender(true)
+          } catch (err) {
+            console.error(err)
+            Swal.fire({
+              icon: 'error',
+              title: '發生不明錯誤！',
+              text: '請聯繫 MEELEs 客服，我們將儘速處理!',
+              confirmButtonColor: colors.primary,
+              confirmButtonText: '確認',
+            })
+          }
+        }
+        deleteAPI()
+      }
+    })
   }
 
   const starScore = (star_rate) => {
@@ -118,6 +187,10 @@ function MemberRecipeCommentRow(props) {
           </button>
           <button onClick={openDeleteModal}>
             <FontAwesomeIcon icon="trash-alt" size="1x" className="icon-item" />
+          </button>
+          <button onClick={openDeleteModalSwal}>
+            <FontAwesomeIcon icon="trash-alt" size="1x" className="icon-item" />
+            Swal
           </button>
         </div>
       </div>
