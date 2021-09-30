@@ -2,6 +2,7 @@
 .login {
   width: 100%;
   background-color: var(--color-primary);
+  margin-top: 104px;
   padding: 150px 0;
 }
 
