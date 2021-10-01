@@ -4,13 +4,12 @@ import '../../style/box.css'
 import Page1 from './component/Page1'
 import Page2 from './component/Page2'
 import Page3 from './component/Page3'
-import AlertModal from '../../component/AlertModal'
 import CardRecipe from '../../component/CardRecipe'
 import CardShopping from '../../component/CardShopping'
 import { API_URL } from '../../utils/config'
-import useAlert from '../../utils/useAlert'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import Swal from 'sweetalert2'
 AOS.init({
   offset: 50,
   duration: 500,
@@ -24,7 +23,6 @@ function Box() {
   const [bmr, setBmr] = useState(0)
   const [tdee, setTdee] = useState(0)
   const [cal, setCal] = useState(0)
-  const { openAlertModal, message, alertmodal } = useAlert()
 
   // 從資料庫抓資料
   useEffect(() => {
@@ -54,7 +52,10 @@ function Box() {
     // 存在->不能新增
     // 不存在->可以新增
     if (getName.includes(v.name)) {
-      openAlertModal('每樣食材只可挑選一次')
+      Swal.fire({
+        title: '每樣食材只可挑選一次',
+        confirmButtonColor: 'var(--color-primary)',
+      })
       return
     } else {
       const newBento = [
@@ -63,7 +64,10 @@ function Box() {
       ]
       // 第六個的時候就不能再新增
       if (newBento.length > 5) {
-        openAlertModal('最多只可挑選五樣食材')
+        Swal.fire({
+          title: '最多只能挑選五樣食材',
+          confirmButtonColor: 'var(--color-primary)',
+        })
         return
       }
       setBento(newBento)
@@ -105,11 +109,6 @@ function Box() {
 
   return (
     <>
-      <AlertModal
-        message={message}
-        alertmodal={alertmodal}
-        openAlertModal={openAlertModal}
-      />
       <section className="page-group">
         <Page1 bmr={bmr} setBmr={setBmr} tdee={tdee} setTdee={setTdee} />
         <Page2
@@ -127,9 +126,6 @@ function Box() {
           setTableList={setTableList}
           bento={bento}
           setBento={setBento}
-          message={message}
-          alertmodal={alertmodal}
-          openAlertModal={openAlertModal}
         />
         {/* 最下面推薦食譜 商品 */}
         <CardRecipe />

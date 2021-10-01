@@ -6,8 +6,7 @@ import DropDown2 from '../../component/DropDown2'
 import axios from 'axios'
 import { API_URL } from '../../utils/config'
 
-function SearchMarket(props) {
-  // console.log(props)
+function SearchMarket() {
   const { word } = useParams()
   const [data, setData] = useState([])
   const [displayData, setDisplayData] = useState([])
@@ -70,7 +69,7 @@ function SearchMarket(props) {
     let newData = []
     newData = handleSortBy(data, sortBy)
     setDisplayData(newData)
-  }, [sortBy,word])
+  }, [sortBy, word])
 
   return (
     <>

@@ -6,10 +6,10 @@ import { API_URL } from '../../../utils/config'
 
 function Page2(props) {
   const { data, subData, handleCheck, handleRemove, bento } = props
-  const [main, setMain] = useState(true)
+  const [show, setShow] = useState(true)
 
   const handleMain = () => {
-    setMain((prev) => !prev)
+    setShow((prev) => !prev)
   }
   return (
     <>
@@ -55,7 +55,7 @@ function Page2(props) {
                 <img
                   src="http://localhost:3000/images/box_up.png"
                   alt="BoxUp"
-                  class="b-contain-fit b-page2-up"
+                  className="b-contain-fit b-page2-up"
                 />
                 <div className="b-page2-indside">
                   {bento.map((v, i) => {
@@ -73,7 +73,7 @@ function Page2(props) {
                 <img
                   src="http://localhost:3000/images/box_down.png"
                   alt="BoxDown"
-                  class="b-contain-fit b-page2-down"
+                  className="b-contain-fit b-page2-down"
                 />
               </div>
             </div>
@@ -81,7 +81,7 @@ function Page2(props) {
               <div className="b-page2-btn">
                 <button
                   className={
-                    main
+                    show
                       ? 'b-btn-active font-700M me-2'
                       : 'b-btn font-700M me-2'
                   }
@@ -93,7 +93,7 @@ function Page2(props) {
                 </button>
                 <button
                   className={
-                    main ? 'b-btn font-700M' : 'b-btn-active font-700M'
+                    show ? 'b-btn font-700M' : 'b-btn-active font-700M'
                   }
                   onClick={() => {
                     handleMain()
@@ -106,7 +106,7 @@ function Page2(props) {
           </div>
         </div>
         <Carousel
-          main={main}
+          show={show}
           data={data}
           subData={subData}
           handleCheck={handleCheck}
