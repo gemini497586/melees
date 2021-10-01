@@ -91,6 +91,7 @@
   left: 76px;
 }
 
+/* 付款方式 */
 .checkout-personal-data-paying {
   width: 450px;
   height: 45px;
@@ -108,6 +109,17 @@
 
 .paying-dropdown-btn li:hover {
   background: var(--color-primary);
+}
+
+/* 未選擇付款方式的提示訊息 */
+.show-alert {
+  top: 428px;
+  left: 230px;
+  color: red;
+}
+.checkout-alert {
+  border: 1px solid var(--color-red-C);
+  box-shadow: 0px 0px 5px 2px rgba(255, 76, 76, 0.2);
 }
 
 /* 下方按鈕部分 */

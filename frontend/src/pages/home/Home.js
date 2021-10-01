@@ -295,7 +295,7 @@ function Home() {
                   <h5 className="fcolor-grey-800">你最好的SUP！</h5>
                   <h1 className="fcolor-primary mb-5">熱燒商品</h1>
                 </div>
-                <Link to="/market" className="h-shop-titlebtn">
+                <Link to="/market/home" className="h-shop-titlebtn">
                   查看更多商品
                 </Link>
               </div>

@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react'
 import { CartContext } from './CartContext'
+import Swal from 'sweetalert2'
 
 const useCart = () => {
   const [
@@ -24,7 +25,7 @@ const useCart = () => {
 
     if (index > -1) {
       //currentCart[index].amount++
-      alert('該商品已經加入購物車')
+      Swal.fire('該商品已經加入購物車', '', 'warning')
       return
     } else {
       // 如果商品沒有重複就放進購物車
@@ -35,12 +36,13 @@ const useCart = () => {
     setCarts(currentCart)
   }
 
-  const removeCart = (e, id) => {
+  const removeCart = (e) => {
     // 從購物車移除商品
     const currentCart = JSON.parse(sessionStorage.getItem('cartList')) || []
     const index = currentCart.findIndex((v) => v.id === e.id)
     if (index === -1) {
       currentCart.splice(e, 1)
+      Swal.fire('成功刪除商品', '', 'warning')
     }
     sessionStorage.setItem('cartList', JSON.stringify(currentCart))
     setCarts(currentCart)

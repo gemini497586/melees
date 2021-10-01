@@ -24,7 +24,6 @@ function Paging(props) {
   // console.log(currentNumber)
 
   const handlePage = (e) => {
-    // console.log(e.target.classList)
     setCurrentPage(e.target.innerHTML)
     e.target.classList.add('active')
   }

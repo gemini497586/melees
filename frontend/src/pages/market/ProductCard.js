@@ -10,16 +10,32 @@ import useCart from '../../utils/useCart'
 function ProductCard(props) {
   const { category, product, setProduct, currentPage, setCurrentPage } = props
   const { addCart, setProductsAll, selectIndex, setCountProduct } = useCart()
+  const [save, setSave] = useState(false)
+  const [saving, setSaving] = useState([])
 
   useEffect(() => {
     // 商品分類跟排序
     axios
-      .get(`${API_URL}/market/home/${category}/${selectIndex}`)
+      .post(`${API_URL}/market/home/${category}/${selectIndex}`, null, {
+        withCredentials: true,
+      })
       .then((response) => {
         setProduct(response.data)
         setCurrentPage(1)
       })
   }, [category, selectIndex])
+
+  useEffect(() => {
+    axios
+      .post(`${API_URL}/market/get/save`, null, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        console.log('拿到收藏', response.data)
+        setSaving(response.data)
+      })
+      .then(console.log(saving))
+  }, [])
 
   useEffect(() => {
     // 取得所有商品資料用
@@ -28,12 +44,10 @@ function ProductCard(props) {
     })
   }, [])
 
-  // useEffect(() => {
-  //   // 取得查詢的商品資料
-  //   axios.get(`${API_URL}/search/${searching}`).then((response) => {
-  //     setProduct(response.data)
-  //   })
-  // }, [searching])
+  useEffect(() => {
+    console.log(saving)
+    console.log(sessionStorage)
+  }, [])
 
   // const [currentPage, setCurrentPage] = useState(1)
   const [perPage, setPerPage] = useState(10)
@@ -48,7 +62,11 @@ function ProductCard(props) {
         <Link to={`/market/product/${e.id}`}>
           <div className="product-img">
             <img src={`${API_URL}/market/${e.image}`} alt={`商品${e.id}圖片`} />
-            {/* <FontAwesomeIcon icon="bookmark" className="bookmark" /> */}
+            {save ? (
+              <FontAwesomeIcon icon="bookmark" className="bookmark" />
+            ) : (
+              <></>
+            )}
           </div>
           <p className="font-700S product-category">{P_CATEGORY[e.category]}</p>
           <h6 className="product-name">{e.name}</h6>
