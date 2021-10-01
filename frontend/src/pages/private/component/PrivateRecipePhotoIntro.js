@@ -112,11 +112,11 @@ function PrivateRecipePhotoIntro(props) {
           {recipe.map((value, index) => {
             return (
               <>
-                <pre>{JSON.stringify(recipe, null, 2)}</pre>
+                <pre>食譜資訊 {JSON.stringify(recipe, null, 2)}</pre>
                 <pre>追蹤 {JSON.stringify(followState, null, 2)}</pre>
                 <pre>按讚 {JSON.stringify(likeState, null, 2)}</pre>
                 <pre>收藏 {JSON.stringify(saveState, null, 2)}</pre>
-                <pre>收藏 {JSON.stringify(memberInfo, null, 2)}</pre>
+                <pre>作者資訊 {JSON.stringify(memberInfo, null, 2)}</pre>
 
                 <div class="col-12 col-md-6">
                   <div class="PrivateRecipePhotoIntro-left">
