@@ -8,7 +8,14 @@ import axios from 'axios'
 import useCart from '../../utils/useCart'
 
 function ProductCard(props) {
-  const { category, product, setProduct, currentPage, setCurrentPage } = props
+  const {
+    category,
+    product,
+    setProduct,
+    currentPage,
+    setCurrentPage,
+    perPage,
+  } = props
   const { addCart, setProductsAll, selectIndex, setCountProduct } = useCart()
   const [save, setSave] = useState(false)
   const [saving, setSaving] = useState([])
@@ -50,7 +57,6 @@ function ProductCard(props) {
   }, [])
 
   // const [currentPage, setCurrentPage] = useState(1)
-  const [perPage, setPerPage] = useState(10)
 
   const lastNumber = currentPage * perPage
   const firstNumber = lastNumber - perPage

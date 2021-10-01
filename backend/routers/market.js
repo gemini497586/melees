@@ -188,6 +188,17 @@ router.post("/product-delete/:id", async (req, res, next) => {
   }
 });
 
+router.post("/avatar", (req, res, next) => {
+  let member_id = req.session.member.id;
+  try {
+    connection.query("SELECT picture FROM member WHERE id=?", member_id, (err, response) => {
+      res.json(response);
+    });
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 module.exports = router;
 
 // 只要後端重新啟動，就需要重新登入一次，因為session的東西會被洗掉

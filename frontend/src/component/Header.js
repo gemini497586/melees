@@ -80,6 +80,15 @@ function Header(props) {
       console.error(err.response)
     }
   }
+  const [avatar, setAvatar] = useState('')
+  useEffect(() => {
+    axios
+      .post(`${API_URL}/market/avatar`, null, { withCredentials: true })
+      .then((result) => {
+        console.log(result.data[0].picture)
+        setAvatar(result.data[0].picture)
+      })
+  }, [login])
 
   useEffect(() => {
     if (carts.length > 0) {
@@ -185,11 +194,10 @@ function Header(props) {
         </li>
         {login ? (
           <li className="user-btn ">
-            <FontAwesomeIcon
-              icon="user-circle"
-              className="user"
-              data-bs-toggle="dropdown"
-            />
+            <div className="user-avatar" data-bs-toggle="dropdown">
+              <img alt="" className="user" src={`${API_URL}/member${avatar}`} />
+              <FontAwesomeIcon icon="user-circle" className="user" />
+            </div>
             <ul className="dropdown-menu user-dropdown">
               <li className="font-400SL">
                 <a className="dropdown-item" href="#/">
