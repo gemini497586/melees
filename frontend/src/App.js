@@ -58,149 +58,146 @@ import Privacy from './pages/about/Privacy'
 import { CheckoutInfoProvider } from './utils/CheckoutInfoContext'
 import { CartProvider } from './utils/CartContext'
 import { useState } from 'react'
-import { AlertProvider } from './utils/AlertContext'
 
 function App() {
   const [login, setLogin] = useState(false) //查看是否登入
   return (
     <CartProvider>
       <HandleCart.Provider value={{ login, setLogin }}>
-        <AlertProvider>
-          <Router>
-            <div className="App">
-              <Header />
-              <ScrollToTop>
-                <Switch>
-                  {/* 首頁 */}
-                  <Route exact path="/">
-                    <Home />
+        <Router>
+          <div className="App">
+            <Header />
+            <ScrollToTop>
+              <Switch>
+                {/* 首頁 */}
+                <Route exact path="/">
+                  <Home />
+                </Route>
+                {/* footer */}
+                <Route exact path="/privacy">
+                  <Privacy />
+                </Route>
+                <Route exact path="/about">
+                  <About />
+                </Route>
+                {/* 客製化 */}
+                <Route exact path="/box">
+                  <Box />
+                </Route>
+                {/* 私藏 */}
+                <Route exact path="/private">
+                  <PrivateRecipe />
+                </Route>
+                <Route exact path="/private/upload">
+                  <PrivateRecipeUpload />
+                </Route>
+                <Route exact path="/private/edit/:id">
+                  <PrivateRecipeEdit />
+                </Route>
+                <Route exact path="/private/detail/:id">
+                  <PrivateRecipeIntro />
+                </Route>
+                {/* 精選 */}
+                <Route path="/feature/index/4">
+                  <FeatureIndexWeek />
+                </Route>
+                <Route path="/feature/stepweek/:listId">
+                  <FeatureStepWeek />
+                </Route>
+                <Route path="/feature/step/:listId?">
+                  <FeatureStep />
+                </Route>
+                <Route path="/feature/index/:typeid?">
+                  <FeatureIndex />
+                </Route>
+                {/* 搜尋 */}
+                <Route path="/search/recipe/:word?">
+                  <SearchRecipe />
+                </Route>
+                <Route path="/search/market/:word?">
+                  <SearchMarket />
+                </Route>
+                {/* 會員相關 */}
+                <Route path="/login">
+                  <Login />
+                </Route>
+                <Route path="/register">
+                  <Register />
+                </Route>
+                <ProtectedRoute path="/member/editinfo" isAuth={login}>
+                  <EditMemberInfo />
+                </ProtectedRoute>
+                <ProtectedRoute path="/member/editpwd" isAuth={login}>
+                  <EditPassword />
+                </ProtectedRoute>
+                <ProtectedRoute path="/member/orderdetail/:id" isAuth={login}>
+                  <OrderDetails />
+                </ProtectedRoute>
+                <ProtectedRoute path="/member/orderlist" isAuth={login}>
+                  <OrderList />
+                </ProtectedRoute>
+                <ProtectedRoute path="/member/savebox" isAuth={login}>
+                  <MemberBox />
+                </ProtectedRoute>
+                <ProtectedRoute path="/member/saverecipe" isAuth={login}>
+                  <MemberSaveRecipe />
+                </ProtectedRoute>
+                <ProtectedRoute
+                  path="/member/saveproduct/:currentPage?"
+                  isAuth={login}
+                >
+                  <MemberSaveProduct />
+                </ProtectedRoute>
+                <ProtectedRoute
+                  exact
+                  path="/member/recipecomment"
+                  isAuth={login}
+                >
+                  <MemberRecipeComment />
+                </ProtectedRoute>
+                <ProtectedRoute path="/member/coupon" isAuth={login}>
+                  <Coupon />
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/member" isAuth={login}>
+                  <MyRecipe />
+                </ProtectedRoute>
+
+                {/* 購物車 */}
+                <CheckoutInfoProvider>
+                  <Route exact path="/market/orders-complete">
+                    <OrdersComplete />
                   </Route>
-                  {/* footer */}
-                  <Route exact path="/privacy">
-                    <Privacy />
+                  <Route exact path="/market/check-order">
+                    <CheckOrder />
                   </Route>
-                  <Route exact path="/about">
-                    <About />
+                  <Route exact path="/market/checkout-confirm">
+                    <CheckoutConfirm />
                   </Route>
-                  {/* 客製化 */}
-                  <Route exact path="/box">
-                    <Box />
+                  <Route exact path="/market/shoppingcart">
+                    <Shoppingcart />
                   </Route>
-                  {/* 私藏 */}
-                  <Route exact path="/private">
-                    <PrivateRecipe />
-                  </Route>
-                  <Route exact path="/private/upload">
-                    <PrivateRecipeUpload />
-                  </Route>
-                  <Route exact path="/private/edit/:id">
-                    <PrivateRecipeEdit />
-                  </Route>
-                  <Route exact path="/private/detail/:id">
-                    <PrivateRecipeIntro />
-                  </Route>
-                  {/* 精選 */}
-                  <Route path="/feature/index/4">
-                    <FeatureIndexWeek />
-                  </Route>
-                  <Route path="/feature/stepweek/:listId">
-                    <FeatureStepWeek />
-                  </Route>
-                  <Route path="/feature/step/:listId?">
-                    <FeatureStep />
-                  </Route>
-                  <Route path="/feature/index/:typeid?">
-                    <FeatureIndex />
-                  </Route>
-                  {/* 搜尋 */}
-                  <Route path="/search/recipe/:word?">
-                    <SearchRecipe />
-                  </Route>
-                  <Route path="/search/market/:word?">
-                    <SearchMarket />
-                  </Route>
-                  {/* 會員相關 */}
-                  <Route path="/login">
-                    <Login />
-                  </Route>
-                  <Route path="/register">
-                    <Register />
-                  </Route>
-                  <ProtectedRoute path="/member/editinfo" isAuth={login}>
-                    <EditMemberInfo />
-                  </ProtectedRoute>
-                  <ProtectedRoute path="/member/editpwd" isAuth={login}>
-                    <EditPassword />
-                  </ProtectedRoute>
-                  <ProtectedRoute path="/member/orderdetail/:id" isAuth={login}>
-                    <OrderDetails />
-                  </ProtectedRoute>
-                  <ProtectedRoute path="/member/orderlist" isAuth={login}>
-                    <OrderList />
-                  </ProtectedRoute>
-                  <ProtectedRoute path="/member/savebox" isAuth={login}>
-                    <MemberBox />
-                  </ProtectedRoute>
-                  <ProtectedRoute path="/member/saverecipe" isAuth={login}>
-                    <MemberSaveRecipe />
-                  </ProtectedRoute>
-                  <ProtectedRoute
-                    path="/member/saveproduct/:currentPage?"
-                    isAuth={login}
-                  >
-                    <MemberSaveProduct />
-                  </ProtectedRoute>
                   <ProtectedRoute
                     exact
-                    path="/member/recipecomment"
+                    path="/market/checkout-personalData"
                     isAuth={login}
                   >
-                    <MemberRecipeComment />
+                    <CheckoutPersonalData />
                   </ProtectedRoute>
-                  <ProtectedRoute path="/member/coupon" isAuth={login}>
-                    <Coupon />
-                  </ProtectedRoute>
-                  <ProtectedRoute exact path="/member" isAuth={login}>
-                    <MyRecipe />
-                  </ProtectedRoute>
-
-                  {/* 購物車 */}
-                  <CheckoutInfoProvider>
-                    <Route exact path="/market/orders-complete">
-                      <OrdersComplete />
-                    </Route>
-                    <Route exact path="/market/check-order">
-                      <CheckOrder />
-                    </Route>
-                    <Route exact path="/market/checkout-confirm">
-                      <CheckoutConfirm />
-                    </Route>
-                    <Route exact path="/market/shoppingcart">
-                      <Shoppingcart />
-                    </Route>
-                    <ProtectedRoute
-                      exact
-                      path="/market/checkout-personalData"
-                      isAuth={login}
-                    >
-                      <CheckoutPersonalData />
-                    </ProtectedRoute>
-                    <Route exact path="/market/cart-detail">
-                      <CartDetail />
-                    </Route>
-                    <Route exact path="/market/product/:id?">
-                      <ProductDetails />
-                    </Route>
-                    <Route exact path="/market/home/:category?">
-                      <MarketMainPage />
-                    </Route>
-                  </CheckoutInfoProvider>
-                </Switch>
-              </ScrollToTop>
-              <Footer />
-            </div>
-          </Router>
-        </AlertProvider>
+                  <Route exact path="/market/cart-detail">
+                    <CartDetail />
+                  </Route>
+                  <Route exact path="/market/product/:id?">
+                    <ProductDetails />
+                  </Route>
+                  <Route exact path="/market/home/:category?">
+                    <MarketMainPage />
+                  </Route>
+                </CheckoutInfoProvider>
+              </Switch>
+            </ScrollToTop>
+            <Footer />
+          </div>
+        </Router>
       </HandleCart.Provider>
     </CartProvider>
   )

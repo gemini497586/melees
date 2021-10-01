@@ -60,7 +60,11 @@ function SearchCardRecipe(props) {
                         alt={v.member_nickname}
                       ></img>
                     </div>
-                    <p className="font-400SL">{v.member_nickname}</p>
+                    <p className="font-400SL">
+                      {v.member_nickname === ''
+                        ? v.member_name
+                        : v.member_nickname}
+                    </p>
                   </div>
                 )}
               </div>

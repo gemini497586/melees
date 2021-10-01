@@ -28,6 +28,7 @@
   color: var(--color-grey-800);
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 .member-box-cal {
   color: var(--color-grey-900);
@@ -46,22 +47,10 @@
   border-radius: 50%;
   padding: 8px;
   margin-right: 25px;
-  transition: 0.5s;
 }
 .member-box-content button:hover {
   color: var(--color-primary-A);
   border: 1px solid var(--color-primary-A);
-}
-
-/* modal */
-.member-box-icon {
-  border: 7px solid var(--color-red-C);
-  border-radius: 100%;
-}
-.member-box-icon > .exclamation {
-  color: var(--color-red-C);
-  font-size: 100px;
-  margin-top: 25px;
 }
 
 /* saveproduct */

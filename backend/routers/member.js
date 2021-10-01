@@ -256,15 +256,8 @@ router.get("/readsaveproduct", async (req, res, next) => {
         let productIds = result.map((v) => {
             return v.product_id;
         });
-        console.log(productIds);
         let result2 = await connection.queryAsync(
-            // "SELECT * FROM product WHERE id IN ?",
-            // "SELECT a.id, a.name, b.id AS saveId FROM product AS a INNER JOIN product_save AS b ON a.id = b.product_id WHERE id IN ? GROUP BY a.id",
-            "SELECT a.*, " +
-                "b.id AS saveId " +
-                "FROM product AS a INNER JOIN product_save AS b ON a.id = b.product_id " +
-                "WHERE a.id IN ? " +
-                "GROUP BY a.id ORDER BY saveId DESC",
+            "SELECT * FROM product WHERE id IN ?",
             [[productIds]]
         );
         res.json({ result, result2 });
@@ -310,7 +303,7 @@ router.get("/readsaverecipe", async (req, res, next) => {
     // 有 -> 拿到該會員收藏的食譜id -> 再去撈出那些食譜的詳細內容
     let feature_save = await connection.queryAsync(
         "SELECT * FROM feature_save WHERE member_id=?",
-        [[memberId]]
+        [memberId]
     );
     // console.log("feature_save ", feature_save);
     if (feature_save.length > 0) {

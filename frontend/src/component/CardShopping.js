@@ -53,21 +53,21 @@ function CardShopping() {
   return (
     <div className="container">
       <div className="row">
-        <div class="cardShopping-others">
-          <div class="d-flex justify-content-between">
+        <div className="cardShopping-others">
+          <div className="d-flex justify-content-between">
             <h5>推薦商品</h5>
-            <div class="cardShopping-others-more">
+            <div className="cardShopping-others-more">
               <FontAwesomeIcon
                 icon="chevron-right"
                 size="lg"
                 className="more-arrow"
               />
               <Link to="/market/home">
-                <span class="font-700M">看更多</span>
+                <span className="font-700M">看更多</span>
               </Link>
             </div>
           </div>
-          <div class="cardShopping-others-hr w-100"></div>
+          <div className="cardShopping-others-hr w-100"></div>
         </div>
         {marketList.map((value) => {
           return (

@@ -46,7 +46,6 @@ function SearchRecipe() {
         let res = await Axios.get(`${API_URL}/search/recipe?word=${word}`)
         let privateData = res.data.result.private
         let featureData = res.data.result.feature
-        console.log(res.data)
         let totalData = privateData.concat(featureData)
         setData(totalData)
         setDisplayData(totalData)
@@ -101,7 +100,6 @@ function SearchRecipe() {
     }
     return newDisplayData
   }
-
   // 總筆數
   const handleCount = (privatecount, featurecount) => {
     let newCount = ''

@@ -28,7 +28,6 @@ function MemberBox() {
       name: '卡路里由少至多',
     },
   ]
-
   const [currentPage, setCurrentPage] = useState(1)
 
   // 初始化資料
@@ -111,16 +110,8 @@ function MemberBox() {
                   prepList={prepList}
                   setDisplayData={setDisplayData}
                   currentPage={currentPage}
-                  setCurrentPage={setCurrentPage}
                 />
               )}
-              <SaveBox
-                data={displayData}
-                prepList={prepList}
-                setDisplayData={setDisplayData}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-              />
             </div>
             <Paging product={displayData} setCurrentPage={setCurrentPage} />
           </div>

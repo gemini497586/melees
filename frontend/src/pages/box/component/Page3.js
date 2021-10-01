@@ -17,7 +17,10 @@ function Page3(props) {
     if (bento.length > 0) {
       setShowModal((prev) => !prev)
     } else {
-      Swal.fire('請先至上方挑選至少一樣食材')
+      Swal.fire({
+        title: '請先至上方挑選至少一樣食材',
+        confirmButtonColor: 'var(--color-primary)',
+      })
     }
   }
 

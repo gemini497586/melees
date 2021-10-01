@@ -52,7 +52,10 @@ function Box() {
     // 存在->不能新增
     // 不存在->可以新增
     if (getName.includes(v.name)) {
-      Swal.fire('每樣食材只可挑選一次')
+      Swal.fire({
+        title: '每樣食材只可挑選一次',
+        confirmButtonColor: 'var(--color-primary)',
+      })
       return
     } else {
       const newBento = [
@@ -61,7 +64,10 @@ function Box() {
       ]
       // 第六個的時候就不能再新增
       if (newBento.length > 5) {
-        Swal.fire('最多只能挑選五樣食材')
+        Swal.fire({
+          title: '最多只能挑選五樣食材',
+          confirmButtonColor: 'var(--color-primary)',
+        })
         return
       }
       setBento(newBento)

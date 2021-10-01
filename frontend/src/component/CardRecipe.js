@@ -58,21 +58,21 @@ function CardRecipe() {
   return (
     <div className="container">
       <div className="row">
-        <div class="cardRecipe-others">
-          <div class="d-flex justify-content-between">
+        <div className="cardRecipe-others">
+          <div className="d-flex justify-content-between">
             <h5>查看其他食譜</h5>
-            <div class="cardRecipe-others-more">
+            <div className="cardRecipe-others-more">
               <FontAwesomeIcon
                 icon="chevron-right"
                 size="lg"
                 className="more-arrow"
               />
               <Link to="feature/index/1">
-                <span class="font-700M">看更多</span>
+                <span className="font-700M">看更多</span>
               </Link>
             </div>
           </div>
-          <div class="cardRecipe-others-hr w-100"></div>
+          <div className="cardRecipe-others-hr w-100"></div>
         </div>
         {recipeList.map((value) => {
           return (
