@@ -51,6 +51,10 @@ app.get("/", (req, res, next) => {
   res.send("Hello with nodemon");
 });
 
+// 引入 home 中間件
+let homeRouter = require("./routers/home");
+app.use("/home", homeRouter);
+
 // 引入 feature 中間件
 let featureRouter = require("./routers/feature");
 app.use("/feature", featureRouter);

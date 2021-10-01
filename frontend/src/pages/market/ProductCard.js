@@ -31,12 +31,12 @@ function ProductCard(props) {
   // useEffect(() => {
   //   // 取得查詢的商品資料
   //   axios.get(`${API_URL}/search/${searching}`).then((response) => {
-  //     setProduct(response.data)
+  //     setProduct(ressetPerPageponse.data)
   //   })
   // }, [searching])
 
   // const [currentPage, setCurrentPage] = useState(1)
-  const [perPage, setPerPage] = useState(10)
+  const [perPage, ] = useState(10)
 
   const lastNumber = currentPage * perPage
   const firstNumber = lastNumber - perPage

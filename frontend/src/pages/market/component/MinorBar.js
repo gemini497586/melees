@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import '../../../style/minorBar.css'
 import ProductData from '../../../data/Products.json'
 
-function MinorBar(props) {
+function MinorBar() {
   const [product, setProduct] = useState([])
 
   useEffect(() => {
@@ -15,7 +15,7 @@ function MinorBar(props) {
       <ul className="minor-bar">
         {product.map((v) => {
           return (
-            <li>
+            <li key={v.id}>
               <Link to={`/market/home/${v.category}`}>{v.text}</Link>
             </li>
           )

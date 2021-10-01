@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import '../../style/memberBox.css'
 import SaveBox from './component/SaveBox'
 import MinorBar from './component/MinorBar'
 import DropDown2 from '../../component/DropDown2'
 import Axios from 'axios'
 import { API_URL } from '../../utils/config'
+import Paging from '../../pages/market/component/Paging'
 
 function MemberBox() {
   const [data, setData] = useState([])
@@ -26,31 +28,35 @@ function MemberBox() {
       name: '卡路里由少至多',
     },
   ]
+  const [currentPage, setCurrentPage] = useState(1)
 
-  const getData = async () => {
-    try {
-      let res = await Axios.get(`${API_URL}/member/readsavebox`, {
-        withCredentials: true,
-      })
-      let data = res.data.result
-      let prep = res.data.result2
-      setData(data)
-      setDisplayData(data)
-      setPrep(prep)
-
-      // 把食材做成查表法
-      let newprepList = {}
-      prep.map((item) => {
-        newprepList[item.id] = item
-      })
-      setprepList(newprepList)
-    } catch (e) {
-      console.log(e)
-      alert(e.response.data.message)
-    }
-  }
   // 初始化資料
   useEffect(() => {
+    const getData = async () => {
+      try {
+        let res = await Axios.get(`${API_URL}/member/readsavebox`, {
+          withCredentials: true,
+        })
+        // 檢查是否有收藏
+        if (res.data.message) {
+          console.log(`${res.data.message}`)
+        } else {
+          let data = res.data.result
+          let prep = res.data.result2
+          setData(data)
+          setDisplayData(data)
+          setPrep(prep)
+          // 把食材做成查表法
+          let newprepList = {}
+          prep.map((item) => {
+            newprepList[item.id] = item
+          })
+          setprepList(newprepList)
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    }
     getData()
   }, [])
 
@@ -73,11 +79,11 @@ function MemberBox() {
   }
 
   useEffect(() => {
-    getData()
     let newData = []
     newData = handleSort(data, sortBy)
     setDisplayData(newData)
   }, [sortBy, data])
+
   return (
     <>
       <div className="page-group">
@@ -92,8 +98,22 @@ function MemberBox() {
               />
             </div>
             <div className="row">
-              <SaveBox data={displayData} prepList={prepList} />
+              {data.length === 0 ? (
+                <div className="member-notice font-700L">
+                  <Link to="/box">
+                    目前尚未收藏任何便當，馬上去客製化便當吧！
+                  </Link>
+                </div>
+              ) : (
+                <SaveBox
+                  data={displayData}
+                  prepList={prepList}
+                  setDisplayData={setDisplayData}
+                  currentPage={currentPage}
+                />
+              )}
             </div>
+            <Paging product={displayData} setCurrentPage={setCurrentPage} />
           </div>
         </section>
       </div>
