@@ -29,6 +29,7 @@ function SearchMarket() {
   ]
 
   // 排序功能
+  console.log('data', data)
   const handleSortBy = (data, sortBy) => {
     let newData = [...data]
     if (sortBy === 0) {

@@ -1,0 +1,50 @@
+.melees-dropdown {
+  width: 306px;
+  position: relative;
+  z-index: 9;
+  margin: 20px auto;
+}
+.melees-dropdown-selection {
+  background: white;
+  color: var(--color-grey-800);
+  width: 306px;
+  border: 1px solid var(--color-grey-800);
+  border-radius: 6px;
+  padding: 10px 16px;
+  cursor: pointer;
+  position: relative;
+}
+.melees-dropdown-selection::after {
+  display: block;
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #0003;
+  border-bottom: 2px solid #0003;
+  transform: rotate(45deg);
+  position: absolute;
+  right: 15px;
+  top: 12px;
+}
+.melees-dropdown-selection.visible::after {
+  top: 18px;
+  transform: rotate(-135deg);
+}
+.melees-items-holder {
+  color: var(--color-grey-800);
+  border: 1px solid var(--color-grey-800);
+  border-radius: 6px;
+  background: white;
+  position: absolute;
+  top: 100%;
+  width: 306px;
+}
+.melees-dropdown-item {
+  padding: 10px 16px;
+  cursor: pointer;
+}
+.melees-dropdown-item:hover {
+  background: var(--color-grey-800);
+  color: var(--color-white);
+  transition: 0.2s;
+}

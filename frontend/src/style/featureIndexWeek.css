@@ -2,7 +2,7 @@
   display: inline-flex;
 }
 .findexw-title {
-  width: 160px;
+  width: 220px;
   color: var(--color-grey-800);
   margin-right: 20px;
 }
@@ -10,4 +10,8 @@
   width: 1200px;
   color: var(--color-grey-800);
   padding-left: 0px;
+}
+.findexw-img {
+  margin: 20px 0px 20px 0px;
+  height: 160px;
 }
