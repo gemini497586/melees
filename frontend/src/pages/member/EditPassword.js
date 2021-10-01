@@ -8,6 +8,11 @@ import { API_URL } from '../../utils/config'
 import axios from 'axios'
 import validationInfo from './component/validationInfo'
 import InputErrorMsg from './component/InputErrorMsg'
+import Swal from 'sweetalert2'
+
+const colors = {
+  primary: '#fe9900',
+}
 
 function EditPassword() {
   const [errors, setErrors] = useState({})
@@ -39,14 +44,21 @@ function EditPassword() {
 
   // 檢驗表單的值有沒有不合法
   const handleFormValuesInvalid = (e) => {
-    // 擋住錯誤訊息的預設方式(跳出的訊息泡泡)
-    e.preventDefault()
     setErrors(validationInfo(formValues))
-    console.log(errors)
+    console.log('in valid', errors)
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
+    // 發送axios前，再次驗證表單的值有沒有不合法 --> 不通過 return false
+    handleFormValuesInvalid(e)
+    if (Object.keys(errors).length > 0) {
+      console.log('Object.keys(errors).length:', Object.keys(errors).length)
+      return false
+    }
+
+    // 通過 --> 驗證後發 axios
     try {
       let oldPassword = formValues.oldPassword
       let password = formValues.password
@@ -64,6 +76,14 @@ function EditPassword() {
         }
       )
       console.log(response)
+      if (response.status === 200) {
+        Swal.fire({
+          icon: 'success',
+          title: '資料更新成功！',
+          confirmButtonColor: colors.primary,
+          confirmButtonText: '確認',
+        })
+      }
     } catch (err) {
       console.error(err.response)
       if (err.response.status === 400) {

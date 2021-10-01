@@ -40,17 +40,19 @@ function EditModal(props) {
     setNewComment('')
     openEditModal()
   }
+
   const handleEdit = async (e) => {
     e.preventDefault()
     try {
       // 評論與評分都沒有更新，丟錯誤訊息
       if (!newComment && !newStarScore) {
-        throw '評論與評分都沒有更新!'
+        throw '前端錯誤：評論與評分都沒有更新！'
       }
 
       // 評論與評分有更新，發axios送到後端
       let data = {
         id: recipeDataDetails.id,
+        recipe_id: recipeDataDetails.recipe_id,
         newComment: newComment,
         starScore: newStarScore,
       }
@@ -69,13 +71,25 @@ function EditModal(props) {
           icon: 'success',
           title: '編輯成功!',
           text: '點擊確認，繼續瀏覽 MELEEs!',
-          confirmButton: '確認',
+          confirmButtonText: '確認',
           confirmButtonColor: '#fe9900',
         })
         setReRender(true)
       }
     } catch (err) {
-      console.error(err)
+      // console.error(err)
+      if (
+        err === '前端錯誤：評論與評分都沒有更新！' ||
+        err.response.data.message === '評論與評分都沒有更新'
+      ) {
+        Swal.fire({
+          icon: 'error',
+          title: '發生錯誤！',
+          text: '評論與評分都沒有更新！',
+          confirmButtonText: '確認',
+          confirmButtonColor: '#fe9900',
+        })
+      }
     }
   }
 
@@ -101,7 +115,11 @@ function EditModal(props) {
                 src={`${API_URL}/member/${recipeDataDetails.member_avatar}`}
                 alt="avatar"
               />
-              <figcaption>{recipeDataDetails.member_name}</figcaption>
+              <figcaption>
+                {recipeDataDetails.member_nickname
+                  ? recipeDataDetails.member_nickname
+                  : recipeDataDetails.member_name}
+              </figcaption>
             </figure>
             <div className="modal-edit-recipeComment-starScore">
               {starRow.map((value, index) => {

@@ -16,19 +16,15 @@ function MemberRecipeComment() {
   const sortList = [
     {
       name: '評論時間由新至舊',
-      value: '0',
     },
     {
       name: '評論時間由舊至新',
-      value: '1',
     },
     {
       name: '評分由高至低',
-      value: '2',
     },
     {
       name: '評分由低至高',
-      value: '3',
     },
   ]
 
@@ -57,25 +53,24 @@ function MemberRecipeComment() {
     return newData
   }
 
-  const readCommentAPI = async () => {
-    try {
-      let response = await axios.post(
-        `${API_URL}/member/recipecomment/read`,
-        {},
-        {
-          // 設定可以跨源送 cookie
-          withCredentials: true,
-        }
-      )
-      setRecipeDataList(response.data)
-    } catch (err) {
-      console.error(err.response)
-    }
-  }
-
   // 初始化，先去後端取資料
   // 編輯或刪除成功，重新去後端取資料
   useEffect(() => {
+    const readCommentAPI = async () => {
+      try {
+        let response = await axios.post(
+          `${API_URL}/member/recipecomment/read`,
+          {},
+          {
+            // 設定可以跨源送 cookie
+            withCredentials: true,
+          }
+        )
+        setRecipeDataList(response.data)
+      } catch (err) {
+        console.error(err.response)
+      }
+    }
     readCommentAPI()
     setReRender(false)
   }, [reRender])
@@ -98,7 +93,6 @@ function MemberRecipeComment() {
               sortBy={sortBy}
               setSortBy={setSortBy}
             />
-            
           </div>
           <div className="memberRecipeComment-table">
             <div className="memberRecipeComment-table-title row align-items-center">

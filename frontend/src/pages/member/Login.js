@@ -160,7 +160,7 @@ function Login() {
                 appId={FACEBOOK_APP_ID}
                 autoLoad={true} //
                 fields="name,email,picture" //
-                onClick={componentClicked}
+                // onClick={componentClicked}
                 callback={responseFacebook}
                 cssClass="quickLogin-facebookBtn"
                 icon="fa-facebook"

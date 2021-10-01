@@ -10,6 +10,11 @@ import { API_URL } from '../../utils/config'
 import axios from 'axios'
 import validationInfo from './component/validationInfo'
 import InputErrorMsg from './component/InputErrorMsg'
+import Swal from 'sweetalert2'
+
+const colors = {
+  primary: '#fe9900',
+}
 
 function EditMemberInfo() {
   const [errors, setErrors] = useState({})
@@ -85,11 +90,14 @@ function EditMemberInfo() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setErrors({})
     handleFormValuesInvalid(e)
-    // console.log('errors.length: ', errors.length)
-    // if (errors.length > 0) {
-    //   return false
-    // }
+    if (Object.keys(errors).length > 0) {
+      // console.log('Object.keys(errors):', Object.keys(errors))
+      console.log('Object.keys(errors).length:', Object.keys(errors).length)
+      return false
+    }
+    // console.log('pass')
     try {
       let formData = new FormData()
       formData.append('picture', formValues.picture)
@@ -100,18 +108,31 @@ function EditMemberInfo() {
       formData.append('cellphone', formValues.cellphone)
       formData.append('email', formValues.email)
       formData.append('address', formValues.address)
-      let result = await axios.post(`${API_URL}/member/editinfo`, formData, {
+      let response = await axios.post(`${API_URL}/member/editinfo`, formData, {
         // 設定可以跨源送 cookie
         withCredentials: true,
       })
-      console.log(result)
-    } catch (e) {
-      console.error(e.result)
+      console.log(response)
+      if (response.status === 200) {
+        Swal.fire({
+          icon: 'success',
+          title: '資料更新成功！',
+          confirmButtonColor: colors.primary,
+          confirmButtonText: '確認',
+        })
+      }
+    } catch (err) {
+      console.error(err)
+      if (err.response.status === 400) {
+        // setFormValues({})
+        console.log(err.response.data.message)
+        // setErrors(err.response.data.message)
+      }
     }
   }
 
   useEffect(() => {
-    const testLoginCheck = async () => {
+    const memberInfoAPI = async () => {
       try {
         let response = await axios.get(`${API_URL}/member/editinfo`, {
           // 設定可以跨源送 cookie
@@ -137,7 +158,7 @@ function EditMemberInfo() {
         }
       }
     }
-    testLoginCheck()
+    memberInfoAPI()
   }, [])
   return (
     <>
