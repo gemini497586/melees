@@ -5,20 +5,107 @@ import '../../../style/memberRecipeComment.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
 import EditModal from './EditModal'
-import DeleteModal from './DeleteModal'
 import { API_URL } from '../../../utils/config'
 import axios from 'axios'
+import Swal from 'sweetalert2'
+import queryMsg from './queryMsg'
 
 function MemberRecipeCommentRow(props) {
   const { recipeData, setReRender } = props
   const [recipeDataDetails, setRecipeDataDetails] = useState({})
   const [showEditModal, setShowEditModal] = useState(false)
-  const [showDeleteModal, setShowDeleteModal] = useState(false)
+
   const openEditModal = () => {
+    const recipeDetailsAPI = async () => {
+      // console.log(
+      //   `recipe_id: ${recipeData.recipe_id} have called recipeDetailsAPI`
+      // )
+      try {
+        let recipe_id = recipeData.recipe_id
+        let response = await axios.post(
+          `${API_URL}/member/recipecomment/modal/read`,
+          { recipe_id },
+          {
+            // 設定可以跨源送 cookie
+            withCredentials: true,
+          }
+        )
+        // console.log(response.data)
+        setRecipeDataDetails({
+          ...recipeData,
+          member_avatar: response.data.member_avatar,
+          member_name: response.data.member_name,
+          member_nickname: response.data.member_nickname,
+          member_like: response.data.member_like,
+          member_save: response.data.member_save,
+          recipe_author_avatar: response.data.recipe_author_avatar,
+          like_qty: response.data.like_qty,
+          view_qty: response.data.view_qty,
+        })
+      } catch (err) {
+        console.error(err)
+      }
+    }
+    recipeDetailsAPI()
     setShowEditModal((prev) => !prev)
   }
-  const openDeleteModal = () => {
-    setShowDeleteModal((prev) => !prev)
+
+  const openDeleteModalSwal = () => {
+    Swal.fire({
+      icon: 'warning',
+      iconColor: 'var(--color-red-C)',
+      title: '確定要刪除？',
+      html: `您對 <strong>${recipeData.recipe_name}</strong> 的評論將無法回復！`,
+      showCancelButton: true,
+      confirmButtonText: '刪除',
+      confirmButtonColor: 'var(--color-red-C)',
+      cancelButtonText: '取消',
+      cancelButtonColor: 'var(--color-grey-500)',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const deleteAPI = async () => {
+          let id = recipeData.id
+          try {
+            let response = await axios.post(
+              `${API_URL}/member/recipecomment/modal/delete`,
+              { id },
+              {
+                // 設定可以跨源送 cookie
+                withCredentials: true,
+              }
+            )
+            if (response) {
+              // console.log('Delete id: ' + id + ' successful')
+              Swal.fire({
+                icon: 'success',
+                title: '刪除成功！',
+                confirmButtonColor: 'var(--color-primary)',
+                confirmButtonText: '確認',
+              })
+            }
+            setReRender(true)
+          } catch (err) {
+            let errMsg = ''
+            // 後端回覆錯誤
+            if (err.response !== undefined) {
+              errMsg = queryMsg(
+                err.response.data.category,
+                err.response.data.code
+              )
+            }
+            console.log('Swal error text:', errMsg)
+            Swal.fire({
+              icon: 'error',
+              title: '發生不明錯誤！',
+              text: errMsg,
+              confirmButtonColor: 'var(--color-primary)',
+              confirmButtonText: '確認',
+            })
+          }
+        }
+        deleteAPI()
+      }
+    })
   }
 
   const starScore = (star_rate) => {
@@ -42,36 +129,6 @@ function MemberRecipeCommentRow(props) {
     return starRow
   }
 
-  const recipeDetailsAPI = async () => {
-    console.log(
-      `recipe_id: ${recipeData.recipe_id} have called recipeDetailsAPI`
-    )
-    try {
-      let recipe_id = recipeData.recipe_id
-      let response = await axios.post(
-        `${API_URL}/member/recipecomment/modal/read`,
-        { recipe_id },
-        {
-          // 設定可以跨源送 cookie
-          withCredentials: true,
-        }
-      )
-      // console.log(response.data)
-      setRecipeDataDetails({
-        ...recipeData,
-        member_avatar: response.data.member_avatar,
-        member_name: response.data.member_name,
-        member_like: response.data.member_like,
-        member_save: response.data.member_save,
-        recipe_author_avatar: response.data.recipe_author_avatar,
-        like_qty: response.data.like_qty,
-        view_qty: response.data.view_qty,
-      })
-    } catch (err) {
-      console.error(err)
-    }
-  }
-
   return (
     <>
       <EditModal
@@ -81,13 +138,6 @@ function MemberRecipeCommentRow(props) {
         setReRender={setReRender}
         recipeDataDetails={recipeDataDetails}
         starScore={starScore}
-      />
-      <DeleteModal
-        showDeleteModal={showDeleteModal}
-        setDeleteModal={setShowDeleteModal}
-        openDeleteModal={openDeleteModal}
-        setReRender={setReRender}
-        id={recipeData.id}
       />
       <div className="row align-items-center">
         <figure className="col-6 col-md-2 memberRecipeComment-figure">
@@ -108,15 +158,10 @@ function MemberRecipeCommentRow(props) {
           {recipeData.comment}
         </p>
         <div className="col-4 col-md-2 memberRecipeComment-iconGroup">
-          <button
-            onClick={() => {
-              recipeDetailsAPI()
-              openEditModal()
-            }}
-          >
+          <button onClick={openEditModal}>
             <FontAwesomeIcon icon="pen" size="1x" className="icon-item" />
           </button>
-          <button onClick={openDeleteModal}>
+          <button onClick={openDeleteModalSwal}>
             <FontAwesomeIcon icon="trash-alt" size="1x" className="icon-item" />
           </button>
         </div>
