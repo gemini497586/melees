@@ -6,7 +6,7 @@ import ItemsCarousel from 'react-items-carousel'
 
 function FeatureContentImg(props) {
   const { featureimg } = props
-  console.log('propsfeatureimg', props.featureimg)
+  // console.log('propsfeatureimg', props.featureimg)
 
   // 切換大圖使用
   const [largeimg, setLargeimg] = useState('')

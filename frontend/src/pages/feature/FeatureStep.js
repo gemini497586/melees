@@ -35,7 +35,7 @@ function FeatureStep() {
       // response.data[0] 我只要陣列裡面的這一個物件 (3層以上就會掛掉)
       setListdata(response.data[0])
       setFeatureimg123(response.data[0].featureimg)
-      // console.log('featureimg123', featureimg123)
+      // console.log('response.data', response.data)
     })
 
     Axios.get(`${API_URL}/feature/step/${listId}`).then((response) => {
@@ -70,6 +70,8 @@ function FeatureStep() {
                 listName={listdata.listName}
                 qty={listdata.qty}
                 linkName={listdata.linkName}
+                likeqty={listdata.likeqty}
+                viewqty={listdata.viewqty}
               />
             </div>
             {/* 食材準備 */}

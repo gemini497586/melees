@@ -4,42 +4,33 @@ import '../../../style/featureCards.css'
 import '../../../style/featureComponent.css'
 import iglogo from '../../../images/instagramLogo.jpg'
 import Axios from 'axios'
-import { API_URL } from '../../../utils/config'
+import { API_URL, FEATURE_TYPE } from '../../../utils/config'
 import { Link } from 'react-router-dom'
 
 function FeatureCards(props) {
-  // 撈後端資料
-  // const [listdata, setListdata] = useState([])
-
-  // 取得所有資料
-  // useEffect(() => {
-  //   Axios.get(`${API_URL}/feature/index`).then((res) => {
-  //     setListdata(res.data)
-  //   })
-  // }, [])
-
-  // 給頁面切換typeid資料用
-  const [typedata, setTypedata] = useState([])
+  const { sort, currentPage, typedata, setTypedata } = props
+  // console.log('sort', sort)
+  // // 給頁面切換typeid資料用
+  // const [typedata, setTypedata] = useState([])
 
   // 取得分類
   useEffect(() => {
     // 查props發出什麼訊息，是否有正確發出API
     // console.log('typeid', props)
-    Axios.get(`${API_URL}/feature/index/${props.typeid}`).then((response) => {
-      setTypedata(response.data)
-      // console.log('response.data', response.data)
-    })
-  }, [props.typeid])
+    Axios.get(`${API_URL}/feature/index/${props.typeid}/${sort}`).then(
+      (response) => {
+        setTypedata(response.data)
+      }
+    )
+  }, [props.typeid, sort])
 
-  // 查表法 --> O(1)
-  let typeid = {
-    1: '健康長肉肉',
-    2: '健康不吃肉',
-    3: '家常好手藝',
-    4: '上班不煩惱',
-  }
+  const [perPage, setPerPage] = useState(6)
+  const lastNumber = currentPage * perPage
+  const firstNumber = lastNumber - perPage
+  const currentNumber = typedata.slice(firstNumber, lastNumber)
+  // console.log('currentNumber', currentNumber)
 
-  const listFeatureCards = typedata.map((e) => {
+  const listFeatureCards = currentNumber.map((e) => {
     return (
       <>
         <Link to={`/feature/step/` + e.listId}>
@@ -65,7 +56,9 @@ function FeatureCards(props) {
               {/* 文案 */}
               <div className="fc-content">
                 {/* 分類 type_id */}
-                <p className="fcolor-grey-800 font-400S">{typeid[e.type_id]}</p>
+                <p className="fcolor-grey-800 font-400S">
+                  {FEATURE_TYPE[e.type_id]}
+                </p>
                 {/* 食譜名稱和連結 name */}
                 <h5 className="fcolor-secondary">{e.listName}</h5>
                 <div className="d-flex text-decoration-none align-items-center">
@@ -76,7 +69,7 @@ function FeatureCards(props) {
               {/* 瀏覽數和按讚數 */}
               <div className="fc-content-down">
                 <div className="fline-g500 mb-1"></div>
-                <HeartViewNum />
+                <HeartViewNum likeqty={e.likeqty} viewqty={e.viewqty} />
               </div>
             </div>
           </div>
