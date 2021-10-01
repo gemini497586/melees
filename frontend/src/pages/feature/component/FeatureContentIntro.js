@@ -93,7 +93,7 @@ function FeatureContentIntro(props) {
               icon={['far', 'heart']}
               fixedWidth
             />
-            <span class="font-700M">{likeState ? '已按讚' : '按讚'}</span>
+            <span class="font-700M">{likeState ? '按讚' : '已按讚'}</span>
           </button>
           <button
             onClick={saveSwitch}
@@ -108,7 +108,7 @@ function FeatureContentIntro(props) {
               icon={['far', 'bookmark']}
               fixedWidth
             />
-            <span class="font-700M">{likeState ? '已按讚' : '按讚'}</span>
+            <span class="font-700M">{likeState ? '收藏' : '已收藏'}</span>
           </button>
         </div>
       </div>

@@ -73,7 +73,9 @@ function FeatureIndexWeek() {
           <div className="row m-0">
             <div className="col-2">
               {weekindeximg.map((v, i) => {
-                console.log('v', v)
+                {
+                  /* console.log('v', v) */
+                }
                 return (
                   <figure className="findexw-img">
                     <img

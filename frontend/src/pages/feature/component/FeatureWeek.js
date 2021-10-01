@@ -12,7 +12,7 @@ function FeatureWeek(props) {
 
   // 將 first_date 用 for 變成 5天
   useEffect(() => {
-    console.log('weekdataCards: ', weekdataCards)
+    // console.log('weekdataCards: ', weekdataCards)
     let date = weekdataCards.map((v, i) => {
       let date = v.firstdate
       let newArr = []
@@ -32,7 +32,7 @@ function FeatureWeek(props) {
 
   const [formatedData, setFormatedData] = useState([])
   useEffect(() => {
-    // console.log('weekdataCards: ', weekdataCards)
+    console.log('weekdataCards: ', weekdataCards.length)
     const handleFormate = () => {
       let weeklistarr = []
       for (let i = 0; i < 5; i++) {
@@ -43,9 +43,10 @@ function FeatureWeek(props) {
       // console.log('weeklistarr: ', weeklistarr)
     }
     handleFormate()
-  }, [])
+  }, [weekdataCards])
 
   const mapWeekRecipe = () => {
+    // console.log('formatedData: ', formatedData)
     return formatedData.map((v, i) => {
       let recipeNames = []
       // console.log('v: ', v)

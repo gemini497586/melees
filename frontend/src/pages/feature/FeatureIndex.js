@@ -14,27 +14,21 @@ import { useParams } from 'react-router'
 const itemList = [
   {
     name: '時間由新至舊',
-    value: '1',
   },
   {
     name: '時間由舊至新',
-    value: '2',
   },
   {
     name: '按讚數由多至少',
-    value: '3',
   },
   {
     name: '按讚數由少至多',
-    value: '4',
   },
   {
     name: '瀏覽數由多至少',
-    value: '5',
   },
   {
     name: '瀏覽數由少至多',
-    value: '6',
   },
 ]
 

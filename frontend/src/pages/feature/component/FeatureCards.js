@@ -4,7 +4,7 @@ import '../../../style/featureCards.css'
 import '../../../style/featureComponent.css'
 import iglogo from '../../../images/instagramLogo.jpg'
 import Axios from 'axios'
-import { API_URL } from '../../../utils/config'
+import { API_URL, FEATURE_TYPE } from '../../../utils/config'
 import { Link } from 'react-router-dom'
 
 function FeatureCards(props) {
@@ -21,14 +21,6 @@ function FeatureCards(props) {
       console.log('response.data', response.data)
     })
   }, [props.typeid])
-
-  // 查表法 --> O(1)
-  let typeid = {
-    1: '健康長肉肉',
-    2: '健康不吃肉',
-    3: '家常好手藝',
-    4: '上班不煩惱',
-  }
 
   const listFeatureCards = typedata.map((e) => {
     return (
@@ -56,7 +48,9 @@ function FeatureCards(props) {
               {/* 文案 */}
               <div className="fc-content">
                 {/* 分類 type_id */}
-                <p className="fcolor-grey-800 font-400S">{typeid[e.type_id]}</p>
+                <p className="fcolor-grey-800 font-400S">
+                  {FEATURE_TYPE[e.type_id]}
+                </p>
                 {/* 食譜名稱和連結 name */}
                 <h5 className="fcolor-secondary">{e.listName}</h5>
                 <div className="d-flex text-decoration-none align-items-center">

@@ -30,6 +30,7 @@ function SearchMarket(props) {
   ]
 
   // 排序功能
+  console.log('data', data)
   const handleSortBy = (data, sortBy) => {
     let newData = [...data]
     if (sortBy === 0) {
@@ -70,7 +71,7 @@ function SearchMarket(props) {
     let newData = []
     newData = handleSortBy(data, sortBy)
     setDisplayData(newData)
-  }, [sortBy,word])
+  }, [sortBy, word])
 
   return (
     <>
