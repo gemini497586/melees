@@ -112,10 +112,11 @@ router.post("/get-personalData", (req, res, next) => {
 router.post("/checkout-confirm", async (req, res, next) => {
   // console.log("資料-->: ", req.body);
   let member_id = req.session.member.id;
-
+  console.log("有進來", req.body);
   if ((req.body.payment_method = "請選擇付款方式")) {
     // 如果沒有選擇結帳方式資料就不會存進資料庫
     res.json({ reply: "沒有選擇結帳方式" });
+    console.log("這邊拿到資料", req.body);
   } else {
     switch (req.body.payment_method) {
       case "貨到付款":
@@ -125,8 +126,10 @@ router.post("/checkout-confirm", async (req, res, next) => {
         req.body.payment_method = 2;
         break;
       default:
+        req.body.payment_method = "請選擇付款方式";
         break;
     }
+    console.log("123444");
 
     let sql2 = "SELECT * FROM order_main_list ORDER BY id DESC LIMIT 1";
     let lastId = await connection.queryAsync(sql2);
@@ -138,10 +141,9 @@ router.post("/checkout-confirm", async (req, res, next) => {
       ]);
     }
 
-    await connection.query(
-      "INSERT INTO order_main_list (member_id, name, phone, email, address, payment_method, create_date, status, total_price) VALUES (?);",
-      [[member_id, req.body.name, req.body.phone, req.body.email, req.body.address, req.body.payment_method, createDate, req.body.status, req.body.total_price]]
-    );
+    connection.query("INSERT INTO order_main_list (member_id, name, phone, email, address, payment_method, create_date, status, total_price) VALUES (?);", [
+      [member_id, req.body.name, req.body.phone, req.body.email, req.body.address, req.body.payment_method, createDate, req.body.status, req.body.total_price],
+    ]);
     res.json({ reply: "收到" });
   }
 });
