@@ -17,7 +17,7 @@ function Page1(props) {
           {/* 右邊介紹 */}
           <div className="col-12 col-md-7 b-page1-right font-700L">
             <p>{bmr > 0 ? `你的基礎代謝率: ${bmr}` : ''}</p>
-            <p>{tdee > 0 ? `你的每日總消耗熱量: ${tdee}` + ' 大卡' : ''}</p>
+            <p>{tdee > 0 ? `你的每日總消耗熱量: ${tdee} 大卡` : ''}</p>
             <div className="b-page1-image" data-aos="fade-left">
               <p className="font-700M b-page1-note">請填入資料並按下開始計算</p>
               <img

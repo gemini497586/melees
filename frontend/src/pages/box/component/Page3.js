@@ -5,22 +5,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
 import { Redirect, useLocation } from 'react-router-dom'
 import { HandleCart } from '../../../utils/HandleCart'
-import useAlert from '../../../utils/useAlert'
-import AlertModal from '../../../component/AlertModal'
+import Swal from 'sweetalert2'
 
 function Page3(props) {
   const { cal, setCal, tdee, tableList, setTableList, bento, setBento } = props
-  const { openAlertModal, message, alertmodal } = useAlert()
   const location = useLocation()
   const [redirect, setRedirect] = useState(false)
   const { login } = useContext(HandleCart)
-
   const [showModal, setShowModal] = useState(false)
   const openModal = () => {
     if (bento.length > 0) {
       setShowModal((prev) => !prev)
     } else {
-      openAlertModal('請先至上方挑選至少一樣食材')
+      Swal.fire({
+        title: '請先至上方挑選至少一樣食材',
+        confirmButtonColor: 'var(--color-primary)',
+      })
     }
   }
 
@@ -45,11 +45,6 @@ function Page3(props) {
           }}
         />
       ) : null}
-      <AlertModal
-        message={message}
-        alertmodal={alertmodal}
-        openAlertModal={openAlertModal}
-      />
       <Modal
         showModal={showModal}
         setShowModal={setShowModal}
