@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import ReactFullpage from '@fullpage/react-fullpage'
 import '../../style/home.css'
 import '../../style/searchRecipe.css'
 import '../../style/featureComponent.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
+import { API_URL, FEATURE_TYPE, P_CATEGORY } from '../../utils/config'
+import Axios from 'axios'
 
-// import desktop from '../../images/desktop.jpg'
 /* 客製化便當 */
 import homebento_bento from '../../images/homebento_bento.png'
 import homebento_fontbg from '../../images/homeBento_fontbg.png'
@@ -14,11 +15,6 @@ import homebento_btnbg from '../../images/homebento_btnbg.png'
 import homebento_dialog from '../../images/homebento_dialog.png'
 /* 精選食譜 */
 import Ig from '../../component/Ig'
-import homefeature_01 from '../../images/homefeature_01.jpg'
-import homefeature_02 from '../../images/homefeature_02.jpg'
-import homefeature_03 from '../../images/homefeature_03.jpg'
-import homefeature_04 from '../../images/homefeature_04.jpg'
-import homefeature_05 from '../../images/homefeature_05.jpg'
 /* 私藏食譜 */
 import homerecipe_plate from '../../images/homerecipe_plate.png'
 import homerecipe_01 from '../../images/homerecipe_01.jpg'
@@ -31,10 +27,54 @@ import homeshop_01 from '../../images/homeshop_01.jpg'
 import homeshop_02 from '../../images/homeshop_02.jpg'
 import homeshop_03 from '../../images/homeshop_03.jpg'
 import homeshop_04 from '../../images/homeshop_04.jpg'
-
 import { Link } from 'react-router-dom'
 
 function Home() {
+  // 精選食譜用
+  // 精選食譜資料
+  const [featuredata, setFeaturedata] = useState([])
+  // 切換大圖使用
+  const [largeimg, setLargeimg] = useState('')
+  const [largelistid, setLargelistid] = useState('')
+  const [largelinkname, setLargelinkname] = useState('')
+  const [largetype, setLargetype] = useState('')
+  const [largelistname, setLargelistname] = useState('')
+
+  // 購物商城用
+  const [product, setProduct] = useState([])
+  const [productLarge, setProductLarge] = useState([])
+  useEffect(() => {
+    Axios.get(`${API_URL}/home/feature`).then((response) => {
+      setFeaturedata(response.data)
+      console.log(response.data[0])
+      // 給預設
+      setLargeimg(response.data[0].img.file_type)
+      setLargetype(response.data[0].type_id)
+      setLargelistname(response.data[0].listName)
+      setLargelinkname(response.data[0].linkName)
+    })
+
+    // 購物商城的API
+    Axios.get(`${API_URL}/home/market`).then((response) => {
+      setProduct(response.data.slice(1))
+      setProductLarge(response.data[0])
+    })
+  }, [])
+  // 縮圖使用
+  // 在下面帶變數前，這邊要先宣告變數，變數名稱不一定要和下面一樣，位置對就好
+  const smallimg = (v) => {
+    // console.log('e', e)
+    console.log('v', v)
+    setLargeimg(v.img.file_type)
+    setLargelistid(v.listId)
+    setLargetype(v.type_id)
+    setLargelistname(v.listName)
+    setLargelinkname(v.linkName)
+    // console.log('etarget', e.target)
+  }
+
+  // 購物商城用
+
   return (
     <ReactFullpage
       scrollingSpeed={1000}
@@ -91,96 +131,66 @@ function Home() {
             {/* 精選食譜 */}
             <article className="section h-feature-bg">
               {/* 背景漸變遮蓋 */}
-              {/* <div className="h-feature-gradientbg"></div> */}
+              <div className="h-feature-gradientbg"></div>
               {/* 左邊標題 */}
               <div className="h-feature-titleleft">
                 <h5 className="fcolor-grey-500">把煩惱都丟了吧</h5>
                 <h1 className="fcolor-primary">人氣精選食譜</h1>
               </div>
               {/* 中間內容 */}
-              <div className="f-feature-contentgroup">
+              <Link
+                to={`/feature/step/${largelistid}`}
+                className="f-feature-contentgroup text-decoration-none"
+              >
                 <figure className="f-feature-contentbigimg">
-                  <img className="fcover-fit" src={homefeature_01} alt="" />
+                  <img
+                    className="fcover-fit"
+                    src={`http://localhost:3001/feature/featurefood/${largeimg}`}
+                    alt=""
+                  />
                 </figure>
                 <div className="f-feature-contentclass ms-5">
-                  <p className="fcolor-white font-400SL">健康長肉肉</p>
-                  <h2 className="fcolor-white mb-4">香煎菲力牛排</h2>
-                  <Ig />
+                  <p className="fcolor-white font-400SL">
+                    {FEATURE_TYPE[largetype]}
+                  </p>
+                  <h2 className="fcolor-white mb-4">{largelistname}</h2>
+                  <Ig linkName={largelinkname} />
                 </div>
-              </div>
+              </Link>
               {/* 下面內容 */}
               <div className="f-feature-bottomgrouop">
                 <div className="f-feature-cardsgroup">
-                  <Link to="/feature/step/" className="f-feature-card">
-                    <div className="f-feature-cardimg">
-                      <img className="fcover-fit" src={homefeature_01} alt="" />
-                    </div>
-                    <p className="font-400L fcolor-white">香煎菲力牛排</p>
-                    <div className="f-feature-icon font-400S">
-                      <FontAwesomeIcon
-                        className="me-3"
-                        icon={['fas', 'bookmark']}
-                        fixedWidth
-                      />
-                      <span>34210</span>
-                    </div>
-                  </Link>
-                  <Link to="/feature/step/" className="f-feature-card">
-                    <div className="f-feature-cardimg">
-                      <img className="fcover-fit" src={homefeature_02} alt="" />
-                    </div>
-                    <p className="font-400L fcolor-white">泡菜月見牛筋牛肉丼</p>
-                    <div className="f-feature-icon font-400S">
-                      <FontAwesomeIcon
-                        className="me-3"
-                        icon={['fas', 'bookmark']}
-                        fixedWidth
-                      />
-                      <span>32152</span>
-                    </div>
-                  </Link>
-                  <Link to="/feature/step/" className="f-feature-card">
-                    <div className="f-feature-cardimg">
-                      <img className="fcover-fit" src={homefeature_03} alt="" />
-                    </div>
-                    <p className="font-400L fcolor-white">三杯蒟蒻杏鮑菇</p>
-                    <div className="f-feature-icon font-400S">
-                      <FontAwesomeIcon
-                        className="me-3"
-                        icon={['fas', 'bookmark']}
-                        fixedWidth
-                      />
-                      <span>34117</span>
-                    </div>
-                  </Link>
-                  <Link to="/feature/step/" className="f-feature-card">
-                    <div className="f-feature-cardimg">
-                      <img className="fcover-fit" src={homefeature_04} alt="" />
-                    </div>
-                    <p className="font-400L fcolor-white">野菇時蔬鹹派</p>
-                    <div className="f-feature-icon font-400S">
-                      <FontAwesomeIcon
-                        className="me-3"
-                        icon={['fas', 'bookmark']}
-                        fixedWidth
-                      />
-                      <span>28999</span>
-                    </div>
-                  </Link>
-                  <Link to="/feature/step/" className="f-feature-card">
-                    <div className="f-feature-cardimg">
-                      <img className="fcover-fit" src={homefeature_05} alt="" />
-                    </div>
-                    <p className="font-400L fcolor-white">蔥醬鮭魚燉飯</p>
-                    <div className="f-feature-icon font-400S">
-                      <FontAwesomeIcon
-                        className="me-3"
-                        icon={['fas', 'bookmark']}
-                        fixedWidth
-                      />
-                      <span>27975</span>
-                    </div>
-                  </Link>
+                  {featuredata.map((v, i) => {
+                    return (
+                      <div
+                        className="f-feature-card"
+                        // onClick事件這邊用的e，是代表點擊的狀態(詳細資料)
+                        onClick={() => {
+                          // 這邊的v，是帶上面map的value值
+                          smallimg(v)
+                        }}
+                      >
+                        {/* 當onClick時呼叫函式，傳值進去函式裡 */}
+                        <div className="f-feature-cardimg">
+                          <img
+                            className="fcover-fit"
+                            src={`http://localhost:3001/feature/featurefood/${v.img.file_type}`}
+                            alt=""
+                            // data 是固定語法，key可以自己取名，想區分同一個標籤時(區分哪一個是listId)
+                          />
+                        </div>
+                        <p className="font-400L fcolor-white">{v.listName}</p>
+                        <div className="f-feature-icon font-400S">
+                          <FontAwesomeIcon
+                            className="me-3"
+                            icon={['fas', 'bookmark']}
+                            fixedWidth
+                          />
+                          <span>{v.saveqty}</span>
+                        </div>
+                      </div>
+                    )
+                  })}
                 </div>
               </div>
               {/* 往下箭頭 */}
@@ -303,55 +313,50 @@ function Home() {
               <div className="h-shop-cardgroup">
                 <div className="h-shop-cardimg">
                   <div className="h-shop-imgbigclass">
-                    <figure className="h-shop-imgbig">
-                      <img className="fcover-fit" src={homeshop_01} alt="" />
-                    </figure>
+                    <Link to={`/market/product/${productLarge.id}`}>
+                      <figure className="h-shop-imgbig">
+                        <img
+                          className="b-cover-fit"
+                          src={`${API_URL}/market/${productLarge.image}`}
+                          alt={productLarge.name}
+                        />
+                      </figure>
+                    </Link>
                   </div>
                   <div className="h-shop-cardfont">
-                    <p className="font-400S fcolor-white">食材</p>
-                    <h5 className="fcolor-white">紐西蘭小羔羊薄切片</h5>
-                    <p className="font-400S fcolor-secondary">日荷肉舖</p>
+                    <p className="font-400S fcolor-white">
+                      {P_CATEGORY[productLarge.category]}
+                    </p>
+                    <h5 className="fcolor-white">{productLarge.name}</h5>
                     <p className="font-400S fcolor-secondary">
-                      在純淨大自然中成長的樂活羊隻，以天然牧草孕育出更豐富的營養成分，精選六個月大的小羔羊，部位取自於小羔羊隻的肩背肉塊，限定0.2cm的薄度，更能呈現肉質的鮮美嫩度，不論是火鍋、熱炒、烹煮皆適宜。
+                      {productLarge.info}
                     </p>
                   </div>
                 </div>
-                <div className="h-shop-cardimg">
-                  <div className="h-shop-cardfontsmalltwo">
-                    <p className="font-400S fcolor-white">調味料</p>
-                    <h6 className="fcolor-white">巴薩米克醋Bianco</h6>
-                    <div className="h-shop-cardline"></div>
-                  </div>
-                  <div className="h-shop-imgclass">
-                    <figure className="h-shop-img">
-                      <img className="fcover-fit" src={homeshop_02} alt="" />
-                    </figure>
-                  </div>
-                </div>
-                <div className="h-shop-cardimg">
-                  <div className="h-shop-cardfontsmall">
-                    <p className="font-400S fcolor-primary">鍋具</p>
-                    <h6 className="fcolor-primary">鈦頂級不沾平底鍋</h6>
-                    <div className="h-shop-cardline"></div>
-                  </div>
-                  <div className="h-shop-imgclass">
-                    <figure className="h-shop-img">
-                      <img className="fcover-fit" src={homeshop_03} alt="" />
-                    </figure>
-                  </div>
-                </div>
-                <div className="h-shop-cardimg">
-                  <div className="h-shop-cardfontsmall">
-                    <p className="font-400S fcolor-primary">食材</p>
-                    <h6 className="fcolor-primary">美國Choice嫩肩里肌牛排</h6>
-                    <div className="h-shop-cardline"></div>
-                  </div>
-                  <div className="h-shop-imgclass">
-                    <figure className="h-shop-img">
-                      <img className="fcover-fit" src={homeshop_04} alt="" />
-                    </figure>
-                  </div>
-                </div>
+                {product.map((v) => {
+                  return (
+                    <div className="h-shop-cardimg" key={v.id}>
+                      <div className="h-shop-cardfontsmalltwo">
+                        <p className="font-400S fcolor-secondary">
+                          {P_CATEGORY[v.category]}
+                        </p>
+                        <h6 className="fcolor-secondary">{v.name}</h6>
+                        <div className="h-shop-cardline"></div>
+                      </div>
+                      <div className="h-shop-imgclass">
+                        <Link to={`/market/product/${v.id}`}>
+                          <figure className="h-shop-img">
+                            <img
+                              className="fcover-fit"
+                              src={`${API_URL}/market/${v.image}`}
+                              alt={v.name}
+                            />
+                          </figure>
+                        </Link>
+                      </div>
+                    </div>
+                  )
+                })}
               </div>
               {/* 往下箭頭 */}
               <a onClick={() => fullpageApi.moveSectionDown()}>

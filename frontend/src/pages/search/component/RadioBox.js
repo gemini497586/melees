@@ -1,5 +1,4 @@
 import React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function RadioBox(props) {
   const { value, checked, setChecked } = props
