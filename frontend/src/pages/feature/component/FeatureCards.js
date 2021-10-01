@@ -8,21 +8,29 @@ import { API_URL, FEATURE_TYPE } from '../../../utils/config'
 import { Link } from 'react-router-dom'
 
 function FeatureCards(props) {
-  // 給頁面切換typeid資料用
-  const [typedata, setTypedata] = useState([])
+  const { sort, currentPage, typedata, setTypedata } = props
+  // console.log('sort', sort)
+  // // 給頁面切換typeid資料用
+  // const [typedata, setTypedata] = useState([])
 
   // 取得分類
   useEffect(() => {
     // 查props發出什麼訊息，是否有正確發出API
     // console.log('typeid', props)
-    Axios.get(`${API_URL}/feature/index/${props.typeid}`).then((response) => {
-      setTypedata(response.data)
+    Axios.get(`${API_URL}/feature/index/${props.typeid}/${sort}`).then(
+      (response) => {
+        setTypedata(response.data)
+      }
+    )
+  }, [props.typeid, sort])
 
-      console.log('response.data', response.data)
-    })
-  }, [props.typeid])
+  const [perPage, setPerPage] = useState(6)
+  const lastNumber = currentPage * perPage
+  const firstNumber = lastNumber - perPage
+  const currentNumber = typedata.slice(firstNumber, lastNumber)
+  // console.log('currentNumber', currentNumber)
 
-  const listFeatureCards = typedata.map((e) => {
+  const listFeatureCards = currentNumber.map((e) => {
     return (
       <>
         <Link to={`/feature/step/` + e.listId}>

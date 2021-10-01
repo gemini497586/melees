@@ -2,55 +2,43 @@ import React, { useState, useEffect } from 'react'
 import '../../style/featureIndexWeek.css'
 import '../../style/featureComponent.css'
 import FeatureWeek from './component/FeatureWeek'
-import DropDown2 from '../../component/DropDown2'
-import Paging from '../../component/Paging'
+import SortBarWeek from './SortBarWeek'
+import Paging from '../market/component/Paging'
 import CardShopping from '../../component/CardShopping'
 import MinorBar from './component/MinorBar'
 import { API_URL } from '../../utils/config'
 import Axios from 'axios'
 
 function FeatureIndexWeek() {
-  /* 排序搜尋 */
-  const [sortBy, setSortBy] = useState('0')
-  const itemList = [
-    {
-      name: '週期由新至舊',
-      value: '1',
-    },
-    {
-      name: '週期由舊至新',
-      value: '2',
-    },
-    {
-      name: '按讚數由多至少',
-      value: '3',
-    },
-    {
-      name: '按讚數由少至多',
-      value: '4',
-    },
-    {
-      name: '瀏覽數由多至少',
-      value: '5',
-    },
-    {
-      name: '瀏覽數由少至多',
-      value: '6',
-    },
-  ]
-
+  // 搜尋
+  const [sort, setSort] = useState('')
+  console.log('sort', sort)
+  // 食譜資料
   const [weekdata, setWeekdata] = useState([])
+  // 圖片資料
   const [weekindeximg, setWeekindeximg] = useState([])
+  // 分頁
+  const [currentPage, setCurrentPage] = useState(1)
+
   useEffect(() => {
-    Axios.post(`${API_URL}/feature/weeklist`).then((response) => {
+    // 食譜資料
+    Axios.post(`${API_URL}/feature/weeklist/${sort}`).then((response) => {
       setWeekdata(response.data)
     })
-
-    Axios.post(`${API_URL}/feature/weekindeximg`).then((response) => {
+    // 食譜圖片
+    Axios.post(`${API_URL}/feature/weekindeximg/${sort}`).then((response) => {
       setWeekindeximg(response.data)
-      console.log('weekindeximg', response.data)
+      // console.log('weekindeximg', response.data)
     })
-  }, [])
+  }, [sort])
+
+  // 分頁
+  const [perPage, setPerPage] = useState(5)
+  const lastNumber = currentPage * perPage
+  const firstNumber = lastNumber - perPage
+  const currentNumber = weekdata.slice(firstNumber, lastNumber)
+  const currentNumberImg = weekindeximg.slice(firstNumber, lastNumber)
+  // console.log('currentNumber', currentNumber)
 
   return (
     <>
@@ -59,11 +47,7 @@ function FeatureIndexWeek() {
         <MinorBar />
         <div className="container">
           <div className="fdropdown-mf">
-            <DropDown2
-              itemList={itemList}
-              sortBy={sortBy}
-              setSortBy={setSortBy}
-            />
+            <SortBarWeek sort={sort} setSort={setSort} />
           </div>
           <div className="findexw-titlegroup">
             <div className="findexw-title font-400L">一週食譜</div>
@@ -72,7 +56,7 @@ function FeatureIndexWeek() {
           <div className="fline-g300"></div>
           <div className="row m-0">
             <div className="col-2">
-              {weekindeximg.map((v, i) => {
+              {currentNumberImg.map((v, i) => {
                 {
                   /* console.log('v', v) */
                 }
@@ -88,14 +72,18 @@ function FeatureIndexWeek() {
               })}
             </div>
             <div className="col-10">
-              {weekdata.map((v, i) => {
+              {currentNumber.map((v, i) => {
                 return <FeatureWeek weekdataCards={v} key={i} />
               })}
             </div>
           </div>
         </div>
         <div className="fpaginf-mf">
-          <Paging />
+          <Paging
+            product={weekindeximg}
+            product={weekdata}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
         <CardShopping />
       </div>

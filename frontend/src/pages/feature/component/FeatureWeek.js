@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import '../../../style/featureWeek.css'
-import food from '../../../images/1.jpg'
 import HeartViewNum from '../../../component/HeartViewNum'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
-import { useParams } from 'react-router'
 
 function FeatureWeek(props) {
   const { weekdataCards } = props
   const [date1, setDate1] = useState([])
+  const [formatedData, setFormatedData] = useState([])
 
   // 將 first_date 用 for 變成 5天
   useEffect(() => {
@@ -30,9 +29,8 @@ function FeatureWeek(props) {
   // console.log(date1)
   // console.log('date11', date)
 
-  const [formatedData, setFormatedData] = useState([])
   useEffect(() => {
-    console.log('weekdataCards: ', weekdataCards.length)
+    // console.log('weekdataCards: ', weekdataCards.length)
     const handleFormate = () => {
       let weeklistarr = []
       for (let i = 0; i < 5; i++) {

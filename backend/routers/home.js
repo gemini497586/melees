@@ -24,13 +24,17 @@ router.get("/feature", async function (req, res, next) {
   //   return item.feature_id;
   // });
 
+  let countsIds = counts.map((v) => {
+    return v.listId;
+  })
+
   let sql1 =
     "SELECT feature_id, file_type " +
     "FROM feature_img " +
-    "WHERE feature_id IN (51, 8, 2, 10, 47) " +
+    "WHERE feature_id IN ? " +
     "ORDER BY id ";
 
-  let imgs = await connection.queryAsync(sql1, [counts]);
+  let imgs = await connection.queryAsync(sql1, [[countsIds]]);
 
   
   let data = counts.map((item) => {
