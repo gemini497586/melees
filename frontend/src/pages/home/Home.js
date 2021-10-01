@@ -5,7 +5,7 @@ import '../../style/searchRecipe.css'
 import '../../style/featureComponent.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
-import { API_URL, FEATURE_TYPE } from '../../utils/config'
+import { API_URL, FEATURE_TYPE, P_CATEGORY } from '../../utils/config'
 import Axios from 'axios'
 
 /* 客製化便當 */
@@ -39,17 +39,27 @@ function Home() {
   const [largelinkname, setLargelinkname] = useState('')
   const [largetype, setLargetype] = useState('')
   const [largelistname, setLargelistname] = useState('')
+
+  // 購物商城用
+  const [product, setProduct] = useState([])
+  const [productLarge, setProductLarge] = useState([])
   useEffect(() => {
     Axios.get(`${API_URL}/home/feature`).then((response) => {
       setFeaturedata(response.data)
+      console.log(response.data[0])
       // 給預設
       setLargeimg(response.data[0].img.file_type)
       setLargetype(response.data[0].type_id)
       setLargelistname(response.data[0].listName)
       setLargelinkname(response.data[0].linkName)
     })
-  }, [])
 
+    // 購物商城的API
+    Axios.get(`${API_URL}/home/market`).then((response) => {
+      setProduct(response.data.slice(1))
+      setProductLarge(response.data[0])
+    })
+  }, [])
   // 縮圖使用
   // 在下面帶變數前，這邊要先宣告變數，變數名稱不一定要和下面一樣，位置對就好
   const smallimg = (v) => {
@@ -295,7 +305,7 @@ function Home() {
                   <h5 className="fcolor-grey-800">你最好的SUP！</h5>
                   <h1 className="fcolor-primary mb-5">熱燒商品</h1>
                 </div>
-                <Link to="/market/home/" className="h-shop-titlebtn">
+                <Link to="/market/home" className="h-shop-titlebtn">
                   查看更多商品
                 </Link>
               </div>
@@ -303,55 +313,50 @@ function Home() {
               <div className="h-shop-cardgroup">
                 <div className="h-shop-cardimg">
                   <div className="h-shop-imgbigclass">
-                    <figure className="h-shop-imgbig">
-                      <img className="fcover-fit" src={homeshop_01} alt="" />
-                    </figure>
+                    <Link to={`/market/product/${productLarge.id}`}>
+                      <figure className="h-shop-imgbig">
+                        <img
+                          className="b-cover-fit"
+                          src={`${API_URL}/market/${productLarge.image}`}
+                          alt={productLarge.name}
+                        />
+                      </figure>
+                    </Link>
                   </div>
                   <div className="h-shop-cardfont">
-                    <p className="font-400S fcolor-white">食材</p>
-                    <h5 className="fcolor-white">紐西蘭小羔羊薄切片</h5>
-                    <p className="font-400S fcolor-secondary">日荷肉舖</p>
+                    <p className="font-400S fcolor-white">
+                      {P_CATEGORY[productLarge.category]}
+                    </p>
+                    <h5 className="fcolor-white">{productLarge.name}</h5>
                     <p className="font-400S fcolor-secondary">
-                      在純淨大自然中成長的樂活羊隻，以天然牧草孕育出更豐富的營養成分，精選六個月大的小羔羊，部位取自於小羔羊隻的肩背肉塊，限定0.2cm的薄度，更能呈現肉質的鮮美嫩度，不論是火鍋、熱炒、烹煮皆適宜。
+                      {productLarge.info}
                     </p>
                   </div>
                 </div>
-                <div className="h-shop-cardimg">
-                  <div className="h-shop-cardfontsmalltwo">
-                    <p className="font-400S fcolor-white">調味料</p>
-                    <h6 className="fcolor-white">巴薩米克醋Bianco</h6>
-                    <div className="h-shop-cardline"></div>
-                  </div>
-                  <div className="h-shop-imgclass">
-                    <figure className="h-shop-img">
-                      <img className="fcover-fit" src={homeshop_02} alt="" />
-                    </figure>
-                  </div>
-                </div>
-                <div className="h-shop-cardimg">
-                  <div className="h-shop-cardfontsmall">
-                    <p className="font-400S fcolor-primary">鍋具</p>
-                    <h6 className="fcolor-primary">鈦頂級不沾平底鍋</h6>
-                    <div className="h-shop-cardline"></div>
-                  </div>
-                  <div className="h-shop-imgclass">
-                    <figure className="h-shop-img">
-                      <img className="fcover-fit" src={homeshop_03} alt="" />
-                    </figure>
-                  </div>
-                </div>
-                <div className="h-shop-cardimg">
-                  <div className="h-shop-cardfontsmall">
-                    <p className="font-400S fcolor-primary">食材</p>
-                    <h6 className="fcolor-primary">美國Choice嫩肩里肌牛排</h6>
-                    <div className="h-shop-cardline"></div>
-                  </div>
-                  <div className="h-shop-imgclass">
-                    <figure className="h-shop-img">
-                      <img className="fcover-fit" src={homeshop_04} alt="" />
-                    </figure>
-                  </div>
-                </div>
+                {product.map((v) => {
+                  return (
+                    <div className="h-shop-cardimg" key={v.id}>
+                      <div className="h-shop-cardfontsmalltwo">
+                        <p className="font-400S fcolor-secondary">
+                          {P_CATEGORY[v.category]}
+                        </p>
+                        <h6 className="fcolor-secondary">{v.name}</h6>
+                        <div className="h-shop-cardline"></div>
+                      </div>
+                      <div className="h-shop-imgclass">
+                        <Link to={`/market/product/${v.id}`}>
+                          <figure className="h-shop-img">
+                            <img
+                              className="fcover-fit"
+                              src={`${API_URL}/market/${v.image}`}
+                              alt={v.name}
+                            />
+                          </figure>
+                        </Link>
+                      </div>
+                    </div>
+                  )
+                })}
               </div>
               {/* 往下箭頭 */}
               <a onClick={() => fullpageApi.moveSectionDown()}>

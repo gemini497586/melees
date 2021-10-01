@@ -3,7 +3,7 @@ import '../../../style/minorBar.css'
 import React, { useEffect, useState } from 'react'
 import FeatureType from '../../../data/FeatureType.json'
 
-function MinorBar(props) {
+function MinorBar() {
   // 選單
   const [typedata, setTypedata] = useState([])
 
@@ -17,7 +17,7 @@ function MinorBar(props) {
       <ul className="minor-bar">
         {typedata.map((v) => {
           return (
-            <li>
+            <li key={v.id}>
               <Link to={`/feature/index/${v.typeid}`}>{v.text}</Link>
             </li>
           )

@@ -68,4 +68,22 @@ router.get("/feature", async function (req, res, next) {
   res.json(data);
 });
 
+// 商城
+router.get("/market", async (req, res, next) => {
+  // 先找到收藏最高的四個id
+  let saved = await connection.queryAsync(
+      "SELECT product_id, COUNT(*) AS count FROM product_save GROUP BY product_id ORDER BY count DESC LIMIT 4"
+  );
+  let saveIds = saved.map((v) => {
+      return v.product_id;
+  });
+  // 找到那四個id的商品內容
+  let product = await connection.queryAsync(
+      "SELECT a.*, COUNT(b.member_id) AS save_qty FROM product AS a INNER JOIN product_save AS b ON a.id=b.product_id WHERE a.id IN ? GROUP BY a.id ORDER BY save_qty DESC",
+      [[saveIds]]
+  );
+  res.json(product);
+});
+
+
 module.exports = router;

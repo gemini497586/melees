@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import React, { useState, useEffect, useHistory } from 'react'
 // 共用元件
 import Table from '../../component/Table'
 import RecipeStep from '../../component/RecipeStep'
@@ -15,6 +16,7 @@ import '../../style/privateRecipeUpload.css'
 import Axios from 'axios'
 import { useParams } from 'react-router'
 import { API_URL } from '../../utils/config'
+// const history = useHistory()
 
 function PrivateRecipeIntro() {
   const { id } = useParams()
@@ -22,6 +24,9 @@ function PrivateRecipeIntro() {
   const [ingred, setIngred] = useState([])
   const [stepList, setStepList] = useState([])
   const [tags, setTags] = useState([])
+  const [comment, setComment] = useState([])
+  const [memberInfo, setMemberInfo] = useState([])
+  const [reRender, setReRender] = useState(false)
 
   useEffect(() => {
     Axios.get(`${API_URL}/private/ingred/${id}`, {
@@ -53,6 +58,12 @@ function PrivateRecipeIntro() {
     })
   }, [])
 
+  useEffect(() => {
+    Axios.get(`${API_URL}/private/comment/${id}`).then((res) => {
+      setComment(res.data.result)
+      setMemberInfo(res.data.memResult)
+    })
+  }, [reRender])
   // 將食材資料分半
   const total = ingred.length
   const half = Math.ceil(total / 2)
@@ -90,7 +101,9 @@ function PrivateRecipeIntro() {
               {tags.map((value, index) => {
                 return (
                   <div className="tag-box mt-3 mx-2" key={index}>
-                    <div className="font-400SS">{value.tags}</div>
+                    <Link to={'/search/recipe/' + value.tags}>
+                      <div className="font-400SS">{value.tags}</div>
+                    </Link>
                   </div>
                 )
               })}
@@ -101,10 +114,14 @@ function PrivateRecipeIntro() {
         <div className="container">
           <div className="row">
             <PrivateRecipeHeading title={heading[3]} />
-            <PrivateRecipeStarComment id={id} />
+            <PrivateRecipeStarComment id={id} setReRender={setReRender} />
           </div>
         </div>
-        <PrivateRecipeComment id={id} />
+        <PrivateRecipeComment
+          id={id}
+          comment={comment}
+          memberInfo={memberInfo}
+        />
         <CardRecipe />
         <CardShopping />
       </div>

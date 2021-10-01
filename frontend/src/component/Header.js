@@ -1,4 +1,4 @@
-import { Link, Redirect, useLocation, useHistory } from 'react-router-dom'
+import { Link, useLocation, useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import meleesLogo from '../images/meleesLogo.svg'
 import React, { useContext, useEffect, useState } from 'react'
@@ -10,7 +10,7 @@ import axios from 'axios'
 import { API_URL } from '../utils/config'
 import { HandleCart } from '../utils/HandleCart'
 
-function Header(props) {
+function Header() {
   const { login, setLogin } = useContext(HandleCart)
   const [word, setWord] = useState('')
 
@@ -62,6 +62,17 @@ function Header(props) {
     }
   }, [location])
 
+  // 抓到大頭貼
+  const [avatar, setAvatar] = useState('')
+  useEffect(() => {
+    axios
+      .post(`${API_URL}/market/avatar`, null, { withCredentials: true })
+      .then((result) => {
+        console.log(result.data[0].picture)
+        setAvatar(result.data[0].picture)
+      })
+  }, [login])
+
   // 顯示header購物車
   const [hidden, setHidden] = useState(false)
 
@@ -75,6 +86,7 @@ function Header(props) {
       if (response.status === 202) {
         alert('會員已登出')
         setLogin(false)
+        setAvatar('')
       }
     } catch (err) {
       console.error(err.response)
@@ -90,14 +102,12 @@ function Header(props) {
     }
   }, [carts])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = () => {
     if (recipe === '找商品') {
       history.push(`/search/market/${word}`)
-      // window.location.href = `http://localhost:3000/search/market/${word}`
     }
     if (recipe === '找食譜') {
       history.replace(`/search/recipe/${word}`)
-      // window.location.href = `http://localhost:3000/search/recipe/${word}`
     }
   }
 
@@ -157,6 +167,11 @@ function Header(props) {
               onChange={(e) => {
                 setWord(e.target.value)
               }}
+              onKeyPress={(e) => {
+                if (e.key === 'Enter') {
+                  handleSubmit()
+                }
+              }}
             />
             <button className="header-search-btn btn" onClick={handleSubmit}>
               <FontAwesomeIcon icon="search" />
@@ -185,11 +200,10 @@ function Header(props) {
         </li>
         {login ? (
           <li className="user-btn ">
-            <FontAwesomeIcon
-              icon="user-circle"
-              className="user"
-              data-bs-toggle="dropdown"
-            />
+            <div className="user-avatar" data-bs-toggle="dropdown">
+              <img alt="" className="user" src={`${API_URL}/member${avatar}`} />
+              <FontAwesomeIcon icon="user-circle" className="user" />
+            </div>
             <ul className="dropdown-menu user-dropdown">
               <li className="font-400SL">
                 <a className="dropdown-item" href="#/">

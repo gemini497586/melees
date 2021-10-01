@@ -34,6 +34,10 @@
   width: 70%;
   color: var(--color-grey-900);
 }
+.s-market-text ul {
+  max-height: 60px;
+  overflow: hidden;
+}
 .s-market-text li {
   color: var(--color-grey-800);
   margin: 0;
@@ -79,9 +83,5 @@
   }
   .s-market-intro {
     width: 55%;
-  }
-  .s-market-text ul {
-    max-height: 40px;
-    overflow: hidden;
   }
 }

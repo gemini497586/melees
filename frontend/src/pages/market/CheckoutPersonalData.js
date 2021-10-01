@@ -9,25 +9,52 @@ import { Link } from 'react-router-dom'
 import useCheckoutInfo from '../../utils/useCheckoutInfo'
 import axios from 'axios'
 import { API_URL } from '../../utils/config'
+import Swal from 'sweetalert2'
 
 function CheckoutPersonalData() {
   const [howToPay, setHowToPay] = useState('請選擇付款方式')
   const [credit, setCredit] = useState(false)
+  const [alert, setAlert] = useState(false)
+  const [path, setPath] = useState('checkout-personalData')
 
-  useEffect(() => {
-    let payingBtn = document.getElementById('payingBtn')
-    payingBtn.addEventListener('click', () => {
-      payingBtn.classList.remove('dropdown-toggle')
-    })
-  }, [])
   const { info, addInfo } = useCheckoutInfo()
-
   const [personalData, setPersonalData] = useState([])
   const [id, setId] = useState(1)
   const [name, setName] = useState(info[0].name)
   const [phone, setPhone] = useState(info[0].phone)
   const [email, setEmail] = useState(info[0].email)
   const [address, setAddress] = useState(info[0].address)
+
+  useEffect(() => {
+    let payingBtn = document.getElementById('payingBtn')
+    payingBtn.addEventListener('click', () => {
+      payingBtn.classList.remove('dropdown-toggle', 'checkout-alert')
+    })
+  }, [])
+
+  const frontendCheck = () => {
+    if (howToPay === '請選擇付款方式') {
+      Swal.fire('請選擇付款方式')
+      setAlert(true)
+      let red = document.getElementById('payingBtn')
+      red.classList.add('checkout-alert')
+    } else {
+      addInfo({
+        id: id,
+        name: name,
+        phone: phone,
+        email: email,
+        address: address,
+        howToPay: howToPay,
+      })
+    }
+  }
+
+  useEffect(() => {
+    if (howToPay !== '請選擇付款方式') {
+      setPath('checkout-confirm')
+    }
+  }, [frontendCheck])
 
   useEffect(() => {
     // 拿到會員的資料
@@ -126,6 +153,7 @@ function CheckoutPersonalData() {
               onClick={() => {
                 setHowToPay('信用卡')
                 setCredit(true)
+                setAlert(false)
               }}
             >
               信用卡
@@ -135,31 +163,28 @@ function CheckoutPersonalData() {
               onClick={() => {
                 setHowToPay('貨到付款')
                 setCredit(false)
+                setAlert(false)
               }}
             >
               貨到付款
             </li>
           </ul>
         </div>
+        {alert ? (
+          <div className="show-alert font-400SS">請選擇付款方式</div>
+        ) : (
+          <></>
+        )}
         <div className="checkout-credit-card-area">
           {credit && <CheckoutCreditCard />}
         </div>
         <div className="cart-checkout-box">
           <CheckoutArea />
-          <Link to="/market/checkout-confirm">
+          <Link to={`/market/${path}`}>
             <button
               className="btn font-700M cart-checkout-btn"
               type="submit"
-              onClick={() =>
-                addInfo({
-                  id: id,
-                  name: name,
-                  phone: phone,
-                  email: email,
-                  address: address,
-                  howToPay: howToPay,
-                })
-              }
+              onClick={() => frontendCheck()}
             >
               <FontAwesomeIcon icon="credit-card" /> 結帳去
             </button>

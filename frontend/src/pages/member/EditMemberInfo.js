@@ -9,6 +9,12 @@ import '../../component/FontawsomeIcons'
 import { API_URL } from '../../utils/config'
 import axios from 'axios'
 import validationInfo from './component/validationInfo'
+import InputErrorMsg from './component/InputErrorMsg'
+import Swal from 'sweetalert2'
+
+const colors = {
+  primary: '#fe9900',
+}
 
 function EditMemberInfo() {
   const [errors, setErrors] = useState({})
@@ -84,11 +90,14 @@ function EditMemberInfo() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setErrors({})
     handleFormValuesInvalid(e)
-    // console.log('errors.length: ', errors.length)
-    // if (errors.length > 0) {
-    //   return false
-    // }
+    if (Object.keys(errors).length > 0) {
+      // console.log('Object.keys(errors):', Object.keys(errors))
+      console.log('Object.keys(errors).length:', Object.keys(errors).length)
+      return false
+    }
+    // console.log('pass')
     try {
       let formData = new FormData()
       formData.append('picture', formValues.picture)
@@ -99,18 +108,31 @@ function EditMemberInfo() {
       formData.append('cellphone', formValues.cellphone)
       formData.append('email', formValues.email)
       formData.append('address', formValues.address)
-      let result = await axios.post(`${API_URL}/member/editinfo`, formData, {
+      let response = await axios.post(`${API_URL}/member/editinfo`, formData, {
         // 設定可以跨源送 cookie
         withCredentials: true,
       })
-      console.log(result)
-    } catch (e) {
-      console.error(e.result)
+      console.log(response)
+      if (response.status === 200) {
+        Swal.fire({
+          icon: 'success',
+          title: '資料更新成功！',
+          confirmButtonColor: colors.primary,
+          confirmButtonText: '確認',
+        })
+      }
+    } catch (err) {
+      console.error(err)
+      if (err.response.status === 400) {
+        // setFormValues({})
+        console.log(err.response.data.message)
+        // setErrors(err.response.data.message)
+      }
     }
   }
 
   useEffect(() => {
-    const testLoginCheck = async () => {
+    const memberInfoAPI = async () => {
       try {
         let response = await axios.get(`${API_URL}/member/editinfo`, {
           // 設定可以跨源送 cookie
@@ -136,7 +158,7 @@ function EditMemberInfo() {
         }
       }
     }
-    testLoginCheck()
+    memberInfoAPI()
   }, [])
   return (
     <>
@@ -191,6 +213,11 @@ function EditMemberInfo() {
               </label>
               <div className="col-4">
                 <input
+                  className={
+                    errors.name
+                      ? 'form-input-invalid animate__animated animate__headShake'
+                      : null
+                  }
                   type="text"
                   id="name"
                   name="name"
@@ -201,15 +228,7 @@ function EditMemberInfo() {
                   required
                   maxlength="100"
                 />
-                <p
-                  className={
-                    errors.name
-                      ? 'font-400S member-form-errorMsg errorMsg-show'
-                      : 'font-400S member-form-errorMsg'
-                  }
-                >
-                  {errors.name ? errors.name : '預留錯誤訊息的位置'}
-                </p>
+                <InputErrorMsg errorMsg={errors.name} />
               </div>
               <div className="col-4 member-form-group-gender">
                 <input
@@ -236,15 +255,7 @@ function EditMemberInfo() {
                 <label className="font-700SL" htmlFor="female">
                   小姐
                 </label>
-                <p
-                  className={
-                    errors.gender
-                      ? 'font-400S member-form-errorMsg errorMsg-show'
-                      : 'font-400S member-form-errorMsg'
-                  }
-                >
-                  {errors.gender ? errors.gender : '預留錯誤訊息的位置'}
-                </p>
+                <InputErrorMsg errorMsg={errors.gender} />
               </div>
             </div>
             <div className="member-form-group row">
@@ -253,6 +264,11 @@ function EditMemberInfo() {
               </label>
               <div className="col-4">
                 <input
+                  className={
+                    errors.nickname
+                      ? 'form-input-invalid animate__animated animate__headShake'
+                      : null
+                  }
                   type="text"
                   id="nickname"
                   name="nickname"
@@ -262,15 +278,7 @@ function EditMemberInfo() {
                   placeholder=""
                   maxlength="100"
                 />
-                <p
-                  className={
-                    errors.nickname
-                      ? 'font-400S member-form-errorMsg errorMsg-show'
-                      : 'font-400S member-form-errorMsg'
-                  }
-                >
-                  {errors.nickname ? errors.nickname : '預留錯誤訊息的位置'}
-                </p>
+                <InputErrorMsg errorMsg={errors.nickname} />
               </div>
             </div>
             <div className="member-form-group row">
@@ -279,6 +287,11 @@ function EditMemberInfo() {
               </label>
               <div className="col-4">
                 <input
+                  className={
+                    errors.birthday
+                      ? 'form-input-invalid animate__animated animate__headShake'
+                      : null
+                  }
                   type="date"
                   id="birthday"
                   name="birthday"
@@ -288,15 +301,7 @@ function EditMemberInfo() {
                   placeholder=""
                   required
                 />
-                <p
-                  className={
-                    errors.birthday
-                      ? 'font-400S member-form-errorMsg errorMsg-show'
-                      : 'font-400S member-form-errorMsg'
-                  }
-                >
-                  {errors.birthday ? errors.birthday : '預留錯誤訊息的位置'}
-                </p>
+                <InputErrorMsg errorMsg={errors.birthday} />
               </div>
             </div>
             <div className="member-form-group row">
@@ -305,6 +310,11 @@ function EditMemberInfo() {
               </label>
               <div className="col-4">
                 <input
+                  className={
+                    errors.cellphone
+                      ? 'form-input-invalid animate__animated animate__headShake'
+                      : null
+                  }
                   type="text"
                   id="cellphone"
                   name="cellphone"
@@ -315,15 +325,7 @@ function EditMemberInfo() {
                   required
                   maxlength="100"
                 />
-                <p
-                  className={
-                    errors.cellphone
-                      ? 'font-400S member-form-errorMsg errorMsg-show'
-                      : 'font-400S member-form-errorMsg'
-                  }
-                >
-                  {errors.cellphone ? errors.cellphone : '預留錯誤訊息的位置'}
-                </p>
+                <InputErrorMsg errorMsg={errors.cellphone} />
               </div>
             </div>
             <div className="member-form-group row">
@@ -332,6 +334,11 @@ function EditMemberInfo() {
               </label>
               <div className="col-4">
                 <input
+                  className={
+                    errors.email
+                      ? 'form-input-invalid animate__animated animate__headShake'
+                      : null
+                  }
                   type="text"
                   id="email"
                   name="email"
@@ -342,15 +349,7 @@ function EditMemberInfo() {
                   required
                   maxlength="100"
                 />
-                <p
-                  className={
-                    errors.email
-                      ? 'font-400S member-form-errorMsg errorMsg-show'
-                      : 'font-400S member-form-errorMsg'
-                  }
-                >
-                  {errors.email ? errors.email : '預留錯誤訊息的位置'}
-                </p>
+                <InputErrorMsg errorMsg={errors.email} />
               </div>
             </div>
             <div className="member-form-group row">
@@ -359,6 +358,11 @@ function EditMemberInfo() {
               </label>
               <div className="col-4">
                 <input
+                  className={
+                    errors.address
+                      ? 'form-input-invalid animate__animated animate__headShake'
+                      : null
+                  }
                   type="text"
                   id="address"
                   name="address"
@@ -368,15 +372,7 @@ function EditMemberInfo() {
                   placeholder=""
                   maxlength="100"
                 />
-                <p
-                  className={
-                    errors.address
-                      ? 'font-400S member-form-errorMsg errorMsg-show'
-                      : 'font-400S member-form-errorMsg'
-                  }
-                >
-                  {errors.address ? errors.address : '預留錯誤訊息的位置'}
-                </p>
+                <InputErrorMsg errorMsg={errors.address} />
               </div>
             </div>
           </div>

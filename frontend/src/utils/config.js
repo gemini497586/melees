@@ -9,3 +9,6 @@ export const FEATURE_TYPE = {
   3: '家常好手藝',
   4: '上班不煩惱',
 }
+// facebook 快速登入
+export const FACEBOOK_APP_ID = process.env.FACEBOOK_APP_ID
+export const FACEBOOK_APP_SECRET = process.env.FACEBOOK_APP_SECRET

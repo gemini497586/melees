@@ -20,14 +20,12 @@ function ProductDetails(props) {
         withCredentials: true,
       })
       .then((response) => {
-        console.log(response.data)
         if (response.data.getSave && response.data.getSave.length > 0) {
           // 如果回傳不是undefined，代表資料庫有資料，那就是該會員有收藏過，所以把按鈕設成true
           setSave(true)
         }
 
         setSideImg(response.data.productImg)
-        console.log(sideImg)
 
         response.data.product[0].specs = response.data.product[0].specs
           .split('\n')
@@ -35,8 +33,6 @@ function ProductDetails(props) {
         setProduct(response.data.product[0])
       })
   }, [id])
-
-  // let category = { 1: '食材', 2: '鍋具', 3: '調味料' }
 
   const SaveProduct = async () => {
     try {
@@ -101,7 +97,6 @@ function ProductDetails(props) {
         <div className="thumbnail">
           {sideImg &&
             sideImg.map((v) => {
-              console.log(v)
               return (
                 <img
                   src={`${API_URL}/market/${v.image}`}

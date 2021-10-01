@@ -70,9 +70,13 @@
   margin: 0 10px;
 }
 
+.form-input-invalid {
+  border: 2px solid var(--color-red-C);
+}
+
 .member-form-errorMsg {
   color: var(--color-red-C);
-  margin: 0 0 0 5px;
+  margin: 2px 0 2px 5px;
 
   /* 暫時隱藏錯誤訊息 */
   opacity: 0;
@@ -144,6 +148,7 @@
 .member-form-forRegister {
   /* margin-top: 72px; */
   margin-top: 176px;
+  margin-bottom: 60px;
 }
 
 /* 會員資料修改頁面的客製版 */
