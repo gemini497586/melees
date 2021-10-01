@@ -106,7 +106,14 @@ app.use((err, req, res, next) => {
     }
     return res.status(400).json({ message: err.message });
   }
-  res.status(err.status).json({ message: err.message });
+  res
+    .status(err.status)
+    .json({
+      message: err.message,
+      category: err.category,
+      type: err.type,
+      code: err.code,
+    });
 });
 
 const port = 3001;

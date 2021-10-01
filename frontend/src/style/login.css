@@ -2,6 +2,7 @@
 .login {
   width: 100%;
   background-color: var(--color-primary);
+  margin-top: 104px;
   padding: 150px 0;
 }
 
@@ -64,6 +65,10 @@
   border: none;
 }
 
+.login-form-loginBtn:hover {
+  background-color: var(--color-primary-A);
+}
+
 .login-form-errorMsg {
   opacity: 0;
   margin: 0;
@@ -97,6 +102,11 @@
   height: 40px;
   background: url('../images/btn_google_light_normal_ios.svg') no-repeat;
   margin-right: 10px;
+  /* border-radius: 50%; */
+}
+
+.quickLogin-googleBtn:hover {
+  background-color: var(--color-grey-300);
 }
 
 .quickLogin-facebookBtn {
@@ -116,6 +126,10 @@
   line-height: 43px;
 }
 
+.quickLogin-facebookBtn:hover {
+  background-color: var(--color-blue-B);
+}
+
 .shoppingRule {
   color: var(--color-grey-500);
   text-align: center;
@@ -133,4 +147,9 @@
 .login-registerText a {
   text-decoration: none;
   color: var(--color-primary);
+}
+
+.login-registerText a:hover {
+  text-decoration: underline;
+  color: var(--color-primary-A);
 }
