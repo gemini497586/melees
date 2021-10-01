@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import img from '../../../images/005.jpg'
 import '../../../style/cartDetailRowBtn.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'

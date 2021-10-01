@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import '../../style/global.css'
 import '../../style/member.css'
+import 'animate.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
 import avatar from '../../images/default_member_avatar.png'
 import { API_URL } from '../../utils/config'
 import axios from 'axios'
 import validationInfo from './component/validationInfo'
+import InputErrorMsg from './component/InputErrorMsg'
 
 function Register() {
   const [errors, setErrors] = useState({})
@@ -24,16 +26,16 @@ function Register() {
     // cellphone: '',
     // email: '',
     // address: '',
-    // account: 'meleesadmin',
-    // password: '123456',
-    // rePassword: '123456',
-    // name: 'meleesadmintester1715',
-    // gender: '男',
-    // nickname: 'testnickname',
-    // birthday: '1992-08-01',
-    // cellphone: '0988456654',
-    // email: 'meleestest@gmail.com',
-    // address: '桃園市中壢區中央路300號',
+    account: 'meleesadmin',
+    password: '123456',
+    rePassword: '123456',
+    name: 'meleesadmintester1715',
+    gender: '男',
+    nickname: 'testnickname',
+    birthday: '1992-08-01',
+    cellphone: '0988456654',
+    email: 'meleestest@gmail.com',
+    address: '桃園市中壢區中央路300號',
   })
   const handleFormValuesChange = (e) => {
     setFormValues({
@@ -114,9 +116,9 @@ function Register() {
       console.log(response)
     } catch (err) {
       console.error(err.response)
-      // if (err.response.data.message === '此帳號已有人使用') {
-      //   alert('此帳號已有人使用')
-      // }
+      if (err.response.data.message === '此帳號已有人使用') {
+        alert('此帳號已有人使用')
+      }
     }
   }
 
@@ -161,6 +163,11 @@ function Register() {
             </label>
             <div className="col-4">
               <input
+                className={
+                  errors.account
+                    ? 'form-input-invalid animate__animated animate__headShake'
+                    : null
+                }
                 type="text"
                 id="account"
                 name="account"
@@ -171,15 +178,7 @@ function Register() {
                 required
                 maxlength="100"
               />
-              <p
-                className={
-                  errors.account
-                    ? 'font-400S member-form-errorMsg errorMsg-show'
-                    : 'font-400S member-form-errorMsg'
-                }
-              >
-                {errors.account ? errors.account : '預留錯誤訊息的位置'}
-              </p>
+              <InputErrorMsg errorMsg={errors.account} />
             </div>
           </div>
           <div className="member-form-group row">
@@ -188,6 +187,11 @@ function Register() {
             </label>
             <div className="col-4">
               <input
+                className={
+                  errors.password
+                    ? 'form-input-invalid animate__animated animate__headShake'
+                    : null
+                }
                 type="password"
                 id="password"
                 name="password"
@@ -199,15 +203,7 @@ function Register() {
                 minlength="6"
                 maxlength="12"
               />
-              <p
-                className={
-                  errors.password
-                    ? 'font-400S member-form-errorMsg errorMsg-show'
-                    : 'font-400S member-form-errorMsg'
-                }
-              >
-                {errors.password ? errors.password : '預留錯誤訊息的位置'}
-              </p>
+              <InputErrorMsg errorMsg={errors.password} />
             </div>
           </div>
           <div className="member-form-group row">
@@ -216,6 +212,11 @@ function Register() {
             </label>
             <div className="col-4">
               <input
+                className={
+                  errors.rePassword
+                    ? 'form-input-invalid animate__animated animate__headShake'
+                    : null
+                }
                 type="password"
                 id="rePassword"
                 name="rePassword"
@@ -227,15 +228,7 @@ function Register() {
                 minlength="6"
                 maxlength="12"
               />
-              <p
-                className={
-                  errors.rePassword
-                    ? 'font-400S member-form-errorMsg errorMsg-show'
-                    : 'font-400S member-form-errorMsg'
-                }
-              >
-                {errors.rePassword ? errors.rePassword : '預留錯誤訊息的位置'}
-              </p>
+              <InputErrorMsg errorMsg={errors.rePassword} />
             </div>
           </div>
           <div className="member-form-group row">
@@ -254,15 +247,7 @@ function Register() {
                 required
                 maxlength="100"
               />
-              <p
-                className={
-                  errors.name
-                    ? 'font-400S member-form-errorMsg errorMsg-show'
-                    : 'font-400S member-form-errorMsg'
-                }
-              >
-                {errors.name ? errors.name : '預留錯誤訊息的位置'}
-              </p>
+              <InputErrorMsg errorMsg={errors.name} />
             </div>
             <div className="col-4 member-form-group-gender">
               <input
@@ -289,15 +274,7 @@ function Register() {
               <label className="font-700SL" htmlFor="female">
                 小姐
               </label>
-              <p
-                className={
-                  errors.gender
-                    ? 'font-400S member-form-errorMsg errorMsg-show'
-                    : 'font-400S member-form-errorMsg'
-                }
-              >
-                {errors.gender ? errors.gender : '預留錯誤訊息的位置'}
-              </p>
+              <InputErrorMsg errorMsg={errors.gender} />
             </div>
           </div>
           <div className="member-form-group row">
@@ -314,15 +291,7 @@ function Register() {
                 placeholder=""
                 maxlength="100"
               />
-              <p
-                className={
-                  errors.nickname
-                    ? 'font-400S member-form-errorMsg errorMsg-show'
-                    : 'font-400S member-form-errorMsg'
-                }
-              >
-                {errors.nickname ? errors.nickname : '預留錯誤訊息的位置'}
-              </p>
+              <InputErrorMsg errorMsg={errors.nickname} />
             </div>
           </div>
           <div className="member-form-group row">
@@ -331,6 +300,11 @@ function Register() {
             </label>
             <div className="col-4">
               <input
+                className={
+                  errors.birthday
+                    ? 'form-input-invalid animate__animated animate__headShake'
+                    : null
+                }
                 type="date"
                 id="birthday"
                 name="birthday"
@@ -339,15 +313,7 @@ function Register() {
                 placeholder=""
                 required
               />
-              <p
-                className={
-                  errors.birthday
-                    ? 'font-400S member-form-errorMsg errorMsg-show'
-                    : 'font-400S member-form-errorMsg'
-                }
-              >
-                {errors.birthday ? errors.birthday : '預留錯誤訊息的位置'}
-              </p>
+              <InputErrorMsg errorMsg={errors.birthday} />
             </div>
           </div>
           <div className="member-form-group row">
@@ -356,6 +322,11 @@ function Register() {
             </label>
             <div className="col-4">
               <input
+                className={
+                  errors.cellphone
+                    ? 'form-input-invalid animate__animated animate__headShake'
+                    : null
+                }
                 type="text"
                 id="cellphone"
                 name="cellphone"
@@ -366,15 +337,7 @@ function Register() {
                 required
                 maxlength="100"
               />
-              <p
-                className={
-                  errors.cellphone
-                    ? 'font-400S member-form-errorMsg errorMsg-show'
-                    : 'font-400S member-form-errorMsg'
-                }
-              >
-                {errors.cellphone ? errors.cellphone : '預留錯誤訊息的位置'}
-              </p>
+              <InputErrorMsg errorMsg={errors.cellphone} />
             </div>
           </div>
           <div className="member-form-group row">
@@ -383,6 +346,11 @@ function Register() {
             </label>
             <div className="col-4">
               <input
+                className={
+                  errors.email
+                    ? 'form-input-invalid animate__animated animate__headShake'
+                    : null
+                }
                 type="text"
                 id="email"
                 name="email"
@@ -393,15 +361,7 @@ function Register() {
                 required
                 maxlength="100"
               />
-              <p
-                className={
-                  errors.email
-                    ? 'font-400S member-form-errorMsg errorMsg-show'
-                    : 'font-400S member-form-errorMsg'
-                }
-              >
-                {errors.email ? errors.email : '預留錯誤訊息的位置'}
-              </p>
+              <InputErrorMsg errorMsg={errors.email} />
             </div>
           </div>
           <div className="member-form-group row">
@@ -410,6 +370,11 @@ function Register() {
             </label>
             <div className="col-4">
               <input
+                className={
+                  errors.address
+                    ? 'form-input-invalid animate__animated animate__headShake'
+                    : null
+                }
                 type="text"
                 id="address"
                 name="address"
@@ -418,15 +383,7 @@ function Register() {
                 placeholder=""
                 maxlength="100"
               />
-              <p
-                className={
-                  errors.address
-                    ? 'font-400S member-form-errorMsg errorMsg-show'
-                    : 'font-400S member-form-errorMsg'
-                }
-              >
-                {errors.address ? errors.address : '預留錯誤訊息的位置'}
-              </p>
+              <InputErrorMsg errorMsg={errors.address} />
             </div>
           </div>
           <button className="member-form-submitBtn">送出</button>

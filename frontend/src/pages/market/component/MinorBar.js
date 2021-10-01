@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import '../../../style/minorBar.css'
 import ProductData from '../../../data/Products.json'
-import axios from 'axios'
 
 function MinorBar(props) {
   const [product, setProduct] = useState([])

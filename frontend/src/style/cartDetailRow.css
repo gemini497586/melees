@@ -3,6 +3,7 @@
   height: 176px;
   position: relative;
   border-bottom: 1px solid var(--color-grey-500);
+  top: 35px;
 }
 
 .cart-detail-row img,

@@ -15,7 +15,7 @@ function OrderDetails(props) {
 
   const [detail, setDetail] = useState([])
   const [mainList, setMainList] = useState([])
-  const [step, setStep] = useState('')
+  const [step, setStep] = useState(1)
   const [product, setProduct] = useState([])
   const [productList, setProductList] = useState(null)
 

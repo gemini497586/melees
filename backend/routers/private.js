@@ -2,7 +2,7 @@ const express = require("express");
 const connection = require("../utils/db");
 const router = express.Router();
 const moment = require("moment");
-const { v4 } = require('uuid');
+const { v4 } = require("uuid");
 // nodejs 的物件
 const path = require("path");
 const { loginCheckMiddleware } = require("../middlewares/auth");
@@ -31,11 +31,7 @@ const uploader = multer({
   fileFilter: function (req, file, cb) {
     console.log("判斷副檔名", file.mimetype);
     // 判斷檔案的型態不是這三種的話，就 error
-    if (
-      file.mimetype !== "image/jpg" && 
-      file.mimetype !== "image/png" && 
-      file.mimetype !== "image/jpeg") 
-      {
+    if (file.mimetype !== "image/jpg" && file.mimetype !== "image/png" && file.mimetype !== "image/jpeg") {
       cb(new Error("不接受的檔案型態"), false);
     }
     cb(null, true);
@@ -186,8 +182,8 @@ router.get("/index/recipe/:id", async function (req, res, next) {
 
 // 追蹤的新增或刪除
 router.get("/add-follow/:id", async function (req, res, next) {
-  const userId = req.session.member.id
-  
+  const userId = req.session.member.id;
+
   let sql = "SELECT * FROM private_recipe WHERE id = ?";
   let result = await connection.queryAsync(sql, [req.params.id]);
 
@@ -197,7 +193,7 @@ router.get("/add-follow/:id", async function (req, res, next) {
   res.json(follow);
 });
 router.get("/remove-follow/:id", async function (req, res, next) {
-  const userId = req.session.member.id
+  const userId = req.session.member.id;
 
   let sql = "SELECT * FROM private_recipe WHERE id = ?";
   let result = await connection.queryAsync(sql, [req.params.id]);
@@ -210,7 +206,7 @@ router.get("/remove-follow/:id", async function (req, res, next) {
 
 // 按讚的新增或刪除
 router.get("/add-like/:id", async function (req, res, next) {
-  const userId = req.session.member.id
+  const userId = req.session.member.id;
 
   let sql = "INSERT INTO private_like (private_id, user_id) VALUES (?, ?)";
   let like = await connection.queryAsync(sql, [req.params.id, userId]);
@@ -218,7 +214,7 @@ router.get("/add-like/:id", async function (req, res, next) {
   res.json(like);
 });
 router.get("/remove-like/:id", async function (req, res, next) {
-  const userId = req.session.member.id
+  const userId = req.session.member.id;
 
   let sql = "DELETE FROM private_like WHERE private_id = ? AND user_id = ?";
   let like = await connection.queryAsync(sql, [req.params.id, userId]);
@@ -267,9 +263,9 @@ router.get("/tags/:id", async function (req, res, next) {
 router.get("/comment/:id", async function (req, res, next) {
   let sql = "SELECT * FROM private_comment WHERE private_id = ?";
   let result = await connection.queryAsync(sql, [req.params.id]);
-  let member = "SELECT * FROM member"
-  let memResult = await connection.queryAsync(member)
-  res.json({result, memResult});
+  let member = "SELECT * FROM member";
+  let memResult = await connection.queryAsync(member);
+  res.json({ result, memResult });
 });
 
 // 更新瀏覽數
@@ -284,26 +280,26 @@ router.get("/addview/:id", async function (req, res, next) {
 router.use(loginCheckMiddleware);
 
 // 編輯食譜，先去資料庫拿資料
-router.get("/edit/get-data/:id", async function(req, res, next) {
-  console.log("123")
+router.get("/edit/get-data/:id", async function (req, res, next) {
+  console.log("123");
   // const userId = req.session.member.id
-  let sql = "SELECT * FROM private_recipe WHERE id = ?"
-  let recipe = await connection.queryAsync(sql, [req.params.id])
+  let sql = "SELECT * FROM private_recipe WHERE id = ?";
+  let recipe = await connection.queryAsync(sql, [req.params.id]);
 
-  let sql2 = "SELECT * FROM private_ingred WHERE private_id = ?"
-  let ingred = await connection.queryAsync(sql2, [req.params.id])
+  let sql2 = "SELECT * FROM private_ingred WHERE private_id = ?";
+  let ingred = await connection.queryAsync(sql2, [req.params.id]);
 
-  let sql3 = "SELECT * FROM private_step WHERE private_id = ?"
-  let steps = await connection.queryAsync(sql3, [req.params.id])
-  
-  let sql4 = "SELECT * FROM private_tags WHERE private_id = ?"
-  let tags = await connection.queryAsync(sql4, [req.params.id])
+  let sql3 = "SELECT * FROM private_step WHERE private_id = ?";
+  let steps = await connection.queryAsync(sql3, [req.params.id]);
 
-  res.json({recipe, ingred, steps, tags})
-})
+  let sql4 = "SELECT * FROM private_tags WHERE private_id = ?";
+  let tags = await connection.queryAsync(sql4, [req.params.id]);
+
+  res.json({ recipe, ingred, steps, tags });
+});
 
 // 編輯食譜，編輯後送資料到資料庫
-router.post("/edit/post-data/:id", uploader.single("photo"), async function(req, res, next) {
+router.post("/edit/post-data/:id", uploader.single("photo"), async function (req, res, next) {
   const filename = req.file ? req.file.filename : "";
   const name = req.body.name;
   const intro = req.body.intro;
@@ -312,167 +308,161 @@ router.post("/edit/post-data/:id", uploader.single("photo"), async function(req,
   const newStep = JSON.parse(req.body.step);
   const newTag = JSON.parse(req.body.tags);
 
-  if(filename === "") {
+  if (filename === "") {
     // 更新 private_recipe (沒有更改照片的)
-    let sql = "UPDATE private_recipe SET name = ?, intro = ?, qty = ? WHERE id = ?"
-    let result = await connection.queryAsync(sql, [name, intro, qty, req.params.id])
-    console.log("編輯沒有更改照片的")
+    let sql = "UPDATE private_recipe SET name = ?, intro = ?, qty = ? WHERE id = ?";
+    let result = await connection.queryAsync(sql, [name, intro, qty, req.params.id]);
+    console.log("編輯沒有更改照片的");
   } else {
     // 更新 private_recipe (有更改照片的)
-    let sql = "UPDATE private_recipe SET picture = ?, name = ?, intro = ?, qty = ? WHERE id = ?"
-    let result = await connection.queryAsync(sql, [filename, name, intro, qty, req.params.id])
-    console.log("編輯有更改照片的")
+    let sql = "UPDATE private_recipe SET picture = ?, name = ?, intro = ?, qty = ? WHERE id = ?";
+    let result = await connection.queryAsync(sql, [filename, name, intro, qty, req.params.id]);
+    console.log("編輯有更改照片的");
   }
 
-
   // 先取出食材原本欄位
-  let sql2 = "SELECT * FROM private_ingred WHERE private_id = ?"
-  let oldIngred = await connection.queryAsync(sql2, [req.params.id])
-  let oldIngredCount = oldIngred.length
-  let newIngredCount = newIngred.length
+  let sql2 = "SELECT * FROM private_ingred WHERE private_id = ?";
+  let oldIngred = await connection.queryAsync(sql2, [req.params.id]);
+  let oldIngredCount = oldIngred.length;
+  let newIngredCount = newIngred.length;
 
-  let ingredRow = oldIngredCount - newIngredCount
+  let ingredRow = oldIngredCount - newIngredCount;
   // 如果 diff > 0 代表更新過後的欄位比較少
   if (ingredRow > 0) {
-    let ingredRetain = oldIngred.slice(0, newIngredCount)
-    let ingredRemove = oldIngred.slice(newIngredCount)
+    let ingredRetain = oldIngred.slice(0, newIngredCount);
+    let ingredRemove = oldIngred.slice(newIngredCount);
 
     // 更新食材到資料表
     newIngred.forEach(async (value, index) => {
-      let ingredList = "UPDATE private_ingred SET ingred = ?, ingred_unit = ? WHERE id = ?"
+      let ingredList = "UPDATE private_ingred SET ingred = ?, ingred_unit = ? WHERE id = ?";
       let ingredResult = await connection.queryAsync(ingredList, [value.ingred, value.ingred_unit, ingredRetain[index].id]);
     });
 
     // 刪除多餘的欄位
     ingredRemove.forEach(async (value, index) => {
-      let sql = "DELETE FROM private_ingred WHERE id = ?"
-      let test = await connection.queryAsync(sql, [value.id])
-    })
+      let sql = "DELETE FROM private_ingred WHERE id = ?";
+      let test = await connection.queryAsync(sql, [value.id]);
+    });
   } else if (ingredRow < 0) {
     // 如果 diff < 0 代表更新過後的欄位比較多
-    let ingredRetain = newIngred.slice(0, oldIngredCount)
-    let ingredInsert = newIngred.slice(oldIngredCount)
+    let ingredRetain = newIngred.slice(0, oldIngredCount);
+    let ingredInsert = newIngred.slice(oldIngredCount);
 
     // 更新食材到資料表
-    ingredRetain.forEach(async (value,index) => {
-      let ingredList = "UPDATE private_ingred SET ingred = ?, ingred_unit = ? WHERE id = ?"
+    ingredRetain.forEach(async (value, index) => {
+      let ingredList = "UPDATE private_ingred SET ingred = ?, ingred_unit = ? WHERE id = ?";
       let ingredResult = await connection.queryAsync(ingredList, [value.ingred, value.ingred_unit, ingredRetain[index].id]);
-    })
+    });
 
     // 新增多的欄位
     ingredInsert.forEach(async (value, index) => {
-      let sql = "INSERT INTO private_ingred (private_id, ingred, ingred_unit) VALUES (?)"
-      let test = await connection.queryAsync(sql, [[req.params.id, value.ingred, value.ingred_unit]])
-    })
+      let sql = "INSERT INTO private_ingred (private_id, ingred, ingred_unit) VALUES (?)";
+      let test = await connection.queryAsync(sql, [[req.params.id, value.ingred, value.ingred_unit]]);
+    });
   } else {
     // 更新食材到資料表
     newIngred.forEach(async (value, index) => {
-      let ingredList = "UPDATE private_ingred SET ingred = ?, ingred_unit = ? WHERE id = ?"
+      let ingredList = "UPDATE private_ingred SET ingred = ?, ingred_unit = ? WHERE id = ?";
       let ingredResult = await connection.queryAsync(ingredList, [value.ingred, value.ingred_unit, oldIngred[index].id]);
     });
   }
-  
-  
-  // 取出步驟原本欄位
-  let sql3 = "SELECT * FROM private_step WHERE private_id = ?"
-  let oldStep = await connection.queryAsync(sql3, [req.params.id])
-  let oldStepCount = oldStep.length
-  let newStepCount = newStep.length
 
-  let stepRow = oldStepCount - newStepCount
-  if(stepRow > 0) {
-    let stepRetain = oldStep.slice(0, newStepCount)
-    let stepRemove = oldStep.slice(newStepCount)
+  // 取出步驟原本欄位
+  let sql3 = "SELECT * FROM private_step WHERE private_id = ?";
+  let oldStep = await connection.queryAsync(sql3, [req.params.id]);
+  let oldStepCount = oldStep.length;
+  let newStepCount = newStep.length;
+
+  let stepRow = oldStepCount - newStepCount;
+  if (stepRow > 0) {
+    let stepRetain = oldStep.slice(0, newStepCount);
+    let stepRemove = oldStep.slice(newStepCount);
 
     // 更新步驟到資料表
     newStep.forEach(async (value, index) => {
-      let stepdList = "UPDATE private_step SET steps = ? WHERE id = ?"
+      let stepdList = "UPDATE private_step SET steps = ? WHERE id = ?";
       let stepResult = await connection.queryAsync(stepdList, [value.steps, stepRetain[index].id]);
     });
 
     // 刪除原本剩餘的步驟
     stepRemove.forEach(async (value, index) => {
-      let sql = "DELETE FROM private_step WHERE id = ?"
-      let test = await connection.queryAsync(sql, [value.id])
-    })
+      let sql = "DELETE FROM private_step WHERE id = ?";
+      let test = await connection.queryAsync(sql, [value.id]);
+    });
   } else if (stepRow < 0) {
-    let stepRetain = newStep.slice(0, oldStepCount)
-    let stepInsert = newStep.slice(oldStepCount)
+    let stepRetain = newStep.slice(0, oldStepCount);
+    let stepInsert = newStep.slice(oldStepCount);
 
     // 更新食材到資料表
-    stepRetain.forEach(async (value,index) => {
-      let stepList = "UPDATE private_step SET steps = ? WHERE id = ?"
+    stepRetain.forEach(async (value, index) => {
+      let stepList = "UPDATE private_step SET steps = ? WHERE id = ?";
       let stepResult = await connection.queryAsync(stepList, [value.steps, stepRetain[index].id]);
-    })
+    });
 
     // 新增多的欄位
     stepInsert.forEach(async (value, index) => {
-      let sql = "INSERT INTO private_step (private_id, steps) VALUES (?)"
-      let test = await connection.queryAsync(sql, [[req.params.id, value.steps]])
-    })
+      let sql = "INSERT INTO private_step (private_id, steps) VALUES (?)";
+      let test = await connection.queryAsync(sql, [[req.params.id, value.steps]]);
+    });
   } else {
     // 更新食材到資料表
     newStep.forEach(async (value, index) => {
-      let stepList = "UPDATE private_step SET steps = ? WHERE id = ?"
+      let stepList = "UPDATE private_step SET steps = ? WHERE id = ?";
       let ingredResult = await connection.queryAsync(stepList, [value.steps, oldStep[index].id]);
     });
   }
 
   // 取出 Tag 原本欄位
-  let sql4 = "SELECT * FROM private_tags WHERE private_id = ?"
-  let oldTag = await connection.queryAsync(sql4, [req.params.id])
-  let oldTagCount = oldTag.length
-  let newTagCount = newTag.length
+  let sql4 = "SELECT * FROM private_tags WHERE private_id = ?";
+  let oldTag = await connection.queryAsync(sql4, [req.params.id]);
+  let oldTagCount = oldTag.length;
+  let newTagCount = newTag.length;
 
-  let tagRow = oldTagCount - newTagCount
-  if(tagRow > 0) {
-    let tagRetain = oldTag.slice(0, newTagCount)
-    let tagRemove = oldTag.slice(newTagCount)
+  let tagRow = oldTagCount - newTagCount;
+  if (tagRow > 0) {
+    let tagRetain = oldTag.slice(0, newTagCount);
+    let tagRemove = oldTag.slice(newTagCount);
 
     // 更新步驟到資料表
     newTag.forEach(async (value, index) => {
-      let tagList = "UPDATE private_tags SET tags = ? WHERE id = ?"
+      let tagList = "UPDATE private_tags SET tags = ? WHERE id = ?";
       let tagResult = await connection.queryAsync(tagList, [value.tags, tagRetain[index].id]);
     });
 
     // 刪除原本剩餘的步驟
     tagRemove.forEach(async (value, index) => {
-      let sql = "DELETE FROM private_tags WHERE id = ?"
-      let test = await connection.queryAsync(sql, [value.id])
-    })
+      let sql = "DELETE FROM private_tags WHERE id = ?";
+      let test = await connection.queryAsync(sql, [value.id]);
+    });
   } else if (tagRow < 0) {
-    let tagRetain = newTag.slice(0, oldTagCount)
-    let tagInsert = newTag.slice(oldTagCount)
+    let tagRetain = newTag.slice(0, oldTagCount);
+    let tagInsert = newTag.slice(oldTagCount);
 
     // 更新食材到資料表
-    tagRetain.forEach(async (value,index) => {
-      let tagList = "UPDATE private_tags SET tags = ? WHERE id = ?"
+    tagRetain.forEach(async (value, index) => {
+      let tagList = "UPDATE private_tags SET tags = ? WHERE id = ?";
       let tagResult = await connection.queryAsync(tagList, [value.tags, tagRetain[index].id]);
-    })
+    });
 
     // 新增多的欄位
     tagInsert.forEach(async (value, index) => {
-      let sql = "INSERT INTO private_tags (private_id, tags) VALUES (?)"
-      let test = await connection.queryAsync(sql, [[req.params.id, value.tags]])
-    })
+      let sql = "INSERT INTO private_tags (private_id, tags) VALUES (?)";
+      let test = await connection.queryAsync(sql, [[req.params.id, value.tags]]);
+    });
   } else {
     // 更新食材到資料表
     newTag.forEach(async (value, index) => {
-      let tagList = "UPDATE private_tags SET tags = ? WHERE id = ?"
+      let tagList = "UPDATE private_tags SET tags = ? WHERE id = ?";
       let ingredResult = await connection.queryAsync(tagList, [value.tags, oldTag[index].id]);
     });
   }
-})
+});
 
-
-
-
-
- // 上傳食譜
- // 我只要上傳一張圖片，要加上 single
- // req.body 代表前端的 request 裡面全部的資料
+// 上傳食譜
+// 我只要上傳一張圖片，要加上 single
+// req.body 代表前端的 request 裡面全部的資料
 router.post("/upload/main", uploader.single("photo"), async function (req, res, next) {
-  const memberId = req.session.member.id
+  const memberId = req.session.member.id;
   const filename = req.file ? req.file.filename : "";
   const name = req.body.name;
   const intro = req.body.intro;
@@ -514,10 +504,9 @@ router.post("/upload/main", uploader.single("photo"), async function (req, res, 
   res.json(data);
 });
 
-
 // 上傳留言及評分部分
 router.post("/comment/upload/:id", async function (req, res, next) {
-  const memberId = req.session.member.id
+  const memberId = req.session.member.id;
   const comment = req.body.comment;
   const star_rate = req.body.starValue;
   const comment_time = moment().format("YYYY/MM/DD");
