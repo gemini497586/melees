@@ -5,9 +5,8 @@ import Swal from 'sweetalert2'
 import Axios from 'axios'
 
 function SaveBox(props) {
-  const { data, prepList, setDisplayData, currentPage } = props
+  const { data, prepList, setDisplayData, currentPage, perPage } = props
   // 設定分頁
-  const perPage = 6
   const lastNumber = currentPage * perPage
   const firstNumber = lastNumber - perPage
   const currentNumber = data.slice(firstNumber, lastNumber)

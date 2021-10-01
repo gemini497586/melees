@@ -29,6 +29,7 @@ function MemberSaveProdcut() {
     },
   ]
   const [currentPage, setCurrentPage] = useState(1)
+  const perPage = 10
 
   // 初始化
   useEffect(() => {
@@ -91,6 +92,7 @@ function MemberSaveProdcut() {
     setDisplayData(newData)
   }, [sortBy])
 
+  // console.log(displayData)
   return (
     <>
       <div className="page-group">
@@ -115,16 +117,16 @@ function MemberSaveProdcut() {
                 saveList={displayData}
                 productList={productList}
                 currentPage={currentPage}
+                perPage={perPage}
               />
             )}
-            {/* <MemberSaveProdcutCard
-              saveList={displayData}
-              productList={productList}
-              currentPage={currentPage}
-            /> */}
           </div>
           <div className="d-flex justify-content-center">
-            <Paging product={displayData} setCurrentPage={setCurrentPage} />
+            <Paging
+              product={displayData}
+              setCurrentPage={setCurrentPage}
+              perPage={perPage}
+            />
           </div>
         </div>
       </div>

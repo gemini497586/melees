@@ -29,6 +29,7 @@ function MemberBox() {
     },
   ]
   const [currentPage, setCurrentPage] = useState(1)
+  const perPage = 9
 
   // 初始化資料
   useEffect(() => {
@@ -110,10 +111,15 @@ function MemberBox() {
                   prepList={prepList}
                   setDisplayData={setDisplayData}
                   currentPage={currentPage}
+                  perPage={perPage}
                 />
               )}
             </div>
-            <Paging product={displayData} setCurrentPage={setCurrentPage} />
+            <Paging
+              product={displayData}
+              perPage={perPage}
+              setCurrentPage={setCurrentPage}
+            />
           </div>
         </section>
       </div>
