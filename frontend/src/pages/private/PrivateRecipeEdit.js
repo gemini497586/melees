@@ -44,7 +44,7 @@ function PrivateRecipeEdit() {
       setRecipeQty(recipe.qty)
       setIngredList(ingred)
       setSteps(steps)
-      setImgPreview(recipe.picture)
+      setImgPreview(`${API_URL}/private/${recipe.picture}`)
       setDisplayTag(tags)
     }
     getData()
@@ -153,6 +153,12 @@ function PrivateRecipeEdit() {
       <div className="page-group">
         <PrivateReicpeAnimate />
 
+        <pre>食譜資訊 {JSON.stringify(recipePhoto, null, 2)}</pre>
+        <pre>食譜資訊 {JSON.stringify(recipeName, null, 2)}</pre>
+        <pre>食譜資訊 {JSON.stringify(imgPreview, null, 2)}</pre>
+        <pre>食譜資訊 {JSON.stringify(displayTag, null, 2)}</pre>
+        <pre>食譜資訊 {JSON.stringify(recipeIntro, null, 2)}</pre>
+
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-6">
@@ -162,6 +168,7 @@ function PrivateRecipeEdit() {
                 <form action="" onSubmit={handleSubmit}>
                   <div className="privateRecipeUpload-img">
                     {error && <p>file not supported</p>}
+
                     <div
                       className="privateRecipeUpload-img-preview"
                       style={{
