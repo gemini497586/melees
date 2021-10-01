@@ -8,12 +8,13 @@ import EditModal from './EditModal'
 import { API_URL } from '../../../utils/config'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import queryMsg from './queryMsg'
 
 function MemberRecipeCommentRow(props) {
   const { recipeData, setReRender } = props
   const [recipeDataDetails, setRecipeDataDetails] = useState({})
   const [showEditModal, setShowEditModal] = useState(false)
-  
+
   const openEditModal = () => {
     const recipeDetailsAPI = async () => {
       // console.log(
@@ -84,11 +85,19 @@ function MemberRecipeCommentRow(props) {
             }
             setReRender(true)
           } catch (err) {
-            // console.error(err)
+            let errMsg = ''
+            // 後端回覆錯誤
+            if (err.response !== undefined) {
+              errMsg = queryMsg(
+                err.response.data.category,
+                err.response.data.code
+              )
+            }
+            console.log('Swal error text:', errMsg)
             Swal.fire({
               icon: 'error',
               title: '發生不明錯誤！',
-              text: '請聯繫 MEELEs 客服，我們將儘速處理!',
+              text: errMsg,
               confirmButtonColor: 'var(--color-primary)',
               confirmButtonText: '確認',
             })

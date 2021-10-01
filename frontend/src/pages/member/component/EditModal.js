@@ -7,6 +7,7 @@ import Black from '../../box/Black'
 import axios from 'axios'
 import { API_URL } from '../../../utils/config'
 import Swal from 'sweetalert2'
+import queryMsg from './queryMsg'
 
 function EditModal(props) {
   const {
@@ -46,7 +47,11 @@ function EditModal(props) {
     try {
       // 評論與評分都沒有更新，丟錯誤訊息
       if (!newComment && !newStarScore) {
-        throw '前端錯誤：評論與評分都沒有更新！'
+        let errCode = {
+          category: 'recipecomment',
+          code: 'B0101',
+        }
+        throw errCode
       }
 
       // 評論與評分有更新，發axios送到後端
@@ -77,19 +82,24 @@ function EditModal(props) {
         setReRender(true)
       }
     } catch (err) {
-      // console.error(err)
-      if (
-        err === '前端錯誤：評論與評分都沒有更新！' ||
-        err.response.data.message === '評論與評分都沒有更新'
-      ) {
-        Swal.fire({
-          icon: 'error',
-          title: '發生錯誤！',
-          text: '評論與評分都沒有更新！',
-          confirmButtonText: '確認',
-          confirmButtonColor: '#fe9900',
-        })
+      let errMsg = ''
+
+      // 前端丟錯誤
+      if (err.code !== undefined) {
+        errMsg = queryMsg(err.category, err.code)
       }
+      // 後端回覆錯誤
+      if (err.response !== undefined) {
+        errMsg = queryMsg(err.response.data.category, err.response.data.code)
+      }
+      console.log('Swal error text:', errMsg)
+      Swal.fire({
+        icon: 'error',
+        title: '發生錯誤！',
+        text: errMsg,
+        confirmButtonText: '確認',
+        confirmButtonColor: '#fe9900',
+      })
     }
   }
 
