@@ -2,10 +2,17 @@ const express = require("express");
 const connection = require("../utils/db");
 const router = express.Router();
 
-router.get("/index/:typeid?", async function (req, res, next) {
+// 食譜首頁
+router.get("/index/:typeid/:sort?", async function (req, res, next) {
+  // console.log("req.params.typeid", req.params.typeid)
+  // console.log("req.params.sort", req.params.sort)
+
+  let sort = req.params.sort;
+
   // 可以檢查路由是否相通
   // console.log("route", 111);
 
+  // 最新日期
   let sql =
     "SELECT a.id AS listId, a.type_id, a.name AS listName, a.qty, a.create_date, " +
     "b.id AS linkId, b.link, b.name AS linkName, b.img AS linkImg, " +
@@ -17,17 +24,41 @@ router.get("/index/:typeid?", async function (req, res, next) {
     " INNER JOIN feature_link AS b ON a.link_id=b.id " +
     " INNER JOIN feature_img AS c ON a.id=c.feature_id " +
     " WHERE a.type_id=? " +
-    " GROUP BY a.id ORDER BY create_date DESC";
+    " GROUP BY a.id";
 
-  let data = await connection.queryAsync(sql, [req.params.typeid]);
+  // 最新日期
+  let newdate = await connection.queryAsync(
+    sql + " ORDER BY create_date DESC",
+    [req.params.typeid]
+  );
+  // 最舊日期
+  let olddate = await connection.queryAsync(sql + " ORDER BY create_date", [
+    req.params.typeid,
+  ]);
+  // 按讚數由多至少
+  let maxlikeqty = await connection.queryAsync(sql + " ORDER BY likeqty DESC", [
+    req.params.typeid,
+  ]);
+  // 按讚數由多至少
+  let minlikeqty = await connection.queryAsync(sql + " ORDER BY likeqty", [
+    req.params.typeid,
+  ]);
+  // 瀏覽數由多至少
+  let maxviewqty = await connection.queryAsync(sql + " ORDER BY viewqty DESC", [
+    req.params.typeid,
+  ]);
+  // 瀏覽數由少至多
+  let minviewqty = await connection.queryAsync(sql + " ORDER BY viewqty", [
+    req.params.typeid,
+  ]);
 
   // 先測試第一筆資料是否轉成功arr
   // let featureimgarr=data[0].featureimg.split(",");
 
   // 將食譜圖片轉為陣列，用for迴圈將所有資料轉為陣列
-  for (let i = 0; i < data.length; i++) {
-    data[i].featureimg = data[i].featureimg.split(",");
-  }
+  // for (let i = 0; i < data.length; i++) {
+  //   data[i].featureimg = data[i].featureimg.split(",");
+  // }
 
   // 要先查詢featureimg的上面格式
   // console.log("featureimg", data[0].featureimg)
@@ -36,8 +67,40 @@ router.get("/index/:typeid?", async function (req, res, next) {
   // console.log("featureimgsplit", data[0].featureimg.split(","));
   // console.log("featureimgarr", featureimg);
 
+  if (sort === "時間由舊至新") {
+    for (let i = 0; i < olddate.length; i++) {
+      olddate[i].featureimg = olddate[i].featureimg.split(",");
+    }
+    res.json(olddate);
+  } else if (sort === "按讚數由多至少") {
+    for (let i = 0; i < maxlikeqty.length; i++) {
+      maxlikeqty[i].featureimg = maxlikeqty[i].featureimg.split(",");
+    }
+    res.json(maxlikeqty);
+  } else if (sort === "按讚數由少至多") {
+    for (let i = 0; i < minlikeqty.length; i++) {
+      minlikeqty[i].featureimg = minlikeqty[i].featureimg.split(",");
+    }
+    res.json(minlikeqty);
+  } else if (sort === "瀏覽數由多至少") {
+    for (let i = 0; i < maxviewqty.length; i++) {
+      maxviewqty[i].featureimg = maxviewqty[i].featureimg.split(",");
+    }
+    res.json(maxviewqty);
+  } else if (sort === "瀏覽數由少至多") {
+    for (let i = 0; i < minviewqty.length; i++) {
+      minviewqty[i].featureimg = minviewqty[i].featureimg.split(",");
+    }
+    res.json(minviewqty);
+  } else {
+    for (let i = 0; i < newdate.length; i++) {
+      newdate[i].featureimg = newdate[i].featureimg.split(",");
+    }
+    res.json(newdate);
+  }
+
   // console.log("data", data);
-  res.json(data);
+  // res.json(data);
 });
 
 // 給食譜流程用
@@ -98,9 +161,12 @@ router.get("/prep/:listId?", async function (req, res, next) {
 });
 
 // 一周食譜
-router.post("/weeklist", async function (req, res, next) {
+router.post("/weeklist/:sort?", async function (req, res, next) {
   // 可以檢查路由是否相通
   console.log("一周食譜通了", 333);
+  console.log("req.params.sort", req.params.sort);
+
+  let sort = req.params.sort;
 
   // 1. 將 feature_list 和 weeklist JOIN
   let sql =
@@ -114,61 +180,55 @@ router.post("/weeklist", async function (req, res, next) {
     " INNER JOIN feature_weeklist AS b ON a.id=b.feature_id " +
     " INNER JOIN feature_week AS c ON b.week_id=c.id ";
 
-  let data = await connection.queryAsync(sql);
+  // let data = await connection.queryAsync(sql);
+  // 最新日期
+  let newdate = await connection.queryAsync(sql + " ORDER BY b.week_id DESC");
+  // console.log("newdate", newdate);
+  // 最舊日期
+  let olddate = await connection.queryAsync(sql + " ORDER BY b.week_id");
 
   // console.log(sql1);
   // let date = new Date().Format("MM-dd");
 
-  // 2. 把weeklist資料表以 week_id 為key，整理為一個物件裡有每一週的array
-  let weeklistarr = [];
-  for (let i = 0; i < 10; i++) {
-    // 因為陣列是從0開始，但是weekId是從1開始，所以要讓這兩個值都是1開始
-    let j = i + 1;
-    // 將 week_id 篩選出來
-    let newweeklist = data.filter((e) => e.weekId === j);
-    weeklistarr[i] = newweeklist;
-    // let weekday = Object.values(weeklistarr[i])[8]
-    // console.log(weekday);
-    // console.log(weeklistarr);
+  // // 2. 把weeklist資料表以 week_id 為key，整理為一個物件裡有每一週的array
+  // let weeklistarr = [];
+  // for (let i = 0; i < 10; i++) {
+  //   // 因為陣列是從0開始，但是weekId是從1開始，所以要讓這兩個值都是1開始
+  //   let j = i + 1;
+  //   // 將 week_id 篩選出來
+  //   let newweeklist = data.filter((e) => e.weekId === j);
+  //   weeklistarr[i] = newweeklist;
+  // }
+
+  if (sort === "時間由舊至新") {
+    let weeklistarr = [];
+    for (let i = 0; i < 10; i++) {
+      let j = i + 1;
+      let newweeklist = olddate.filter((e) => e.weekId === j);
+      weeklistarr[i] = newweeklist;
+    }
+    res.json(weeklistarr);
+    // console.log("weeklistarr", weeklistarr);
+  } else {
+    let weeklistarr = [];
+    for (let i = 0; i < 10; i++) {
+      let j = i + 1;
+      let newweeklist = newdate.filter((e) => e.weekId === j);
+      weeklistarr[i] = newweeklist;
+    }
+    res.json(weeklistarr.reverse());
+    // console.log("weeklistarr", weeklistarr);
   }
 
-  // let weekday = weeklistarr.map(weeklistarr => Object.values(weeklistarr[0])[8]);
-  // console.log("weekday", weekday);
-  // for (let i = 0; i < 5; i++) {
-  //   result.setDate(result.getDate() + i)
-  //   let result = new Date(weekday)
-  //   console.log('date1111', result)
-  // }
-
-  // 3. 做feature_weeklist order_date 一周五天的排序 1,2,3,4,5
-  // 2. 排序 feature_week 每周的倒敘 ORDER BY c.first_date desc
-
-  // 2. 排序 feature_week 每周的倒敘 ORDER BY c.first_date desc 4,3,2,1
-  // let sql2 = "SELECT * FROM feature_week ORDER BY first_date desc"
-  // let firstdate = await connection.queryAsync(sql1, [req.params.weekid])
-  // console.log("firstdate", firstdate);
-
-  // 3. 做feature_weeklist order_date 一周五天的排序 1,2,3,4,5
-  // let sql2 = "SELECT * FROM feature_weeklist ORDER BY order_date"
-  // let orderdesc = await connection.queryAsync(sql2, [req.params.weekid])
-  // console.log("orderdesc", orderdesc);
-
-  // 3. 把weeklist資料表以 week_id 為key，整理為一個物件裡有每一週的array
-  // let weeklistarr = {}
-  // for (let i=1; i<=10; i++) {
-  // 將 week_id 篩選出來
-  // let newweeklist = orderdesc.filter((e) => e.week_id === i);
-  // weeklistarr[i] = newweeklist;
-  // }
-
   // console.log("weeklistarr", weeklistarr);
-  res.json(weeklistarr);
+  // res.json(weeklistarr);
 });
 
 // 一周食譜index圖片
-router.post("/weekindeximg", async function (req, res, next) {
+router.post("/weekindeximg/:sort?", async function (req, res, next) {
   // 可以檢查路由是否相通
-  console.log("一周食譜index圖片", 333);
+  // console.log("一周食譜index圖片", 333);
+  let sort = req.params.sort;
 
   let sql =
     // 1. 先用 week_id 排序 img 並建立新名稱做排序，接下來只要撈新名稱[1]
@@ -185,10 +245,25 @@ router.post("/weekindeximg", async function (req, res, next) {
     "From feature_img WHERE IFNULL(week_id,'')  != 0) TMP_S " +
     "WHERE TMP_S.sortweeklist=1";
 
-  let data = await connection.queryAsync(sql);
+  // let data = await connection.queryAsync(sql);
+  // 最新日期
+  let newdate = await connection.queryAsync(sql + " ORDER BY week_id DESC");
+  // console.log("newdate", newdate);
+  // 最舊日期
+  let olddate = await connection.queryAsync(sql + " ORDER BY week_id");
+  // console.log("olddate", olddate);
 
-  console.log("data", data);
-  res.json(data);
+  if (sort === "時間由舊至新") {
+    res.json(olddate);
+    // console.log("olddate", olddate);
+  } else {
+    res.json(newdate);
+    // console.log("newdate.reverse()", newdate.reverse());
+    // console.log("newdate", newdate);
+  }
+
+  // console.log("data", data);
+  // res.json(data);
 });
 
 // stepweek
