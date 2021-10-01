@@ -6,9 +6,9 @@ function Paging(props) {
   const { pageArray, setPageArray } = useCart()
   // const [currentPage, setCurrentPage] = useState(1)
   // const [perPage, setPerPage] = useState(10)
-  const { product, setCurrentPage } = props
+  const { product, setCurrentPage, perPage } = props
 
-  let paging = Math.ceil(product.length / 10)
+  let paging = Math.ceil(product.length / perPage)
 
   useEffect(() => {
     let newPageArr = []
@@ -24,7 +24,6 @@ function Paging(props) {
   // console.log(currentNumber)
 
   const handlePage = (e) => {
-    // console.log(e.target.classList)
     setCurrentPage(e.target.innerHTML)
     e.target.classList.add('active')
   }

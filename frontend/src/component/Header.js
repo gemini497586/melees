@@ -62,6 +62,17 @@ function Header() {
     }
   }, [location])
 
+  // 抓到大頭貼
+  const [avatar, setAvatar] = useState('')
+  useEffect(() => {
+    axios
+      .post(`${API_URL}/market/avatar`, null, { withCredentials: true })
+      .then((result) => {
+        console.log(result.data[0].picture)
+        setAvatar(result.data[0].picture)
+      })
+  }, [login])
+
   // 顯示header購物車
   const [hidden, setHidden] = useState(false)
 
@@ -75,6 +86,7 @@ function Header() {
       if (response.status === 202) {
         alert('會員已登出')
         setLogin(false)
+        setAvatar('')
       }
     } catch (err) {
       console.error(err.response)
@@ -188,11 +200,10 @@ function Header() {
         </li>
         {login ? (
           <li className="user-btn ">
-            <FontAwesomeIcon
-              icon="user-circle"
-              className="user"
-              data-bs-toggle="dropdown"
-            />
+            <div className="user-avatar" data-bs-toggle="dropdown">
+              <img alt="" className="user" src={`${API_URL}/member${avatar}`} />
+              <FontAwesomeIcon icon="user-circle" className="user" />
+            </div>
             <ul className="dropdown-menu user-dropdown">
               <li className="font-400SL">
                 <a className="dropdown-item" href="#/">
