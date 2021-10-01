@@ -2,41 +2,12 @@ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../style/cardPrivateRecipe.css'
-import Axios from 'axios'
 import { API_URL } from '../../../utils/config'
 
 function PrivateRecipeCard(props) {
-  const { itemInfo, likeList, viewList } = props
+  const { itemInfo, likeList, viewList, saveState, likeState, memberInfo } =
+    props
 
-  const [saveState, setSaveState] = useState([])
-  const [likeState, setLikeState] = useState([])
-  const [memberInfo, setMemberInfo] = useState([])
-
-  useEffect(() => {
-    Axios.get(`${API_URL}/private/index`, {
-      withCredentials: true,
-    }).then((res) => {
-      setSaveState(res.data.result4)
-      setLikeState(res.data.result5)
-      setMemberInfo(res.data.memResult)
-    })
-  }, [])
-
-  const avatar1 = (value, index) => {
-    const avatar = []
-    for (let i = 0; i < memberInfo.length; i++) {
-      if (value.member_id === memberInfo[i].id) {
-        avatar.push(
-          <img
-            src={`${API_URL}/member/${memberInfo[i].picture}`}
-            className="b-cover-fit"
-            alt=""
-          />
-        )
-      }
-    }
-    return avatar
-  }
   // 星星評分數
   const starNum = (index) => {
     const row = []
@@ -54,29 +25,7 @@ function PrivateRecipeCard(props) {
     }
     return row
   }
-  // 按讚數
-  const likeNum = (value, index) => {
-    const like = []
-    for (let i = 0; i < likeList.length; i++) {
-      if (value.id !== likeList[i].private_id) {
-        // like.push(<span>0</span>)
-      } else {
-        like.push(<span>{likeList[i].count}</span>)
-      }
-    }
-    return like
-  }
-  // 瀏覽數
-  const viewNum = (value, index) => {
-    const view = []
-    for (let i = 0; i < viewList.length; i++) {
-      if (value.id !== viewList[i].private_id) {
-      } else {
-        view.push(<span>{viewList[i].count}</span>)
-      }
-    }
-    return view
-  }
+
   const saveToggled = (value, index) => {
     const save = []
     for (let i = 0; i < saveState.length; i++) {
@@ -121,6 +70,8 @@ function PrivateRecipeCard(props) {
   return (
     <>
       <div className="container">
+        <pre>食譜資訊 {JSON.stringify(saveState, null, 2)}</pre>
+
         <div className="row">
           {itemInfo.map((value, index) => {
             return (
@@ -137,7 +88,11 @@ function PrivateRecipeCard(props) {
                     {saveToggled(value, index)}
 
                     <figure className="cardPrivateRecipe-avatar">
-                      {avatar1(value, index)}
+                      <img
+                        src={`${API_URL}/member/${value.member_picture}`}
+                        className="b-cover-fit"
+                        alt=""
+                      />
                     </figure>
                     <div className="cardPrivateRecipe-box">
                       <span className="font-700S cardPrivateRecipe-type">
@@ -160,12 +115,12 @@ function PrivateRecipeCard(props) {
                         icon="heart"
                         className="cardPrivateRecipe-stat-heart"
                       />
-                      {likeNum(value, index)}
+                      {value.likeCount}
                       <FontAwesomeIcon
                         icon="eye"
                         className="cardPrivateRecipe-stat-eye"
                       />
-                      {viewNum(value, index)}
+                      {value.viewCount}
                     </div>
                   </Link>
                 </div>
