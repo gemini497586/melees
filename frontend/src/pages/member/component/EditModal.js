@@ -6,6 +6,8 @@ import '../../../component/FontawsomeIcons'
 import Black from '../../box/Black'
 import axios from 'axios'
 import { API_URL } from '../../../utils/config'
+import Swal from 'sweetalert2'
+import queryMsg from './queryMsg'
 
 function EditModal(props) {
   const {
@@ -39,17 +41,23 @@ function EditModal(props) {
     setNewComment('')
     openEditModal()
   }
+
   const handleEdit = async (e) => {
     e.preventDefault()
     try {
       // 評論與評分都沒有更新，丟錯誤訊息
       if (!newComment && !newStarScore) {
-        throw '評論與評分都沒有更新!'
+        let errCode = {
+          category: 'recipecomment',
+          code: 'B0101',
+        }
+        throw errCode
       }
 
       // 評論與評分有更新，發axios送到後端
       let data = {
         id: recipeDataDetails.id,
+        recipe_id: recipeDataDetails.recipe_id,
         newComment: newComment,
         starScore: newStarScore,
       }
@@ -64,10 +72,34 @@ function EditModal(props) {
       if (response) {
         // console.log(`id: ${recipeDataDetails.id} edits successfully`)
         openEditModal()
+        Swal.fire({
+          icon: 'success',
+          title: '編輯成功!',
+          text: '點擊確認，繼續瀏覽 MELEEs!',
+          confirmButtonText: '確認',
+          confirmButtonColor: '#fe9900',
+        })
         setReRender(true)
       }
     } catch (err) {
-      console.error(err)
+      let errMsg = ''
+
+      // 前端丟錯誤
+      if (err.code !== undefined) {
+        errMsg = queryMsg(err.category, err.code)
+      }
+      // 後端回覆錯誤
+      if (err.response !== undefined) {
+        errMsg = queryMsg(err.response.data.category, err.response.data.code)
+      }
+      console.log('Swal error text:', errMsg)
+      Swal.fire({
+        icon: 'error',
+        title: '發生錯誤！',
+        text: errMsg,
+        confirmButtonText: '確認',
+        confirmButtonColor: '#fe9900',
+      })
     }
   }
 
@@ -93,7 +125,11 @@ function EditModal(props) {
                 src={`${API_URL}/member/${recipeDataDetails.member_avatar}`}
                 alt="avatar"
               />
-              <figcaption>{recipeDataDetails.member_name}</figcaption>
+              <figcaption>
+                {recipeDataDetails.member_nickname
+                  ? recipeDataDetails.member_nickname
+                  : recipeDataDetails.member_name}
+              </figcaption>
             </figure>
             <div className="modal-edit-recipeComment-starScore">
               {starRow.map((value, index) => {

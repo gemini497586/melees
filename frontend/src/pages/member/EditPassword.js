@@ -7,6 +7,12 @@ import '../../component/FontawsomeIcons'
 import { API_URL } from '../../utils/config'
 import axios from 'axios'
 import validationInfo from './component/validationInfo'
+import InputErrorMsg from './component/InputErrorMsg'
+import Swal from 'sweetalert2'
+
+const colors = {
+  primary: '#fe9900',
+}
 
 function EditPassword() {
   const [errors, setErrors] = useState({})
@@ -38,14 +44,21 @@ function EditPassword() {
 
   // 檢驗表單的值有沒有不合法
   const handleFormValuesInvalid = (e) => {
-    // 擋住錯誤訊息的預設方式(跳出的訊息泡泡)
-    e.preventDefault()
     setErrors(validationInfo(formValues))
-    console.log(errors)
+    console.log('in valid', errors)
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
+    // 發送axios前，再次驗證表單的值有沒有不合法 --> 不通過 return false
+    handleFormValuesInvalid(e)
+    if (Object.keys(errors).length > 0) {
+      console.log('Object.keys(errors).length:', Object.keys(errors).length)
+      return false
+    }
+
+    // 通過 --> 驗證後發 axios
     try {
       let oldPassword = formValues.oldPassword
       let password = formValues.password
@@ -63,10 +76,23 @@ function EditPassword() {
         }
       )
       console.log(response)
+      if (response.status === 200) {
+        Swal.fire({
+          icon: 'success',
+          title: '資料更新成功！',
+          confirmButtonColor: colors.primary,
+          confirmButtonText: '確認',
+        })
+      }
     } catch (err) {
       console.error(err.response)
-      if (err.response.data.message === '密碼輸入錯誤') {
-        alert('密碼輸入錯誤')
+      if (err.response.status === 400) {
+        setFormValues({
+          oldPassword: '',
+          password: '',
+          rePassword: '',
+        })
+        setErrors({ oldPassword: err.response.data.message })
       }
     }
   }
@@ -96,6 +122,11 @@ function EditPassword() {
               </label>
               <div className="col-4">
                 <input
+                  className={
+                    errors.oldPassword
+                      ? 'form-input-invalid animate__animated animate__headShake'
+                      : null
+                  }
                   type="password"
                   id="oldPassword"
                   name="oldPassword"
@@ -107,17 +138,7 @@ function EditPassword() {
                   minlength="6"
                   maxlength="12"
                 />
-                <p
-                  className={
-                    errors.oldPassword
-                      ? 'font-400S member-form-errorMsg errorMsg-show'
-                      : 'font-400S member-form-errorMsg'
-                  }
-                >
-                  {errors.oldPassword
-                    ? errors.oldPassword
-                    : '預留錯誤訊息的位置'}
-                </p>
+                <InputErrorMsg errorMsg={errors.oldPassword} />
               </div>
             </div>
             <div className="member-form-group row">
@@ -126,6 +147,11 @@ function EditPassword() {
               </label>
               <div className="col-4">
                 <input
+                  className={
+                    errors.password
+                      ? 'form-input-invalid animate__animated animate__headShake'
+                      : null
+                  }
                   type="password"
                   id="password"
                   name="password"
@@ -137,15 +163,7 @@ function EditPassword() {
                   minlength="6"
                   maxlength="12"
                 />
-                <p
-                  className={
-                    errors.password
-                      ? 'font-400S member-form-errorMsg errorMsg-show'
-                      : 'font-400S member-form-errorMsg'
-                  }
-                >
-                  {errors.password ? errors.password : '預留錯誤訊息的位置'}
-                </p>
+                <InputErrorMsg errorMsg={errors.password} />
               </div>
             </div>
             <div className="member-form-group row">
@@ -154,6 +172,11 @@ function EditPassword() {
               </label>
               <div className="col-4">
                 <input
+                  className={
+                    errors.rePassword
+                      ? 'form-input-invalid animate__animated animate__headShake'
+                      : null
+                  }
                   type="password"
                   id="rePassword"
                   name="rePassword"
@@ -165,15 +188,7 @@ function EditPassword() {
                   minlength="6"
                   maxlength="12"
                 />
-                <p
-                  className={
-                    errors.rePassword
-                      ? 'font-400S member-form-errorMsg errorMsg-show'
-                      : 'font-400S member-form-errorMsg'
-                  }
-                >
-                  {errors.rePassword ? errors.rePassword : '預留錯誤訊息的位置'}
-                </p>
+                <InputErrorMsg errorMsg={errors.rePassword} />
               </div>
             </div>
           </div>
