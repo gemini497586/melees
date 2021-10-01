@@ -62,6 +62,17 @@ function Header() {
     }
   }, [location])
 
+  // 抓到大頭貼
+  const [avatar, setAvatar] = useState('')
+  useEffect(() => {
+    axios
+      .post(`${API_URL}/market/avatar`, null, { withCredentials: true })
+      .then((result) => {
+        console.log(result.data[0].picture)
+        setAvatar(result.data[0].picture)
+      })
+  }, [login])
+
   // 顯示header購物車
   const [hidden, setHidden] = useState(false)
 
@@ -75,20 +86,12 @@ function Header() {
       if (response.status === 202) {
         alert('會員已登出')
         setLogin(false)
+        setAvatar('')
       }
     } catch (err) {
       console.error(err.response)
     }
   }
-  const [avatar, setAvatar] = useState('')
-  useEffect(() => {
-    axios
-      .post(`${API_URL}/market/avatar`, null, { withCredentials: true })
-      .then((result) => {
-        console.log(result.data[0].picture)
-        setAvatar(result.data[0].picture)
-      })
-  }, [login])
 
   useEffect(() => {
     if (carts.length > 0) {
