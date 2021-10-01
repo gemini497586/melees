@@ -61,6 +61,15 @@
   color: var(--color-red-C);
   margin-bottom: 15px;
 }
+.fintro-btnlike-active {
+  width: 100%;
+  height: 45px;
+  border-radius: 8px;
+  border: 1px solid var(--color-primary-E);
+  background-color: var(--color-primary-E);
+  color: var(--color-white);
+  margin-bottom: 15px;
+}
 .fintro-btnsave {
   width: 100%;
   height: 45px;
@@ -69,6 +78,15 @@
   background-color: transparent;
   color: var(--color-secondary);
 }
+.fintro-btnsave-active {
+  width: 100%;
+  height: 45px;
+  border-radius: 8px;
+  border: 1px solid var(--color-secondary);
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+}
+
 .fintro-bmbtn p,
 .fintro-bmbtn i {
   margin: 0;

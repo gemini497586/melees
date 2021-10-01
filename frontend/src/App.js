@@ -97,11 +97,12 @@ function App() {
                 <Route exact path="/private/detail/:id">
                   <PrivateRecipeIntro />
                 </Route>
+
                 {/* 精選 */}
                 <Route path="/feature/index/4">
                   <FeatureIndexWeek />
                 </Route>
-                <Route path="/feature/stepweek/:listId">
+                <Route path="/feature/stepweek/:weekId?/:listId?">
                   <FeatureStepWeek />
                 </Route>
                 <Route path="/feature/step/:listId?">
@@ -110,6 +111,7 @@ function App() {
                 <Route path="/feature/index/:typeid?">
                   <FeatureIndex />
                 </Route>
+
                 {/* 搜尋 */}
                 <Route path="/search/recipe/:word?">
                   <SearchRecipe />
