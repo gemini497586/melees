@@ -2,14 +2,10 @@ import React, { useContext } from 'react'
 import '../../style/checkoutConfirm.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
-import CheckoutArea from './CheckoutArea'
-import OrderProgressBar from './component/OrderProgressBar'
-import { Link } from 'react-router-dom'
-import { HandleCart } from '../../utils/HandleCart'
 import useCart from '../../utils/useCart'
 
 function CheckoutConfirmTable(props) {
-  const { carts, productsAll, minusAmount, plusAmount } = useCart()
+  const { carts } = useCart()
   const index = props.index
   const productID = carts[index].id - 1
 
