@@ -46,111 +46,139 @@ const uploader = multer({
     fileSize: 1024 * 1024,
   },
 });
+router.get("/test", async function (req, res, next) {
+  const sql = "SELECT private_id, count(*) as like_count FROM private_like WHERE private_id GROUP BY private_id IN (1)"
+  const result = await connection.queryAsync(sql);
 
+  res.json(result)
+})
 // 抓食譜的資料 (食譜首頁)
 router.get("/index", async function (req, res, next) {
-  const userId = req.session.member ? req.session.member.id : ""
+  const userId = req.session.member ? req.session.member.id : 0
+  console.log(userId)
+
+  const sql = "SELECT private_recipe.*, member.nickname, member.picture AS member_picture FROM private_recipe JOIN member WHERE private_recipe.member_id = member.id AND private_recipe.valid = 1 ORDER BY private_recipe.id DESC";
+  const recipeInfo = await connection.queryAsync(sql);
+
+  const recipeList = []
+  recipeInfo.map((value) => {
+    recipeList.push(value.id)
+  })
+
+  // 按讚數程式碼
+  const likeSql = "SELECT private_id, count(*) as like_count FROM private_like GROUP BY private_id";
+  const likeCount = await connection.queryAsync(likeSql);
+
+  const likeList = []
   
-  let recipe = "SELECT * FROM private_recipe ORDER BY id DESC";
-  let recipeInfo = await connection.queryAsync(recipe);
-  let recipeList = []
-  recipeInfo.map((value) => {recipeList.push(value.id)})
+  likeCount.map((value) => {
+    likeList.push(value.private_id)
+  })
 
+  let subLike = recipeList.filter((e) => {
+    return likeList.indexOf(e) === -1
+  })
 
-  let member = "SELECT id, nickname, picture FROM member"
-  let memResult = await connection.queryAsync(member)
+  subLike.forEach((value) => {
+    likeCount.push({private_id: value, like_count: 0,},)
+  })
 
-  let like = "SELECT private_id, count(*) as count FROM private_like GROUP BY private_id";
-  let likeResult = await connection.queryAsync(like);
-  // 做一個空陣列
-  let likeList = []
-  likeResult.map((value) => {likeList.push(value.private_id)})
-  let subLike = recipeList.filter((e) => {return likeList.indexOf(e) === -1})
-  subLike.forEach((value) => {likeResult.push({private_id: value,count: 0,},)})
-  likeResult.sort((a, b) => {return a.private_id - b.private_id})
+  likeCount.sort((a, b) => {
+    return b.private_id - a.private_id})
 
-  let view = "SELECT private_id, count(*) as count FROM private_view GROUP BY private_id";
-  let viewResult = await connection.queryAsync(view);
-  // 做一個空陣列
-  let viewList = []
-  viewResult.map((value) => {viewList.push(value.private_id)})
-  let subView = recipeList.filter((e) => {return viewList.indexOf(e) === -1})
-  subView.forEach((value) => {viewResult.push({private_id: value,count: 0,},)})
-  viewResult.sort((a, b) => {return a.private_id - b.private_id})
+  // 瀏覽數程式碼 
+  const viewSql = "SELECT private_id, count(*) as view_count FROM private_view GROUP BY private_id";
+  const viewCount = await connection.queryAsync(viewSql);
+
+  const viewList = []
+  viewCount.map((value) => {
+    viewList.push(value.private_id)
+  })
+
+  let subView = recipeList.filter((e) => {
+    return viewList.indexOf(e) === -1
+  })
+
+  subView.forEach((value) => {
+    viewCount.push({private_id: value, view_count: 0,},)
+  })
+
+  viewCount.sort((a, b) => {
+    return b.private_id - a.private_id
+  })
+
+  // 評論程式碼
+  const commentSql = "SELECT private_id, count(*) as comment_count FROM private_comment GROUP BY private_id";
+  const commentCount= await connection.queryAsync(commentSql);
+
+  const commentList = []
+  commentCount.map((value) => {
+    commentList.push(value.private_id)
+  })
+
+  let subComment = recipeList.filter((e) => {
+    return commentList.indexOf(e) === -1
+  })
+
+  subComment.forEach((value) => {
+    commentCount.push({private_id: value, comment_count: 0,},)
+  })
+
+  commentCount.sort((a, b) => {
+    return b.private_id - a.private_id
+  })
   
-
-  let comment = "SELECT private_id, count(*) as count FROM private_comment GROUP BY private_id";
-  let commentResult = await connection.queryAsync(comment);
-  // 做一個空陣列
-  let commentList = []
-  commentResult.map((value) => {commentList.push(value.private_id)})
-  let subComment = recipeList.filter((e) => {return commentList.indexOf(e) === -1})
-  subComment.forEach((value) => {commentResult.push({private_id: value,count: 0,},)})
-  commentResult.sort((a, b) => {return a.private_id - b.private_id})
+  // 增加 KEY 跟 VALUE 至 OBJECT 中
+  recipeInfo.map((value, index) => {
+    value.likeCount = likeCount[index].like_count
+    value.viewCount = viewCount[index].view_count
+    value.commentCount = commentCount[index].comment_count
+  })
 
   // 選取使用者有沒有對這個食譜按收藏
-  let saveSql = "SELECT * FROM private_save WHERE user_id = ?";
-  let result4 = await connection.queryAsync(saveSql, [userId]);
+  let saveUser = "SELECT * FROM private_save WHERE user_id = ?";
+  let saved = await connection.queryAsync(saveUser, [userId]);
 
   // 選取使用者有沒有對這個食譜按讚
-  let likeSql = "SELECT * FROM private_like WHERE user_id = ?";
-  let result5 = await connection.queryAsync(likeSql, [userId]);
+  let likeUser = "SELECT * FROM private_like WHERE user_id = ?";
+  let liked = await connection.queryAsync(likeUser, [userId]);
 
-  res.json({ recipeInfo, memResult, likeResult, viewResult, commentResult, result4, result5 });
+  res.json({recipeInfo, saved, liked});
 });
-router.get("/test/:id", async function (req, res, next) {
-  // const userId = req.session.member ? req.session.member.id : ""
-  const userId = 5
 
-  let sql = "SELECT * FROM private_recipe WHERE id = ?";
-  let result = await connection.queryAsync(sql, [req.params.id]);
-
-  let recipeTotal = "SELECT id FROM private_recipe WHERE member_id = ?"
-  let PersonRecipe = await connection.queryAsync(recipeTotal, [result[0].member_id])
-  let PersonRecipeArr = []
-  PersonRecipe.map((value) => {PersonRecipeArr.push(value.id)})
-  let member = "SELECT * FROM member WHERE id = ?"
-  let memResult = await connection.queryAsync(member, [result[0].member_id])
-
-  let sql2 = "SELECT * FROM private_follow WHERE user_id = ? AND private_id IN ?";
-  let follow = await connection.queryAsync(sql2, [userId, [PersonRecipeArr]]);
-  let followed = follow.length > 0;
-
-  res.json({result, PersonRecipe, memResult, followed})
-})
 // 進入食譜的資料 (內頁)
 router.get("/index/recipe/:id", async function (req, res, next) {
   const userId = req.session.member ? req.session.member.id : ""
   
-  let sql = "SELECT * FROM private_recipe WHERE id = ?";
-  let result = await connection.queryAsync(sql, [req.params.id]);
+  const sql = "SELECT * FROM private_recipe WHERE id = ?";
+  const result = await connection.queryAsync(sql, [req.params.id]);
 
-  let recipeSql = "SELECT * FROM private_recipe WHERE member_id = ?";
-  let memberTotal = await connection.queryAsync(recipeSql, [result[0].member_id])
+  const recipeSql = "SELECT * FROM private_recipe WHERE member_id = ?";
+  const memberTotal = await connection.queryAsync(recipeSql, [result[0].member_id])
   let memberT = memberTotal.length
   
-  let follow1 = "SELECT * FROM private_follow WHERE member_id = ?"
-  let followTotal = await connection. queryAsync(follow1, [result[0].member_id])
+  const follow1 = "SELECT * FROM private_follow WHERE member_id = ?"
+  const followTotal = await connection. queryAsync(follow1, [result[0].member_id])
   let followT = followTotal.length
   
 
-  let recipeTotal = "SELECT id FROM private_recipe WHERE member_id = ?"
-  let PersonRecipe = await connection.queryAsync(recipeTotal, [result[0].member_id])
+  const recipeTotal = "SELECT id FROM private_recipe WHERE member_id = ?"
+  const PersonRecipe = await connection.queryAsync(recipeTotal, [result[0].member_id])
   let PersonRecipeArr = []
   PersonRecipe.map((value) => {PersonRecipeArr.push(value.id)})
-  let member = "SELECT * FROM member WHERE id = ?"
-  let memResult = await connection.queryAsync(member, [result[0].member_id])
+  const member = "SELECT * FROM member WHERE id = ?"
+  const memResult = await connection.queryAsync(member, [result[0].member_id])
 
-  let sql2 = "SELECT * FROM private_follow WHERE user_id = ? AND member_id = ?";
-  let follow = await connection.queryAsync(sql2, [userId, result[0].member_id]);
+  const sql2 = "SELECT * FROM private_follow WHERE user_id = ? AND member_id = ?";
+  const follow = await connection.queryAsync(sql2, [userId, result[0].member_id]);
   let followed = follow.length > 0;
 
-  let sql3 = "SELECT * FROM private_like WHERE user_id = ? AND private_id = ?";
-  let like = await connection.queryAsync(sql3, [userId, req.params.id]);
+  const sql3 = "SELECT * FROM private_like WHERE user_id = ? AND private_id = ?";
+  const like = await connection.queryAsync(sql3, [userId, req.params.id]);
   let liked = like.length > 0;
 
-  let sql4 = "SELECT * FROM private_save WHERE user_id = ? AND private_id = ?";
-  let save = await connection.queryAsync(sql4, [userId, req.params.id]);
+  const sql4 = "SELECT * FROM private_save WHERE user_id = ? AND private_id = ?";
+  const save = await connection.queryAsync(sql4, [userId, req.params.id]);
   let saved = save.length > 0;
 
   res.json({ result, memberT, followT, memResult, followed, liked, saved });
@@ -184,7 +212,6 @@ router.get("/remove-follow/:id", async function (req, res, next) {
 router.get("/add-like/:id", async function (req, res, next) {
   const userId = req.session.member.id
 
-  // let memberId = 5;
   let sql = "INSERT INTO private_like (private_id, user_id) VALUES (?, ?)";
   let like = await connection.queryAsync(sql, [req.params.id, userId]);
 
@@ -193,7 +220,6 @@ router.get("/add-like/:id", async function (req, res, next) {
 router.get("/remove-like/:id", async function (req, res, next) {
   const userId = req.session.member.id
 
-  // let memberId = 5;
   let sql = "DELETE FROM private_like WHERE private_id = ? AND user_id = ?";
   let like = await connection.queryAsync(sql, [req.params.id, userId]);
 
@@ -203,7 +229,6 @@ router.get("/remove-like/:id", async function (req, res, next) {
 // 按收藏的新增或刪除
 router.get("/add-save/:id", async function (req, res, next) {
   const userId = req.session.member.id
-  // let memberId = 5;
   let sql = "INSERT INTO private_save (private_id, user_id) VALUES (?, ?)";
   let save = await connection.queryAsync(sql, [req.params.id, userId]);
 
@@ -211,7 +236,6 @@ router.get("/add-save/:id", async function (req, res, next) {
 });
 router.get("/remove-save/:id", async function (req, res, next) {
   const userId = req.session.member.id
-  // let memberId = 5;
   let sql = "DELETE FROM private_save WHERE private_id = ? AND user_id = ?";
   let save = await connection.queryAsync(sql, [req.params.id, userId]);
 
@@ -222,7 +246,6 @@ router.get("/remove-save/:id", async function (req, res, next) {
 router.get("/ingred/:id", async function (req, res, next) {
   let sql = "SELECT * FROM private_ingred WHERE private_id = ?";
   let data = await connection.queryAsync(sql, [req.params.id]);
-  console.log(data);
   res.json(data);
 });
 
@@ -251,7 +274,7 @@ router.get("/comment/:id", async function (req, res, next) {
 
 // 更新瀏覽數
 router.get("/addview/:id", async function (req, res, next) {
-  const userId = req.session.member ? req.session.member.id : ""
+  const userId = req.session.member ? req.session.member.id : 0
   let sql = "INSERT INTO private_view (private_id, user_id) VALUES (?, ?)";
   let data = await connection.queryAsync(sql, [req.params.id, userId]);
   res.send("success");
@@ -525,31 +548,126 @@ router.post("/comment/upload/:id", async function (req, res, next) {
   res.json(data);
 });
 
-
+// 刪除食譜
+router.get("/delete-recipe/:id", async function (req, res, next) {
+  const sql = "UPDATE private_recipe SET valid = 0 WHERE id = ?"
+  const result = await connection.queryAsync(sql, [req.params.id])
+  res.json(result)
+})
 // 會員私藏食譜部分
 router.get("/myrecipe", async function (req, res, next) {
   const memberId = req.session.member.id
+  // const memberId = 4
 
-  let sql = "SELECT * FROM private_recipe WHERE member_id = ?";
-  let result = await connection.queryAsync(sql, [memberId]);
+  const sql = "SELECT * FROM private_recipe WHERE member_id = ? AND valid = 1 ORDER BY id DESC";
+  const recipeInfo = await connection.queryAsync(sql, [memberId]);
+  console.log(recipeInfo)
+  if (recipeInfo.length === 0) {
+    console.log("這個會員沒有新增食譜過")
+    let totalLike = 0
+    let totalView = 0
+    let totalComment = 0
+    let TotalFollow = 0
+    res.json({ recipeInfo, totalLike, totalView, totalComment, TotalFollow});
 
-  let sql2 = "SELECT * FROM private_comment WHERE member_id = ?";
-  let commentResult = await connection.queryAsync(sql2, [memberId]);
-
-  let sql3 = "SELECT * FROM private_like WHERE user_id = ?";
-  let likeResult = await connection.queryAsync(sql3, [memberId]);
-
-  let sql4 = "SELECT * FROM private_view WHERE user_id = ?";
-  let viewResult = await connection.queryAsync(sql4, [memberId]);
-
-  let memSql = "SELECT id FROM private_recipe WHERE member_id = ?"
-  let numResult = await connection.queryAsync(memSql, [memberId])
+  } else {
+    const recipeId = []
+    recipeInfo.map((value) => {
+      recipeId.push(value.id)
+    })
   
-  let many = "SELECT * FROM private_follow WHERE member_id = ?"
-  let followTotal = await connection.queryAsync(many, [result[0].member_id])
-  let followT = followTotal.length
+    // 按讚數程式碼
+    const sql2 = "SELECT private_id, count(*) as like_count FROM private_like WHERE private_id IN ? GROUP BY private_id";
+    const likeResult = await connection.queryAsync(sql2, [[recipeId]]);
   
-  res.json({ result, commentResult, likeResult, viewResult, followT});
+    const likeId = []
+    
+    likeResult.map((value) => {
+      likeId.push(value.private_id)
+    })
+  
+    let subLike = recipeId.filter((e) => {
+      return likeId.indexOf(e) === -1
+    })
+  
+    subLike.forEach((value) => {
+      likeResult.push({private_id: value, like_count: 0,},)
+    })
+  
+    likeResult.sort((a, b) => {
+      return b.private_id - a.private_id})
+  
+    // 瀏覽數程式碼 
+    const sql3 = "SELECT private_id, count(*) as view_count FROM private_view WHERE private_id IN ? GROUP BY private_id";
+    const viewResult = await connection.queryAsync(sql3, [[recipeId]]);
+      
+    const viewList = []
+    viewResult.map((value) => {
+      viewList.push(value.private_id)
+    })
+  
+    let subView = recipeId.filter((e) => {
+      return viewList.indexOf(e) === -1
+    })
+  
+    subView.forEach((value) => {
+      viewResult.push({private_id: value, view_count: 0,},)
+    })
+  
+    viewResult.sort((a, b) => {
+      return b.private_id - a.private_id
+    })
+  
+    // 評論程式碼
+    const sql4 = "SELECT private_id, count(*) as comment_count FROM private_comment WHERE private_id IN ? GROUP BY private_id";
+    const commentResult = await connection.queryAsync(sql4, [[recipeId]]);
+  
+    const commentList = []
+    commentResult.map((value) => {
+      commentList.push(value.private_id)
+    })
+  
+    let subComment = recipeId.filter((e) => {
+      return commentList.indexOf(e) === -1
+    })
+  
+    subComment.forEach((value) => {
+      commentResult.push({private_id: value, comment_count: 0,},)
+    })
+  
+    commentResult.sort((a, b) => {
+      return b.private_id - a.private_id
+    })
+  
+    const sql5 = "SELECT * FROM private_follow WHERE member_id = ?"
+    const followResult = await connection.queryAsync(sql5, [memberId])
+    const TotalFollow = followResult.length
+  
+    // 該會員獲得的總按讚數
+    let totalLike = likeResult.reduce((acc, value) => {
+      return value.like_count + acc;
+    }, 0);
+  
+    // 該會員獲得的總瀏覽數
+    let totalView = viewResult.reduce((acc, value) => {
+      return value.view_count + acc;
+    }, 0);
+  
+    // 該會員獲得的總評論數
+    let totalComment = commentResult.reduce((acc, value) => {
+      return value.comment_count + acc;
+    }, 0);
+  
+    // 增加 key 跟 value 至 object 中
+    recipeInfo.map((value, index) => {
+      value.likeCount = likeResult[index].like_count
+      value.viewCount = viewResult[index].view_count
+      value.commentCount = commentResult[index].comment_count
+    })
+    res.json({ recipeInfo, totalLike, totalView, totalComment, TotalFollow});
+  }
+  
+
 });
 
 module.exports = router;
