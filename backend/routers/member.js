@@ -81,7 +81,7 @@ const uploader = multer({
 });
 
 // 先檢查是否已登入
-// router.use(loginCheckMiddleware);
+router.use(loginCheckMiddleware);
 
 // 會員資料修改 --> 進入編輯頁面 --> 需要撈資料庫
 router.get("/editinfo", async (req, res, next) => {
@@ -500,7 +500,7 @@ router.post("/recipecomment/modal/delete", async (req, res, next) => {
   console.log("delete recipecomment", req.body);
 
   // 測試用 未收到欲刪除的食譜評論id
-  req.body.id = null;
+  // req.body.id = null;
 
   // 未收到欲刪除的食譜評論id --> next()丟錯誤訊息
   if (!req.body.id) {
