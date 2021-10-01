@@ -11,7 +11,7 @@
 .MyRecipe {
   height: 100%;
 }
-.MyRecipe h2 {
+.MyRecipe span:first-child {
   color: var(--color-primary);
 }
 

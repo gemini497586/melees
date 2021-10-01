@@ -13,10 +13,18 @@ import { API_URL } from '../../utils/config'
 
 function PrivateRecipe() {
   const [itemInfo, setItemInfo] = useState([])
-  const [likeList, setLikeList] = useState([])
-  const [viewList, setViewList] = useState([])
-  const [commentList, setCommentList] = useState([])
   const [sortBy, setSortBy] = useState(0)
+  const [saveState, setSaveState] = useState([])
+  const [likeState, setLikeState] = useState([])
+  useEffect(() => {
+    Axios.get(`${API_URL}/private/index`, {
+      withCredentials: true,
+    }).then((res) => {
+      setItemInfo(res.data.recipeInfo)
+      setSaveState(res.data.saved)
+      setLikeState(res.data.liked)
+    })
+  }, [])
 
   const sortList = [
     {
@@ -44,17 +52,6 @@ function PrivateRecipe() {
       name: '評論數由少至多',
     },
   ]
-  useEffect(() => {
-    Axios.get(`${API_URL}/private/index`, {
-      withCredentials: true,
-    }).then((res) => {
-      setItemInfo(res.data.recipeInfo)
-      setLikeList(res.data.likeResult)
-      setViewList(res.data.viewResult)
-      setCommentList(res.data.commentResult)
-    })
-  }, [])
-
   // 排序功能
   const handleSort = (itemInfo, sortBy) => {
     let newData = [...itemInfo]
@@ -65,39 +62,27 @@ function PrivateRecipe() {
       newData = [...newData].sort((a, b) => a.id - b.id)
     }
     if (sortBy === 2) {
-      newData = [...newData].sort(
-        (a, b) => viewList[b.id - 1].count - viewList[a.id - 1].count
-      )
+      newData = [...newData].sort((a, b) => b.viewCount - a.viewCount)
     }
     if (sortBy === 3) {
-      newData = [...newData].sort(
-        (a, b) => viewList[a.id - 1].count - viewList[b.id - 1].count
-      )
+      newData = [...newData].sort((a, b) => a.viewCount - b.viewCount)
     }
     if (sortBy === 4) {
-      newData = [...newData].sort(
-        (a, b) => likeList[b.id - 1].count - likeList[a.id - 1].count
-      )
+      newData = [...newData].sort((a, b) => b.likeCount - a.likeCount)
     }
     if (sortBy === 5) {
-      newData = [...newData].sort(
-        (a, b) => likeList[a.id - 1].count - likeList[b.id - 1].count
-      )
+      newData = [...newData].sort((a, b) => a.likeCount - b.likeCount)
     }
     if (sortBy === 6) {
-      newData = [...newData].sort(
-        (a, b) => commentList[b.id - 1].count - commentList[a.id - 1].count
-      )
+      newData = [...newData].sort((a, b) => b.commentCount - a.commentCount)
     }
     if (sortBy === 7) {
-      newData = [...newData].sort(
-        (a, b) => commentList[a.id - 1].count - commentList[b.id - 1].count
-      )
+      newData = [...newData].sort((a, b) => a.commentCount - b.commentCount)
     }
 
     return newData
   }
-  const page = [1, 2, 3]
+  // const page = [1, 2, 3]
   useEffect(() => {
     let newData = []
     newData = handleSort(itemInfo, sortBy)
@@ -120,16 +105,16 @@ function PrivateRecipe() {
 
         <PrivateRecipeCard
           itemInfo={itemInfo}
-          likeList={likeList}
-          viewList={viewList}
+          saveState={saveState}
+          likeState={likeState}
         />
-        <div className="container">
+        {/* <div className="container">
           <div className="row justify-content-center">
             {page.map((value, index) => {
               return <Paging value={value} />
             })}
           </div>
-        </div>
+        </div> */}
         <CardRecipe />
         <CardShopping />
       </div>

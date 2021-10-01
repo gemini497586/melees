@@ -7,16 +7,7 @@ import Axios from 'axios'
 import { API_URL } from '../../../utils/config'
 
 function PrivateRecipeComment(props) {
-  const { id } = props
-  const [comment, setComment] = useState([])
-  const [memberInfo, setMemberInfo] = useState([])
-
-  useEffect(() => {
-    Axios.get(`${API_URL}/private/comment/${id}`).then((res) => {
-      setComment(res.data.result)
-      setMemberInfo(res.data.memResult)
-    })
-  }, [])
+  const { id, comment, memberInfo } = props
 
   const avatar1 = (value, index) => {
     const avatar = []
