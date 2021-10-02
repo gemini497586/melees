@@ -157,6 +157,7 @@ function Register() {
       Swal.fire({
         icon: 'success',
         title: queryMsg(response.data.category, response.data.code),
+        html: `體驗會員專屬功能，點擊連結 <a href="/login" class="register-loginLink"><strong>立即登入</strong></a>！`,
         confirmButtonColor: 'var(--color-primary)',
         confirmButtonText: '確認',
       })
