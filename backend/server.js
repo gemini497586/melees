@@ -106,18 +106,29 @@ app.use((err, req, res, next) => {
     // 到這裡表示我們知道這一次來的 err 其實是 MulterError
     // 而且我們有觀察到 MulterError 有一個 code 可以辨別錯誤
     if (err.code === "LIMIT_FILE_SIZE") {
-      return res.status(400).json({ message: "檔案太大啦" });
+      return res.status(400).json({
+        message: "檔案太大啦",
+        category: "auth",
+        type: "picture",
+        code: "K0102",
+      });
     }
-    return res.status(400).json({ message: err.message });
-  }
-  res
-    .status(err.status)
-    .json({
+    // 其餘 MulterError
+    return res.status(400).json({
       message: err.message,
       category: err.category,
       type: err.type,
       code: err.code,
     });
+  }
+
+  // 預設
+  res.status(err.status).json({
+    message: err.message,
+    category: err.category,
+    type: err.type,
+    code: err.code,
+  });
 });
 
 const port = 3001;
