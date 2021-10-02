@@ -6,6 +6,7 @@ export default function queryMsg(category, code) {
       A0001: '資料更新成功',
       A0002: '密碼更新成功',
       A0003: '註冊成功',
+      A0004: '刪除成功',
       // B --> accout
       B0101: '請填寫帳號',
       B0102: '不可註冊超過 100 字元的帳號',
@@ -51,6 +52,7 @@ export default function queryMsg(category, code) {
     recipecomment: {
       // A --> 成功
       A0000: '驗證通過',
+      A0004: '刪除成功',
       // B --> 發生錯誤
       // B01xx --> 編輯 時發生錯誤
       B0101: '評論與評分都沒有更新',

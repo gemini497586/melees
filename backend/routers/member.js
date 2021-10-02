@@ -261,13 +261,11 @@ router.post(
     );
 
     console.log("result: ", result);
-    res
-      .status(200)
-      .json({
-        category: "auth",
-        type: "password",
-        code: "A0002",
-      });
+    res.status(200).json({
+      category: "auth",
+      type: "password",
+      code: "A0002",
+    });
   }
 );
 
@@ -546,7 +544,10 @@ router.post("/recipecomment/modal/edit", async (req, res, next) => {
     );
     console.log("updated result_recipe: ", result_recipe);
 
-    res.status(200).json({ message: "Update successfully!" });
+    res.status(200).json({
+      category: "recipecomment",
+      code: "A0001",
+    });
   } catch (err) {
     console.error("recipecomment Error: ", err);
     next({
@@ -577,7 +578,7 @@ router.post("/recipecomment/modal/delete", async (req, res, next) => {
   //   [req.body.id, req.session.member.id]
   // );
 
-  res.status(200).json({ message: "Delete successfully!" });
+  res.status(200).json({ category: "recipecomment", code: "A0004" });
 });
 
 router.get("/", (req, res, next) => {
