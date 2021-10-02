@@ -25,9 +25,13 @@ function OrderDetails(props) {
   useEffect(() => {
     const getData = async () => {
       try {
-        let res = await Axios.get(`${API_URL}/order/detail/${id}`, {
-          withCredentials: true,
-        })
+        let res = await Axios.post(
+          `${API_URL}/order/detail/${id}`,
+          {},
+          {
+            withCredentials: true,
+          }
+        )
         let data = res.data.result
         let mainList = res.data.mainList
         let product = res.data.result2

@@ -550,7 +550,7 @@ router.get("/myrecipe", async function (req, res, next) {
 
   const sql = "SELECT * FROM private_recipe WHERE member_id = ? AND valid = 1 ORDER BY id DESC";
   const recipeInfo = await connection.queryAsync(sql, [memberId]);
-  console.log(recipeInfo)
+  // console.log(recipeInfo)
   if (recipeInfo.length === 0) {
     console.log("這個會員沒有新增食譜過")
     let totalLike = 0

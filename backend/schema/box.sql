@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： localhost
--- 產生時間： 2021 年 09 月 27 日 18:03
+-- 產生時間： 2021 年 10 月 02 日 18:54
 -- 伺服器版本： 10.4.19-MariaDB
 -- PHP 版本： 8.0.7
 
@@ -54,39 +54,76 @@ INSERT INTO `box` (`id`, `name`, `image`, `inside_image`, `cal`, `product_id`, `
 (10, '高麗菜', 'cabbage.png', 'cabbage2.png', 25, NULL, '1'),
 (11, '豆腐', 'tofu.png', 'tofu2.png', 76, NULL, '1'),
 (12, '鮭魚', 'salmon.png', 'salmon2.png', 208, NULL, '1'),
-(13, '義大利麵', 'pasta.png', 'pasta2.png', 371, NULL, '1'),
+(13, '炒飯', 'friedrice.png', 'friedrice2.png', 163, NULL, '1'),
 (14, '玉米筍', 'corn.png', 'corn2.png', 31, NULL, '1'),
-(15, '炒飯', 'friedrice.png', 'friedrice2.png', 163, NULL, '1'),
+(15, '義大利麵', 'pasta.png', 'pasta2.png', 371, NULL, '1'),
 (16, '義大利麵(直麵)', 'spaghetti.png', 'spaghetti2.png', 158, NULL, '1');
 
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `box_save`
+-- 資料表結構 `box_save_detail`
 --
 
-CREATE TABLE `box_save` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `member_id` int(5) UNSIGNED NOT NULL,
-  `box_ids` varchar(100) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `cal` int(5) UNSIGNED NOT NULL,
-  `create_at` date NOT NULL
+CREATE TABLE `box_save_detail` (
+  `id` int(5) UNSIGNED NOT NULL,
+  `save_id` int(5) NOT NULL,
+  `box_id` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- 傾印資料表的資料 `box_save`
+-- 傾印資料表的資料 `box_save_detail`
 --
 
-INSERT INTO `box_save` (`id`, `member_id`, `box_ids`, `name`, `cal`, `create_at`) VALUES
-(1, 2, '5', 'test', 280, '2021-09-27'),
-(2, 1, '6', 'test', 80, '2021-09-27'),
-(3, 1, '13', 'RubyRuby', 371, '2021-09-27'),
-(4, 1, '13', 'Ruby', 371, '2021-09-27'),
-(5, 1, '8', 'Ruby', 17, '2021-09-27'),
-(6, 1, '8,13,15,5,16', 'test', 989, '2021-09-27'),
-(7, 1, '2,1,3,6', 'test', 607, '2021-09-27'),
-(8, 1, '15,6,7,9', 'test', 288, '2021-09-27');
+INSERT INTO `box_save_detail` (`id`, `save_id`, `box_id`) VALUES
+(1, 1, 5),
+(2, 1, 1),
+(3, 1, 9),
+(4, 1, 14),
+(5, 2, 15),
+(6, 2, 9),
+(7, 2, 12),
+(8, 2, 11),
+(9, 3, 5),
+(10, 3, 7),
+(11, 3, 6),
+(12, 3, 4),
+(13, 3, 3),
+(14, 4, 8),
+(15, 4, 6),
+(16, 4, 7),
+(17, 4, 12),
+(18, 4, 14),
+(19, 5, 16),
+(20, 5, 6),
+(21, 5, 3),
+(22, 5, 2),
+(23, 5, 1);
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `box_save_main`
+--
+
+CREATE TABLE `box_save_main` (
+  `id` int(5) UNSIGNED NOT NULL,
+  `member_id` int(5) UNSIGNED NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `cal` int(5) UNSIGNED NOT NULL,
+  `create_date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- 傾印資料表的資料 `box_save_main`
+--
+
+INSERT INTO `box_save_main` (`id`, `member_id`, `name`, `cal`, `create_date`) VALUES
+(1, 1, '17:10', 456, '2021-10-02'),
+(2, 1, '1711', 472, '2021-10-02'),
+(3, 1, '1712', 725, '2021-10-02'),
+(4, 2, 'test', 356, '2021-10-02'),
+(5, 1, 'test', 765, '2021-10-02');
 
 --
 -- 已傾印資料表的索引
@@ -99,9 +136,15 @@ ALTER TABLE `box`
   ADD PRIMARY KEY (`id`);
 
 --
--- 資料表索引 `box_save`
+-- 資料表索引 `box_save_detail`
 --
-ALTER TABLE `box_save`
+ALTER TABLE `box_save_detail`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- 資料表索引 `box_save_main`
+--
+ALTER TABLE `box_save_main`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -115,10 +158,16 @@ ALTER TABLE `box`
   MODIFY `id` int(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- 使用資料表自動遞增(AUTO_INCREMENT) `box_save`
+-- 使用資料表自動遞增(AUTO_INCREMENT) `box_save_detail`
 --
-ALTER TABLE `box_save`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+ALTER TABLE `box_save_detail`
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `box_save_main`
+--
+ALTER TABLE `box_save_main`
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

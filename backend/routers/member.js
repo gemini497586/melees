@@ -217,48 +217,6 @@ router.post(
     }
 );
 
-// 收藏便當
-router.post("/savebox", async (req, res, next) => {
-    // 確認資料是否拿到
-    // console.log(req.body);
-    // 確認是否拿到會員id
-    const memberId = req.session.member.id;
-    // console.log(memberId);
-    const createDate = moment().format("YYYYMMDD");
-    let result = await connection.queryAsync(
-        "INSERT INTO box_save (member_id,box_ids,name,cal,create_at) VALUE (?)",
-        [[memberId, req.body.saveId, req.body.name, req.body.cal, createDate]]
-    );
-    res.status(200).json({ message: "客製化便當收藏成功" });
-});
-
-router.post("/deletesavebox", async (req, res, next) => {
-    let result = await connection.queryAsync(
-        "DELETE FROM box_save WHERE id=?",
-        [req.body.id]
-    );
-    res.status(200).json({ message: "客製化便當收刪除成功" });
-});
-
-router.get("/readsavebox", async (req, res, next) => {
-    const memberId = req.session.member.id;
-    // const memberId = 1;
-
-    let result = await connection.queryAsync(
-        "SELECT * FROM box_save WHERE member_id=? ORDER BY id DESC",
-        [memberId]
-    );
-    // 檢查是否有收藏
-    if (result.length === 0) {
-        res.json({ message: "您好，目前尚未收藏任何便當" });
-    } else {
-        let result2 = await connection.queryAsync(
-            "SELECT id,name,inside_image FROM box"
-        );
-        res.json({ result, result2 });
-    }
-});
-
 // 收藏商品
 router.get("/readsaveproduct", async (req, res, next) => {
     const memberId = req.session.member.id;

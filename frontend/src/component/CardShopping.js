@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../style/cardShopping.css'
-import { API_URL } from '../utils/config'
+import { API_URL, P_CATEGORY } from '../utils/config'
 import Axios from 'axios'
 
 function CardShopping() {
@@ -48,8 +48,6 @@ function CardShopping() {
     return save
   }
 
-  let category1 = { 1: '食材', 2: '鍋具', 3: '調味料' }
-
   return (
     <div className="container">
       <div className="row">
@@ -81,7 +79,7 @@ function CardShopping() {
                       alt={value.name}
                     />
                   </figure>
-                  {/* {saveToggled(value.id)} */}
+                  {saveToggled(value.id)}
                   <span className="cardShopping-bookmark-stat-box">
                     <div className="cardShopping-bookmark-stat-icon">
                       <FontAwesomeIcon icon="bookmark" size="lg" />
@@ -91,7 +89,7 @@ function CardShopping() {
                     </span>
                   </span>
                   <span className="font-700S cardShopping-type">
-                    {category1[value.category]}
+                    {P_CATEGORY[value.category]}
                   </span>
                   <h6 className="cardShopping-name">{value.name}</h6>
                   <span className="font-700S cardShopping-price">

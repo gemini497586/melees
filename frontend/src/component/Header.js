@@ -78,7 +78,7 @@ function Header() {
 
   const handleLogout = async () => {
     try {
-      let response = await axios.post(`${API_URL}/auth/logout`, {
+      let response = await axios.post(`${API_URL}/auth/logout`, null, {
         // 設定可以跨源送 cookie
         withCredentials: true,
       })
@@ -201,7 +201,7 @@ function Header() {
         {login ? (
           <li className="user-btn ">
             <div className="user-avatar" data-bs-toggle="dropdown">
-              <img alt="" className="user" src={`${API_URL}/member${avatar}`} />
+              <img alt="" className="b-cover-fit" src={`${API_URL}/member${avatar}`} />
               <FontAwesomeIcon icon="user-circle" className="user" />
             </div>
             <ul className="dropdown-menu user-dropdown">

@@ -7,7 +7,7 @@ const moment = require("moment");
 // 登入才可以使用
 router.use(loginCheckMiddleware);
 
-router.get("/", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   // 確認是否拿到會員id
   const memberId = req.session.member.id;
   // const memberId = 1;
@@ -47,7 +47,7 @@ router.get("/", async (req, res, next) => {
   res.json({ count, result });
 });
 
-router.get("/detail/:id", async (req, res, next) => {
+router.post("/detail/:id", async (req, res, next) => {
   const memberId = req.session.member.id;
   // const memberId = 1;
   // console.log(memberId);
