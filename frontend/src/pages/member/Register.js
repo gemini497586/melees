@@ -9,10 +9,12 @@ import { API_URL } from '../../utils/config'
 import axios from 'axios'
 import validationInfo from './component/validationInfo'
 import InputErrorMsg from './component/InputErrorMsg'
+import queryMsg from './component/queryMsg'
+import Swal from 'sweetalert2'
 
 function Register() {
   const [errors, setErrors] = useState({})
-  const [pictureErrors, setPictureErrors] = useState(false)
+  const [pictureErrors, setPictureErrors] = useState()
   const [formValues, setFormValues] = useState({
     // picture: '',
     // previewPicture: '',
@@ -26,16 +28,16 @@ function Register() {
     // cellphone: '',
     // email: '',
     // address: '',
-    account: 'meleesadmin',
-    password: '123456',
-    rePassword: '123456',
-    name: 'meleesadmintester1715',
-    gender: '男',
-    nickname: 'testnickname',
-    birthday: '1992-08-01',
-    cellphone: '0988456654',
-    email: 'meleestest@gmail.com',
-    address: '桃園市中壢區中央路300號',
+    // account: 'meleesadmin',
+    // password: '123456',
+    // rePassword: '123456',
+    // name: 'meleesadmintester1715',
+    // gender: '男',
+    // nickname: 'testnickname',
+    // birthday: '1992-08-01',
+    // cellphone: '0988456654',
+    // email: 'meleestest@gmail.com',
+    // address: '桃園市中壢區中央路300號',
   })
   const handleFormValuesChange = (e) => {
     setFormValues({
@@ -50,7 +52,17 @@ function Register() {
     const selectedPic = e.target.files[0]
     const ALLOWED_TPYES = ['image/png', 'image/jpeg', 'image/jpg']
 
-    setPictureErrors(false)
+    setPictureErrors(null)
+
+    if (!selectedPic) {
+      // 會員反悔取消上傳，將預覽照片清空
+      setFormValues({
+        ...formValues,
+        previewPicture: null,
+      })
+      return false
+    }
+
     // 有上傳照片且格式符合才寫入表單資料
     if (selectedPic && ALLOWED_TPYES.includes(selectedPic.type)) {
       const reader = new FileReader()
@@ -70,7 +82,8 @@ function Register() {
       }
       reader.readAsDataURL(selectedPic)
     } else {
-      setPictureErrors(true)
+      // console.log('Register L74, selectedPic: ', selectedPic)
+      setPictureErrors(queryMsg('auth', 'K0101'))
     }
   }
 
@@ -96,7 +109,17 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
+    // 1. 發送axios前，再次驗證表單的值有沒有不合法
+    //    不通過 --> return false
+    handleFormValuesInvalid(e)
+    if (Object.keys(errors).length > 0) {
+      // console.log('Object.keys(errors).length:', Object.keys(errors).length)
+      return false
+    }
+
     try {
+      //  2. 通過 --> 發 axios
       let formData = new FormData()
       formData.append('picture', formValues.picture)
       formData.append('account', formValues.account)
@@ -114,10 +137,62 @@ function Register() {
         withCredentials: true,
       })
       console.log(response)
+
+      // 3. Y --> 後端回覆成功
+      //    a.清空 所有欄位, b.開啟 成功的 Swal
+      setFormValues({
+        picture: '',
+        previewPicture: '',
+        account: '',
+        password: '',
+        rePassword: '',
+        name: '',
+        gender: '',
+        nickname: '',
+        birthday: '',
+        cellphone: '',
+        email: '',
+        address: '',
+      })
+      Swal.fire({
+        icon: 'success',
+        title: queryMsg(response.data.category, response.data.code),
+        confirmButtonColor: 'var(--color-primary)',
+        confirmButtonText: '確認',
+      })
     } catch (err) {
-      console.error(err.response)
-      if (err.response.data.message === '此帳號已有人使用') {
-        alert('此帳號已有人使用')
+      // 3. N --> 後端回覆失敗
+      //    a.清空 密碼欄位, b. 設定表單錯誤訊息
+      // console.error(err.response.data)
+      setFormValues({
+        ...formValues,
+        password: '',
+        rePassword: '',
+      })
+
+      let resData = err.response.data
+      // 其他驗證 或 express-validator 回覆１個欄位發生錯誤時，resData 是 Object
+      // express-validator 回覆多個欄位發生錯誤時，resData 是 Array
+      if (resData instanceof Object) {
+        if (resData.type === 'picture') {
+          setPictureErrors(queryMsg(resData.category, resData.code))
+          return
+        }
+        setErrors({
+          [resData.type]: queryMsg(resData.category, resData.code),
+        })
+      } else if (resData instanceof Array) {
+        let resError = {}
+        for (let i = 0; i < resData.length; i++) {
+          const error = resData[i]
+          if (error.type === 'picture') {
+            setPictureErrors(queryMsg(error.category, error.code))
+            continue
+          }
+          resError[error.type] = queryMsg(error.category, error.code)
+        }
+        console.log(resError)
+        setErrors(resError)
       }
     }
   }
@@ -153,7 +228,7 @@ function Register() {
             />
             {pictureErrors && (
               <p className="font-400S member-form-errorMsg errorMsg-show">
-                檔案格式不符合
+                {pictureErrors}
               </p>
             )}
           </div>
@@ -237,6 +312,11 @@ function Register() {
             </label>
             <div className="col-4">
               <input
+                className={
+                  errors.name
+                    ? 'form-input-invalid animate__animated animate__headShake'
+                    : null
+                }
                 type="text"
                 id="name"
                 name="name"

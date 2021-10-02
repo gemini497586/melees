@@ -9,6 +9,7 @@ import logo from '../../images/logo.png'
 import { HandleCart } from '../../utils/HandleCart'
 import FacebookLogin from 'react-facebook-login'
 import 'animate.css'
+import queryMsg from './component/queryMsg'
 
 function Login() {
   const { setLogin } = useContext(HandleCart) //登入用
@@ -40,7 +41,11 @@ function Login() {
     e.preventDefault()
 
     if (!formValues.account || !formValues.password) {
-      setErrorMsg('請確實填寫帳號密碼')
+      let errCode = {
+        category: 'auth',
+        code: 'B0102',
+      }
+      setErrorMsg(queryMsg(errCode.category, errCode.code))
     }
   }
 
@@ -49,14 +54,13 @@ function Login() {
   const location = useLocation()
   const loginRedirect = () => {
     let { from } = location.state || { from: { pathname: '/' } }
-    // console.log('from of login.js: ', from)
+    // console.log('login.js L57, from: ', from)
     history.push(from)
-    // history.replace(from)
   }
 
-  const componentClicked = () => {
-    console.log('clicked')
-  }
+  // const componentClicked = () => {
+  //   console.log('clicked')
+  // }
 
   const responseFacebook = (response) => {
     console.log(response)
@@ -73,26 +77,23 @@ function Login() {
     e.preventDefault()
     setErrorMsg('')
     try {
-      let account = formValues.account
-      let password = formValues.password
-      let response = await axios.post(
-        `${API_URL}/auth/login`,
-        {
-          account,
-          password,
-        },
-        {
-          // 設定可以跨源送 cookie
-          withCredentials: true,
-        }
-      )
-      console.log(response)
+      let reqData = {
+        account: formValues.account,
+        password: formValues.password,
+      }
+      let response = await axios.post(`${API_URL}/auth/login`, reqData, {
+        // 設定可以跨源送 cookie
+        withCredentials: true,
+      })
+      console.log('login.js L89, response: ', response)
       setLogin(true)
       loginRedirect()
     } catch (err) {
-      console.error(err.response)
-      if (err.response.status === 400) {
-        setErrorMsg('帳號或密碼輸入錯誤')
+      console.error('login.js L92, err.response: ', err.response)
+      if (err.response.data !== undefined) {
+        setErrorMsg(
+          queryMsg(err.response.data.category, err.response.data.code)
+        )
       }
     }
   }

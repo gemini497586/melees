@@ -11,10 +11,7 @@ import axios from 'axios'
 import validationInfo from './component/validationInfo'
 import InputErrorMsg from './component/InputErrorMsg'
 import Swal from 'sweetalert2'
-
-const colors = {
-  primary: '#fe9900',
-}
+import queryMsg from './component/queryMsg'
 
 function EditMemberInfo() {
   const [errors, setErrors] = useState({})
@@ -90,15 +87,18 @@ function EditMemberInfo() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setErrors({})
+
+    // 1. 發送axios前，再次驗證表單的值有沒有不合法
+    //    不通過 --> return false
+    setErrors({}) // 清空errors --> 為了刷新動畫
     handleFormValuesInvalid(e)
     if (Object.keys(errors).length > 0) {
-      // console.log('Object.keys(errors):', Object.keys(errors))
       console.log('Object.keys(errors).length:', Object.keys(errors).length)
       return false
     }
-    // console.log('pass')
+
     try {
+      //  2. 通過 --> 發 axios
       let formData = new FormData()
       formData.append('picture', formValues.picture)
       formData.append('name', formValues.name)
@@ -113,20 +113,41 @@ function EditMemberInfo() {
         withCredentials: true,
       })
       console.log(response)
-      if (response.status === 200) {
-        Swal.fire({
-          icon: 'success',
-          title: '資料更新成功！',
-          confirmButtonColor: colors.primary,
-          confirmButtonText: '確認',
-        })
-      }
+
+      // 3. Y --> 後端回覆成功
+      //    a. useEffect get 刷新會員資料, b.開啟 成功的 Swal
+      Swal.fire({
+        icon: 'success',
+        title: queryMsg(response.data.category, response.data.code),
+        confirmButtonColor: 'var(--color-primary)',
+        confirmButtonText: '確認',
+      })
     } catch (err) {
-      console.error(err)
-      if (err.response.status === 400) {
-        // setFormValues({})
-        console.log(err.response.data.message)
-        // setErrors(err.response.data.message)
+      // console.error(err.response.data)
+      let resData = err.response.data
+
+      // 其他驗證 或 express-validator 回覆１個欄位發生錯誤時，resData 是 Object
+      // express-validator 回覆多個欄位發生錯誤時，resData 是 Array
+      if (resData instanceof Object) {
+        if (resData.type === 'picture') {
+          setPictureErrors(queryMsg(resData.category, resData.code))
+          return
+        }
+        setErrors({
+          [resData.type]: queryMsg(resData.category, resData.code),
+        })
+      } else if (resData instanceof Array) {
+        let resError = {}
+        for (let i = 0; i < resData.length; i++) {
+          const error = resData[i]
+          if (error.type === 'picture') {
+            setPictureErrors(queryMsg(error.category, error.code))
+            continue
+          }
+          resError[error.type] = queryMsg(error.category, error.code)
+        }
+        console.log(resError)
+        setErrors(resError)
       }
     }
   }
@@ -153,9 +174,6 @@ function EditMemberInfo() {
         })
       } catch (err) {
         console.error(err.response)
-        if (err.response.status === 400) {
-          alert('會員資料輸入錯誤')
-        }
       }
     }
     memberInfoAPI()
