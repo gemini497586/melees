@@ -31,14 +31,14 @@ function CardShopping() {
     for (let i = 0; i < saveState.length; i++) {
       if (value === saveState[i].product_id) {
         save.push(
-          <span className="cardPrivateRecipe-bookmark-active">
+          <span className="cardPrivateRecipe-bookmark-active" key={i}>
             <FontAwesomeIcon icon="bookmark" size="2x" />
           </span>
         )
         break
       } else {
         save.push(
-          <span className="cardShopping-bookmark">
+          <span className="cardShopping-bookmark" key={i}>
             <FontAwesomeIcon icon="bookmark" size="2x" />
           </span>
         )

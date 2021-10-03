@@ -32,14 +32,14 @@ function CardRecipe() {
     for (let i = 0; i < saveState.length; i++) {
       if (value === saveState[i].feature_id) {
         save.push(
-          <span className="cardPrivateRecipe-bookmark-active">
+          <span className="cardPrivateRecipe-bookmark-active" key={i}>
             <FontAwesomeIcon icon="bookmark" size="2x" />
           </span>
         )
         break
       } else {
         save.push(
-          <span className="cardPrivateRecipe-bookmark">
+          <span className="cardPrivateRecipe-bookmark" key={i}>
             <FontAwesomeIcon icon="bookmark" size="2x" />
           </span>
         )

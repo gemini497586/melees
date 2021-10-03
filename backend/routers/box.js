@@ -14,6 +14,7 @@ router.get("/", async (req, res, next) => {
     res.json({ result, result2 });
 });
 
+
 router.get("/recipe", async (req, res, next) => {
     const memberId = req.session.member ? req.session.member.id : 0;
     // const memberId = 1;

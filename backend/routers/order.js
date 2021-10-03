@@ -67,18 +67,12 @@ router.post("/detail/:id", async (req, res, next) => {
 
     res.json({ mainList, result, result2 });
   }
-
-  // 只抓到result有用到的product_id
-  // let productIds = result.map((v) => {
-  //     return v.product_id;
-  // });
-  // // console.log(productIds);
-  // let result2 = await connection.queryAsync(
-  //     "SELECT id,name FROM product WHERE id IN ?",
-  //     [[productIds]]
-  // );
-
-  // res.json({ mainList, result2 });
 });
+
+// 找出賣最好的商品
+router.get("/top", async (req, res, next)=>{
+  let result = await connection.queryAsync("SELECT product_id, COUNT(product_id) AS count FROM order_detail_list GROUP BY product_id ORDER BY count DESC", [[req.params.id]]);
+  res.json(result)
+})
 
 module.exports = router;

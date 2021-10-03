@@ -6,11 +6,15 @@ function Select(props) {
   return (
     <>
       <div className="row align-items-center">
-        <label htmlFor={value} className="col-4 font-700M">
+        <label htmlFor={value} className="col-4 font-700M b-page1-label">
           {name}
         </label>
         <div className="col-8">
           <select
+            className={
+              fieldErrors &&
+              'b-page1-error animate__animated animate__headShake'
+            }
             name={value}
             id={value}
             value={fields}
@@ -26,11 +30,8 @@ function Select(props) {
               )
             })}
           </select>
-        </div>
-        <div className="col-4 b-page1-errorMsg"></div>
-        {fieldErrors !== '' && (
           <div className="col-8 b-page1-errorMsg font-400S">{fieldErrors}</div>
-        )}
+        </div>
       </div>
     </>
   )
