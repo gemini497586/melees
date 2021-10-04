@@ -1,6 +1,7 @@
 const express = require("express");
 const connection = require("../utils/db");
 const router = express.Router();
+const { loginCheckMiddleware } = require("../middlewares/auth");
 
 // 食譜首頁
 router.get("/index/:typeid/:sort?", async function (req, res, next) {
@@ -104,7 +105,7 @@ router.get("/index/:typeid/:sort?", async function (req, res, next) {
 });
 
 // 給食譜流程用
-router.get("/steplist/:listId?", async function (req, res, next) {
+router.post("/steplist/:listId?", async function (req, res, next) {
   // 可以檢查路由是否相通
   // console.log("食譜流程通了", 222);
 
@@ -126,9 +127,16 @@ router.get("/steplist/:listId?", async function (req, res, next) {
   for (let i = 0; i < data.length; i++) {
     data[i].featureimg = data[i].featureimg.split(",");
   }
-
-  // console.log("data", data);
-  res.json(data);
+  // console.log("req.session.member", req.session.member);
+  // req.session 會回傳 Session { cookie: { path: '/', _expires: null, originalMaxAge: null, httpOnly: true }
+  if (req.session.member === undefined) {
+    res.json({data});
+  } else {
+    let getLike = await connection.queryAsync("SELECT * FROM feature_like WHERE member_id=? AND feature_id=?", [req.session.member.id, req.params.listId]);
+    let getSave = await connection.queryAsync("SELECT * FROM feature_save WHERE member_id=? AND feature_id=?", [req.session.member.id, req.params.listId]);
+    let getView = await connection.queryAsync("SELECT * FROM feature_view WHERE member_id=? AND feature_id=?", [req.session.member.id, req.params.listId]);
+    res.json({ data, getLike, getSave, getView });
+  }
 });
 
 // 給步驟用
@@ -321,43 +329,75 @@ router.get("/prepweek/:weekId?", async function (req, res, next) {
 });
 
 // 更新瀏覽數
-router.get("/addview/:id", async function (req, res, next) {
-  let memberId = 5;
-  let sql = "INSERT INTO feature_view (feature_id, member_id) VALUES (?, ?)";
-  let data = await connection.queryAsync(sql, [req.params.id, memberId]);
-  res.send("success");
+router.post("/feature-view/:listId?", async (req, res, next) => {
+  console.log("通了", 1111);
+  let member_id = req.session.member.id;
+  let data = await connection.queryAsync("INSERT INTO feature_view (member_id, feature_id) VALUES (?);", [[member_id, req.params.listId]]);
+  res.json(data);
+});
+// router.post("/feature-view/:listId?", async function (req, res, next) {
+//   const userId = req.session.member ? req.session.member.id : 0
+//   let sql = "INSERT INTO feature_view (feature_id, member_id) VALUES (?, ?)";
+//   let data = await connection.queryAsync(sql, [req.params.ilistId, userId]);
+//   res.send("success");
+// });
+
+
+// 按讚
+router.post("/feature-like/:listId?", async (req, res, next) => {
+  // console.log("通了", 1111);
+  let member_id = req.session.member.id;
+
+  try {
+    console.log("按讚食譜: ", req.params.listId);
+    await connection.queryAsync("INSERT INTO feature_like (member_id, feature_id) VALUES (?);", [[member_id, req.params.listId]]);
+    res.json({ reply: `已經成功按讚${req.params.listId}食譜` });
+  } catch (err) {
+    console.error(err);
+  }
 });
 
-// 按讚的新增或刪除
-router.get("/add-like/:listId", async function (req, res, next) {
-  let memberId = 5;
-  let sql = "INSERT INTO feature_like (feature_id, member_id) VALUES (?, ?)";
-  let like = await connection.queryAsync(sql, [req.params.id, memberId]);
 
-  res.json(like);
+// 刪除按讚
+router.post("/feature-deletelike/:listId?", async (req, res, next) => {
+  // console.log("通了", 2222);
+  let member_id = req.session.member.id;
+
+  try {
+    console.log("取消按讚食譜: ", req.params.listId);
+    await connection.queryAsync("DELETE FROM feature_like WHERE member_id=? AND feature_id=?", [member_id, req.params.listId]);
+    res.json({ reply: `已經取消按讚${req.params.listId}食譜` });
+  } catch (err) {
+    console.error(err);
+  }
 });
-router.get("/remove-like/:listId", async function (req, res, next) {
-  let memberId = 5;
-  let sql = "DELETE FROM feature_like WHERE feature_id = ? AND member_id = ?";
-  let like = await connection.queryAsync(sql, [req.params.id, memberId]);
 
-  res.json(like);
+// 收藏
+router.post("/feature-save/:listId?", async (req, res, next) => {
+  // console.log("通了", 333);
+  let member_id = req.session.member.id;
+
+  try {
+    console.log("收藏食譜: ", req.params.listId);
+    await connection.queryAsync("INSERT INTO feature_save (member_id, feature_id) VALUES (?);", [[member_id, req.params.listId]]);
+    res.json({ reply: `已經成功收藏${req.params.listId}食譜` });
+  } catch (err) {
+    console.error(err);
+  }
 });
 
-// 按收藏的新增或刪除
-router.get("/add-save/:id", async function (req, res, next) {
-  let memberId = 5;
-  let sql = "INSERT INTO feature_save (feature_id, member_id) VALUES (?, ?)";
-  let save = await connection.queryAsync(sql, [req.params.id, memberId]);
+// 刪除收藏
+router.post("/feature-delete/:listId?", async (req, res, next) => {
+  // console.log("通了", 444);
+  let member_id = req.session.member.id;
 
-  res.json(save);
-});
-router.get("/remove-save/:id", async function (req, res, next) {
-  let memberId = 5;
-  let sql = "DELETE FROM feature_save WHERE feature_id = ? AND member_id = ?";
-  let save = await connection.queryAsync(sql, [req.params.id, memberId]);
-
-  res.json(save);
+  try {
+    console.log("取消收藏食譜: ", req.params.listId);
+    await connection.queryAsync("DELETE FROM feature_save WHERE member_id=? AND feature_id=?", [member_id, req.params.listId]);
+    res.json({ reply: `已經取消收藏${req.params.listId}食譜` });
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 module.exports = router;

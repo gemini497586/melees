@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import ReactFullpage from '@fullpage/react-fullpage'
 import '../../style/home.css'
 import '../../style/searchRecipe.css'
@@ -15,16 +15,60 @@ import homebento_btnbg from '../../images/homebento_btnbg.png'
 import homebento_dialog from '../../images/homebento_dialog.png'
 /* 精選食譜 */
 import Ig from '../../component/Ig'
+
 /* 私藏食譜 */
 import homerecipe_plate from '../../images/homerecipe_plate.png'
 /* 購物商城 */
-import homeshop_01 from '../../images/homeshop_01.jpg'
-import homeshop_02 from '../../images/homeshop_02.jpg'
-import homeshop_03 from '../../images/homeshop_03.jpg'
-import homeshop_04 from '../../images/homeshop_04.jpg'
 import { Link } from 'react-router-dom'
+/* GSAP */
+import { gsap, back, Power3, elastic } from 'gsap'
 
 function Home() {
+  // 客製化便當用
+  let hoomebento = useRef(null)
+  let btnimg = useRef(null)
+  let bentoimg = useRef(null)
+  let Titlegroup = useRef(null)
+  let dialog = useRef(null)
+  let svg = useRef(null)
+  let hl = gsap.timeline()
+  useEffect(() => {
+    // Images Vars
+    const Bentoimg = bentoimg.firstElementChild
+    const Btnimg = btnimg.lastElementChild
+    const Title = Titlegroup.children[0]
+    const Dialog = dialog
+    const Svg = svg
+
+    gsap.to(hoomebento, 0, { css: { visibility: 'visible' } })
+    console.log(btnimg)
+
+    hl.fromTo(
+      Bentoimg,
+      { autoAlpha: 0, y: -50 },
+      { autoAlpha: 1, y: 0, duration: 1 }
+    )
+      .fromTo(
+        Title,
+        { autoAlpha: 0, y: 20 },
+        { autoAlpha: 1, y: 0, duration: 1 }
+      )
+      .fromTo(
+        Dialog,
+        { autoAlpha: 0 },
+        { autoAlpha: 1, rotate: 360, duration: 0.5 }
+      )
+      .fromTo(
+        Btnimg,
+        { autoAlpha: 0, x: 0 },
+        { autoAlpha: 1, x: 1150, duration: 1, ease: 'back.out(1)' }
+      )
+      .fromTo(
+        Svg,
+        { autoAlpha: 0, y: -20 },
+        { autoAlpha: 1, y: 0, duration: 1 }
+      )
+  })
   // 精選食譜用
   // 精選食譜資料
   const [featuredata, setFeaturedata] = useState([])
@@ -46,7 +90,7 @@ function Home() {
   useEffect(() => {
     Axios.get(`${API_URL}/home/feature`).then((response) => {
       setFeaturedata(response.data)
-      console.log(response.data[0])
+      // console.log(response.data[0])
       // 給預設
       setLargeimg(response.data[0].img.file_type)
       setLargetype(response.data[0].type_id)
@@ -66,17 +110,16 @@ function Home() {
       setBigRecipe(response.data[0])
     })
   }, [])
-  // 縮圖使用
+
+  // 精選食譜縮圖使用
   // 在下面帶變數前，這邊要先宣告變數，變數名稱不一定要和下面一樣，位置對就好
   const smallimg = (v) => {
-    // console.log('e', e)
-    console.log('v', v)
+    // console.log('v', v)
     setLargeimg(v.img.file_type)
     setLargelistid(v.listId)
     setLargetype(v.type_id)
     setLargelistname(v.listName)
     setLargelinkname(v.linkName)
-    // console.log('etarget', e.target)
   }
   // 私藏食譜用
   const handleChange = (value) => {
@@ -96,20 +139,26 @@ function Home() {
         return (
           <ReactFullpage.Wrapper>
             {/* 便當頁面 */}
-            <article className="section h-bento-bg">
+            <article
+              className="section h-bento-bg"
+              ref={(el) => (hoomebento = el)}
+            >
               {/* 中間內容 */}
               <div className="h-bento-group">
                 {/* 便當圖片 */}
-                <figure className="h-bento-img">
+                <figure className="h-bento-img" ref={(el) => (bentoimg = el)}>
                   <img className="fcover-fit" src={homebento_bento} alt="" />
                 </figure>
                 {/* 內容 */}
                 <div className="h-bento-contentgroup">
                   {/* 小小對話框 */}
-                  <div className="h-bento-dialog">
+                  <div className="h-bento-dialog" ref={(el) => (dialog = el)}>
                     <img className="fcover-fit" src={homebento_dialog} alt="" />
                   </div>
-                  <div className="h-bento-titlegroup">
+                  <div
+                    className="h-bento-titlegroup"
+                    ref={(el) => (Titlegroup = el)}
+                  >
                     <h1 className="h-bento-title">客製化便當</h1>
                     <div className="h-bento-subtitle">
                       <img
@@ -118,21 +167,29 @@ function Home() {
                         alt=""
                       />
                     </div>
-                    <Link to="/box">
-                      <div className="h-bento-subtitle">
+                    {/* <Link to="/box">
+                      <div
+                        className="h-bento-subtitle"
+                        ref={(el) => (btnimg = el)}
+                      >
                         <img
                           className="fcover-fit"
                           src={homebento_btnbg}
                           alt=""
                         />
                       </div>
-                    </Link>
+                    </Link> */}
                   </div>
                 </div>
               </div>
+              <Link to="/box">
+                <div className="h-bento-btnimg" ref={(el) => (btnimg = el)}>
+                  <img className="fcover-fit" src={homebento_btnbg} alt="" />
+                </div>
+              </Link>
               {/* 往下箭頭 */}
               <a onClick={() => fullpageApi.moveSectionDown()}>
-                <div className="h-bento-arrowdown">
+                <div className="h-bento-arrowdown" ref={(el) => (svg = el)}>
                   <FontAwesomeIcon icon={['fas', 'chevron-down']} fixedWidth />
                 </div>
               </a>
@@ -356,3 +413,4 @@ function Home() {
 }
 
 export default Home
+// ReactDOM.render(<Ball />, document.getElementById('Home'))

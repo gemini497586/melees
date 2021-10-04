@@ -83,6 +83,7 @@ function FeatureIndexWeek() {
             product={weekindeximg}
             product={weekdata}
             setCurrentPage={setCurrentPage}
+            perPage={perPage}
           />
         </div>
         <CardShopping />
