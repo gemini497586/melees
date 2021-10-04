@@ -78,7 +78,7 @@ function Header() {
 
   const handleLogout = async () => {
     try {
-      let response = await axios.post(`${API_URL}/auth/logout`, {
+      let response = await axios.post(`${API_URL}/auth/logout`, null, {
         // 設定可以跨源送 cookie
         withCredentials: true,
       })

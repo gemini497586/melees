@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import PrivateRecipeHeading from './component/PrivateRecipeHeading'
 import React, { useState, useEffect } from 'react'
@@ -7,6 +7,7 @@ import Axios from 'axios'
 import { API_URL } from '../../utils/config'
 import { useParams } from 'react-router'
 import PrivateReicpeAnimate from './component/PrivateRecipeAnimate'
+import Swal from 'sweetalert2'
 
 function PrivateRecipeEdit() {
   const { id } = useParams()
@@ -38,7 +39,6 @@ function PrivateRecipeEdit() {
       let steps = res.data.steps
       let tags = res.data.tags
 
-      console.log(res.data)
       setRecipeName(recipe.name)
       setRecipeIntro(recipe.intro)
       setRecipeQty(recipe.qty)
@@ -105,17 +105,21 @@ function PrivateRecipeEdit() {
     setSteps(list)
   }
   const handleTag = async () => {
-    let res = await setDisplayTag([
-      ...displayTag,
-      { private_id: '', tags: `${tag}` },
-    ])
-    let res1 = await setTag('')
+    if (tag === '') {
+      Swal.fire({
+        text: '還沒輸入標籤哦!',
+        icon: 'warning',
+        confirmButtonText: '確定',
+      })
+      return
+    }
+    await setDisplayTag([...displayTag, { private_id: '', tags: `${tag}` }])
+    await setTag('')
   }
   const deleteTag = (index) => {
     const list = [...displayTag]
     list.splice(index, 1)
     setDisplayTag(list)
-    console.log(displayTag)
   }
 
   // 上傳食譜 function
@@ -292,7 +296,7 @@ function PrivateRecipeEdit() {
                       onClick={AddIngred}
                     >
                       <FontAwesomeIcon icon="plus" size="lg" />
-                      <span className="font-700M"> 添加</span>
+                      <span className="font-700M">添加</span>
                     </div>
                   </div>
 

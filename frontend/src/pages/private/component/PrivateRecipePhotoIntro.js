@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import '../../../style/privateRecipePhotoIntro.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import avatar from '../../../images/default_avatar1.jpg'
+import { HandleCart } from '../../../utils/HandleCart'
+import { Redirect, useLocation } from 'react-router-dom'
 import Axios from 'axios'
 import { API_URL } from '../../../utils/config'
 
@@ -16,15 +17,15 @@ function PrivateRecipePhotoIntro(props) {
   const [followState, setFollowState] = useState()
   const [likeState, setLikeState] = useState()
   const [saveState, setSaveState] = useState()
+  const { login } = useContext(HandleCart)
+  const [redirect, setRedirect] = useState(false)
+  const location = useLocation()
 
   useEffect(() => {
     Axios.get(`${API_URL}/private/index/recipe/${id}`, {
       withCredentials: true,
     }).then((res) => {
       setRecipe(res.data.result)
-      setFollowState(res.data.followed)
-      setLikeState(res.data.liked)
-      setSaveState(res.data.saved)
       setMemberInfo(res.data.memResult[0])
       setTotalRecipe(res.data.memberT)
       setTotalFollow(res.data.followT)
@@ -32,63 +33,70 @@ function PrivateRecipePhotoIntro(props) {
     })
   }, [])
 
-  const followSwitch = () => {
-    followState ? setFollowState(false) : setFollowState(true)
-    followState ? deleteFollow() : addFollow()
-  }
-  const likeSwitch = () => {
-    likeState ? setLikeState(false) : setLikeState(true)
-    likeState ? console.log('未按讚') : console.log('已按讚')
-    likeState ? deleteLike() : addLike()
-  }
-  const saveSwitch = () => {
-    saveState ? setSaveState(false) : setSaveState(true)
-    saveState ? deleteSave() : addSave()
-  }
-  // 新增追蹤
-  const addFollow = async () => {
-    let res = await Axios.get(`${API_URL}/private/add-follow/${id}`, {
+  useEffect(() => {
+    Axios.get(`${API_URL}/private/index/recipe/${id}`, {
       withCredentials: true,
+    }).then((res) => {
+      setFollowState(res.data.followed)
+      setLikeState(res.data.liked)
+      setSaveState(res.data.saved)
     })
-    console.log(res)
-  }
-  // 刪除追蹤
-  const deleteFollow = async () => {
-    let res = await Axios.get(`${API_URL}/private/remove-follow/${id}`, {
-      withCredentials: true,
-    })
-    console.log(res)
+  }, [])
+
+  // 追蹤
+  const handleFollow = () => {
+    if (login) {
+      followState ? setFollowState(false) : setFollowState(true)
+      followState ? console.log('未按追蹤') : console.log('已按追蹤')
+      let res = Axios.post(
+        `${API_URL}/private/follow/switch/${id}`,
+        { followState: followState },
+        {
+          withCredentials: true,
+        }
+      )
+      console.log(res)
+    } else {
+      setRedirect(true)
+    }
   }
 
-  // 新增按讚
-  const addLike = async () => {
-    let res = await Axios.get(`${API_URL}/private/add-like/${id}`, {
-      withCredentials: true,
-    })
-    console.log(res)
-  }
-  //刪除按讚
-  const deleteLike = async () => {
-    let res = await Axios.get(`${API_URL}/private/remove-like/${id}`, {
-      withCredentials: true,
-    })
-    console.log(res)
+  // 按讚
+  const handleLike = () => {
+    if (login) {
+      likeState ? setLikeState(false) : setLikeState(true)
+      likeState ? console.log('未按讚') : console.log('已按讚')
+      let res = Axios.post(
+        `${API_URL}/private/like/switch/${id}`,
+        { likeState: likeState },
+        {
+          withCredentials: true,
+        }
+      )
+      console.log(res)
+    } else {
+      setRedirect(true)
+    }
   }
 
-  // 新增收藏
-  const addSave = async () => {
-    let res = await Axios.get(`${API_URL}/private/add-save/${id}`, {
-      withCredentials: true,
-    })
-    console.log(res)
+  // 收藏
+  const handleSave = () => {
+    if (login) {
+      saveState ? setSaveState(false) : setSaveState(true)
+      saveState ? console.log('未按收藏') : console.log('已按收藏')
+      let res = Axios.post(
+        `${API_URL}/private/save/switch/${id}`,
+        { saveState: saveState },
+        {
+          withCredentials: true,
+        }
+      )
+      console.log(res)
+    } else {
+      setRedirect(true)
+    }
   }
-  //刪除收藏
-  const deleteSave = async () => {
-    let res = await Axios.get(`${API_URL}/private/remove-save/${id}`, {
-      withCredentials: true,
-    })
-    console.log(res)
-  }
+  // 星星數
   const starNum = (index) => {
     const row = []
     let solid = Math.floor(recipe[index].star_rate)
@@ -107,119 +115,121 @@ function PrivateRecipePhotoIntro(props) {
   }
   return (
     <>
-      <div class="container">
-        <div class="row">
-          {recipe.map((value, index) => {
-            return (
-              <>
-                <pre>食譜資訊 {JSON.stringify(recipe, null, 2)}</pre>
+      {redirect ? (
+        <Redirect
+          to={{
+            pathname: '/login',
+            state: { from: location.pathname },
+          }}
+        />
+      ) : null}
+      {recipe.map((value, index) => {
+        return (
+          <>
+            {/* <pre>食譜資訊 {JSON.stringify(recipe, null, 2)}</pre>
                 <pre>追蹤 {JSON.stringify(followState, null, 2)}</pre>
                 <pre>按讚 {JSON.stringify(likeState, null, 2)}</pre>
                 <pre>收藏 {JSON.stringify(saveState, null, 2)}</pre>
-                <pre>作者資訊 {JSON.stringify(memberInfo, null, 2)}</pre>
+                <pre>作者資訊 {JSON.stringify(memberInfo, null, 2)}</pre> */}
 
-                <div class="col-12 col-md-6">
-                  <div class="PrivateRecipePhotoIntro-left">
-                    <figure class="PrivateRecipePhotoIntro-photo">
-                      <img
-                        src={`${API_URL}/private/${value.picture}`}
-                        class="PrivateRecipePhotoIntro-photo-img"
-                        alt=""
-                      />
-                    </figure>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6">
-                  <div class="PrivateRecipePhotoIntro-right">
-                    <div class="d-flex justify-content-between">
-                      <figure class="PrivateRecipePhotoIntro-avatar">
-                        <img
-                          src={`${API_URL}/member/${memberInfo.picture}`}
-                          class="b-cover-fit"
-                          alt=""
-                        />
-                      </figure>
-                      <div
-                        class="
+            <div class="col-12 col-md-6">
+              <div class="PrivateRecipePhotoIntro-left">
+                <figure class="PrivateRecipePhotoIntro-photo">
+                  <img
+                    src={`${API_URL}/private/${value.picture}`}
+                    class="PrivateRecipePhotoIntro-photo-img"
+                    alt=""
+                  />
+                </figure>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="PrivateRecipePhotoIntro-right">
+                <div class="d-flex justify-content-between">
+                  <figure class="PrivateRecipePhotoIntro-avatar">
+                    <img
+                      src={`${API_URL}/member/${memberInfo.picture}`}
+                      class="b-cover-fit"
+                      alt=""
+                    />
+                  </figure>
+                  <div
+                    class="
                           flex-column
                           PrivateRecipePhotoIntro-user-info
                       "
-                      >
-                        <div class="font-700M">{memberInfo.nickname}</div>
-                        <div class="font-400SS">
-                          {totalRecipe} 篇食譜 {totalFollow} 粉絲
-                        </div>
-                      </div>
-                      <button
-                        onClick={followSwitch}
-                        class={
-                          followState
-                            ? 'PrivateRecipePhotoIntro-follow-btn-active'
-                            : 'PrivateRecipePhotoIntro-follow-btn'
-                        }
-                      >
-                        <span class="font-700M">
-                          {followState ? '已追蹤' : '追蹤'}
-                        </span>
-                      </button>
+                  >
+                    <div class="font-700M">{memberInfo.nickname}</div>
+                    <div class="font-400SS">
+                      {totalRecipe} 篇食譜 {totalFollow} 粉絲
                     </div>
+                  </div>
+                  <button
+                    onClick={handleFollow}
+                    class={
+                      followState
+                        ? 'PrivateRecipePhotoIntro-follow-btn-active'
+                        : 'PrivateRecipePhotoIntro-follow-btn'
+                    }
+                  >
+                    <span class="font-700M">
+                      {followState ? '已追蹤' : '追蹤'}
+                    </span>
+                  </button>
+                </div>
 
-                    <div class="PrivateRecipePhotoIntro-star">
-                      {starNum(index)}
+                <div class="PrivateRecipePhotoIntro-star">
+                  {starNum(index)}
 
-                      <span
-                        class="
+                  <span
+                    class="
                           font-700S
                           PrivateRecipePhotoIntro-star-num
                       "
-                      >
-                        ({value.star_rate})
-                      </span>
-                    </div>
-                    <h2 class="PrivateRecipePhotoIntro-recipe-name">
-                      {value.name}
-                    </h2>
-                    <span class="font-400L PrivateRecipePhotoIntro-intro">
-                      {value.intro}
-                    </span>
-                    <h2 class="PrivateRecipePhotoIntro-qty">份量</h2>
-                    <span class="font-400L PrivateRecipePhotoIntro-qty-num">
-                      {value.qty} 份
-                    </span>
-
-                    <button
-                      onClick={likeSwitch}
-                      class={
-                        likeState
-                          ? 'PrivateRecipePhotoIntro-like-btn-active'
-                          : 'PrivateRecipePhotoIntro-like-btn'
-                      }
-                    >
-                      <FontAwesomeIcon icon={['far', 'heart']} size="lg" />
-                      <span class="font-700M">
-                        {likeState ? '已按讚' : '按讚'}
-                      </span>
-                    </button>
-                    <button
-                      onClick={saveSwitch}
-                      class={
-                        saveState
-                          ? 'PrivateRecipePhotoIntro-bookmark-btn-active'
-                          : 'PrivateRecipePhotoIntro-bookmark-btn'
-                      }
-                    >
-                      <FontAwesomeIcon icon={['far', 'bookmark']} size="lg" />
-                      <span class="font-700M">
-                        {saveState ? '已收藏' : '加入收藏'}
-                      </span>
-                    </button>
-                  </div>
+                  >
+                    ({value.star_rate})
+                  </span>
                 </div>
-              </>
-            )
-          })}
-        </div>
-      </div>
+                <h2 class="PrivateRecipePhotoIntro-recipe-name">
+                  {value.name}
+                </h2>
+                <span class="font-400L PrivateRecipePhotoIntro-intro">
+                  {value.intro}
+                </span>
+                <h2 class="PrivateRecipePhotoIntro-qty">份量</h2>
+                <span class="font-400L PrivateRecipePhotoIntro-qty-num">
+                  {value.qty} 份
+                </span>
+
+                <button
+                  onClick={handleLike}
+                  class={
+                    likeState
+                      ? 'PrivateRecipePhotoIntro-like-btn-active'
+                      : 'PrivateRecipePhotoIntro-like-btn'
+                  }
+                >
+                  <FontAwesomeIcon icon={['far', 'heart']} size="lg" />
+                  <span class="font-700M">{likeState ? '已按讚' : '按讚'}</span>
+                </button>
+                <button
+                  onClick={handleSave}
+                  class={
+                    saveState
+                      ? 'PrivateRecipePhotoIntro-bookmark-btn-active'
+                      : 'PrivateRecipePhotoIntro-bookmark-btn'
+                  }
+                >
+                  <FontAwesomeIcon icon={['far', 'bookmark']} size="lg" />
+                  <span class="font-700M">
+                    {saveState ? '已收藏' : '加入收藏'}
+                  </span>
+                </button>
+              </div>
+            </div>
+          </>
+        )
+      })}
     </>
   )
 }

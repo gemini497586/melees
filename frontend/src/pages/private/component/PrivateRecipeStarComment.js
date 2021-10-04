@@ -5,33 +5,31 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Redirect, useLocation } from 'react-router-dom'
 import { HandleCart } from '../../../utils/HandleCart'
 
-import { useParams } from 'react-router'
 import { API_URL } from '../../../utils/config'
-import avatar from '../../../images/default_avatar1.jpg'
+import default_avatar from '../../../images/default_member_avatar.png'
 import Swal from 'sweetalert2'
 
 const colors = {
-  yellow: '#ffcf0d',
-  grey: '#c2c2c2',
+  yellow: 'var(--color-primary-A)',
+  grey: 'var(--color-grey-500)',
 }
 
 function PrivateRecipeStarComment(props) {
-  const { setReRender } = props
-  const { id } = useParams()
-  const stars = Array(5).fill(0)
+  const { id, setReRender, avatar } = props
   const [comment, setComment] = useState('')
   const [currentValue, setCurrentValue] = useState(0)
   const [hoverValue, setHoverValue] = useState(undefined)
   const [redirect, setRedirect] = useState(false)
   const location = useLocation()
+  const stars = Array(5).fill(0)
   const { login } = useContext(HandleCart)
 
-  const handleClick = (index) => {
-    setCurrentValue(index)
+  const handleClick = (rate) => {
+    setCurrentValue(rate)
   }
 
-  const handleMouseOver = (index) => {
-    setHoverValue(index)
+  const handleMouseOver = (rate) => {
+    setHoverValue(rate)
   }
 
   const handleMouseLeave = () => {
@@ -51,7 +49,7 @@ function PrivateRecipeStarComment(props) {
     e.preventDefault()
     if (comment === '' || currentValue === 0) {
       Swal.fire({
-        text: '還沒輸入評論或評分哦!',
+        text: '還沒輸入評論哦!',
         icon: 'warning',
         confirmButtonText: '確定',
       })
@@ -67,9 +65,9 @@ function PrivateRecipeStarComment(props) {
         },
         { withCredentials: true }
       )
-      let render = await setReRender((prev) => !prev)
-      await setCurrentValue(0)
-      await setComment('')
+      setReRender((prev) => !prev)
+      setCurrentValue(0)
+      setComment('')
     } catch (e) {
       console.log(e)
     }
@@ -90,7 +88,7 @@ function PrivateRecipeStarComment(props) {
             <div className="d-flex">
               <figure className="PrivateRecipeStarComment-figure">
                 <img
-                  src={avatar}
+                  src={login ? `${API_URL}/member${avatar}` : default_avatar}
                   className="PrivateRecipeStarComment-img"
                   alt=""
                 />
