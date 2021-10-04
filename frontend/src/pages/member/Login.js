@@ -86,6 +86,7 @@ function Login() {
   }
 
   const googleSuccess = (response) => {
+    console.log(response)
     try {
       let result = axios.post(
         `${API_URL}/auth/login/google`,
