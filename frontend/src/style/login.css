@@ -83,26 +83,25 @@
 .quickLogin {
   display: flex;
   align-items: center;
-  line-height: 43px;
+  height: 43px;
+  font-size: 16px;
 }
 
 .quickLogin-googleBtn {
   width: 218px;
-  height: 43px;
-  background-color: var(--color-white);
-  color: var(--color-grey-800);
-  border: none;
+  height: 41px;
+  box-sizing: border-box;
   margin-right: 10px;
   display: flex;
-  filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.084))
-    drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.168));
+  align-items: center;
 }
-.quickLogin-googleBtn div {
-  width: 40px;
-  height: 40px;
-  background: url('../images/btn_google_light_normal_ios.svg') no-repeat;
-  margin-right: 10px;
-  /* border-radius: 50%; */
+
+/* google 左側 icon */
+/* .quickLogin-googleBtn div {} */
+
+/* google 右側 文字 */
+.quickLogin-googleBtn span {
+  font-size: 16px;
 }
 
 .quickLogin-googleBtn:hover {

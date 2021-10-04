@@ -69,18 +69,17 @@ function EditModal(props) {
           withCredentials: true,
         }
       )
-      if (response) {
-        // console.log(`id: ${recipeDataDetails.id} edits successfully`)
-        openEditModal()
-        Swal.fire({
-          icon: 'success',
-          title: '編輯成功!',
-          text: '點擊確認，繼續瀏覽 MELEEs!',
-          confirmButtonText: '確認',
-          confirmButtonColor: '#fe9900',
-        })
-        setReRender(true)
-      }
+
+      // console.log(`id: ${recipeDataDetails.id} edits successfully`)
+      openEditModal()
+      Swal.fire({
+        icon: 'success',
+        title: queryMsg(response.data.category, response.data.code),
+        text: '點擊確認，繼續瀏覽 MELEEs!',
+        confirmButtonText: '確認',
+        confirmButtonColor: '#fe9900',
+      })
+      setReRender(true)
     } catch (err) {
       let errMsg = ''
 
@@ -92,7 +91,7 @@ function EditModal(props) {
       if (err.response !== undefined) {
         errMsg = queryMsg(err.response.data.category, err.response.data.code)
       }
-      console.log('Swal error text:', errMsg)
+      // console.log('Swal error text:', errMsg)
       Swal.fire({
         icon: 'error',
         title: '發生錯誤！',

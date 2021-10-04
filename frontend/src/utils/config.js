@@ -10,5 +10,9 @@ export const FEATURE_TYPE = {
   4: '上班不煩惱',
 }
 // facebook 快速登入
-export const FACEBOOK_APP_ID = process.env.FACEBOOK_APP_ID
-export const FACEBOOK_APP_SECRET = process.env.FACEBOOK_APP_SECRET
+export const FACEBOOK_APP_ID = process.env.REACT_APP_FACEBOOK_APP_ID
+// export const FACEBOOK_APP_SECRET = process.env.REACT_APP_FACEBOOK_APP_SECRET
+
+// google 快速登入
+export const GOOGLE_APP_ID = process.env.REACT_APP_GOOGLE_APP_ID
+// export const GOOGLE_SECRET = process.env.REACT_APP_GOOGLE_APP_SECRET

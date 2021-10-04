@@ -9,6 +9,7 @@ import useCart from '../utils/useCart'
 import axios from 'axios'
 import { API_URL } from '../utils/config'
 import { HandleCart } from '../utils/HandleCart'
+import Swal from 'sweetalert2'
 
 function Header() {
   const { login, setLogin } = useContext(HandleCart)
@@ -78,14 +79,23 @@ function Header() {
   const handleLogout = async () => {
     try {
       let response = await axios.post(`${API_URL}/auth/logout`, null, {
-        // 設定可以跨源送 cookie
         withCredentials: true,
       })
       // console.log(response)
       if (response.status === 202) {
-        alert('會員已登出')
-        setLogin(false)
-        setAvatar('')
+        // setLogin(false)
+        // setAvatar('')
+        Swal.fire({
+          icon: 'success',
+          title: '登出成功!',
+          text: '繼續瀏覽 MELEEs! ( 1.5秒後...自動關閉視窗)',
+          confirmButtonText: '確認',
+          confirmButtonColor: '#fe9900',
+          timer: 1500,
+        }).then(() => {
+          setLogin(false)
+          setAvatar('')
+        })
       }
     } catch (err) {
       console.error(err.response)
