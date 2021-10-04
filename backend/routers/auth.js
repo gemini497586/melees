@@ -5,6 +5,9 @@ const connection = require("../utils/db");
 const bcrypt = require("bcrypt");
 const { v4 } = require("uuid");
 const moment = require("moment");
+const passport = require("passport");
+const GoogleTokenStrategy = require("passport-google-token").Strategy;
+const FacebookTokenStrategy = require("passport-facebook-token");
 
 // 資料驗證
 const { body, validationResult } = require("express-validator");
@@ -242,6 +245,166 @@ router.post("/login", async (req, res, next) => {
     picture: member.picture,
   });
 });
+
+// google 快速登入
+passport.use(
+  new GoogleTokenStrategy(
+    {
+      clientID: process.env.GOOGLE_ID,
+      clientSecret: process.env.GOOGLE_SECRET,
+    },
+    async function (accessToken, refreshToken, profile, cb) {
+      // console.log("Google profile", profile);
+
+      let member = await connection.queryAsync(
+        "SELECT * FROM member WHERE google_id",
+        [profile.id]
+      );
+      let returnMember = null;
+      if (member.length > 0) {
+        // 已經註冊過
+        member = member[0];
+        returnMember = {
+          id: member.id,
+          name: member.name,
+          nickname: member.nickname,
+          picture: member.picture,
+          email: member.email,
+        };
+      } else {
+        // 尚未註冊，補註冊～～
+        console.log(profile._json);
+        let result = await connection.queryAsync(
+          "INSERT INTO member (google_id, account, password, name, email, picture, create_date) VALUES (?);",
+          [
+            [
+              profile.id,
+              "google" + profile._json.email,
+              "googlelogin",
+              profile._json.name,
+              profile._json.email,
+              profile._json.picture,
+              moment().format("YYYYMMDD"),
+            ],
+          ]
+        );
+        console.log(result);
+        returnMember = {
+          id: result.insertId,
+          name: profile._json.name,
+          nickname: "",
+          picture: profile._json.picture,
+          email: profile._json.email,
+        };
+      }
+      cb(null, returnMember);
+    }
+  )
+);
+
+router.post(
+  "/login/google",
+  passport.authenticate("google-token", { session: false }),
+  async (req, res, next) => {
+    console.log(req.user);
+    if (!req.user) {
+      console.log("Google Login 登入失敗");
+      return res.json(401);
+    }
+    console.log("Google 登入成功");
+    // 一般登入，帳號密碼驗證後，應該要做的事
+    req.session.member = req.user;
+    // 回覆給前端
+    res.json({
+      category: "auth",
+      type: "login",
+      code: "A0005",
+      name: req.user.name,
+      nickname: req.user.nickname,
+      picture: req.user.picture,
+    });
+  }
+);
+
+// facebook 快速登入
+passport.use(
+  new FacebookTokenStrategy(
+    {
+      clientID: process.env.FACEBOOK_ID,
+      clientSecret: process.env.FACEBOOK_SECRET,
+    },
+    async function (accessToken, refreshToken, profile, cb) {
+      // console.log("Fb profile", profile);
+
+      let member = await connection.queryAsync(
+        "SELECT * FROM member WHERE facebook_id",
+        [profile.id]
+      );
+      let returnMember = null;
+      if (member.length > 0) {
+        // 已經註冊過
+        member = member[0];
+        returnMember = {
+          id: member.id,
+          name: member.name,
+          nickname: member.nickname,
+          picture: member.picture,
+          email: member.email,
+        };
+      } else {
+        // 尚未註冊，補註冊～～
+        console.log(profile._json);
+        let result = await connection.queryAsync(
+          "INSERT INTO member (facebook_id, account, password, name, email, picture, gender, create_date) VALUES (?);",
+          [
+            [
+              profile.id,
+              "facebook" + profile.emails[0].value,
+              "facebooklogin",
+              profile.displayName,
+              profile.emails[0].value,
+              profile.photos[0].value,
+              profile.gender,
+              moment().format("YYYYMMDD"),
+            ],
+          ]
+        );
+        console.log(result);
+        returnMember = {
+          id: result.insertId,
+          name: profile.displayName,
+          nickname: "",
+          picture: profile.photos[0].value,
+          email: profile.emails[0].value,
+        };
+      }
+      cb(null, returnMember);
+    }
+  )
+);
+
+router.post(
+  "/login/facebook",
+  passport.authenticate("facebook-token", { session: false }),
+  (req, res, next) => {
+    if (!req.user) {
+      console.log("FB Login 登入失敗");
+      return res.json(401);
+    }
+    console.log("FB 登入成功");
+    // 一般登入，帳號密碼驗證後，應該要做的事
+    req.session.member = req.user;
+    // 回覆給前端
+    res.json({
+      category: "auth",
+      type: "login",
+      code: "A0005",
+      name: req.user.name,
+      nickname: req.user.nickname,
+      picture: req.user.picture,
+    });
+  }
+);
 
 // 登出
 router.post("/logout", (req, res, next) => {

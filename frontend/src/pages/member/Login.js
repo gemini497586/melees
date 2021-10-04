@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { Link, useHistory, useLocation } from 'react-router-dom'
-import { API_URL, FACEBOOK_APP_ID } from '../../utils/config'
+import { API_URL, FACEBOOK_APP_ID, GOOGLE_APP_ID } from '../../utils/config'
 import axios from 'axios'
 import '../../style/global.css'
 import '../../style/member.css'
@@ -8,11 +8,13 @@ import '../../style/login.css'
 import logo from '../../images/logo.png'
 import { HandleCart } from '../../utils/HandleCart'
 import FacebookLogin from 'react-facebook-login'
+import { GoogleLogin, GoogleLogout } from 'react-google-login'
 import 'animate.css'
 import queryMsg from './component/queryMsg'
 
 function Login() {
   const { setLogin } = useContext(HandleCart) //登入用
+  // const [socialLogin, setSocialLogin] = useState(false) //查看是否為第三方登入
 
   const [errorMsg, setErrorMsg] = useState()
   const [formValues, setFormValues] = useState({
@@ -58,19 +60,56 @@ function Login() {
     history.push(from)
   }
 
-  // const componentClicked = () => {
-  //   console.log('clicked')
-  // }
+  const isLoggedIn = () => {
+    setLogin(true)
+    loginRedirect()
+  }
 
-  const responseFacebook = (response) => {
+  const responseFacebook = async (response) => {
     console.log(response)
-    // this.setState({
-    //   isLoggedIn: true,
-    //   userID: response.userID,
-    //   name: response.name,
-    //   email: response.email,
-    //   picture: response.picture.data.url,
-    // })
+    try {
+      let result = await axios.post(
+        `${API_URL}/auth/login/facebook`,
+        {
+          access_token: response.accessToken,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      console.log(result)
+      isLoggedIn()
+      // setSocialLogin(true)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const googleSuccess = (response) => {
+    try {
+      let result = axios.post(
+        `${API_URL}/auth/login/google`,
+        {
+          access_token: response.accessToken,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      console.log(result)
+      isLoggedIn()
+      // setSocialLogin(true)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const googleFailure = (response) => {
+    console.log('googleFailure', response)
+  }
+
+  const onSignoutSuccess = () => {
+    console.log('You have been logged out successfully')
   }
 
   const handleSubmit = async (e) => {
@@ -86,8 +125,7 @@ function Login() {
         withCredentials: true,
       })
       console.log('login.js L89, response: ', response)
-      setLogin(true)
-      loginRedirect()
+      isLoggedIn()
     } catch (err) {
       console.error('login.js L92, err.response: ', err.response)
       if (err.response.data !== undefined) {
@@ -106,6 +144,11 @@ function Login() {
               <img src={logo} alt="MELEEs logo" />
             </figure>
             <h4>連你阿嬤都會的料理食譜生鮮食材網站</h4>
+            <GoogleLogout
+              clientId="721775995147-f710r47dq3if8dtvlt69fg4gvdc6v019.apps.googleusercontent.com"
+              buttonText="Sign Out"
+              onLogoutSuccess={onSignoutSuccess}
+            />
           </div>
           <div className="login-form">
             <h4>會員登入</h4>
@@ -130,7 +173,7 @@ function Login() {
                 value={formValues.password}
                 onChange={handleFormValuesChange}
                 onBlur={handleFormValuesInvalid}
-                placeholder="請輸入6-12位密碼"
+                placeholder="請輸入密碼"
               />
               <p
                 className={
@@ -153,33 +196,23 @@ function Login() {
               </div>
             </form>
             <div className="quickLogin">
-              <button className="quickLogin-googleBtn">
-                <div></div>
-                使用Google登入
-              </button>
+              <GoogleLogin
+                className="quickLogin-googleBtn"
+                clientId={GOOGLE_APP_ID}
+                buttonText="使用Google登入"
+                onSuccess={googleSuccess}
+                onFailure={googleFailure}
+                cookiePolicy={'single_host_origin'}
+              />
               <FacebookLogin
                 appId={FACEBOOK_APP_ID}
-                autoLoad={true} //
-                fields="name,email,picture" //
-                // onClick={componentClicked}
+                autoLoad={false}
                 callback={responseFacebook}
+                fields="name,email,picture"
                 cssClass="quickLogin-facebookBtn"
                 icon="fa-facebook"
                 textButton="使用Facebook登入"
               />
-              {/* <FacebookLogin
-                  appId={FACEBOOK_APP_ID}
-                  autoLoad={true}
-                  fields="name,email,picture"
-                  callback={responseFacebook}
-                  cssClass="quickLogin-facebookBtn"
-                  icon="fa-facebook"
-                  textButton="使用Facebook登入"
-                /> */}
-              {/* <button className="quickLogin-facebookBtn">
-                  <i className="fab fa-facebook"></i>
-                  使用Facebook登入
-                </button> */}
             </div>
             <p className="shoppingRule font-400S">
               當您使用MELEEs購物

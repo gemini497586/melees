@@ -7,6 +7,7 @@ export default function queryMsg(category, code) {
       A0002: '密碼更新成功',
       A0003: '註冊成功',
       A0004: '刪除成功',
+      A0005: '第三方登入成功',
       // B --> accout
       B0101: '請填寫帳號',
       B0102: '不可註冊超過 100 字元的帳號',
