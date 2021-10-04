@@ -12,11 +12,12 @@ router.post("/product/:id", async (req, res, next) => {
 
   let product = await connection.queryAsync("SELECT * FROM product WHERE id = ?", [req.params.id]);
 
-  if (req.session.member === undefined) {
+  const userId = req.session.member ? req.session.member.id : 0;
+
+  if (req.session.member !== undefined) {
     res.json({ product, productImg });
   } else {
-    let getSave = await connection.queryAsync("SELECT * FROM product_save WHERE member_id=? AND product_id=?", [req.session.member.id, req.params.id]);
-
+    let getSave = await connection.queryAsync("SELECT * FROM product_save WHERE member_id=? AND product_id=?", [userId, req.params.id]);
     res.json({ product, productImg, getSave });
   }
 });

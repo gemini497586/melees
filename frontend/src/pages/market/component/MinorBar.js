@@ -1,21 +1,33 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../../../style/minorBar.css'
-import ProductData from '../../../data/Products.json'
 
 function MinorBar() {
-  const [product, setProduct] = useState([])
-
-  useEffect(() => {
-    setProduct(ProductData.productCategory)
-  }, [])
+  const [product, setProduct] = useState([
+    {
+      category: '',
+      text: '全部',
+    },
+    {
+      category: 1,
+      text: '食材',
+    },
+    {
+      category: 2,
+      text: '鍋具',
+    },
+    {
+      category: 3,
+      text: '調味料',
+    },
+  ])
 
   return (
     <>
       <ul className="minor-bar">
-        {product.map((v) => {
+        {product.map((v, input) => {
           return (
-            <li key={v.id}>
+            <li key={input}>
               <Link to={`/market/home/${v.category}`}>{v.text}</Link>
             </li>
           )
