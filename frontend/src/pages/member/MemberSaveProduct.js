@@ -29,6 +29,8 @@ function MemberSaveProdcut() {
     },
   ]
   const [currentPage, setCurrentPage] = useState(1)
+  const perPage = 10
+  const [message, setMessage] = useState('')
 
   // 初始化
   useEffect(() => {
@@ -39,7 +41,8 @@ function MemberSaveProdcut() {
         })
         // 先檢查是否有收藏
         if (res.data.message) {
-          console.log(`${res.data.message}`)
+          // console.log(res.data.message)
+          setMessage('目前尚未收藏任何商品，馬上去逛逛購物商城吧！')
           return
         } else {
           let data = res.data.result
@@ -91,6 +94,7 @@ function MemberSaveProdcut() {
     setDisplayData(newData)
   }, [sortBy])
 
+  // console.log(displayData)
   return (
     <>
       <div className="page-group">
@@ -104,27 +108,25 @@ function MemberSaveProdcut() {
             />
           </div>
           <div className="row">
-            {data.length === 0 ? (
-              <div className="member-notice font-700L">
-                <Link to="/market/home">
-                  目前尚未收藏任何商品，馬上去逛逛購物商城吧！
-                </Link>
-              </div>
-            ) : (
+            {message === '' ? (
               <MemberSaveProdcutCard
                 saveList={displayData}
                 productList={productList}
                 currentPage={currentPage}
+                perPage={perPage}
               />
+            ) : (
+              <div className="member-notice font-700L">
+                <Link to="/market/home">{message}</Link>
+              </div>
             )}
-            {/* <MemberSaveProdcutCard
-              saveList={displayData}
-              productList={productList}
-              currentPage={currentPage}
-            /> */}
           </div>
           <div className="d-flex justify-content-center">
-            <Paging product={displayData} setCurrentPage={setCurrentPage} />
+            <Paging
+              product={displayData}
+              setCurrentPage={setCurrentPage}
+              perPage={perPage}
+            />
           </div>
         </div>
       </div>

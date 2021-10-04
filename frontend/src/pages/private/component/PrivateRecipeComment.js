@@ -1,36 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import '../../../style/privateRecipeComment.css'
-import avatar from '../../../images/default_avatar1.jpg'
-import Axios from 'axios'
 import { API_URL } from '../../../utils/config'
 
 function PrivateRecipeComment(props) {
-  const { id, comment, memberInfo } = props
+  const { comment } = props
 
-  const avatar1 = (value, index) => {
-    const avatar = []
-    for (let i = 0; i < memberInfo.length; i++) {
-      if (value.member_id === memberInfo[i].id) {
-        avatar.push(
-          <>
-            <figure className="PrivateRecipeComment-avatar">
-              <img
-                src={`${API_URL}/member/${memberInfo[i].picture}`}
-                className="b-cover-fit"
-                alt=""
-              />
-            </figure>
-            <span className="font-700L PrivateRecipeComment-name">
-              {memberInfo[i].nickname}
-            </span>
-          </>
-        )
-      }
-    }
-    return avatar
-  }
   // 星星評分數
   const starNum = (index) => {
     const row = []
@@ -56,7 +32,19 @@ function PrivateRecipeComment(props) {
             return (
               <div className="col-12 col-md-3">
                 <div className="PrivateRecipeComment-container">
-                  <div className="d-flex">{avatar1(value, index)}</div>
+                  <div className="d-flex">
+                    {/* {avatar1(value, index)} */}
+                    <figure className="PrivateRecipeComment-avatar">
+                      <img
+                        src={`${API_URL}/member/${value.picture}`}
+                        className="b-cover-fit"
+                        alt=""
+                      />
+                    </figure>
+                    <span className="font-700L PrivateRecipeComment-name">
+                      {value.nickname}
+                    </span>
+                  </div>
                   <div className="d-flex PrivateRecipeComment-star">
                     {starNum(index)}
 

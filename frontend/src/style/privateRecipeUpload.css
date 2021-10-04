@@ -54,7 +54,26 @@
   margin-top: 52px;
   margin-bottom: 40px;
 }
-
+.privateRecipeUpload-qty {
+  width: 169px;
+  height: 43px;
+  border-radius: 100px;
+  background: var(--color-grey-300);
+}
+.privateRecipeUpload-qty-icon {
+  height: 100%;
+  padding: 8px 5px;
+}
+.privateRecipeUpload-qty-icon svg {
+  margin-top: 3px;
+  cursor: pointer;
+}
+.privateRecipeUpload-qty-icon:first-child {
+  margin-left: 10px;
+}
+.privateRecipeUpload-qty-icon > * {
+  margin-left: 25px;
+}
 /* 食材增加按鈕部分 */
 .privateRecipeUpload-ingred {
   margin-bottom: 15px;
@@ -97,11 +116,12 @@
   background: var(--color-primary);
   color: var(--color-white);
 }
+.privateRecipeUpload-add-tags:hover {
+  background: var(--color-primary-A);
+}
 .privateRecipeUpload-tag-add {
   height: 100%;
-  margin: auto 0;
-  margin-left: 15px;
-  margin-right: 20px;
+  margin: 0 20px 0 12px;
   cursor: pointer;
 }
 .privateRecipeUpload-add-ingred:hover,
@@ -161,6 +181,9 @@
   color: var(--color-white);
   background: var(--color-primary);
 }
+.privateRecipeUpload-btn-upload:hover {
+  background: var(--color-primary-A);
+}
 .privateRecipeUpload-btn-cancel {
   width: 205px;
   height: 43px;
@@ -168,4 +191,8 @@
   border-radius: 8px;
   color: var(--color-white);
   background: var(--color-grey-500);
+}
+
+.privateRecipeUpload-btn-cancel:hover {
+  background: var(--color-grey-800);
 }

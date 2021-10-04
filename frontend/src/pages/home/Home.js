@@ -18,11 +18,6 @@ import Ig from '../../component/Ig'
 
 /* 私藏食譜 */
 import homerecipe_plate from '../../images/homerecipe_plate.png'
-import homerecipe_01 from '../../images/homerecipe_01.jpg'
-import homerecipe_02 from '../../images/homerecipe_02.jpg'
-import homerecipe_03 from '../../images/homerecipe_03.jpg'
-import homerecipe_04 from '../../images/homerecipe_04.jpg'
-import homerecipe_05 from '../../images/homerecipe_05.jpg'
 /* 購物商城 */
 import { Link } from 'react-router-dom'
 /* GSAP */
@@ -46,7 +41,7 @@ function Home() {
     const Svg = svg
 
     gsap.to(hoomebento, 0, { css: { visibility: 'visible' } })
-    console.log(btnimg)
+    // console.log(btnimg)
 
     hl.fromTo(
       Bentoimg,
@@ -87,6 +82,11 @@ function Home() {
   // 購物商城用
   const [product, setProduct] = useState([])
   const [productLarge, setProductLarge] = useState([])
+
+  // 私藏食譜用
+  const [recipe, setRecipe] = useState([])
+  const [bigRecipe, setBigRecipe] = useState([])
+
   useEffect(() => {
     Axios.get(`${API_URL}/home/feature`).then((response) => {
       setFeaturedata(response.data)
@@ -103,6 +103,12 @@ function Home() {
       setProduct(response.data.slice(1))
       setProductLarge(response.data[0])
     })
+
+    // 私藏食譜的API
+    Axios.get(`${API_URL}/home/private`).then((response) => {
+      setRecipe(response.data)
+      setBigRecipe(response.data[0])
+    })
   }, [])
 
   // 精選食譜縮圖使用
@@ -114,6 +120,10 @@ function Home() {
     setLargetype(v.type_id)
     setLargelistname(v.listName)
     setLargelinkname(v.linkName)
+  }
+  // 私藏食譜用
+  const handleChange = (value) => {
+    setBigRecipe(value)
   }
 
   // 購物商城用
@@ -265,7 +275,7 @@ function Home() {
                 <div className="h-recipe-titlegroup">
                   <h5 className="fcolor-grey-800">開啟美好生活</h5>
                   <h1 className="fcolor-primary">熱門私藏食譜</h1>
-                  <h2 className="fcolor-grey-900">印尼炒泡麵</h2>
+                  <h2 className="fcolor-grey-900">{bigRecipe.name}</h2>
                 </div>
                 <div className="h-recipe-imggroup">
                   {/*中間大圖*/}
@@ -277,72 +287,41 @@ function Home() {
                         alt=""
                       />
                     </div>
-                    <figure className="f-recipe-img">
-                      <img className="fcover-fit" src={homerecipe_01} alt="" />
-                    </figure>
+                    <Link
+                      to={`/private/detail/${bigRecipe.id}`}
+                      className="text-decoration-none"
+                    >
+                      <figure className="f-recipe-img">
+                        <img
+                          className="fcover-fit"
+                          src={`${API_URL}/private/${bigRecipe.picture}`}
+                          alt=""
+                        />
+                      </figure>
+                    </Link>
                   </div>
+
                   {/*右邊小圖*/}
                   <div className="h-recipe-cardsgroup">
-                    <div className="h-recipe-cards">
-                      <div className="h-recipe-cardimg">
-                        <img
-                          className="fcover-fit"
-                          src={homerecipe_01}
-                          alt=""
-                        />
-                      </div>
-                      <span className="font-400S fcolor-grey-800">
-                        高顏值蛤蜊蒸蛋
-                      </span>
-                    </div>
-                    <div className="h-recipe-cards">
-                      <div className="h-recipe-cardimg">
-                        <img
-                          className="fcover-fit"
-                          src={homerecipe_02}
-                          alt=""
-                        />
-                      </div>
-                      <span className="font-400S fcolor-grey-800">
-                        蔥鹽骰子牛
-                      </span>
-                    </div>
-                    <div className="h-recipe-cards">
-                      <div className="h-recipe-cardimg">
-                        <img
-                          className="fcover-fit"
-                          src={homerecipe_03}
-                          alt=""
-                        />
-                      </div>
-                      <span className="font-400S fcolor-grey-800">
-                        泰式咖哩螃蟹
-                      </span>
-                    </div>
-                    <div className="h-recipe-cards">
-                      <div className="h-recipe-cardimg">
-                        <img
-                          className="fcover-fit"
-                          src={homerecipe_04}
-                          alt=""
-                        />
-                      </div>
-                      <span className="font-400S fcolor-grey-800">
-                        鳳梨蝦球
-                      </span>
-                    </div>
-                    <div className="h-recipe-cards">
-                      <div className="h-recipe-cardimg">
-                        <img
-                          className="fcover-fit"
-                          src={homerecipe_05}
-                          alt=""
-                        />
-                      </div>
-                      <span className="font-400S fcolor-grey-800">
-                        居酒屋風燒烤雞翅
-                      </span>
-                    </div>
+                    {recipe.map((value, index) => {
+                      return (
+                        <div className="h-recipe-cards">
+                          <div className="h-recipe-cardimg">
+                            <img
+                              className="fcover-fit"
+                              src={`${API_URL}/private/${value.picture}`}
+                              alt=""
+                              onClick={(e) => {
+                                handleChange(value)
+                              }}
+                            />
+                          </div>
+                          <span className="font-400S fcolor-grey-800">
+                            {value.name}
+                          </span>
+                        </div>
+                      )
+                    })}
                   </div>
                 </div>
               </div>

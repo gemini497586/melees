@@ -6,11 +6,15 @@ function Input(props) {
   return (
     <>
       <div className="row align-items-center">
-        <label htmlFor={value} className="col-4 font-700M">
+        <label htmlFor={value} className="col-4 font-700M b-page1-label">
           {name}
         </label>
         <div className="col-8">
           <input
+            className={
+              fieldErrors &&
+              'b-page1-error animate__animated animate__headShake'
+            }
             type="number"
             name={value}
             id={value}
@@ -21,11 +25,8 @@ function Input(props) {
             onChange={handleFieldChange}
             required
           />
-        </div>
-        <div className="col-4 b-page1-errorMsg"></div>
-        {fieldErrors !== '' && (
           <div className="col-8 b-page1-errorMsg font-400S">{fieldErrors}</div>
-        )}
+        </div>
       </div>
     </>
   )

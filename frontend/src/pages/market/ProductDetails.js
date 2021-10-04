@@ -118,7 +118,7 @@ function ProductDetails(props) {
         >
           {handleSave()}
         </div>
-        <p className="font-400S product-detail-specs">{product.specs}</p>
+        <p className="font-400SS product-detail-specs">{product.specs}</p>
         <p className="product-detail-category">
           {P_CATEGORY[product.category]}
         </p>
@@ -147,8 +147,8 @@ function ProductDetails(props) {
         </button>
         <div className="w507"></div>
         <div className="info-shadow"></div>
-        <h3 className="product-detail-info">商品介紹</h3>
-        <p className="font-400L product-detail-information">{product.info}</p>
+        <h4 className="product-detail-info">商品介紹</h4>
+        <p className="font-400M product-detail-information">{product.info}</p>
       </div>
     )
   }

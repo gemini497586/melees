@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import img from '../../../images/005.jpg'
 import '../../../style/cartDetailRow.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
@@ -23,7 +22,7 @@ function CartDetailRow() {
       {product.map((v, i) => {
         return (
           <div className="cart-detail-row">
-            <img src={`${API_URL}/market/${v.image}`} alt="商品圖片" />
+            <img src={`${API_URL}/market/${v.image}`} alt="商品圖片" className="cover-fit"/>
             <p className="font-400S cart-detail-category">
               {P_CATEGORY[v.category]}
             </p>

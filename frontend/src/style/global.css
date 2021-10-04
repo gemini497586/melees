@@ -113,3 +113,15 @@ h6 {
   margin-top: 104px;
   margin-bottom: 60px;
 }
+
+/* 圖片 */
+.cover-fit {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.contain-fit {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}

@@ -173,3 +173,12 @@
   margin-left: auto;
   text-align: left;
 }
+
+.register-loginLink{
+  text-decoration: none;
+  color: var(--color-primary)
+}
+.register-loginLink:hover{
+  text-decoration: underline;
+  color: var(--color-primary-A)
+}

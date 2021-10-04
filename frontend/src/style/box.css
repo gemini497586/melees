@@ -73,9 +73,6 @@
   padding: 0 40px;
   white-space: nowrap;
 }
-.b-page1-calc label {
-  text-align: end;
-}
 .b-page1-calc select,
 .b-page1-calc input {
   width: 100%;
@@ -107,6 +104,14 @@
   position: absolute;
   top: 30px;
   left: 50px;
+}
+.b-page1-label {
+  height: 65px;
+  text-align: end;
+}
+.b-page1-error {
+  border: 1px solid var(--color-red-C);
+  border-radius: 4px;
 }
 
 @media screen and (max-width: 414px) {

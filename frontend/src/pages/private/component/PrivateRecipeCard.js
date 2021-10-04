@@ -1,12 +1,10 @@
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
-import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../style/cardPrivateRecipe.css'
 import { API_URL } from '../../../utils/config'
-
 function PrivateRecipeCard(props) {
-  const { itemInfo, likeList, viewList, saveState, likeState, memberInfo } =
-    props
+  const { itemInfo, likeArr, saveArr } = props
 
   // 星星評分數
   const starNum = (index) => {
@@ -25,110 +23,94 @@ function PrivateRecipeCard(props) {
     }
     return row
   }
-
-  const saveToggled = (value, index) => {
+  // 卡片收藏狀態
+  const saveToggled = (value) => {
     const save = []
-    for (let i = 0; i < saveState.length; i++) {
-      if (value.id === saveState[i].private_id) {
-        save.push(
-          <span className="cardPrivateRecipe-bookmark-active">
-            <FontAwesomeIcon icon="bookmark" size="2x" />
-          </span>
-        )
-        break
-      } else {
-        save.push(
-          <span className="cardPrivateRecipe-bookmark">
-            <FontAwesomeIcon icon="bookmark" size="2x" />
-          </span>
-        )
-      }
+    save.push(
+      <span className="cardPrivateRecipe-bookmark">
+        <FontAwesomeIcon icon="bookmark" size="2x" />
+      </span>
+    )
+    if (saveArr.includes(value.id)) {
+      save.pop()
+      save.push(
+        <div className="d-flex cardPrivateRecipe-bookmark-active">
+          <FontAwesomeIcon icon="bookmark" size="2x" />
+        </div>
+      )
     }
     return save
   }
-  const likeToggled = (value, index) => {
+  // 卡片按讚狀態
+  const likeToggled = (value) => {
     const like = []
-
-    for (let i = 0; i < likeState.length; i++) {
-      if (value.id === likeState[i].private_id) {
-        like.push(
-          <div className="d-flex cardPrivateRecipe-like-active">
-            <FontAwesomeIcon icon="heart" size="lg" />
-          </div>
-        )
-        break
-      } else {
-        like.push(
-          <div className="d-flex cardPrivateRecipe-like">
-            <FontAwesomeIcon icon="heart" size="lg" />
-          </div>
-        )
-      }
+    like.push(
+      <div className="d-flex cardPrivateRecipe-like">
+        <FontAwesomeIcon icon="heart" size="lg" />
+      </div>
+    )
+    if (likeArr.includes(value.id)) {
+      like.pop()
+      like.push(
+        <div className="d-flex cardPrivateRecipe-like-active">
+          <FontAwesomeIcon icon="heart" size="lg" />
+        </div>
+      )
     }
     return like
   }
   return (
     <>
-      <div className="container">
-        <pre>食譜資訊 {JSON.stringify(saveState, null, 2)}</pre>
+      {itemInfo.map((value, index) => {
+        return (
+          <div className="col-12 col-md-3">
+            <div className="cardPrivateRecipe">
+              <Link to={'/private/detail/' + value.id}>
+                <figure className="cardPrivateRecipe-img">
+                  <img
+                    src={`${API_URL}/private/${value.picture}`}
+                    className="b-cover-fit"
+                    alt=""
+                  />
+                </figure>
+                {saveToggled(value, index)}
 
-        <div className="row">
-          {itemInfo.map((value, index) => {
-            return (
-              <div className="col-12 col-md-3">
-                <div className="cardPrivateRecipe">
-                  <Link to={'/private/detail/' + value.id}>
-                    <figure className="cardPrivateRecipe-img">
-                      <img
-                        src={`${API_URL}/private/${value.picture}`}
-                        className="b-cover-fit"
-                        alt=""
-                      />
-                    </figure>
-                    {saveToggled(value, index)}
-
-                    <figure className="cardPrivateRecipe-avatar">
-                      <img
-                        src={`${API_URL}/member/${value.member_picture}`}
-                        className="b-cover-fit"
-                        alt=""
-                      />
-                    </figure>
-                    <div className="cardPrivateRecipe-box">
-                      <span className="font-700S cardPrivateRecipe-type">
-                        私藏食譜
-                      </span>
-                    </div>
-                    {likeToggled(value, index)}
-
-                    <h6 className="font-700S cardPrivateRecipe-name">
-                      {value.name}
-                    </h6>
-                    <div className="cardPrivateRecipe-star">
-                      {starNum(index)}
-                      <span className="font-400S cardPrivateRecipe-star-num">
-                        {value.star_rate}
-                      </span>
-                    </div>
-                    <div className="cardPrivateRecipe-stat">
-                      <FontAwesomeIcon
-                        icon="heart"
-                        className="cardPrivateRecipe-stat-heart"
-                      />
-                      {value.likeCount}
-                      <FontAwesomeIcon
-                        icon="eye"
-                        className="cardPrivateRecipe-stat-eye"
-                      />
-                      {value.viewCount}
-                    </div>
-                  </Link>
+                <figure className="cardPrivateRecipe-avatar">
+                  <img
+                    src={`${API_URL}/member/${value.member_picture}`}
+                    className="b-cover-fit"
+                    alt=""
+                  />
+                </figure>
+                <div className="cardPrivateRecipe-box">
+                  <span className="font-700S cardPrivateRecipe-type">
+                    私藏食譜
+                  </span>
                 </div>
-              </div>
-            )
-          })}
-        </div>
-      </div>
+                {likeToggled(value, index)}
+
+                <h6 className="font-700S cardPrivateRecipe-name">
+                  {value.name}
+                </h6>
+                <div className="cardPrivateRecipe-star">
+                  {starNum(index)}
+                  <span className="font-400S cardPrivateRecipe-star-num">
+                    {value.star_rate}
+                  </span>
+                </div>
+                <div className="d-flex justify-content-center cardPrivateRecipe-stat">
+                  <FontAwesomeIcon icon="heart" />
+                  <span>{value.likeCount}</span>
+                  <FontAwesomeIcon icon="eye" />
+                  <span>{value.viewCount}</span>
+                  <FontAwesomeIcon icon="comment-alt" />
+                  <span>{value.commentCount}</span>
+                </div>
+              </Link>
+            </div>
+          </div>
+        )
+      })}
     </>
   )
 }

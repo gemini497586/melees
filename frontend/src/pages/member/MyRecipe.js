@@ -99,7 +99,7 @@ function MyRecipe() {
       <div className="page-group">
         <MinorBar />
         <div className="container">
-          <div className="row">
+          <div className="row justify-content-center">
             <MyRecipePanel
               recipeList={recipeList}
               likeTotal={likeTotal}
@@ -118,7 +118,7 @@ function MyRecipe() {
           <div className="col-12">
             <MyRecipeTable recipeList={recipeList} setReRender={setReRender} />
           </div>
-          <pre>食譜 {JSON.stringify(recipeList, null, 2)}</pre>
+          {/* <pre>食譜 {JSON.stringify(recipeList, null, 2)}</pre>
           <span>---------------------------------</span>
           <pre>按讚 {JSON.stringify(likeTotal, null, 2)}</pre>
           <span>---------------------------------</span>
@@ -126,7 +126,7 @@ function MyRecipe() {
           <span>---------------------------------</span>
           <pre>評論 {JSON.stringify(commentTotal, null, 2)}</pre>
           <span>---------------------------------</span>
-          <pre>粉絲 {JSON.stringify(followTotal, null, 2)}</pre>
+          <pre>粉絲 {JSON.stringify(followTotal, null, 2)}</pre> */}
         </div>
       </div>
     </>

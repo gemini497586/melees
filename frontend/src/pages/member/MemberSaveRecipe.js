@@ -13,6 +13,7 @@ function MemberFeature() {
   const [data, setData] = useState([])
   const [displayData, setDisplayData] = useState([])
   const [sortBy, setSortBy] = useState(0)
+  const [message, setMessage] = useState('')
   const [checked, setChecked] = useState('全部')
   const checkList = ['全部', '精選食譜', '私藏食譜']
   const itemList = [
@@ -44,12 +45,12 @@ function MemberFeature() {
         })
         // 判斷是否有收藏
         if (res.data.message) {
-          console.log(`${res.data.message}`)
+          // console.log(res.data.message)
+          setMessage('目前尚未收藏任何食譜，馬上去看看食譜吧！')
         } else {
           let privateData = res.data.private
           let featureData = res.data.feature
           let totalData = privateData.concat(featureData)
-
           setData(totalData)
           setDisplayData(totalData)
           // console.log(res)
@@ -135,9 +136,11 @@ function MemberFeature() {
             </div>
             <div className="member-box-bottom">
               <div className="row">
-                {data.length === 0 ? (
+                {message === '' ? (
+                  <SearchCardRecipe recipeData={displayData} />
+                ) : (
                   <div className="member-notice font-700L">
-                    目前尚未收藏任何便當，馬上去看看食譜吧！
+                    {message}
                     <br />
                     <Link to="/feature/index/1">
                       <FontAwesomeIcon icon="arrow-right" className="me-2" />
@@ -149,8 +152,6 @@ function MemberFeature() {
                       私藏食譜
                     </Link>
                   </div>
-                ) : (
-                  <SearchCardRecipe recipeData={displayData} />
                 )}
               </div>
             </div>

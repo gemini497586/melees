@@ -9,7 +9,7 @@ function PrivateRecipeBanner() {
     <>
       <div className="privateRecipeBanner-img">
         <figure className="privateRecipeBanner-figure">
-          <img src={banner} className="w-100" alt="" />
+          <img src={banner} className="b-cover-fit" alt="" />
         </figure>
         <div className="privateRecipeBanner-slogan">
           <h1>
@@ -18,7 +18,6 @@ function PrivateRecipeBanner() {
             是真的肉圓
           </h1>
         </div>
-        {/* <h1>1231321</h1> */}
         <Link to="/private/upload" className="privateRecipeBanner-btn">
           <div className="d-flex justify-content-center privateRecipeBanner-plus-icon">
             <FontAwesomeIcon icon="plus" className="plus-icon" />

@@ -1,6 +1,8 @@
 const express = require("express");
-const connection = require("../utils/db");
 const router = express.Router();
+const connection = require("../utils/db");
+const moment = require("moment");
+const { loginCheckMiddleware } = require("../middlewares/auth");
 
 router.get("/", async (req, res, next) => {
     let result = await connection.queryAsync(
@@ -13,7 +15,7 @@ router.get("/", async (req, res, next) => {
 });
 
 router.get("/recipe", async (req, res, next) => {
-    const memberId = req.session.member ? req.session.member.id : "";
+    const memberId = req.session.member ? req.session.member.id : 0;
     // const memberId = 1;
 
     // 隨機抓四個，顯示被收藏數
@@ -30,16 +32,19 @@ router.get("/recipe", async (req, res, next) => {
         return v;
     });
 
-    // 抓這個會員收藏的所有商品
+    // 抓這個會員收藏的所有商品，如果沒資料給0
     let member_save = await connection.queryAsync(
         "SELECT feature_id FROM feature_save WHERE member_id = ?",
         [memberId]
     );
+    if (member_save.length < 1) {
+        member_save = [0];
+    }
     res.json({ feature, member_save });
 });
 
 router.get("/product", async (req, res, next) => {
-    const memberId = req.session.member ? req.session.member.id : "";
+    const memberId = req.session.member ? req.session.member.id : 0;
     // const memberId = 1;
 
     // 隨機抓四個，顯示被收藏數
@@ -55,7 +60,70 @@ router.get("/product", async (req, res, next) => {
         "SELECT product_id FROM product_save WHERE member_id = ?",
         [memberId]
     );
+    if (member_save.length < 1) {
+        member_save = [0];
+    }
     res.json({ product, member_save });
+});
+
+// 先檢查是否已登入
+router.use(loginCheckMiddleware);
+
+// 收藏便當
+router.post("/savebox", async (req, res, next) => {
+    const memberId = req.session.member.id;
+    const createDate = moment().format("YYYYMMDD");
+    const name = req.body.name;
+    const cal = req.body.cal;
+    const bentoId = req.body.bentoId;
+
+    await connection.queryAsync(
+        "INSERT INTO box_save_main (member_id,name,cal,create_date) VALUE (?)",
+        [[memberId, name, cal, createDate]]
+    );
+    let lastId = await connection.queryAsync(
+        "SELECT * FROM box_save_main ORDER BY id DESC LIMIT 1"
+    );
+    // console.log("上一個ID", lastId[0].id);
+    for (let i = 0; i < bentoId.length; i++) {
+        await connection.queryAsync(
+            "INSERT INTO box_save_detail (save_id, box_id) VALUES (?)",
+            [[lastId[0].id, bentoId[i]]]
+        );
+    }
+    res.status(200).json({ message: "客製化便當收藏成功" });
+});
+
+// 讀取收藏便當
+// 從 main 撈出這個會員收藏的id -> JOIN detail 同筆收藏的 box_id
+// 再從 box_id 撈出該食材的資料
+router.get("/readsavebox", async (req, res, next) => {
+    const memberId = req.session.member.id;
+    // const memberId = 1;
+    let result = await connection.queryAsync(
+        "SELECT a.*, GROUP_CONCAT(b.box_id ORDER BY b.id ) AS box_ids FROM box_save_main AS a INNER JOIN box_save_detail AS b ON a.id=b.save_id WHERE member_id=? GROUP BY a.id ORDER BY id DESC",
+        [memberId]
+    );
+    // 檢查是否有收藏
+    if (result.length === 0) {
+        res.json({ message: "您好，目前尚未收藏任何便當" });
+    } else {
+        let result2 = await connection.queryAsync(
+            "SELECT id,name,inside_image FROM box"
+        );
+        res.json({ result, result2 });
+    }
+});
+
+// 刪除收藏便當
+router.post("/deletesavebox", async (req, res, next) => {
+    await connection.queryAsync("DELETE FROM box_save_main WHERE id=?", [
+        req.body.id,
+    ]);
+    await connection.queryAsync("DELETE FROM box_save_detail WHERE save_id=?", [
+        req.body.id,
+    ]);
+    res.status(200).json({ message: "客製化便當收刪除成功" });
 });
 
 module.exports = router;

@@ -19,21 +19,20 @@ function Modal(props) {
     setTableList,
   } = props
 
-  // 抓到便當裡食材的id，陣列把它轉成字串
+  // 抓到便當裡食材的id
   const bentoId = bento.map((item) => {
     return item.id
   })
-  const saveId = bentoId.toString()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       await axios.post(
-        `${API_URL}/member/savebox`,
+        `${API_URL}/box/savebox`,
         {
-          saveId,
           name,
           cal,
+          bentoId,
         },
         { withCredentials: true }
       )
@@ -46,6 +45,7 @@ function Modal(props) {
         icon: 'success',
         title: '便當已收藏',
         text: '可至會員專區查詢',
+        confirmButtonColor: 'var(--color-primary)',
       })
       // console.log(res)
     } catch (e) {
@@ -71,7 +71,7 @@ function Modal(props) {
                 <img
                   src="http://localhost:3000/images/box_up.png"
                   alt="BoxUp"
-                  class="b-contain-fit b-page2-up"
+                  className="b-contain-fit b-page2-up"
                 />
                 <div className="b-page2-indside">
                   {bento.map((v, i) => {
@@ -87,13 +87,13 @@ function Modal(props) {
                 <img
                   src="http://localhost:3000/images/box_down.png"
                   alt="BoxDown"
-                  class="b-contain-fit b-page2-down"
+                  className="b-contain-fit b-page2-down"
                 />
               </div>
             </div>
             <div className="col-md-4 b-modal-right">
               <form onSubmit={handleSubmit}>
-                <input type="hidden" value={saveId} />
+                <input type="hidden" value={bentoId} />
                 <input type="hidden" value={cal} />
                 <label htmlFor="boxName" className="font-700M">
                   為你的便當命名
