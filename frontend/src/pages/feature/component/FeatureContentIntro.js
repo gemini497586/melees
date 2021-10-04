@@ -5,47 +5,120 @@ import '../../../style/featureContentIntro.css'
 import '../../../style/featureComponent.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
-import { useParams } from 'react-router'
 import Axios from 'axios'
 import { API_URL } from '../../../utils/config'
+import { useParams } from 'react-router'
 
 function FeatureContentIntro(props) {
-  const { linkImg, listName, qty, linkName, likeqty, viewqty, listId } = props
-  const [likeList, setLikeList] = useState([])
-  const [viewList, setViewList] = useState([])
-  const [saveState, setSaveState] = useState([])
-  const [likeState, setLikeState] = useState([])
+  const { listId } = useParams()
+  const {
+    linkImg,
+    listName,
+    qty,
+    linkName,
+    likeqty,
+    viewqty,
+    like,
+    setLike,
+    save,
+    setSave,
+  } = props
 
-  const likeSwitch = () => {
-    likeState ? setLikeState(false) : setLikeState(true)
-    likeState ? console.log('未按讚') : console.log('已按讚')
-    likeState ? deleteLike() : addLike()
-  }
-  const saveSwitch = () => {
-    saveState ? setSaveState(false) : setSaveState(true)
-    saveState ? deleteSave() : addSave()
-  }
-
-  // 新增按讚
-  const addLike = async () => {
-    let res = await Axios.get(`${API_URL}/feature/add-like/${listId}`)
-    console.log(res)
-  }
-  //刪除按讚
-  const deleteLike = async () => {
-    let res = await Axios.get(`${API_URL}/feature/remove-like/${listId}`)
-    console.log(res)
+  // 收藏
+  const SaveFeature = async () => {
+    try {
+      await Axios.post(`${API_URL}/feature/feature-save/${listId}`, null, {
+        withCredentials: true,
+      })
+    } catch (err) {
+      console.error(err.message)
+    }
   }
 
-  // 新增收藏
-  const addSave = async () => {
-    let res = await Axios.get(`${API_URL}/feature/add-save/${listId}`)
-    console.log(res)
+  const DeleteFeature = async () => {
+    try {
+      await Axios.post(`${API_URL}/feature/feature-delete/${listId}`, null, {
+        withCredentials: true,
+      })
+    } catch (err) {
+      console.error(err.message)
+    }
   }
-  //刪除收藏
-  const deleteSave = async () => {
-    let res = await Axios.get(`${API_URL}/feature/remove-save/${listId}`)
-    console.log(res)
+  const handleSave = () => {
+    return (
+      <>
+        {save ? (
+          <button
+            className="fintro-btnsave-active font-700M"
+            onClick={() => {
+              DeleteFeature()
+            }}
+          >
+            取消收藏 <FontAwesomeIcon icon={['fas', 'bookmark']} />
+          </button>
+        ) : (
+          <button
+            className="fintro-btnsave font-700M"
+            onClick={() => {
+              SaveFeature()
+            }}
+          >
+            加入收藏 <FontAwesomeIcon icon={['far', 'bookmark']} />
+          </button>
+        )}
+      </>
+    )
+  }
+
+  // 按讚
+  const LikeFeature = async () => {
+    try {
+      await Axios.post(`${API_URL}/feature/feature-like/${listId}`, null, {
+        withCredentials: true,
+      })
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+
+  const DeleteLikeFeature = async () => {
+    try {
+      await Axios.post(
+        `${API_URL}/feature/feature-deletelike/${listId}`,
+        null,
+        {
+          withCredentials: true,
+        }
+      )
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+
+  const handleLike = () => {
+    return (
+      <>
+        {like ? (
+          <button
+            className="fintro-btnlike-active font-700M"
+            onClick={() => {
+              DeleteLikeFeature()
+            }}
+          >
+            取消按讚 <FontAwesomeIcon icon={['fas', 'bookmark']} />
+          </button>
+        ) : (
+          <button
+            className="fintro-btnlike font-700M"
+            onClick={() => {
+              LikeFeature()
+            }}
+          >
+            按讚 <FontAwesomeIcon icon={['far', 'bookmark']} />
+          </button>
+        )}
+      </>
+    )
   }
 
   return (
@@ -80,36 +153,20 @@ function FeatureContentIntro(props) {
           {/* 愛心瀏覽數 */}
           <HeartViewNum likeqty={likeqty} viewqty={viewqty} />
           {/* 收藏btn */}
-          <button
-            onClick={likeSwitch}
-            className={
-              likeState
-                ? 'fintro-btnlike font-700M'
-                : 'fintro-btnlike-active font-700M'
-            }
+          <div
+            onClick={() => {
+              setLike(!like)
+            }}
           >
-            <FontAwesomeIcon
-              className="me-2"
-              icon={['far', 'heart']}
-              fixedWidth
-            />
-            <span class="font-700M">{likeState ? '按讚' : '已按讚'}</span>
-          </button>
-          <button
-            onClick={saveSwitch}
-            className={
-              saveState
-                ? 'fintro-btnsave font-700M'
-                : 'fintro-btnsave-active font-700M'
-            }
+            {handleLike()}
+          </div>
+          <div
+            onClick={() => {
+              setSave(!save)
+            }}
           >
-            <FontAwesomeIcon
-              className="me-2"
-              icon={['far', 'bookmark']}
-              fixedWidth
-            />
-            <span class="font-700M">{likeState ? '收藏' : '已收藏'}</span>
-          </button>
+            {handleSave()}
+          </div>
         </div>
       </div>
     </>

@@ -8,7 +8,7 @@ import { API_URL, FEATURE_TYPE } from '../../../utils/config'
 import { Link } from 'react-router-dom'
 
 function FeatureCards(props) {
-  const { sort, currentPage, typedata, setTypedata } = props
+  const { sort, currentPage, typedata, setTypedata, perPage } = props
   // console.log('sort', sort)
   // // 給頁面切換typeid資料用
   // const [typedata, setTypedata] = useState([])
@@ -24,11 +24,18 @@ function FeatureCards(props) {
     )
   }, [props.typeid, sort])
 
-  const [perPage, setPerPage] = useState(6)
   const lastNumber = currentPage * perPage
   const firstNumber = lastNumber - perPage
   const currentNumber = typedata.slice(firstNumber, lastNumber)
   // console.log('currentNumber', currentNumber)
+
+  // const onEnter = ({ currentTarget }) => {
+  //   gsap.to(currentTarget, { backgroundColor: '#e77614' })
+  // }
+
+  // const onLeave = ({ currentTarget }) => {
+  //   gsap.to(currentTarget, { backgroundColor: '#28a92b' })
+  // }
 
   const listFeatureCards = currentNumber.map((e) => {
     return (
