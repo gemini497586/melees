@@ -20,6 +20,7 @@
   height: 485px;
   top: 40px;
   left: 44px;
+  object-fit: cover;
 }
 
 /* 縮圖 */

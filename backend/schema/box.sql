@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： localhost
--- 產生時間： 2021 年 10 月 03 日 16:09
+-- 產生時間： 2021 年 10 月 04 日 19:58
 -- 伺服器版本： 10.4.19-MariaDB
 -- PHP 版本： 8.0.7
 
@@ -124,7 +124,18 @@ INSERT INTO `box_save_detail` (`id`, `save_id`, `box_id`) VALUES
 (46, 11, 4),
 (47, 11, 2),
 (48, 11, 6),
-(49, 11, 7);
+(49, 11, 7),
+(50, 12, 8),
+(51, 12, 1),
+(52, 12, 10),
+(53, 12, 9),
+(54, 12, 7),
+(55, 13, 15),
+(56, 13, 12),
+(57, 13, 14),
+(58, 13, 11),
+(59, 13, 9),
+(60, 14, 10);
 
 -- --------------------------------------------------------
 
@@ -155,7 +166,10 @@ INSERT INTO `box_save_main` (`id`, `member_id`, `name`, `cal`, `create_date`) VA
 (8, 3, 'test', 203, '2021-10-03'),
 (9, 5, '10/03', 351, '2021-10-03'),
 (10, 5, '10/03', 569, '2021-10-03'),
-(11, 4, '16:08', 531, '2021-10-03');
+(11, 4, '16:08', 531, '2021-10-03'),
+(12, 1, '9 26', 207, '2021-10-04'),
+(13, 1, 'test', 711, '2021-10-04'),
+(14, 1, 'test', 25, '2021-10-04');
 
 --
 -- 已傾印資料表的索引
@@ -193,13 +207,13 @@ ALTER TABLE `box`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `box_save_detail`
 --
 ALTER TABLE `box_save_detail`
-  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `box_save_main`
 --
 ALTER TABLE `box_save_main`
-  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

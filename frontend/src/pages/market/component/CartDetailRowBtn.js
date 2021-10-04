@@ -12,7 +12,11 @@ function CartDetailRow(props) {
   // console.log(productsAll)
   return (
     <div className="cart-btn-detail-row">
-      <img src={`${API_URL}/market/${carts[index].img}`} alt="商品圖片" />
+      <img
+        src={`${API_URL}/market/${carts[index].img}`}
+        alt="商品圖片"
+        className="cover-fit"
+      />
       <p className="font-400S cart-btn-detail-category">
         {carts[index].category}
       </p>

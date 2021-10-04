@@ -38,25 +38,25 @@ function Header() {
     // switch、array -> number
     const removeActive = () => {
       for (let i = 0; i < header.childElementCount; i++) {
-        header.children[i].classList.remove('header-active', 'font-700SL')
+        header.children[i].classList.remove('header-active', 'font-700M')
       }
     }
 
     if (now.includes('member')) {
       removeActive()
-      toMember.classList.add('header-active', 'font-700SL')
+      toMember.classList.add('header-active', 'font-700M')
     } else if (now.includes('market')) {
       removeActive()
-      toMarket.classList.add('header-active', 'font-700SL')
+      toMarket.classList.add('header-active', 'font-700M')
     } else if (now.includes('private')) {
       removeActive()
-      toPrivate.classList.add('header-active', 'font-700SL')
+      toPrivate.classList.add('header-active', 'font-700M')
     } else if (now.includes('feature')) {
       removeActive()
-      toFeature.classList.add('header-active', 'font-700SL')
+      toFeature.classList.add('header-active', 'font-700M')
     } else if (now.includes('box')) {
       removeActive()
-      toBox.classList.add('header-active', 'font-700SL')
+      toBox.classList.add('header-active', 'font-700M')
     } else {
       removeActive()
     }
@@ -201,45 +201,49 @@ function Header() {
         {login ? (
           <li className="user-btn ">
             <div className="user-avatar" data-bs-toggle="dropdown">
-              <img alt="" className="b-cover-fit" src={`${API_URL}/member${avatar}`} />
+              <img
+                alt="大頭貼"
+                className="cover-fit"
+                src={`${API_URL}/member${avatar}`}
+              />
               <FontAwesomeIcon icon="user-circle" className="user" />
             </div>
             <ul className="dropdown-menu user-dropdown">
               <li className="font-400SL">
-                <a className="dropdown-item" href="#/">
+                <Link to="/member/editinfo" className="dropdown-item">
                   大頭貼
-                </a>
+                </Link>
               </li>
               <hr />
               <li className="font-400SL">
-                <a className="dropdown-item" href="#/">
+                <Link to="/member/editinfo" className="dropdown-item">
                   個人資料
-                </a>
+                </Link>
               </li>
               <li className="font-400SL">
-                <a className="dropdown-item" href="#/">
+                <Link to="/member/savebox" className="dropdown-item">
                   我的客製便當
-                </a>
+                </Link>
               </li>
               <li className="font-400SL">
-                <a className="dropdown-item" href="#/">
+                <Link to="/member" className="dropdown-item">
                   我的私藏食譜
-                </a>
+                </Link>
               </li>
               <li className="font-400SL">
-                <a className="dropdown-item" href="#/">
+                <Link to="/member/saverecipe" className="dropdown-item">
                   食譜收藏
-                </a>
+                </Link>
               </li>
               <li className="font-400SL">
-                <a className="dropdown-item" href="#/">
+                <Link to="/member/saveproduct" className="dropdown-item">
                   商品收藏
-                </a>
+                </Link>
               </li>
               <li className="font-400SL">
-                <a className="dropdown-item" href="#/">
+                <Link to="/member/orderlist" className="dropdown-item">
                   訂單查詢
-                </a>
+                </Link>
               </li>
               <li className="font-400SL">
                 <Link to="/" onClick={handleLogout} className="dropdown-item">

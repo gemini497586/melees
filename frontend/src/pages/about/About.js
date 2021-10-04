@@ -11,7 +11,7 @@ function About() {
             <img
               src="http://localhost:3000/images/logo.png"
               alt="MELEE"
-              className="b-contain-fit"
+              className="contain-fit"
             />
           </div>
           <div className="about-content">

@@ -83,7 +83,7 @@ router.get("/market", async (req, res, next) => {
         "SELECT a.*, COUNT(b.member_id) AS save_qty FROM product AS a INNER JOIN product_save AS b ON a.id=b.product_id WHERE a.id IN ? GROUP BY a.id ORDER BY save_qty DESC",
         [[savedIds]]
     );
-    res.json(product );
+    res.json(product);
 });
 
 module.exports = router;

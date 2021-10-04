@@ -33,9 +33,10 @@ function Paging(props) {
       {typeof pageArray === 'string' ? (
         <></>
       ) : (
-        pageArray.map((v) => {
+        pageArray.map((v, i) => {
           return (
             <button
+              key={i}
               className="btn paging-btn"
               onClick={(e) => {
                 handlePage(e)

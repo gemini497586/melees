@@ -45,6 +45,7 @@ function Modal(props) {
         icon: 'success',
         title: '便當已收藏',
         text: '可至會員專區查詢',
+        confirmButtonColor: 'var(--color-primary)',
       })
       // console.log(res)
     } catch (e) {
