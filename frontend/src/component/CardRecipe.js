@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../style/cardrecipe.css'
 import instagram from '../images/instagramLogo.jpg'
-import { API_URL } from '../utils/config'
+import { API_URL, FEATURE_TYPE } from '../utils/config'
 import Axios from 'axios'
 
 function CardRecipe() {
@@ -32,14 +32,14 @@ function CardRecipe() {
     for (let i = 0; i < saveState.length; i++) {
       if (value === saveState[i].feature_id) {
         save.push(
-          <span className="cardPrivateRecipe-bookmark-active">
+          <span className="cardPrivateRecipe-bookmark-active" key={i}>
             <FontAwesomeIcon icon="bookmark" size="2x" />
           </span>
         )
         break
       } else {
         save.push(
-          <span className="cardPrivateRecipe-bookmark">
+          <span className="cardPrivateRecipe-bookmark" key={i}>
             <FontAwesomeIcon icon="bookmark" size="2x" />
           </span>
         )
@@ -49,12 +49,6 @@ function CardRecipe() {
     return save
   }
 
-  let typeid = {
-    1: '健康長肉肉',
-    2: '健康不吃肉',
-    3: '家常好手藝',
-    4: '上班不煩惱',
-  }
   return (
     <div className="container">
       <div className="row">
@@ -86,7 +80,7 @@ function CardRecipe() {
                       alt={value.name}
                     />
                   </figure>
-                  {/* {saveToggled(value.id)} */}
+                  {saveToggled(value.id)}
                   <span className="cardRecipe-bookmark-stat-box">
                     <div className="cardRecipe-bookmark-stat-icon">
                       <FontAwesomeIcon icon="bookmark" size="lg" />
@@ -96,7 +90,7 @@ function CardRecipe() {
                     </span>
                   </span>
                   <span className="font-700S cardRecipe-type">
-                    {typeid[value.type_id]}
+                    {FEATURE_TYPE[value.type_id]}
                   </span>
                   <h6 className="cardRecipe-name">{value.name}</h6>
                   <div className="f-flex cardRecipe-ig">

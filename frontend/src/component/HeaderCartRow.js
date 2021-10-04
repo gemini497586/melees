@@ -16,7 +16,7 @@ function HeaderCartRow(props) {
         <img
           alt="商品圖片"
           src={`${API_URL}/market/${carts[index].img}`}
-          className="header-cart-img"
+          className="cover-fit"
         />
       </div>
       <h5 className="header-cart-row-name">{carts[index].name}</h5>

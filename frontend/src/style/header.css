@@ -58,12 +58,13 @@
   position: absolute;
   width: 94px;
   height: 40px;
-  top: 42px;
+  top: 43px;
   left: -2px;
   line-height: 40px;
   border: 1px solid var(--color-secondary);
-  border-top: none;
-  border-radius: 4px;
+  /* border-top: none; */
+  border-radius: 4px 0 4px 4px;
+  background-color: var(--color-white);
 }
 
 .dropdown-menu li a:focus {
