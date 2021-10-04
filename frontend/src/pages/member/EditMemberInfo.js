@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../../style/global.css'
 import '../../style/member.css'
@@ -12,10 +12,8 @@ import validationInfo from './component/validationInfo'
 import InputErrorMsg from './component/InputErrorMsg'
 import Swal from 'sweetalert2'
 import queryMsg from './component/queryMsg'
-// import { HandleCart } from '../../utils/HandleCart'
 
 function EditMemberInfo() {
-  // const { socialLogin } = useContext(HandleCart)
   const [errors, setErrors] = useState({})
   const [pictureErrors, setPictureErrors] = useState(false)
   const [formValues, setFormValues] = useState({

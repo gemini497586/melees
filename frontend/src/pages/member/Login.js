@@ -144,11 +144,6 @@ function Login() {
               <img src={logo} alt="MELEEs logo" />
             </figure>
             <h4>連你阿嬤都會的料理食譜生鮮食材網站</h4>
-            <GoogleLogout
-              clientId="721775995147-f710r47dq3if8dtvlt69fg4gvdc6v019.apps.googleusercontent.com"
-              buttonText="Sign Out"
-              onLogoutSuccess={onSignoutSuccess}
-            />
           </div>
           <div className="login-form">
             <h4>會員登入</h4>
@@ -196,6 +191,11 @@ function Login() {
               </div>
             </form>
             <div className="quickLogin">
+              {/* <GoogleLogout
+                clientId={GOOGLE_APP_ID}
+                buttonText="Sign Out"
+                onLogoutSuccess={onSignoutSuccess}
+              /> */}
               <GoogleLogin
                 className="quickLogin-googleBtn"
                 clientId={GOOGLE_APP_ID}
