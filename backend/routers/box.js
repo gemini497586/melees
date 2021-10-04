@@ -14,7 +14,6 @@ router.get("/", async (req, res, next) => {
     res.json({ result, result2 });
 });
 
-
 router.get("/recipe", async (req, res, next) => {
     const memberId = req.session.member ? req.session.member.id : 0;
     // const memberId = 1;
@@ -33,11 +32,14 @@ router.get("/recipe", async (req, res, next) => {
         return v;
     });
 
-    // 抓這個會員收藏的所有商品
+    // 抓這個會員收藏的所有商品，如果沒資料給0
     let member_save = await connection.queryAsync(
         "SELECT feature_id FROM feature_save WHERE member_id = ?",
         [memberId]
     );
+    if (member_save.length < 1) {
+        member_save = [0];
+    }
     res.json({ feature, member_save });
 });
 
@@ -58,6 +60,9 @@ router.get("/product", async (req, res, next) => {
         "SELECT product_id FROM product_save WHERE member_id = ?",
         [memberId]
     );
+    if (member_save.length < 1) {
+        member_save = [0];
+    }
     res.json({ product, member_save });
 });
 
