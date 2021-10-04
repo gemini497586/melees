@@ -16,15 +16,19 @@ function MemberRecipeComment() {
   const sortList = [
     {
       name: '評論時間由新至舊',
+      value: 0,
     },
     {
       name: '評論時間由舊至新',
+      value: 1,
     },
     {
       name: '評分由高至低',
+      value: 2,
     },
     {
       name: '評分由低至高',
+      value: 3,
     },
   ]
 
@@ -80,6 +84,7 @@ function MemberRecipeComment() {
     let newData = []
     newData = handleSort(recipeDataList, sortBy)
     setRecipeDataList(newData)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortBy])
 
   return (

@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { CartContext } from './CartContext'
 import Swal from 'sweetalert2'
 
@@ -10,12 +10,11 @@ const useCart = () => {
     setProductsAll,
     selectIndex,
     setSelectIndex,
-    pageArray,
-    setPageArray,
   ] = useContext(CartContext)
 
+  // 這裡的State每次render時會重新整理成原本的樣子
   const [countProduct, setCountProduct] = useState(false) //購物車的小數字
-
+  const [pageArray, setPageArray] = useState([]) //商城分頁
   const addCart = (e) => {
     // 增加商品到購物車內
     // 1. 先從 sessionStorage 抓到原本的購物車，沒有的話就新增一個

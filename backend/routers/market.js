@@ -23,70 +23,23 @@ router.post("/product/:id", async (req, res, next) => {
 
 // 商品首頁分類
 router.post("/home/:category?/:sort?", async (req, res, next) => {
-  let sqlProduct = "SELECT * FROM product ORDER BY"; //沒選擇商品分類的sql
-
-  let category = req.params.category;
-  let sqlProductCategory = "SELECT * FROM product WHERE category = ? ORDER BY"; // 有選擇商品分類的sql
-
-  if (req.params.category === "undefined") {
-    // 沒登入也沒選擇分類
-    switch (req.params.sort) {
-      case "價格由高至低":
-        connection.query(sqlProduct + " price DESC", (err, result) => {
-          res.json(result);
-        });
-        break;
-      case "價格由低至高":
-        connection.query(sqlProduct + " price", (err, result) => {
-          res.json(result);
-        });
-        break;
-      case "時間由新至舊":
-        connection.query(sqlProduct + " id DESC", (err, result) => {
-          res.json(result);
-        });
-        break;
-      case "時間由舊至新":
-        connection.query(sqlProduct + " id", (err, result) => {
-          res.json(result);
-        });
-        break;
-      default:
-        connection.query(sqlProduct + " id", (err, result) => {
-          res.json(result);
-        });
-        break;
-    }
-  } else if (req.params.category !== "undefined") {
-    // 沒登入，有選擇分類
-    switch (req.params.sort) {
-      case "價格由高至低":
-        connection.query(sqlProductCategory + " price DESC", category, (err, result) => {
-          res.json(result);
-        });
-        break;
-      case "價格由低至高":
-        connection.query(sqlProductCategory + " price", category, (err, result) => {
-          res.json(result);
-        });
-        break;
-      case "時間由新至舊":
-        connection.query(sqlProductCategory + " id DESC", category, (err, result) => {
-          res.json(result);
-        });
-        break;
-      case "時間由舊至新":
-        connection.query(sqlProductCategory + " id", category, (err, result) => {
-          res.json(result);
-        });
-        break;
-      default:
-        connection.query(sqlProductCategory + " id", category, (err, result) => {
-          res.json(result);
-        });
-        break;
-    }
+  // console.log("c: ", req.params.category);
+  // console.log("s: ", req.params.sort);
+  let sqlProduct = "SELECT * FROM product "; //沒選擇商品分類的sql
+  if (req.params.category !== "undefined") {
+    sqlProduct = sqlProduct + "WHERE category = ? ";
   }
+  let sortMap = {};
+  sortMap["價格由高至低"] = { field: "price", direction: "DESC" };
+  sortMap["價格由低至高"] = { field: "price", direction: "ASC" };
+  sortMap["時間由新至舊"] = { field: "id", direction: "DESC" };
+  sortMap["時間由舊至新"] = { field: "id", direction: "ASC" };
+  let sortType = req.params.sort || "時間由舊至新";
+
+  sqlProduct = `${sqlProduct} ORDER BY ${sortMap[sortType].field} ${sortMap[sortType].direction}`;
+
+  let result = await connection.queryAsync(sqlProduct, [req.params.category]);
+  res.json(result);
 });
 
 let createDate = moment().format("YYYYMMDD");
@@ -112,8 +65,7 @@ router.post("/get-personalData", (req, res, next) => {
 router.post("/checkout-confirm", async (req, res, next) => {
   // console.log("資料-->: ", req.body);
   let member_id = req.session.member.id;
-
-  if ((req.body.payment_method = "請選擇付款方式")) {
+  if (req.body.payment_method === "請選擇付款方式") {
     // 如果沒有選擇結帳方式資料就不會存進資料庫
     res.json({ reply: "沒有選擇結帳方式" });
   } else {
@@ -125,6 +77,7 @@ router.post("/checkout-confirm", async (req, res, next) => {
         req.body.payment_method = 2;
         break;
       default:
+        req.body.payment_method = "請選擇付款方式";
         break;
     }
 
@@ -138,10 +91,9 @@ router.post("/checkout-confirm", async (req, res, next) => {
       ]);
     }
 
-    await connection.query(
-      "INSERT INTO order_main_list (member_id, name, phone, email, address, payment_method, create_date, status, total_price) VALUES (?);",
-      [[member_id, req.body.name, req.body.phone, req.body.email, req.body.address, req.body.payment_method, createDate, req.body.status, req.body.total_price]]
-    );
+    connection.query("INSERT INTO order_main_list (member_id, name, phone, email, address, payment_method, create_date, status, total_price) VALUES (?);", [
+      [member_id, req.body.name, req.body.phone, req.body.email, req.body.address, req.body.payment_method, createDate, req.body.status, req.body.total_price],
+    ]);
     res.json({ reply: "收到" });
   }
 });

@@ -64,25 +64,24 @@ function MemberRecipeCommentRow(props) {
     }).then((result) => {
       if (result.isConfirmed) {
         const deleteAPI = async () => {
-          let id = recipeData.id
           try {
             let response = await axios.post(
               `${API_URL}/member/recipecomment/modal/delete`,
-              { id },
+              { id: recipeData.id },
               {
                 // 設定可以跨源送 cookie
                 withCredentials: true,
               }
             )
-            if (response) {
-              // console.log('Delete id: ' + id + ' successful')
-              Swal.fire({
-                icon: 'success',
-                title: '刪除成功！',
-                confirmButtonColor: 'var(--color-primary)',
-                confirmButtonText: '確認',
-              })
-            }
+            console.log('Delete id: ' + recipeData.id + ' successful')
+            console.log(response)
+            Swal.fire({
+              icon: 'success',
+              title: queryMsg(response.data.category, response.data.code),
+              confirmButtonColor: 'var(--color-primary)',
+              confirmButtonText: '確認',
+            })
+
             setReRender(true)
           } catch (err) {
             let errMsg = ''

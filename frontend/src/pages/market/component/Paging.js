@@ -4,8 +4,6 @@ import useCart from '../../../utils/useCart'
 
 function Paging(props) {
   const { pageArray, setPageArray } = useCart()
-  // const [currentPage, setCurrentPage] = useState(1)
-  // const [perPage, setPerPage] = useState(10)
   const { product, setCurrentPage, perPage } = props
 
   let paging = Math.ceil(product.length / perPage)
@@ -18,11 +16,6 @@ function Paging(props) {
     setPageArray(newPageArr)
   }, [product])
 
-  // const lastNumber = currentPage * perPage
-  // const firstNumber = lastNumber - perPage
-  // const currentNumber = product.slice(firstNumber, lastNumber)
-  // console.log(currentNumber)
-
   const handlePage = (e) => {
     setCurrentPage(e.target.innerHTML)
     e.target.classList.add('active')
@@ -30,7 +23,7 @@ function Paging(props) {
 
   return (
     <div className="paging">
-      {typeof pageArray === 'string' ? (
+      {pageArray === null ? (
         <></>
       ) : (
         pageArray.map((v, i) => {

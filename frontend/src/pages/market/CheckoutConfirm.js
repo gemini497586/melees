@@ -18,6 +18,7 @@ function CheckoutConfirm() {
 
   const handleData = async () => {
     // 把資料傳進後端
+
     let data = {
       name: info[0].name,
       phone: info[0].phone,
@@ -28,7 +29,7 @@ function CheckoutConfirm() {
       total_price: total + 150,
       carts: carts,
     }
-
+    console.log(data)
     try {
       await axios.post(`${API_URL}/market/checkout-confirm`, data, {
         // 設定可以跨源送 cookie

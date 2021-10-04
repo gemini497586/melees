@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import img from '../../../images/005.jpg'
 import '../../../style/cartDetailRow.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'

@@ -57,10 +57,25 @@ import Privacy from './pages/about/Privacy'
 // useContext。CartProvider 跟購物車商品有關; CheckoutInfoProvider 跟個人購買資料有關
 import { CheckoutInfoProvider } from './utils/CheckoutInfoContext'
 import { CartProvider } from './utils/CartContext'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+import { API_URL } from './utils/config'
 
 function App() {
   const [login, setLogin] = useState(false) //查看是否登入
+
+  useEffect(() => {
+    // 瀏覽器重新整理的時候查看有沒有登入過
+    axios
+      .post(`${API_URL}/auth/isLogin`, null, { withCredentials: true })
+      .then((response) => {
+        console.log('登入: ', response.data)
+        if (response.data === '有登入') {
+          setLogin(true)
+        }
+      })
+  }, [])
+
   return (
     <CartProvider>
       <HandleCart.Provider value={{ login, setLogin }}>

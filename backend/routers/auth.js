@@ -5,39 +5,62 @@ const connection = require("../utils/db");
 const bcrypt = require("bcrypt");
 const { v4 } = require("uuid");
 const moment = require("moment");
+const passport = require("passport");
+const GoogleTokenStrategy = require("passport-google-token").Strategy;
+const FacebookTokenStrategy = require("passport-facebook-token");
 
 // 資料驗證
 const { body, validationResult } = require("express-validator");
 const dataValidation = [
   // 帳號驗證 --> 1.不為空值  2.max: 100;
   body("account")
-    // .isEmpty()
-    .isLength({ max: 100 })
-    .withMessage("帳號不可空白或過長"),
+    .custom((value, { req }) => {
+      return value ? true : false;
+    })
+    .withMessage("B0101"),
+  body("account").isLength({ max: 100 }).withMessage("B0102"),
   // 密碼驗證 --> 1.不為空值  2.密碼與確認密碼是否一致  3.min: 6; max: 12;
   body("password")
-    .isLength({ min: 6, max: 12 })
-    .withMessage("密碼長度為6-12字元"),
+    .custom((value, { req }) => {
+      return value ? true : false;
+    })
+    .withMessage("C0101"),
+  body("password").isLength({ min: 6, max: 12 }).withMessage("C0102"),
   body("rePassword")
     .custom((value, { req }) => {
       return value === req.body.password;
     })
-    .withMessage("密碼驗證不一致"),
+    .withMessage("C0203"),
 
-  // Email驗證 --> 1.不為空值  2.檢查Email格式  3.max: 100;
-  body("email").isEmail().withMessage("請填寫正確的 Email 格式"),
+  // Email驗證 --> 1.不為空值  2.檢查Email格式
+  body("email")
+    .custom((value, { req }) => {
+      return value ? true : false;
+    })
+    .withMessage("I0101"),
+  body("email").isEmail().withMessage("I0102"),
 
   // 姓名驗證 --> 1.不為空值  2.max: 100;
-  body("name").isLength({ max: 100 }).withMessage("請輸入使用者姓名"),
+  body("name")
+    .custom((value, { req }) => {
+      return value ? true : false;
+    })
+    .withMessage("D0101"),
+  body("name").isLength({ max: 100 }).withMessage("D0102"),
 
   // 生日驗證 --> 1.不為空值  2.檢查日期格式
-  body("birthday").isDate().withMessage("日期格式不符合"),
+  body("birthday")
+    .custom((value, { req }) => {
+      return value ? true : false;
+    })
+    .withMessage("G0101"),
+  body("birthday").isDate().withMessage("G0102"),
 
   // 暱稱驗證 --> 1.接受空值   2.max: 100;
-  body("nickname").isLength({ max: 100 }).withMessage("暱稱太長了"),
+  body("nickname").isLength({ max: 100 }).withMessage("E0101"),
 
   // 地址驗證 --> 1.接受空值  2.max: 100;
-  body("address").isLength({ max: 100 }).withMessage("地址太長了"),
+  body("address").isLength({ max: 100 }).withMessage("J0101"),
 
   // 手機驗證 --> 1.接受空值  2.台灣手機號碼格式
   body("cellphone")
@@ -45,7 +68,7 @@ const dataValidation = [
       let phoneRegex = /^(09)[0-9]{8}$/;
       return phoneRegex.test(value);
     })
-    .withMessage("手機號碼格式有誤"),
+    .withMessage("H0102"),
 ];
 
 // multer 用來處理 From-data (Content-Type: multipart/form-data)
@@ -67,13 +90,16 @@ const uploader = multer({
   storage: storage,
   // 非常必要的檔案驗證
   fileFilter: function (req, file, callback) {
-    console.log(file);
-    if (
-      file.mimetype !== "image/jpeg" &&
-      file.mimetype !== "image/png" &&
-      file.mimetype !== "image/jpg"
-    ) {
-      callback(new Error("不接受的檔案型態"), false);
+    if (file.mimetype !== "image/jpeg" && file.mimetype !== "image/png" && file.mimetype !== "image/jpg") {
+      callback(
+        new Error({
+          message: "不接受的檔案型態",
+          category: "auth",
+          type: "picture",
+          code: "K0101",
+        }),
+        false
+      );
     }
     callback(null, true);
   },
@@ -92,26 +118,38 @@ router.post(
     // 套件回覆的驗證結果
     const dataValidationResult = validationResult(req);
     if (!dataValidationResult.isEmpty()) {
-      let error = dataValidationResult.array();
-      console.log(error);
-      return res
-        .status(400)
-        .json({ field: error[0].param, message: error[0].msg });
+      let errors = dataValidationResult.array();
+      // console.log(errors);
+
+      // 當 express-validator 回覆多個錯誤時
+      if (errors.length > 1) {
+        for (let i = 0; i < errors.length; i++) {
+          errors[i] = {
+            category: "auth",
+            type: errors[i].param,
+            code: errors[i].msg,
+          };
+        }
+        console.log("several errors", errors);
+        return res.status(400).json(errors);
+      }
+      // 當 express-validator 回覆1個錯誤時
+      console.log("single errors", errors);
+      return res.status(400).json({ category: "auth", type: errors[0].param, code: errors[0].msg });
     }
 
     // 確認資料是否有正確取得
-    console.log(req.body);
-    console.log(req.file);
+    console.log("register req.body: ", req.body);
+    console.log("register req.file: ", req.file);
 
     // 帳號驗證 --> 3.是否有重複註冊
-    let memberAccount = await connection.queryAsync(
-      "SELECT * FROM member WHERE account = ?",
-      [req.body.account]
-    );
+    let memberAccount = await connection.queryAsync("SELECT * FROM member WHERE account = ?", [req.body.account]);
     if (memberAccount.length > 0) {
       return next({
         status: 400,
-        message: "此帳號已有人使用",
+        category: "auth",
+        type: "account",
+        code: "B0103",
       });
     }
 
@@ -139,7 +177,7 @@ router.post(
     );
     console.log("存入資料庫的內容：", result);
 
-    res.json({}); //回覆res --> 結束路由中間件
+    res.json({ category: "auth", type: "register", code: "A0003" });
   }
 );
 
@@ -149,16 +187,15 @@ router.post("/login", async (req, res, next) => {
 
   // 1.確認有沒有帳號 (email 是否存在)
   //   a.如果沒有這個帳號，就回覆錯誤(400)
-  let member = await connection.queryAsync(
-    "SELECT * FROM member WHERE account = ?",
-    [req.body.account]
-  );
+  let member = await connection.queryAsync("SELECT * FROM member WHERE account = ?", [req.body.account]);
   //   console.log(member);
 
   if (member.length === 0) {
     return next({
       status: 400,
-      message: "找不到帳號",
+      category: "auth",
+      type: "account",
+      code: "L0101",
     });
   }
 
@@ -170,7 +207,9 @@ router.post("/login", async (req, res, next) => {
   if (!result) {
     return next({
       status: 400,
-      message: "密碼輸入錯誤",
+      category: "auth",
+      type: "password",
+      code: "L0101",
     });
   }
 
@@ -186,17 +225,169 @@ router.post("/login", async (req, res, next) => {
   };
   req.session.member = returnMember;
   res.json({
+    category: "auth",
+    type: "login",
+    code: "A0000",
     name: member.name,
     nickname: member.nickname,
     picture: member.picture,
   });
 });
 
+// google 快速登入
+passport.use(
+  new GoogleTokenStrategy(
+    {
+      clientID: process.env.GOOGLE_ID,
+      clientSecret: process.env.GOOGLE_SECRET,
+    },
+    async function (accessToken, refreshToken, profile, cb) {
+      // console.log("Google profile", profile);
+
+      let member = await connection.queryAsync("SELECT * FROM member WHERE google_id", [profile.id]);
+      let returnMember = null;
+      if (member.length > 0) {
+        // 已經註冊過
+        member = member[0];
+        returnMember = {
+          id: member.id,
+          name: member.name,
+          nickname: member.nickname,
+          picture: member.picture,
+          email: member.email,
+        };
+      } else {
+        // 尚未註冊，補註冊～～
+        console.log(profile._json);
+        let result = await connection.queryAsync("INSERT INTO member (google_id, account, password, name, email, picture, create_date) VALUES (?);", [
+          [
+            profile.id,
+            "google" + profile._json.email,
+            "googlelogin",
+            profile._json.name,
+            profile._json.email,
+            profile._json.picture,
+            moment().format("YYYYMMDD"),
+          ],
+        ]);
+        console.log(result);
+        returnMember = {
+          id: result.insertId,
+          name: profile._json.name,
+          nickname: "",
+          picture: profile._json.picture,
+          email: profile._json.email,
+        };
+      }
+      cb(null, returnMember);
+    }
+  )
+);
+
+router.post("/login/google", passport.authenticate("google-token", { session: false }), async (req, res, next) => {
+  console.log(req.user);
+  if (!req.user) {
+    console.log("Google Login 登入失敗");
+    return res.json(401);
+  }
+  console.log("Google 登入成功");
+  // 一般登入，帳號密碼驗證後，應該要做的事
+  req.session.member = req.user;
+  // 回覆給前端
+  res.json({
+    category: "auth",
+    type: "login",
+    code: "A0005",
+    name: req.user.name,
+    nickname: req.user.nickname,
+    picture: req.user.picture,
+  });
+});
+
+// facebook 快速登入
+passport.use(
+  new FacebookTokenStrategy(
+    {
+      clientID: process.env.FACEBOOK_ID,
+      clientSecret: process.env.FACEBOOK_SECRET,
+    },
+    async function (accessToken, refreshToken, profile, cb) {
+      // console.log("Fb profile", profile);
+
+      let member = await connection.queryAsync("SELECT * FROM member WHERE facebook_id", [profile.id]);
+      let returnMember = null;
+      if (member.length > 0) {
+        // 已經註冊過
+        member = member[0];
+        returnMember = {
+          id: member.id,
+          name: member.name,
+          nickname: member.nickname,
+          picture: member.picture,
+          email: member.email,
+        };
+      } else {
+        // 尚未註冊，補註冊～～
+        console.log(profile._json);
+        let result = await connection.queryAsync("INSERT INTO member (facebook_id, account, password, name, email, picture, gender, create_date) VALUES (?);", [
+          [
+            profile.id,
+            "facebook" + profile.emails[0].value,
+            "facebooklogin",
+            profile.displayName,
+            profile.emails[0].value,
+            profile.photos[0].value,
+            profile.gender,
+            moment().format("YYYYMMDD"),
+          ],
+        ]);
+        console.log(result);
+        returnMember = {
+          id: result.insertId,
+          name: profile.displayName,
+          nickname: "",
+          picture: profile.photos[0].value,
+          email: profile.emails[0].value,
+        };
+      }
+      cb(null, returnMember);
+    }
+  )
+);
+
+router.post("/login/facebook", passport.authenticate("facebook-token", { session: false }), (req, res, next) => {
+  if (!req.user) {
+    console.log("FB Login 登入失敗");
+    return res.json(401);
+  }
+  console.log("FB 登入成功");
+  // 一般登入，帳號密碼驗證後，應該要做的事
+  req.session.member = req.user;
+  // 回覆給前端
+  res.json({
+    category: "auth",
+    type: "login",
+    code: "A0005",
+    name: req.user.name,
+    nickname: req.user.nickname,
+    picture: req.user.picture,
+  });
+});
+
 // 登出
 router.post("/logout", (req, res, next) => {
-  console.log('會員登出摟 !')
+  console.log("會員登出摟 !");
   req.session.member = null;
   res.sendStatus(202);
+});
+
+// 前端重新整理的時候查看有沒有登入過 (從 App.js 發來的)
+router.post("/isLogin", (req, res, next) => {
+  // console.log("isLogin-session", req.session);
+  if (req.session.member) {
+    res.send("有登入");
+  }
+  // res.sendStatus(202);
 });
 
 module.exports = router;
