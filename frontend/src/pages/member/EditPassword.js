@@ -9,10 +9,7 @@ import axios from 'axios'
 import validationInfo from './component/validationInfo'
 import InputErrorMsg from './component/InputErrorMsg'
 import Swal from 'sweetalert2'
-
-const colors = {
-  primary: '#fe9900',
-}
+import queryMsg from './component/queryMsg'
 
 function EditPassword() {
   const [errors, setErrors] = useState({})
@@ -45,54 +42,71 @@ function EditPassword() {
   // 檢驗表單的值有沒有不合法
   const handleFormValuesInvalid = (e) => {
     setErrors(validationInfo(formValues))
-    console.log('in valid', errors)
+    console.log('handleFormValuesInvalid: ', errors)
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    // 發送axios前，再次驗證表單的值有沒有不合法 --> 不通過 return false
+    // 1. 發送axios前，再次驗證表單的值有沒有不合法
+    //    不通過 --> return false
     handleFormValuesInvalid(e)
     if (Object.keys(errors).length > 0) {
-      console.log('Object.keys(errors).length:', Object.keys(errors).length)
+      // console.log('Object.keys(errors).length:', Object.keys(errors).length)
       return false
     }
 
-    // 通過 --> 驗證後發 axios
     try {
-      let oldPassword = formValues.oldPassword
-      let password = formValues.password
-      let rePassword = formValues.rePassword
-      let response = await axios.post(
-        `${API_URL}/member/editpwd`,
-        {
-          oldPassword,
-          password,
-          rePassword,
-        },
-        {
-          // 設定可以跨源送 cookie
-          withCredentials: true,
-        }
-      )
-      console.log(response)
-      if (response.status === 200) {
-        Swal.fire({
-          icon: 'success',
-          title: '資料更新成功！',
-          confirmButtonColor: colors.primary,
-          confirmButtonText: '確認',
-        })
+      //  2. 通過 --> 發 axios
+      let reqData = {
+        oldPassword: formValues.oldPassword,
+        password: formValues.password,
+        rePassword: formValues.rePassword,
       }
+      let response = await axios.post(`${API_URL}/member/editpwd`, reqData, {
+        // 設定可以跨源送 cookie
+        withCredentials: true,
+      })
+      // console.log('editPassword.js L70, response', response)
+
+      // 3. Y --> 後端回覆成功
+      //    a.清空 所有密碼欄位, b.開啟 成功的 Swal
+      setFormValues({
+        oldPassword: '',
+        password: '',
+        rePassword: '',
+      })
+      Swal.fire({
+        icon: 'success',
+        title: queryMsg(response.data.category, response.data.code),
+        confirmButtonColor: 'var(--color-primary)',
+        confirmButtonText: '確認',
+      })
     } catch (err) {
-      console.error(err.response)
-      if (err.response.status === 400) {
-        setFormValues({
-          oldPassword: '',
-          password: '',
-          rePassword: '',
+      // 3. N --> 後端回覆失敗
+      //    a.清空 所有密碼欄位, b. 設定表單錯誤訊息
+      // console.error('editPassword.js L88, err.response', err.response)
+      setFormValues({
+        oldPassword: '',
+        password: '',
+        rePassword: '',
+      })
+
+      let resData = err.response.data
+      // 其他驗證 或 express-validator 回覆１個欄位發生錯誤時，resData 是 Object
+      // express-validator 回覆多個欄位發生錯誤時，resData 是 Array
+      if (resData instanceof Object) {
+        setErrors({
+          [resData.type]: queryMsg(resData.category, resData.code),
         })
-        setErrors({ oldPassword: err.response.data.message })
+      } else if (resData instanceof Array) {
+        let resError = {}
+        for (let i = 0; i < resData.length; i++) {
+          const error = resData[i]
+          resError[error.type] = queryMsg(error.category, error.code)
+        }
+        // console.log('editPassword.js L109, resError', resError)
+        setErrors(resError)
       }
     }
   }
