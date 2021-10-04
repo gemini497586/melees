@@ -24,6 +24,9 @@ function FeatureStepWeek(props) {
   const [ingred, setIngred] = useState([])
   const [weekdata, setWeekdata] = useState([])
   const [weekprep, setWeekprep] = useState([])
+  const [save, setSave] = useState(false)
+  const [like, setLike] = useState(false)
+  const [view, setView] = useState(false)
 
   useEffect(() => {
     // 上面菜單
@@ -41,11 +44,32 @@ function FeatureStepWeek(props) {
 
   useEffect(() => {
     // 食譜資料
-    Axios.get(`${API_URL}/feature/steplist/${listId}`).then((response) => {
-      // response.data[0] 我只要陣列裡面的這一個物件 (3層以上就會掛掉)
-      setListdata(response.data[0])
-      setFeatureimg123(response.data[0].featureimg)
+    Axios.post(`${API_URL}/feature/steplist/${listId}`, null, {
+      // 讓 Axios 攜帶cookie
+      withCredentials: true,
+    }).then((response) => {
+      console.log('response.data', response.data)
+      if (response.data.getSave && response.data.getSave.length > 0) {
+        // 如果回傳不是undefined，代表資料庫有資料，那就是該會員有收藏過，所以把按鈕設成true
+        setSave(true)
+      }
       // console.log('response.data', response.data)
+      if (response.data.getLike && response.data.getLike.length > 0) {
+        setLike(true)
+      }
+      if (response.data.getView && response.data.getView.length > 0) {
+        setView(true)
+      }
+      // response.data[0] 我只要陣列裡面的這一個物件 (3層以上就會掛掉)
+      setListdata(response.data.data[0])
+      setFeatureimg123(response.data.data[0].featureimg)
+    })
+
+    // 瀏覽數
+    Axios.post(`${API_URL}/feature/feature-view/${listId}`, null, {
+      withCredentials: true,
+    }).then((response) => {
+      console.log(response.data)
     })
 
     // 食譜步驟
@@ -105,6 +129,10 @@ function FeatureStepWeek(props) {
                       linkName={listdata.linkName}
                       likeqty={listdata.likeqty}
                       viewqty={listdata.viewqty}
+                      save={save}
+                      setSave={setSave}
+                      like={like}
+                      setLike={setLike}
                     />
                   </div>
                   {/* 食材準備 */}
