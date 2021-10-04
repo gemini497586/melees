@@ -69,7 +69,6 @@ function Header() {
     axios
       .post(`${API_URL}/market/avatar`, null, { withCredentials: true })
       .then((result) => {
-        console.log(result.data[0].picture)
         setAvatar(result.data[0].picture)
       })
   }, [login])

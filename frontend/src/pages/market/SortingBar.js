@@ -13,41 +13,43 @@ function SortingBar() {
     '價格由高至低',
   ])
 
+  const handleSorting = (item) => {
+    setSelectIndex(item)
+    setIsDropDown(false)
+  }
+
   return (
-    <>
-      <div className="row justify-content-end">
-        <div className="col-12 col-md-3">
-          <div className="market-dropdown">
-            <div
-              className="market-dropdown-selection"
-              onClick={(e) => {
-                setIsDropDown(!isDropDown)
-              }}
-            >
-              {selectIndex ? selectIndex : '時間由舊至新'}
-            </div>
-            {isDropDown ? (
-              <div className="market-items-holder font-400SL">
-                {itemList.map((item, index) => (
-                  <div
-                    key={index}
-                    className="market-dropdown-item"
-                    onClick={() => {
-                      setSelectIndex(item)
-                      setIsDropDown(false)
-                    }}
-                  >
-                    {item}
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <></>
-            )}
+    <div className="row justify-content-end">
+      <div className="col-12 col-md-3">
+        <div className="market-dropdown">
+          <div
+            className="market-dropdown-selection"
+            onClick={() => {
+              setIsDropDown(!isDropDown)
+            }}
+          >
+            {selectIndex}
           </div>
+          {isDropDown ? (
+            <div className="market-items-holder font-400SL">
+              {itemList.map((item, index) => (
+                <div
+                  key={index}
+                  className="market-dropdown-item"
+                  onClick={() => {
+                    handleSorting(item)
+                  }}
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

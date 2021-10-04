@@ -16,32 +16,35 @@ function ProductCard(props) {
     setCurrentPage,
     perPage,
   } = props
-  const { addCart, setProductsAll, selectIndex, setCountProduct } = useCart()
+
+  const { addCart, setProductsAll, selectIndex, setSelectIndex } = useCart()
   const [save, setSave] = useState(false)
   const [saving, setSaving] = useState([])
 
   useEffect(() => {
     // 商品分類跟排序
     axios
-      .post(`${API_URL}/market/home/${category}/${selectIndex}`, null, {
-        withCredentials: true,
-      })
+      .post(`${API_URL}/market/home/${category}/${selectIndex}`)
       .then((response) => {
         setProduct(response.data)
+        // console.log('拿到資料', response.data)
         setCurrentPage(1)
       })
-  }, [category, selectIndex])
+  }, [selectIndex, category])
 
   useEffect(() => {
+    // 拿收藏
     axios
       .post(`${API_URL}/market/get/save`, null, {
         withCredentials: true,
       })
       .then((response) => {
-        console.log('拿到收藏', response.data)
-        setSaving(response.data)
+        const arr = []
+        for (let i = 0; i < response.data.length; i++) {
+          arr.push(response.data[i].product_id)
+        }
+        setSaving(arr)
       })
-      .then(console.log(saving))
   }, [])
 
   useEffect(() => {
@@ -49,11 +52,6 @@ function ProductCard(props) {
     axios.get(`${API_URL}/market/home`).then((response) => {
       setProductsAll(response.data)
     })
-  }, [])
-
-  useEffect(() => {
-    console.log(saving)
-    console.log(sessionStorage)
   }, [])
 
   // const [currentPage, setCurrentPage] = useState(1)
@@ -68,10 +66,14 @@ function ProductCard(props) {
         <Link to={`/market/product/${e.id}`}>
           <div className="product-img">
             <img src={`${API_URL}/market/${e.image}`} alt={`商品${e.id}圖片`} />
-            {save ? (
-              <FontAwesomeIcon icon="bookmark" className="bookmark" />
+            {saving.includes(e.id) ? (
+              <FontAwesomeIcon icon="bookmark" className="bookmark" size="2x" />
             ) : (
-              <></>
+              <FontAwesomeIcon
+                icon="bookmark"
+                className="unBookmark"
+                size="2x"
+              />
             )}
           </div>
           <p className="font-700S product-category">{P_CATEGORY[e.category]}</p>
