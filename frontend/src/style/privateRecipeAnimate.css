@@ -1,7 +1,7 @@
 .background_animate div {
   position: absolute;
-  width: 100px;
-  height: 100px;
+  width: 70px;
+  height: 70px;
   background: var(--color-primary);
   z-index: -1;
   border: 10px solid rgba(255, 255, 255, 0.8);
@@ -12,9 +12,9 @@
   animation: animate 10s linear infinite;
 }
 .background_animate div:nth-child(2) {
-  top: 70%;
+  top: 190%;
   left: 50%;
-  animation: animate 8s linear infinite;
+  animation: animate 19s linear infinite;
 }
 .background_animate div:nth-child(3) {
   top: 17%;
@@ -22,9 +22,9 @@
   animation: animate 9s linear infinite;
 }
 .background_animate div:nth-child(4) {
-  top: 20%;
+  top: 220%;
   left: 60%;
-  animation: animate 10s linear infinite;
+  animation: animate 21s linear infinite;
 }
 .background_animate div:nth-child(5) {
   top: 67%;
@@ -100,7 +100,7 @@
     opacity: 1;
   }
   100% {
-    transform: scale(2) translateY(-150px) rotate(360deg);
+    transform: scale(1.5) translateY(-150px) rotate(360deg);
     opacity: 0;
   }
 }
