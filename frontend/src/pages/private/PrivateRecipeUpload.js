@@ -6,13 +6,14 @@ import React, { useState } from 'react'
 import Axios from 'axios'
 import { API_URL } from '../../utils/config'
 import PrivateReicpeAnimate from './component/PrivateRecipeAnimate'
+import Swal from 'sweetalert2'
 
 function PrivateRecipeUpload() {
   // 要送出的資料初始狀態
   const [recipePhoto, setRecipePhoto] = useState()
   const [recipeName, setRecipeName] = useState('')
   const [recipeIntro, setRecipeIntro] = useState('')
-  const [recipeQty, setRecipeQty] = useState('')
+  const [recipeQty, setRecipeQty] = useState(1)
   const [ingredList, setIngredList] = useState([
     { ingred: '', ingred_unit: '' },
   ])
@@ -21,7 +22,8 @@ function PrivateRecipeUpload() {
   const [tag, setTag] = useState('')
   const [displayTag, setDisplayTag] = useState([])
   const [error, setError] = useState(false)
-
+  const [ingredAuth, setIngredAuth] = useState(false)
+  const [stepsAuth, setStepsAuth] = useState(false)
   const title = ['新增']
 
   const handleImageChange = (e) => {
@@ -86,11 +88,42 @@ function PrivateRecipeUpload() {
     const list = [...displayTag]
     list.splice(index, 1)
     setDisplayTag(list)
-    console.log(displayTag)
+    // console.log(displayTag)
   }
   // 上傳食譜 function
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (recipePhoto === '' || recipeName === '' || recipeIntro === '') {
+      Swal.fire({
+        text: '還沒輸入完成哦!',
+        icon: 'warning',
+        confirmButtonText: '確定',
+      })
+      return
+    }
+    ingredList.map((value) => {
+      if (value.ingred === '' || value.ingred_unit === '') {
+        console.log('ingred', value)
+        setIngredAuth(true)
+      } else {
+        setIngredAuth(false)
+      }
+    })
+    steps.map((value) => {
+      if (value.steps === '') {
+        setStepsAuth(true)
+      } else {
+        setStepsAuth(false)
+      }
+    })
+    if (ingredAuth || stepsAuth) {
+      Swal.fire({
+        text: '還沒輸入完成哦!',
+        icon: 'warning',
+        confirmButtonText: '確定',
+      })
+      return
+    }
 
     // 要上傳檔案/圖片的版本，需要透過 FormData
     // Content-Type: multipart/form-data
@@ -105,12 +138,9 @@ function PrivateRecipeUpload() {
       formData.append('steps', JSON.stringify(steps))
       formData.append('tag', JSON.stringify(displayTag))
 
-
       let res = await Axios.post(`${API_URL}/private/upload/main`, formData, {
         withCredentials: true,
       })
-
-      console.log(res)
     } catch (e) {
       console.error(e)
     }
@@ -181,6 +211,7 @@ function PrivateRecipeUpload() {
                     onChange={(e) => {
                       setRecipeName(e.target.value)
                     }}
+                    required
                   />
 
                   {/* 食譜介紹 */}
@@ -197,22 +228,36 @@ function PrivateRecipeUpload() {
                     onChange={(e) => {
                       setRecipeIntro(e.target.value)
                     }}
+                    required
                   ></textarea>
 
                   {/* 份量 */}
                   <label htmlFor="qty" className="privateRecipeUpload-label">
                     <h4>份量</h4>
                   </label>
-                  <input
-                    className="w-100"
-                    type="text"
-                    id="qty"
-                    name="qty"
-                    placeholder="請輸入份量"
-                    onChange={(e) => {
-                      setRecipeQty(e.target.value)
-                    }}
-                  />
+                  <div className="privateRecipeUpload-qty">
+                    <div className="d-flex privateRecipeUpload-qty-icon">
+                      <FontAwesomeIcon
+                        icon="minus"
+                        size="lg"
+                        onClick={(e) => {
+                          setRecipeQty(recipeQty - 1)
+                          if (recipeQty < 2) {
+                            setRecipeQty(1)
+                          }
+                        }}
+                      />
+                      <span>{recipeQty}</span>
+
+                      <FontAwesomeIcon
+                        icon="plus"
+                        size="lg"
+                        onClick={(e) => {
+                          setRecipeQty(recipeQty + 1)
+                        }}
+                      />
+                    </div>
+                  </div>
 
                   {/* 食材 */}
                   <label htmlFor="ingred" className="privateRecipeUpload-label">
@@ -227,6 +272,7 @@ function PrivateRecipeUpload() {
                           name="ingred"
                           placeholder="高麗菜"
                           onChange={(e) => ChangeIngred(e, index)}
+                          required
                         />
                         <input
                           type="text"
@@ -234,6 +280,7 @@ function PrivateRecipeUpload() {
                           name="ingred_unit"
                           placeholder="1顆"
                           onChange={(e) => ChangeIngred(e, index)}
+                          required
                         />
                         <FontAwesomeIcon
                           className="d-flex privateRecipeUpload-ingred-delete"
@@ -250,7 +297,7 @@ function PrivateRecipeUpload() {
                       onClick={AddIngred}
                     >
                       <FontAwesomeIcon icon="plus" size="lg" />
-                      <span className="font-700M"> 添加</span>
+                      <span className="font-700M">添加</span>
                     </div>
                   </div>
 
@@ -270,6 +317,7 @@ function PrivateRecipeUpload() {
                             placeholder="輸入步驟說明"
                             value={value.step}
                             onChange={(e) => changeStep(e, index)}
+                            required
                           />
                           <FontAwesomeIcon
                             className="privateRecipeUpload-step-delete"
@@ -339,7 +387,10 @@ function PrivateRecipeUpload() {
                   </div>
                   {/* 送出跟取消 */}
                   <div className="d-flex justify-content-around privateRecipeUpload-btn ">
-                    <button className="privateRecipeUpload-btn-upload font-700M">
+                    <button
+                      type="submit"
+                      className="privateRecipeUpload-btn-upload font-700M"
+                    >
                       送出
                     </button>
                     <Link to={'/private'}>
@@ -351,8 +402,8 @@ function PrivateRecipeUpload() {
                 </form>
               </div>
 
-              <pre>{JSON.stringify(ingredList, null, 2)}</pre>
-              <pre>{JSON.stringify(steps, null, 2)}</pre>
+              {/* <pre>{JSON.stringify(ingredList, null, 2)}</pre> */}
+              {/* <pre>{JSON.stringify(steps, null, 2)}</pre> */}
             </div>
           </div>
         </div>

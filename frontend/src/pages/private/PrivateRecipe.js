@@ -1,9 +1,9 @@
 // 私藏元件
 import PrivateRecipeBanner from './component/PrivateRecipeBanner'
 import PrivateRecipeCard from './component/PrivateRecipeCard'
+
 // 共同元件
 import DropDown from '../../component/DropDown'
-import Paging from '../../component/Paging'
 import CardRecipe from '../../component/CardRecipe'
 import CardShopping from '../../component/CardShopping'
 // tools
@@ -14,17 +14,29 @@ import { API_URL } from '../../utils/config'
 function PrivateRecipe() {
   const [itemInfo, setItemInfo] = useState([])
   const [sortBy, setSortBy] = useState(0)
-  const [saveState, setSaveState] = useState([])
-  const [likeState, setLikeState] = useState([])
+  const [likeArr, setLikeArr] = useState([])
+  const [saveArr, setSaveArr] = useState([])
+
+  const [totalPage, setTotalPage] = useState(0)
+  const [page, setPage] = useState(1)
+
   useEffect(() => {
-    Axios.get(`${API_URL}/private/index`, {
-      withCredentials: true,
-    }).then((res) => {
-      setItemInfo(res.data.recipeInfo)
-      setSaveState(res.data.saved)
-      setLikeState(res.data.liked)
-    })
-  }, [])
+    const getRecipe = async () => {
+      try {
+        let res = await Axios.get(`${API_URL}/private/index?page=${page}`, {
+          withCredentials: true,
+        })
+        setItemInfo(res.data.recipeInfo)
+        setLikeArr(res.data.likeArr)
+        setSaveArr(res.data.saveArr)
+        setTotalPage(res.data.pagination.lastPage)
+        setPage(res.data.pagination.page)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    getRecipe()
+  }, [page])
 
   const sortList = [
     {
@@ -52,6 +64,29 @@ function PrivateRecipe() {
       name: '評論數由少至多',
     },
   ]
+
+  const getPage = () => {
+    const pageList = []
+    for (let i = 1; i <= totalPage; i++) {
+      pageList.push(
+        <button
+          className="btn paging-btn"
+          style={{
+            backgroundColor:
+              page === i ? 'var(--color-primary)' : 'var(--color-white)',
+          }}
+          onClick={(e) => {
+            setPage(i)
+          }}
+          key={i}
+        >
+          {i}
+        </button>
+      )
+    }
+    return pageList
+  }
+
   // 排序功能
   const handleSort = (itemInfo, sortBy) => {
     let newData = [...itemInfo]
@@ -82,11 +117,10 @@ function PrivateRecipe() {
 
     return newData
   }
-  // const page = [1, 2, 3]
   useEffect(() => {
     let newData = []
     newData = handleSort(itemInfo, sortBy)
-    console.log(newData)
+    // console.log(newData)
     setItemInfo(newData)
   }, [sortBy])
   return (
@@ -101,22 +135,17 @@ function PrivateRecipe() {
               setSortBy={setSortBy}
             />
           </div>
-        </div>
-
-        <PrivateRecipeCard
-          itemInfo={itemInfo}
-          saveState={saveState}
-          likeState={likeState}
-        />
-        {/* <div className="container">
-          <div className="row justify-content-center">
-            {page.map((value, index) => {
-              return <Paging value={value} />
-            })}
+          <div className="row justify-content-start">
+            <PrivateRecipeCard
+              itemInfo={itemInfo}
+              likeArr={likeArr}
+              saveArr={saveArr}
+            />
           </div>
-        </div> */}
-        <CardRecipe />
-        <CardShopping />
+          <div className="row justify-content-center">{getPage()}</div>
+          <CardRecipe />
+          <CardShopping />
+        </div>
       </div>
     </>
   )
