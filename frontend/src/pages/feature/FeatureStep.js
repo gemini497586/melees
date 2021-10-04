@@ -14,38 +14,54 @@ import { API_URL } from '../../utils/config'
 function FeatureStep() {
   // 網址後面抓到不同變數導入
   const { listId } = useParams()
-  // 查詢 typeid 發出什麼訊息
-  // console.log('listId', listId)
-
   // 給頁面切換typeid資料用
   const [listdata, setListdata] = useState([])
   const [featureimg123, setFeatureimg123] = useState([])
   const [stepList, setStepList] = useState([])
   const [ingred, setIngred] = useState([])
-  // console.log('stepList', stepList)
+  const [save, setSave] = useState(false)
+  const [like, setLike] = useState(false)
+  const [view, setView] = useState(false)
 
   // 取得食譜ID
   useEffect(() => {
-    // 查props發出什麼訊息，是否有正確發出API
-    // console.log(
-    //   '${API_URL}/feature/step/${listId}',
-    //   `${API_URL}/feature/step/${listId}`
-    // )
-    Axios.get(`${API_URL}/feature/steplist/${listId}`).then((response) => {
-      // response.data[0] 我只要陣列裡面的這一個物件 (3層以上就會掛掉)
-      setListdata(response.data[0])
-      setFeatureimg123(response.data[0].featureimg)
+    // 食譜資料
+    Axios.post(`${API_URL}/feature/steplist/${listId}`, null, {
+      // 讓 Axios 攜帶cookie
+      withCredentials: true,
+    }).then((response) => {
+      console.log('response.data', response.data)
+      if (response.data.getSave && response.data.getSave.length > 0) {
+        // 如果回傳不是undefined，代表資料庫有資料，那就是該會員有收藏過，所以把按鈕設成true
+        setSave(true)
+      }
       // console.log('response.data', response.data)
+      if (response.data.getLike && response.data.getLike.length > 0) {
+        setLike(true)
+      }
+      if (response.data.getView && response.data.getView.length > 0) {
+        setView(true)
+      }
+      // response.data[0] 我只要陣列裡面的這一個物件 (3層以上就會掛掉)
+      setListdata(response.data.data[0])
+      setFeatureimg123(response.data.data[0].featureimg)
     })
 
+    // 瀏覽數
+    Axios.post(`${API_URL}/feature/feature-view/${listId}`, null, {
+      withCredentials: true,
+    }).then((response) => {
+      console.log(response.data)
+    })
+
+    // 食譜流程
     Axios.get(`${API_URL}/feature/step/${listId}`).then((response) => {
       setStepList(response.data)
-      // console.log(response.data.steps)
     })
 
+    // 食材準備
     Axios.get(`${API_URL}/feature/prep/${listId}`).then((response) => {
       setIngred(response.data)
-      // console.log(response.data.steps)
     })
   }, [listId])
 
@@ -67,11 +83,15 @@ function FeatureStep() {
               <FeatureContentImg featureimg={featureimg123} />
               <FeatureContentIntro
                 linkImg={listdata.linkImg}
+                linkName={listdata.linkName}
                 listName={listdata.listName}
                 qty={listdata.qty}
-                linkName={listdata.linkName}
                 likeqty={listdata.likeqty}
                 viewqty={listdata.viewqty}
+                save={save}
+                setSave={setSave}
+                like={like}
+                setLike={setLike}
               />
             </div>
             {/* 食材準備 */}

@@ -13,6 +13,7 @@ function FeatureIndex() {
   const [currentPage, setCurrentPage] = useState(1)
   // 給頁面切換typeid資料用
   const [typedata, setTypedata] = useState([])
+  const [perPage, setPerPage] = useState(6)
 
   // 網址後面抓到不同變數導入
   const { typeid } = useParams()
@@ -37,12 +38,17 @@ function FeatureIndex() {
               typedata={typedata}
               currentPage={currentPage}
               setTypedata={setTypedata}
+              perPage={perPage}
             />
           </div>
         </div>
         {/* 分頁 */}
         <div className="fpaginf-mf">
-          <Paging product={typedata} setCurrentPage={setCurrentPage} />
+          <Paging
+            product={typedata}
+            setCurrentPage={setCurrentPage}
+            perPage={perPage}
+          />
         </div>
         {/* 推薦商品 */}
         <CardShopping />
