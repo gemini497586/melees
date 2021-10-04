@@ -25,6 +25,14 @@
   cursor: pointer;
 }
 
+.unBookmark {
+  position: absolute;
+  color: var(--color-white);
+  top: 21px;
+  left: 254px;
+  cursor: pointer;
+}
+
 .product-img img {
   width: 306px;
   height: 280px;

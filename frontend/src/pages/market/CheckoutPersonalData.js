@@ -41,6 +41,7 @@ function CheckoutPersonalData() {
     } else if (!name || !phone || !email || !address) {
       Swal.fire('請完整填寫購買資料')
     } else {
+      console.log('3')
       addInfo({
         id: id,
         name: name,
@@ -62,6 +63,8 @@ function CheckoutPersonalData() {
       !address
     ) {
       setPath('checkout-personalData')
+    } else {
+      setPath('checkout-confirm')
     }
   }, [frontendCheck])
 

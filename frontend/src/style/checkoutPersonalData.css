@@ -169,5 +169,5 @@
 
 .checkout-personal-data input::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: red;
+  color: var(--color-red-C);
 }
