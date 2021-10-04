@@ -6,7 +6,6 @@ import ItemsCarousel from 'react-items-carousel'
 
 function FeatureContentImg(props) {
   const { featureimg } = props
-  // console.log('propsfeatureimg', props.featureimg)
 
   // 切換大圖使用
   const [largeimg, setLargeimg] = useState('')
@@ -18,7 +17,6 @@ function FeatureContentImg(props) {
   // 縮圖使用
   const smallimg = (e) => {
     setLargeimg(e.target.src)
-    // console.log('etarget', e.target)
   }
 
   // 套件的控制項
@@ -31,7 +29,7 @@ function FeatureContentImg(props) {
       <div className="fimg-title-img">
         {/* 大圖 */}
         <figure className="fimg-big-img">
-          <img className="fcover-fit" src={largeimg} alt="" />
+          <img className="fimg-big-cover-fit" src={largeimg} alt="" />
         </figure>
         <div className="d-flex align-items-center">
           {/* 很多縮圖 */}
@@ -73,20 +71,6 @@ function FeatureContentImg(props) {
               })}
             </ItemsCarousel>
           </div>
-          {/* 箭頭 */}
-          {/* 限定縮圖只有5個 ， 此簡寫方法為 ?代表if 等於if (props.featureimg.lengthe >5 ) */}
-          {/* {featureimg.length > 5 ? (
-            <button className="fimg-btn-fontawesome">
-              <FontAwesomeIcon
-                className="fcolor-grey-800"
-                icon={['fas', 'chevron-right']}
-                fixedWidth */}
-          {/* /> */}
-          {/* </button> */}
-          {/* ) : ( */}
-          {/* // :代表 else */}
-          {/* <></> */}
-          {/* )} */}
         </div>
       </div>
     </>
