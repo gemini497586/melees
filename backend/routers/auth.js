@@ -15,9 +15,7 @@ const dataValidation = [
     .isLength({ max: 100 })
     .withMessage("帳號不可空白或過長"),
   // 密碼驗證 --> 1.不為空值  2.密碼與確認密碼是否一致  3.min: 6; max: 12;
-  body("password")
-    .isLength({ min: 6, max: 12 })
-    .withMessage("密碼長度為6-12字元"),
+  body("password").isLength({ min: 6, max: 12 }).withMessage("密碼長度為6-12字元"),
   body("rePassword")
     .custom((value, { req }) => {
       return value === req.body.password;
@@ -68,11 +66,7 @@ const uploader = multer({
   // 非常必要的檔案驗證
   fileFilter: function (req, file, callback) {
     console.log(file);
-    if (
-      file.mimetype !== "image/jpeg" &&
-      file.mimetype !== "image/png" &&
-      file.mimetype !== "image/jpg"
-    ) {
+    if (file.mimetype !== "image/jpeg" && file.mimetype !== "image/png" && file.mimetype !== "image/jpg") {
       callback(new Error("不接受的檔案型態"), false);
     }
     callback(null, true);
@@ -94,9 +88,7 @@ router.post(
     if (!dataValidationResult.isEmpty()) {
       let error = dataValidationResult.array();
       console.log(error);
-      return res
-        .status(400)
-        .json({ field: error[0].param, message: error[0].msg });
+      return res.status(400).json({ field: error[0].param, message: error[0].msg });
     }
 
     // 確認資料是否有正確取得
@@ -104,10 +96,7 @@ router.post(
     console.log(req.file);
 
     // 帳號驗證 --> 3.是否有重複註冊
-    let memberAccount = await connection.queryAsync(
-      "SELECT * FROM member WHERE account = ?",
-      [req.body.account]
-    );
+    let memberAccount = await connection.queryAsync("SELECT * FROM member WHERE account = ?", [req.body.account]);
     if (memberAccount.length > 0) {
       return next({
         status: 400,
@@ -149,10 +138,7 @@ router.post("/login", async (req, res, next) => {
 
   // 1.確認有沒有帳號 (email 是否存在)
   //   a.如果沒有這個帳號，就回覆錯誤(400)
-  let member = await connection.queryAsync(
-    "SELECT * FROM member WHERE account = ?",
-    [req.body.account]
-  );
+  let member = await connection.queryAsync("SELECT * FROM member WHERE account = ?", [req.body.account]);
   //   console.log(member);
 
   if (member.length === 0) {
@@ -194,9 +180,18 @@ router.post("/login", async (req, res, next) => {
 
 // 登出
 router.post("/logout", (req, res, next) => {
-  console.log('會員登出摟 !')
+  console.log("會員登出摟 !");
   req.session.member = null;
   res.sendStatus(202);
+});
+
+// 前端重新整理的時候查看有沒有登入過 (從 App.js 發來的)
+router.post("/isLogin", (req, res, next) => {
+  // console.log("isLogin-session", req.session);
+  if (req.session.member) {
+    res.send("有登入");
+  }
+  // res.sendStatus(202);
 });
 
 module.exports = router;

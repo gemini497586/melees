@@ -30,7 +30,7 @@ function Paging(props) {
 
   return (
     <div className="paging">
-      {typeof pageArray === 'string' ? (
+      {pageArray === null ? (
         <></>
       ) : (
         pageArray.map((v) => {

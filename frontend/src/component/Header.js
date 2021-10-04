@@ -68,7 +68,6 @@ function Header() {
     axios
       .post(`${API_URL}/market/avatar`, null, { withCredentials: true })
       .then((result) => {
-        console.log(result.data[0].picture)
         setAvatar(result.data[0].picture)
       })
   }, [login])
@@ -78,7 +77,7 @@ function Header() {
 
   const handleLogout = async () => {
     try {
-      let response = await axios.post(`${API_URL}/auth/logout`, {
+      let response = await axios.post(`${API_URL}/auth/logout`, null, {
         // 設定可以跨源送 cookie
         withCredentials: true,
       })

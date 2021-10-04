@@ -166,3 +166,8 @@
   color: #fff;
   background: var(--color-primary);
 }
+
+.checkout-personal-data input::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: red;
+}

@@ -15,7 +15,7 @@ function CheckoutPersonalData() {
   const [howToPay, setHowToPay] = useState('請選擇付款方式')
   const [credit, setCredit] = useState(false)
   const [alert, setAlert] = useState(false)
-  const [path, setPath] = useState('checkout-personalData')
+  const [path, setPath] = useState('checkout-confirm')
 
   const { info, addInfo } = useCheckoutInfo()
   const [personalData, setPersonalData] = useState([])
@@ -38,6 +38,8 @@ function CheckoutPersonalData() {
       setAlert(true)
       let red = document.getElementById('payingBtn')
       red.classList.add('checkout-alert')
+    } else if (!name || !phone || !email || !address) {
+      Swal.fire('請完整填寫購買資料')
     } else {
       addInfo({
         id: id,
@@ -51,8 +53,15 @@ function CheckoutPersonalData() {
   }
 
   useEffect(() => {
-    if (howToPay !== '請選擇付款方式') {
-      setPath('checkout-confirm')
+    // 只要有任何一個欄位沒有填寫就不能連到下一頁
+    if (
+      howToPay === '請選擇付款方式' ||
+      !name ||
+      !phone ||
+      !email ||
+      !address
+    ) {
+      setPath('checkout-personalData')
     }
   }, [frontendCheck])
 
@@ -91,7 +100,7 @@ function CheckoutPersonalData() {
           <input
             className="checkout-personal-data-input"
             type="text"
-            placeholder="請輸入您的大名"
+            placeholder="請輸入您的名字"
             required
             value={name}
             onChange={(e) => {
@@ -104,7 +113,7 @@ function CheckoutPersonalData() {
           <input
             className="checkout-personal-data-input"
             type="text"
-            placeholder="0912xxxxxx"
+            placeholder="請輸入您的聯絡電話"
             required
             value={phone}
             onChange={(e) => {
@@ -117,7 +126,7 @@ function CheckoutPersonalData() {
           <input
             className="checkout-personal-data-input"
             type="email"
-            placeholder="abc@gmail.com"
+            placeholder="請輸入您的收件信箱"
             required
             value={email}
             onChange={(e) => {
@@ -130,7 +139,7 @@ function CheckoutPersonalData() {
           <input
             type="text"
             className="checkout-personal-data-input"
-            placeholder="請輸入收件地址"
+            placeholder="請輸入您的收件地址"
             required
             value={address}
             onChange={(e) => {
