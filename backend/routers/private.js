@@ -42,19 +42,30 @@ const uploader = multer({
     fileSize: 1024 * 1024,
   },
 });
-router.get("/test", async function (req, res, next) {
-  const sql = "SELECT private_id, count(*) as like_count FROM private_like WHERE private_id GROUP BY private_id IN (1)"
-  const result = await connection.queryAsync(sql);
 
-  res.json(result)
-})
 // 抓食譜的資料 (食譜首頁)
 router.get("/index", async function (req, res, next) {
-  const userId = req.session.member ? req.session.member.id : 0
-  console.log(userId)
+  // 每頁有幾筆
+  const perPage = 8
 
-  const sql = "SELECT private_recipe.*, member.nickname, member.picture AS member_picture FROM private_recipe JOIN member WHERE private_recipe.member_id = member.id AND private_recipe.valid = 1 ORDER BY private_recipe.id DESC";
-  const recipeInfo = await connection.queryAsync(sql);
+  // 預設第 1 頁
+  let page = parseInt(req.query.page || 1)
+  
+  // 總共有幾筆
+  let count = await connection.queryAsync("SELECT count(*) as total FROM private_recipe")
+  const total = count[0].total
+  
+  // 總共有幾筆 / 每頁有幾筆 = 總共有幾頁
+  const lastPage = Math.ceil(total / perPage)
+
+  // 要跳過幾筆
+  let offset = (page - 1) * perPage
+
+  // 會員 id
+  const userId = req.session.member ? req.session.member.id : 0
+
+  const sql = "SELECT private_recipe.*, member.nickname, member.picture AS member_picture FROM private_recipe JOIN member WHERE private_recipe.member_id = member.id AND private_recipe.valid = 1 ORDER BY private_recipe.id DESC LIMIT ? OFFSET ?";
+  const recipeInfo = await connection.queryAsync(sql, [perPage, offset]);
 
   const recipeList = []
   recipeInfo.map((value) => {
@@ -62,29 +73,30 @@ router.get("/index", async function (req, res, next) {
   })
 
   // 按讚數程式碼
-  const likeSql = "SELECT private_id, count(*) as like_count FROM private_like GROUP BY private_id";
-  const likeCount = await connection.queryAsync(likeSql);
+  const likeSql = "SELECT private_id, count(*) as like_count FROM private_like WHERE private_id IN ? GROUP BY private_id ";
+  const likeCount = await connection.queryAsync(likeSql, [[recipeList]]);
 
   const likeList = []
   
   likeCount.map((value) => {
     likeList.push(value.private_id)
   })
-
+  
   let subLike = recipeList.filter((e) => {
     return likeList.indexOf(e) === -1
   })
-
+  
   subLike.forEach((value) => {
     likeCount.push({private_id: value, like_count: 0,},)
   })
-
+  
   likeCount.sort((a, b) => {
     return b.private_id - a.private_id})
+    
 
   // 瀏覽數程式碼 
-  const viewSql = "SELECT private_id, count(*) as view_count FROM private_view GROUP BY private_id";
-  const viewCount = await connection.queryAsync(viewSql);
+  const viewSql = "SELECT private_id, count(*) as view_count FROM private_view WHERE private_id IN ? GROUP BY private_id";
+  const viewCount = await connection.queryAsync(viewSql, [[recipeList]]);
 
   const viewList = []
   viewCount.map((value) => {
@@ -103,9 +115,11 @@ router.get("/index", async function (req, res, next) {
     return b.private_id - a.private_id
   })
 
+
+
   // 評論程式碼
-  const commentSql = "SELECT private_id, count(*) as comment_count FROM private_comment GROUP BY private_id";
-  const commentCount= await connection.queryAsync(commentSql);
+  const commentSql = "SELECT private_id, count(*) as comment_count FROM private_comment WHERE private_id IN ? GROUP BY private_id";
+  const commentCount= await connection.queryAsync(commentSql, [[recipeList]]);
 
   const commentList = []
   commentCount.map((value) => {
@@ -122,29 +136,56 @@ router.get("/index", async function (req, res, next) {
 
   commentCount.sort((a, b) => {
     return b.private_id - a.private_id
+  })  
+
+  // 增加 KEY 跟 VALUE 至 OBJECT 中  
+  recipeInfo.map((value, index) => {
+    if(value.id === likeCount[index].private_id) {
+      value.likeCount = likeCount[index].like_count
+    }
+    if(value.id === viewCount[index].private_id) {
+      value.viewCount = viewCount[index].view_count
+    }
+    if(value.id === commentCount[index].private_id) {
+      value.commentCount = commentCount[index].comment_count
+    }
   })
   
-  // 增加 KEY 跟 VALUE 至 OBJECT 中
-  recipeInfo.map((value, index) => {
-    value.likeCount = likeCount[index].like_count
-    value.viewCount = viewCount[index].view_count
-    value.commentCount = commentCount[index].comment_count
-  })
 
-  // 選取使用者有沒有對這個食譜按收藏
-  let saveUser = "SELECT * FROM private_save WHERE user_id = ?";
+  // 選取這個使用者有沒有對這個食譜按收藏
+  let saveUser = "SELECT private_id FROM private_save WHERE user_id = ?";
   let saved = await connection.queryAsync(saveUser, [userId]);
-
-  // 選取使用者有沒有對這個食譜按讚
+  let saveArr = []
+  saved.map((value) => {
+    saveArr.push(value.private_id)
+  })
+  // 選取這個使用者有沒有對這個食譜按讚
   let likeUser = "SELECT * FROM private_like WHERE user_id = ?";
   let liked = await connection.queryAsync(likeUser, [userId]);
+  let likeArr = []
+  liked.map((value) => {
+    likeArr.push(value.private_id)
+  })
 
-  res.json({recipeInfo, saved, liked});
+  let pagination = {
+    total,  // 全部有幾筆
+    perPage,  // 每頁有幾筆  
+    lastPage,  // 最後一頁 
+    page  // 目前頁數
+  }
+  if(userId === 0) {
+    likeArr = [0]
+    saveArr = [0]
+    res.json({pagination, recipeInfo, likeArr, saveArr});
+  } else {
+    res.json({pagination, recipeInfo, likeArr, saveArr});
+  }
+  
 });
 
 // 進入食譜的資料 (內頁)
 router.get("/index/recipe/:id", async function (req, res, next) {
-  const userId = req.session.member ? req.session.member.id : ""
+  const userId = req.session.member ? req.session.member.id : 0
   
   const sql = "SELECT * FROM private_recipe WHERE id = ?";
   const result = await connection.queryAsync(sql, [req.params.id]);
@@ -180,84 +221,92 @@ router.get("/index/recipe/:id", async function (req, res, next) {
   res.json({ result, memberT, followT, memResult, followed, liked, saved });
 });
 
-// 追蹤的新增或刪除
-router.get("/add-follow/:id", async function (req, res, next) {
+router.post("/follow/switch/:id", async function(req, res, next) {
+  
+  const follow = req.body.followState
   const userId = req.session.member.id;
 
-  let sql = "SELECT * FROM private_recipe WHERE id = ?";
-  let result = await connection.queryAsync(sql, [req.params.id]);
 
-  let sql2 = "INSERT INTO private_follow (member_id, user_id) VALUES (?, ?)";
-  let follow = await connection.queryAsync(sql2, [result[0].member_id, userId]);
+  if (!follow) {
 
-  res.json(follow);
-});
-router.get("/remove-follow/:id", async function (req, res, next) {
-  const userId = req.session.member.id;
+    let sql = "SELECT * FROM private_recipe WHERE id = ?";
+    let result = await connection.queryAsync(sql, [req.params.id]);
 
-  let sql = "SELECT * FROM private_recipe WHERE id = ?";
-  let result = await connection.queryAsync(sql, [req.params.id]);
+    let sql2 = "INSERT INTO private_follow (member_id, user_id) VALUES (?, ?)";
+    let result1 = await connection.queryAsync(sql2, [result[0].member_id, userId]);
+    res.json(result1);
 
-  let sql2 = "DELETE FROM private_follow WHERE member_id = ? AND user_id = ?";
-  let follow = await connection.queryAsync(sql2, [result[0].member_id, userId]);
+  } else {
 
-  res.json(follow);
-});
+    let sq3 = "SELECT * FROM private_recipe WHERE id = ?";
+    let result = await connection.queryAsync(sq3, [req.params.id]);
+  
+    let sql4 = "DELETE FROM private_follow WHERE member_id = ? AND user_id = ?";
+    let result2 = await connection.queryAsync(sql4, [result[0].member_id, userId]);
 
-// 按讚的新增或刪除
-router.get("/add-like/:id", async function (req, res, next) {
-  const userId = req.session.member.id;
+    res.json(result2);
+  }
+})
 
-  let sql = "INSERT INTO private_like (private_id, user_id) VALUES (?, ?)";
-  let like = await connection.queryAsync(sql, [req.params.id, userId]);
+router.post("/like/switch/:id", async function(req, res, next) {
 
-  res.json(like);
-});
-router.get("/remove-like/:id", async function (req, res, next) {
-  const userId = req.session.member.id;
+  const like = req.body.likeState
+  const userId = req.session.member.id;  
 
-  let sql = "DELETE FROM private_like WHERE private_id = ? AND user_id = ?";
-  let like = await connection.queryAsync(sql, [req.params.id, userId]);
+  if (!like) {
 
-  res.json(like);
-});
+    let sql = "INSERT INTO private_like (private_id, user_id) VALUES (?, ?)";
+    let like = await connection.queryAsync(sql, [req.params.id, userId]);
+    res.json(like);
 
-// 按收藏的新增或刪除
-router.get("/add-save/:id", async function (req, res, next) {
-  const userId = req.session.member.id
-  let sql = "INSERT INTO private_save (private_id, user_id) VALUES (?, ?)";
-  let save = await connection.queryAsync(sql, [req.params.id, userId]);
+  } else {
 
-  res.json(save);
-});
-router.get("/remove-save/:id", async function (req, res, next) {
-  const userId = req.session.member.id
-  let sql = "DELETE FROM private_save WHERE private_id = ? AND user_id = ?";
-  let save = await connection.queryAsync(sql, [req.params.id, userId]);
+    let sql = "DELETE FROM private_like WHERE private_id = ? AND user_id = ?";
+    let like = await connection.queryAsync(sql, [req.params.id, userId]);
 
-  res.json(save);
-});
+    res.json(like);
+  }
+})
+router.post("/save/switch/:id", async function(req, res, next) {
 
-// 抓取食材的資料
-router.get("/ingred/:id", async function (req, res, next) {
+  const save = req.body.saveState
+  const userId = req.session.member.id;  
+
+  if (!save) {
+
+    let sql = "INSERT INTO private_save (private_id, user_id) VALUES (?, ?)";
+    let save = await connection.queryAsync(sql, [req.params.id, userId]);
+    res.json(save);
+
+  } else {
+
+    let sql = "DELETE FROM private_save WHERE private_id = ? AND user_id = ?";
+    let save = await connection.queryAsync(sql, [req.params.id, userId]);
+    res.json(save);
+    
+  }
+})
+
+
+router.get("/intro/:id", async function(req, res, next) {
+  const userId = req.session.member ? req.session.member.id : 0
+  let viewSql = "INSERT INTO private_view (private_id, user_id) VALUES (?, ?)";
+  let resResult = await connection.queryAsync(viewSql, [req.params.id, userId]);
+
   let sql = "SELECT * FROM private_ingred WHERE private_id = ?";
-  let data = await connection.queryAsync(sql, [req.params.id]);
-  res.json(data);
-});
+  let ingredList = await connection.queryAsync(sql, [req.params.id]);
 
-// 抓取步驟的資料
-router.get("/steps/:id", async function (req, res, next) {
-  let sql = "SELECT * FROM private_step WHERE private_id = ?";
-  let data = await connection.queryAsync(sql, [req.params.id]);
-  res.json(data);
-});
+  let sql2 = "SELECT * FROM private_step WHERE private_id = ?";
+  let stepList = await connection.queryAsync(sql2, [req.params.id]);
 
-// 抓取 tag 的資料
-router.get("/tags/:id", async function (req, res, next) {
-  let sql = "SELECT * FROM private_tags WHERE private_id = ?";
-  let data = await connection.queryAsync(sql, [req.params.id]);
-  res.json(data);
-});
+  let sq3 = "SELECT * FROM private_tags WHERE private_id = ?";
+  let tagList = await connection.queryAsync(sq3, [req.params.id]);
+
+  let sq4 = "SELECT member.nickname, member.picture, private_comment.* FROM member LEFT JOIN private_comment ON member.id = private_comment.member_id WHERE private_comment.private_id = ?"
+  let commentList = await connection.queryAsync(sq4, [req.params.id]);
+
+  res.json({ingredList, stepList, tagList, commentList})
+})
 
 // 抓取目前食譜的評論
 router.get("/comment/:id", async function (req, res, next) {
@@ -268,16 +317,18 @@ router.get("/comment/:id", async function (req, res, next) {
   res.json({ result, memResult });
 });
 
-// 更新瀏覽數
-router.get("/addview/:id", async function (req, res, next) {
-  const userId = req.session.member ? req.session.member.id : 0
-  let sql = "INSERT INTO private_view (private_id, user_id) VALUES (?, ?)";
-  let data = await connection.queryAsync(sql, [req.params.id, userId]);
-  res.send("success");
-});
-
 // 先檢查是否已登入
 router.use(loginCheckMiddleware);
+
+// 抓取目前使用者頭像
+router.get("/avatar", async function(req, res, next) {
+  const userId = req.session.member.id;
+  // 使用者照片
+  const picSql = "SELECT picture FROM member WHERE id = ?"
+  const userPic = await connection.queryAsync(picSql, [userId])
+
+  res.json(userPic[0])
+})
 
 // 編輯食譜，先去資料庫拿資料
 router.get("/edit/get-data/:id", async function (req, res, next) {
@@ -481,7 +532,7 @@ router.post("/upload/main", uploader.single("photo"), async function (req, res, 
   // 取得剛新增的食譜 id
   let sql2 = "SELECT * FROM private_recipe ORDER BY id DESC LIMIT 1";
   let lastId = await connection.queryAsync(sql2);
-  console.log("最後一次ID", lastId[0].id);
+  console.log("剛新增的食譜 id ", lastId[0].id);
 
   // 新增食材到資料表
   ingred.forEach(async (value) => {
@@ -533,7 +584,6 @@ router.post("/comment/upload/:id", async function (req, res, next) {
   // 寫回 private_recipe 的 star_rate
   let sql3 = "UPDATE private_recipe SET star_rate = ? WHERE id = ?";
   let result2 = await connection.queryAsync(sql3, [averageStar, req.params.id]);
-
   res.json(data);
 });
 
@@ -546,7 +596,6 @@ router.get("/delete-recipe/:id", async function (req, res, next) {
 // 會員私藏食譜部分
 router.get("/myrecipe", async function (req, res, next) {
   const memberId = req.session.member.id
-  // const memberId = 4
 
   const sql = "SELECT * FROM private_recipe WHERE member_id = ? AND valid = 1 ORDER BY id DESC";
   const recipeInfo = await connection.queryAsync(sql, [memberId]);

@@ -64,9 +64,27 @@ router.get("/feature", async function (req, res, next) {
   //   return item;
   // });
 
-  console.log("data: ", data);
+  // console.log("data: ", data);
   res.json(data);
 });
+
+// 私藏
+router.get("/private", async (req, res, next) => {
+  
+  // 搜尋瀏覽數最多的前五個
+  let sql = "SELECT private_id, count(*) as count FROM private_view GROUP BY private_id ORDER BY count DESC LIMIT 5"
+  let result = await connection.queryAsync(sql)
+  
+  let privateId = result.map((value) => {
+    return value.private_id
+  })
+
+  // 撈出前五個食譜資料
+  let sql2 = "SELECT * FROM private_recipe WHERE id IN ?"
+  let private = await connection.queryAsync(sql2, [[privateId]])
+
+  res.json(private)
+})
 
 // 商城
 router.get("/market", async (req, res, next) => {
