@@ -10,8 +10,8 @@ function About() {
           <div className="about-image">
             <img
               src="http://localhost:3000/images/logo.png"
-              alt="melees"
-              className="b-contain-fit"
+              alt="MELEE"
+              className="contain-fit"
             />
           </div>
           <div className="about-content">

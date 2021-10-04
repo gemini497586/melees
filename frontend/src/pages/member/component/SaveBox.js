@@ -5,9 +5,8 @@ import Swal from 'sweetalert2'
 import Axios from 'axios'
 
 function SaveBox(props) {
-  const { data, prepList, setDisplayData, currentPage } = props
+  const { data, prepList, setDisplayData, currentPage, perPage } = props
   // 設定分頁
-  const perPage = 6
   const lastNumber = currentPage * perPage
   const firstNumber = lastNumber - perPage
   const currentNumber = data.slice(firstNumber, lastNumber)
@@ -63,14 +62,14 @@ function SaveBox(props) {
   const handleDelete = async (id) => {
     try {
       await Axios.post(
-        `${API_URL}/member/deletesavebox`,
+        `${API_URL}/box/deletesavebox`,
         {
           id,
         },
         { withCredentials: true }
       )
       // 刪除後，重新抓原本的data
-      let res2 = await Axios.get(`${API_URL}/member/readsavebox`, {
+      let res2 = await Axios.get(`${API_URL}/box/readsavebox`, {
         withCredentials: true,
       })
       let data = res2.data.result
@@ -112,7 +111,7 @@ function SaveBox(props) {
                     總卡路里: {value.cal} 大卡
                   </li>
                   <li className="font-400S">名稱: {value.name}</li>
-                  <li className="font-400S">日期: {value.create_at}</li>
+                  <li className="font-400S">日期: {value.create_date}</li>
                 </ul>
                 <button
                   className="member-box-del"
