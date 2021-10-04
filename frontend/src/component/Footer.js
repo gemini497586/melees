@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 function Footer() {
   const footerList = [
     {
-      header: '關於MELLEs',
+      header: '關於MELEEs',
       content: [
         { url: '/about', title: '關於我們' },
         { url: '/', title: '加入MELEEs' },
@@ -25,8 +25,8 @@ function Footer() {
         { url: '/member/orderlist', title: '進度查詢' },
         { url: '/member/orderlist', title: '取消訂單' },
         { url: '/member/saveproduct', title: '追蹤清單' },
-        { url: '/d', title: '常見問答' },
-        { url: '/e', title: '聯絡我們' },
+        { url: '/', title: '常見問答' },
+        { url: '/', title: '聯絡我們' },
       ],
     },
     {

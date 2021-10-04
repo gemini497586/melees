@@ -21,7 +21,11 @@ function OrderQuery() {
   useEffect(() => {
     const getData = async () => {
       try {
-        let res = await Axios.get(`${API_URL}/order`, { withCredentials: true })
+        let res = await Axios.post(
+          `${API_URL}/order`,
+          {},
+          { withCredentials: true }
+        )
         let data = res.data.result
         let count = res.data.count.count
         setData(data)

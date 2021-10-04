@@ -6,10 +6,8 @@ import { API_URL, P_CATEGORY } from '../../../utils/config'
 import useCart from '../../../utils/useCart'
 
 function MemberSaveProdcutCard(props) {
-  const { saveList, productList, currentPage } = props
+  const { saveList, productList, currentPage, perPage } = props
   const { addCart } = useCart()
-
-  const perPage = 10
   const lastNumber = currentPage * perPage
   const firstNumber = lastNumber - perPage
   const currentNumber = saveList.slice(firstNumber, lastNumber)

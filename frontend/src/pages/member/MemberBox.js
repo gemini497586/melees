@@ -29,18 +29,19 @@ function MemberBox() {
     },
   ]
   const [currentPage, setCurrentPage] = useState(1)
-  const [perPage] = useState(10)
-
+  const perPage = 9
+  const [message, setMessage] = useState('')
   // 初始化資料
   useEffect(() => {
     const getData = async () => {
       try {
-        let res = await Axios.get(`${API_URL}/member/readsavebox`, {
+        let res = await Axios.get(`${API_URL}/box/readsavebox`, {
           withCredentials: true,
         })
         // 檢查是否有收藏
         if (res.data.message) {
-          console.log(`${res.data.message}`)
+          // console.log(res.data.message)
+          setMessage('目前尚未收藏任何便當，馬上去客製化便當吧！')
         } else {
           let data = res.data.result
           let prep = res.data.result2
@@ -99,7 +100,20 @@ function MemberBox() {
               />
             </div>
             <div className="row">
-              {data.length === 0 ? (
+              {message === '' ? (
+                <SaveBox
+                  data={displayData}
+                  prepList={prepList}
+                  setDisplayData={setDisplayData}
+                  currentPage={currentPage}
+                  perPage={perPage}
+                />
+              ) : (
+                <div className="member-notice font-700L">
+                  <Link to="/box">{message}</Link>
+                </div>
+              )}
+              {/* {data.length === 0 ? (
                 <div className="member-notice font-700L">
                   <Link to="/box">
                     目前尚未收藏任何便當，馬上去客製化便當吧！
@@ -111,8 +125,9 @@ function MemberBox() {
                   prepList={prepList}
                   setDisplayData={setDisplayData}
                   currentPage={currentPage}
+                  perPage={perPage}
                 />
-              )}
+              )} */}
             </div>
             <Paging
               product={displayData}

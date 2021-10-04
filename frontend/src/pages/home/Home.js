@@ -41,7 +41,7 @@ function Home() {
     const Svg = svg
 
     gsap.to(hoomebento, 0, { css: { visibility: 'visible' } })
-    console.log(btnimg)
+    // console.log(btnimg)
 
     hl.fromTo(
       Bentoimg,

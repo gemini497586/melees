@@ -65,7 +65,11 @@ function ProductCard(props) {
       <div className="product-card col-6" key={e.id}>
         <Link to={`/market/product/${e.id}`}>
           <div className="product-img">
-            <img src={`${API_URL}/market/${e.image}`} alt={`商品${e.id}圖片`} />
+            <img
+              src={`${API_URL}/market/${e.image}`}
+              alt={`商品${e.id}圖片`}
+              className="cover-fit"
+            />
             {saving.includes(e.id) ? (
               <FontAwesomeIcon icon="bookmark" className="bookmark" size="2x" />
             ) : (
