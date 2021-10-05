@@ -90,7 +90,7 @@
 /* 訂單詳細資訊部分 */
 .check-order-main-detail {
   width: 1320px;
-  /* height: 800px; */
+  height: 800px;
   border: 1px solid #000;
   border-radius: 4px;
   margin-top: 65px;
@@ -132,9 +132,11 @@
 
 .main-detail-row-area {
   width: 1318px;
+  top: 0px;
+  min-height: 220px;
+  /* background: red; */
   margin-top: 150px;
-  background: green;
-  position: relative;
+  /* position: relative; */
 }
 
 .main-detail-row-title {

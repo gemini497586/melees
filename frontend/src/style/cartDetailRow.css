@@ -40,6 +40,13 @@
   color: var(--color-grey-800);
   top: 76px;
   left: 308px;
+  width: 380px;
+  height: 78px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  -webkit-line-clamp: 4; /*行數 */
 }
 
 .cart-detail-price {

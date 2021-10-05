@@ -18,16 +18,20 @@ function CartDetailRow() {
       })
   }, [])
   return (
-    <>
+    <div className="">
       {product.map((v, i) => {
         return (
           <div className="cart-detail-row">
-            <img src={`${API_URL}/market/${v.image}`} alt="商品圖片" className="cover-fit"/>
+            <img
+              src={`${API_URL}/market/${v.image}`}
+              alt="商品圖片"
+              className="cover-fit"
+            />
             <p className="font-400S cart-detail-category">
               {P_CATEGORY[v.category]}
             </p>
             <h6 className="cart-detail-name">{v.name}</h6>
-            {/* <p className="font-400S cart-detail-specs">{v.specs}</p> */}
+            <p className="font-400S cart-detail-specs">{v.specs}</p>
             <p className="cart-detail-price">
               <FontAwesomeIcon icon="dollar-sign" /> {v.price}
             </p>
@@ -39,7 +43,7 @@ function CartDetailRow() {
           </div>
         )
       })}
-    </>
+    </div>
   )
 }
 
