@@ -454,6 +454,11 @@ router.post("/recipecomment/modal/read", async (req, res, next) => {
     [req.body.recipe_id]
   );
 
+  let comment_qty = await connection.queryAsync(
+    "SELECT count(*) AS count FROM private_comment WHERE private_id=? AND member_id=?",
+    [req.body.recipe_id, req.session.member.id]
+  );
+
   let author_id = await connection.queryAsync(
     "SELECT member_id FROM private_recipe WHERE id=?",
     [req.body.recipe_id]
@@ -473,6 +478,7 @@ router.post("/recipecomment/modal/read", async (req, res, next) => {
     recipe_author_avatar: author_avatar[0].picture,
     like_qty: like_qty[0].count,
     view_qty: view_qty[0].count,
+    comment_qty: comment_qty[0].count,
   };
 
   res.json(newResult);
