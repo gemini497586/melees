@@ -246,7 +246,7 @@ function EditMemberInfo() {
                   onBlur={handleFormValuesInvalid}
                   placeholder=""
                   required
-                  maxlength="100"
+                  maxLength="100"
                 />
                 <InputErrorMsg errorMsg={errors.name} />
               </div>
@@ -296,7 +296,7 @@ function EditMemberInfo() {
                   onChange={handleFormValuesChange}
                   onBlur={handleFormValuesInvalid}
                   placeholder=""
-                  maxlength="100"
+                  maxLength="100"
                 />
                 <InputErrorMsg errorMsg={errors.nickname} />
               </div>
@@ -343,7 +343,7 @@ function EditMemberInfo() {
                   onBlur={handleFormValuesInvalid}
                   placeholder=""
                   required
-                  maxlength="100"
+                  maxLength="100"
                 />
                 <InputErrorMsg errorMsg={errors.cellphone} />
               </div>
@@ -367,7 +367,7 @@ function EditMemberInfo() {
                   onBlur={handleFormValuesInvalid}
                   placeholder=""
                   required
-                  maxlength="100"
+                  maxLength="100"
                 />
                 <InputErrorMsg errorMsg={errors.email} />
               </div>
@@ -390,7 +390,7 @@ function EditMemberInfo() {
                   onChange={handleFormValuesChange}
                   onBlur={handleFormValuesInvalid}
                   placeholder=""
-                  maxlength="100"
+                  maxLength="100"
                 />
                 <InputErrorMsg errorMsg={errors.address} />
               </div>

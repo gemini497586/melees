@@ -213,7 +213,11 @@ function Header() {
               <img
                 alt="大頭貼"
                 className="cover-fit"
-                src={`${API_URL}/member${avatar}`}
+                src={
+                  avatar.includes('http')
+                    ? avatar
+                    : `${API_URL}/member${avatar}`
+                }
               />
               <FontAwesomeIcon icon="user-circle" className="user" />
             </div>

@@ -388,10 +388,10 @@
 .b-modal-close:hover {
   color: var(--color-grey-900);
 }
-
 .b-modal-note {
   color: var(--color-grey-800);
-  margin-bottom: 10px;
+  height: 20px;
+  margin-bottom: 5px;
 }
 @media screen and (max-width: 414px) {
   .b-modal {

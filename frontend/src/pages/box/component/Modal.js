@@ -8,6 +8,7 @@ import Swal from 'sweetalert2'
 
 function Modal(props) {
   const [name, setName] = useState('')
+  const [error, setError] = useState('')
   const {
     showModal,
     setShowModal,
@@ -26,6 +27,10 @@ function Modal(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    // if (!name) {
+    //   setError('請為您的便當命名')
+    //   return
+    // }
     try {
       await axios.post(
         `${API_URL}/box/savebox`,
@@ -41,17 +46,19 @@ function Modal(props) {
       setCal(0)
       setTableList([])
       setName('')
+      setError('')
       Swal.fire({
         icon: 'success',
         title: '便當已收藏',
         text: '可至會員專區查詢',
         confirmButtonColor: 'var(--color-primary)',
       })
-      // console.log(res)
     } catch (e) {
       console.log('e', e.response)
-      // alert(e.response.data.message)
     }
+  }
+  const handleChange = (e) => {
+    setError('')
   }
 
   return (
@@ -92,13 +99,17 @@ function Modal(props) {
               </div>
             </div>
             <div className="col-md-4 b-modal-right">
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} onChange={handleChange}>
                 <input type="hidden" value={bentoId} />
                 <input type="hidden" value={cal} />
                 <label htmlFor="boxName" className="font-700M">
                   為你的便當命名
                 </label>
-                <div className="b-modal-note font-400SS">*最長八個字</div>
+                {error ? (
+                  <div className="b-page1-errorMsg font-400S">{error}</div>
+                ) : (
+                  <div className="b-modal-note font-400S">*最長八個字</div>
+                )}
                 <div>
                   <input
                     type="text"
@@ -106,7 +117,6 @@ function Modal(props) {
                     id="boxName"
                     value={name}
                     className="col-8 mb-3"
-                    placeholder={name}
                     maxLength="8"
                     onChange={(e) => {
                       setName(e.target.value)

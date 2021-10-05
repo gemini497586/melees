@@ -16,7 +16,6 @@ router.get("/", async (req, res, next) => {
 
 router.get("/recipe", async (req, res, next) => {
     const memberId = req.session.member ? req.session.member.id : 0;
-    // const memberId = 1;
 
     // 隨機抓四個，顯示被收藏數
     let feature = await connection.queryAsync(
@@ -45,7 +44,6 @@ router.get("/recipe", async (req, res, next) => {
 
 router.get("/product", async (req, res, next) => {
     const memberId = req.session.member ? req.session.member.id : 0;
-    // const memberId = 1;
 
     // 隨機抓四個，顯示被收藏數
     let product = await connection.queryAsync(
@@ -77,21 +75,28 @@ router.post("/savebox", async (req, res, next) => {
     const cal = req.body.cal;
     const bentoId = req.body.bentoId;
 
-    await connection.queryAsync(
-        "INSERT INTO box_save_main (member_id,name,cal,create_date) VALUE (?)",
-        [[memberId, name, cal, createDate]]
-    );
-    let lastId = await connection.queryAsync(
-        "SELECT * FROM box_save_main ORDER BY id DESC LIMIT 1"
-    );
-    // console.log("上一個ID", lastId[0].id);
-    for (let i = 0; i < bentoId.length; i++) {
+    if (!name) {
+        return next({
+            status: 400,
+            message: "未輸入便當名稱",
+        });
+    } else {
         await connection.queryAsync(
-            "INSERT INTO box_save_detail (save_id, box_id) VALUES (?)",
-            [[lastId[0].id, bentoId[i]]]
+            "INSERT INTO box_save_main (member_id,name,cal,create_date) VALUE (?)",
+            [[memberId, name, cal, createDate]]
         );
+        let lastId = await connection.queryAsync(
+            "SELECT * FROM box_save_main ORDER BY id DESC LIMIT 1"
+        );
+        // console.log("上一個ID", lastId[0].id);
+        for (let i = 0; i < bentoId.length; i++) {
+            await connection.queryAsync(
+                "INSERT INTO box_save_detail (save_id, box_id) VALUES (?)",
+                [[lastId[0].id, bentoId[i]]]
+            );
+        }
+        res.status(200).json({ message: "客製化便當收藏成功" });
     }
-    res.status(200).json({ message: "客製化便當收藏成功" });
 });
 
 // 讀取收藏便當
