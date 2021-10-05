@@ -4,8 +4,8 @@ import '../../style/box.css'
 import Page1 from './component/Page1'
 import Page2 from './component/Page2'
 import Page3 from './component/Page3'
-import CardRecipe from '../../component/CardRecipe'
-import CardShopping from '../../component/CardShopping'
+import CardRecipe from './component/CardRecipe'
+import CardShopping from './component/CardShopping'
 import { API_URL } from '../../utils/config'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
@@ -23,6 +23,8 @@ function Box() {
   const [bmr, setBmr] = useState(0)
   const [tdee, setTdee] = useState(0)
   const [cal, setCal] = useState(0)
+  const [product, setProduct] = useState([])
+  const [recipe, setRecipe] = useState([])
 
   // 從資料庫抓資料
   useEffect(() => {
@@ -46,7 +48,6 @@ function Box() {
     let getName = bento.map((item) => {
       return item.name
     })
-    // console.log('新增之前 ', getName)
 
     // 判斷食材是否已存在便當裡
     // 存在->不能新增
@@ -60,7 +61,14 @@ function Box() {
     } else {
       const newBento = [
         ...bento,
-        { name: v.name, inside_image: v.inside_image, id: v.id, cal: v.cal },
+        {
+          name: v.name,
+          inside_image: v.inside_image,
+          id: v.id,
+          cal: v.cal,
+          product_id: v.product_id,
+          feature_id: v.feature_id,
+        },
       ]
       // 第六個的時候就不能再新增
       if (newBento.length > 5) {
@@ -71,9 +79,6 @@ function Box() {
         return
       }
       setBento(newBento)
-      // console.log('新增之前', bento)
-      // console.log('新增之後', newBento)
-
       // 加到table
       const newTableList = [
         ...tableList,
@@ -87,7 +92,38 @@ function Box() {
       })
       const newCal = getCal.reduce((acc, curr) => acc + curr)
       setCal(newCal)
-      // console.log('現在的卡路里 ', newCal)
+
+      // 抓到點下去的商品id
+      const productIds = newBento.map((v) => {
+        return v.product_id
+      })
+      const recipeId = newBento.map((v) => {
+        return v.feature_id
+      })
+      getProduct(productIds, recipeId)
+    }
+  }
+  // 點到的商品id丟到後端，也同時丟進product/recipe這個狀態中
+  const getProduct = async (productIds, recipeId) => {
+    try {
+      let result = await Axios.post(
+        `${API_URL}/box/recommendproduct`,
+        { productIds },
+        {
+          withCredentials: true,
+        }
+      )
+      let result2 = await Axios.post(
+        `${API_URL}/box/recommendrecipe`,
+        { recipeId },
+        {
+          withCredentials: true,
+        }
+      )
+      setProduct(result.data.product)
+      setRecipe(result2.data.feature)
+    } catch (e) {
+      console.log('e', e.response)
     }
   }
 
@@ -118,6 +154,7 @@ function Box() {
           handleRemove={handleRemove}
           bento={bento}
         />
+        <CardRecipe recipe={recipe} />
         <Page3
           tdee={tdee}
           cal={cal}
@@ -128,8 +165,7 @@ function Box() {
           setBento={setBento}
         />
         {/* 最下面推薦食譜 商品 */}
-        <CardRecipe />
-        <CardShopping />
+        <CardShopping product={product} />
       </section>
     </>
   )

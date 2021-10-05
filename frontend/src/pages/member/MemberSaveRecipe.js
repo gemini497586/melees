@@ -45,7 +45,6 @@ function MemberFeature() {
         })
         // 判斷是否有收藏
         if (res.data.message) {
-          // console.log(res.data.message)
           setMessage('目前尚未收藏任何食譜，馬上去看看食譜吧！')
         } else {
           let privateData = res.data.private
@@ -53,7 +52,6 @@ function MemberFeature() {
           let totalData = privateData.concat(featureData)
           setData(totalData)
           setDisplayData(totalData)
-          // console.log(res)
         }
       } catch (e) {
         console.log(e)

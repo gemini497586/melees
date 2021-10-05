@@ -4,7 +4,6 @@ const router = express.Router();
 
 router.get("/market", async (req, res, next) => {
     const word = `%${req.query.word}%`;
-    // console.log(word);
     let result = await connection.queryAsync(
         "SELECT * FROM product WHERE name LIKE ? ORDER BY id DESC",
         [word]
@@ -35,7 +34,6 @@ router.get("/recipe", async (req, res, next) => {
     let privateNameIds = privateName.map((v) => {
         return v.id;
     });
-    // console.log("privateNameIds ", privateNameIds);
 
     // 私藏 食材
     let privateIngred = await connection.queryAsync(
@@ -45,7 +43,6 @@ router.get("/recipe", async (req, res, next) => {
     let privateIngredIds = privateIngred.map((v) => {
         return v.private_id;
     });
-    // console.log("privateIngredIds ", privateIngredIds);
 
     // 私藏 tags標籤
     let tags = await connection.queryAsync(
@@ -55,11 +52,9 @@ router.get("/recipe", async (req, res, next) => {
     let tagIds = tags.map((v) => {
         return v.private_id;
     });
-    // console.log("tags ", tagIds);
 
     // 把上面全部id整理成一個陣列，在用id撈出所有資料(不重複)
     let privateIds = privateNameIds.concat(privateIngredIds).concat(tagIds);
-    // console.log("privateIds ", privateIds);
 
     if (privateIds.length > 0) {
         let private = await connection.queryAsync(
@@ -76,7 +71,6 @@ router.get("/recipe", async (req, res, next) => {
             v["type"] = 1;
             return v;
         });
-        // console.log(private);
         result["private"] = private;
     }
 
@@ -88,7 +82,6 @@ router.get("/recipe", async (req, res, next) => {
     let featureNameIds = featureName.map((v) => {
         return v.id;
     });
-    // console.log("featureNameIds ", featureNameIds);
 
     // 精選 食材
     let featureprep = await connection.queryAsync(
@@ -98,11 +91,9 @@ router.get("/recipe", async (req, res, next) => {
     let featureprepIds = featureprep.map((v) => {
         return v.feature_id;
     });
-    // console.log("featureprepIds ", featureprepIds);
 
     // 篩選是否有相同的id，整理出一串id
     let featureIds = featureNameIds.concat(featureprepIds);
-    // console.log("featureIds ", featureIds);
 
     if (featureIds.length > 0) {
         let feature = await connection.queryAsync(

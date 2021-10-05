@@ -64,6 +64,42 @@ router.get("/product", async (req, res, next) => {
     res.json({ product, member_save });
 });
 
+router.post("/recommendproduct", async (req, res, next) => {
+    // 先給死四個商品
+    let showArr = [5, 6, 7, 8];
+    for (let i = 0; i < req.body.productIds.length; i++) {
+        showArr.push(req.body.productIds[i]);
+    }
+    showArr = showArr.slice(-4);
+    // console.log("取最後四個id ", showArr);
+
+    let product = await connection.queryAsync(
+        "SELECT a.id, a.category, a.image, a.name, a.price, COUNT(member_id) AS save_qty FROM product AS a INNER JOIN product_save AS b ON a.id=product_id WHERE a.id IN ? GROUP BY a.id ",
+        [[showArr]]
+    );
+    res.json({ product });
+});
+
+router.post("/recommendrecipe", async (req, res, next) => {
+    // 先給死四個商品
+    let showArr = [17, 18, 19, 20];
+    for (let i = 0; i < req.body.recipeId.length; i++) {
+        showArr.push(req.body.recipeId[i]);
+    }
+    showArr = showArr.slice(-4);
+    // console.log(showArr);
+
+    let feature = await connection.queryAsync(
+        "SELECT a.id, a.type_id, a.name, b.name AS linkName, GROUP_CONCAT(c.file_type) AS featureimg, COUNT(d.member_id) AS save_qty FROM feature_list AS a INNER JOIN feature_link AS b ON a.link_id=b.id INNER JOIN feature_img AS c ON a.id=c.feature_id INNER JOIN feature_save AS d ON a.id=d.feature_id WHERE a.id IN ? GROUP BY a.id ",
+        [[showArr]]
+    );
+    feature = feature.map((v) => {
+        v.featureimg = v.featureimg.split(",")[0];
+        return v;
+    });
+    res.json({ feature });
+});
+
 // 先檢查是否已登入
 router.use(loginCheckMiddleware);
 

@@ -27,10 +27,10 @@ function Modal(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    // if (!name) {
-    //   setError('請為您的便當命名')
-    //   return
-    // }
+    if (!name) {
+      setError('請為您的便當命名')
+      return
+    }
     try {
       await axios.post(
         `${API_URL}/box/savebox`,

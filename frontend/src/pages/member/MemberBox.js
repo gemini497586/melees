@@ -29,7 +29,7 @@ function MemberBox() {
     },
   ]
   const [currentPage, setCurrentPage] = useState(1)
-  const perPage = 9
+  const perPage = 6
   const [message, setMessage] = useState('')
   // 初始化資料
   useEffect(() => {
@@ -40,7 +40,6 @@ function MemberBox() {
         })
         // 檢查是否有收藏
         if (res.data.message) {
-          // console.log(res.data.message)
           setMessage('目前尚未收藏任何便當，馬上去客製化便當吧！')
         } else {
           let data = res.data.result
@@ -113,21 +112,6 @@ function MemberBox() {
                   <Link to="/box">{message}</Link>
                 </div>
               )}
-              {/* {data.length === 0 ? (
-                <div className="member-notice font-700L">
-                  <Link to="/box">
-                    目前尚未收藏任何便當，馬上去客製化便當吧！
-                  </Link>
-                </div>
-              ) : (
-                <SaveBox
-                  data={displayData}
-                  prepList={prepList}
-                  setDisplayData={setDisplayData}
-                  currentPage={currentPage}
-                  perPage={perPage}
-                />
-              )} */}
             </div>
             <Paging
               product={displayData}

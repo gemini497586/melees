@@ -41,7 +41,6 @@ function MemberSaveProdcut() {
         })
         // 先檢查是否有收藏
         if (res.data.message) {
-          // console.log(res.data.message)
           setMessage('目前尚未收藏任何商品，馬上去逛逛購物商城吧！')
           return
         } else {
@@ -94,7 +93,6 @@ function MemberSaveProdcut() {
     setDisplayData(newData)
   }, [sortBy])
 
-  // console.log(displayData)
   return (
     <>
       <div className="page-group">

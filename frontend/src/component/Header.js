@@ -69,7 +69,10 @@ function Header() {
     axios
       .post(`${API_URL}/market/avatar`, null, { withCredentials: true })
       .then((result) => {
-        setAvatar(result.data[0].picture)
+        let loginAvatar = result.data[0].picture.includes('http')
+          ? result.data[0].picture
+          : `${API_URL}/member/${result.data[0].picture}`
+        setAvatar(loginAvatar)
       })
   }, [login])
 
@@ -210,15 +213,7 @@ function Header() {
         {login ? (
           <li className="user-btn ">
             <div className="user-avatar" data-bs-toggle="dropdown">
-              <img
-                alt="大頭貼"
-                className="cover-fit"
-                src={
-                  avatar.includes('http')
-                    ? avatar
-                    : `${API_URL}/member${avatar}`
-                }
-              />
+              <img alt="大頭貼" className="cover-fit" src={avatar} />
               <FontAwesomeIcon icon="user-circle" className="user" />
             </div>
             <ul className="dropdown-menu user-dropdown">
