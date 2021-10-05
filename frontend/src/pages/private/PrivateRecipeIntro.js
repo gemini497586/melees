@@ -33,7 +33,10 @@ function PrivateRecipeIntro() {
       // 設定可以跨源送 cookie
       withCredentials: true,
     }).then((res) => {
-      setAvatar(res.data.picture)
+      let loginAvatar = res.data.picture.includes('http')
+        ? res.data.picture
+        : `${API_URL}/member/${res.data.picture}`
+      setAvatar(loginAvatar)
     })
   }, [])
 
