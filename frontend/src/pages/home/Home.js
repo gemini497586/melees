@@ -85,8 +85,8 @@ function Home() {
     )
       .fromTo(
         Btnimg,
-        { autoAlpha: 0, x: 0 },
-        { autoAlpha: 1, x: 1150, duration: 1, ease: 'back.out(1)' }
+        { autoAlpha: 0, xPercent: -100 },
+        { autoAlpha: 1, xPercent: 0, duration: 1, ease: 'back.out(1)' }
       )
       .fromTo(
         Svg,
@@ -174,8 +174,8 @@ function Home() {
                 {/* <figure className="h-bento-img" ref={(el) => (bentoimg = el)}>
                   <img className="fcover-fit" src={homebento_bento} alt="" />
                 </figure> */}
-                <figure
-                  className="h-bento-imggroup"
+                <div
+                  className="h-bento-imggroup m-0"
                   ref={(el) => (bentoimg = el)}
                 >
                   <img
@@ -223,27 +223,23 @@ function Home() {
                     alt="BoxDown"
                     className="h-bento-img h-bento-updown"
                   />
-                </figure>
+                </div>
 
+                {/* 小小對話框 */}
+                <div className="h-bento-dialog" ref={(el) => (dialog = el)}>
+                  <img className="fcover-fit" src={homebento_dialog} alt="" />
+                </div>
                 {/* 內容 */}
-                <div className="h-bento-contentgroup">
-                  {/* 小小對話框 */}
-                  <div className="h-bento-dialog" ref={(el) => (dialog = el)}>
-                    <img className="fcover-fit" src={homebento_dialog} alt="" />
+                {/* <div className="h-bento-contentgroup"> */}
+                <div
+                  className="h-bento-titlegroup"
+                  ref={(el) => (Titlegroup = el)}
+                >
+                  <h1 className="h-bento-title">客製化便當</h1>
+                  <div className="h-bento-subtitle">
+                    <img className="fcover-fit" src={homebento_fontbg} alt="" />
                   </div>
-                  <div
-                    className="h-bento-titlegroup"
-                    ref={(el) => (Titlegroup = el)}
-                  >
-                    <h1 className="h-bento-title">客製化便當</h1>
-                    <div className="h-bento-subtitle">
-                      <img
-                        className="fcover-fit"
-                        src={homebento_fontbg}
-                        alt=""
-                      />
-                    </div>
-                    {/* <Link to="/box">
+                  {/* <Link to="/box">
                       <div
                         className="h-bento-subtitle"
                         ref={(el) => (btnimg = el)}
@@ -255,14 +251,23 @@ function Home() {
                         />
                       </div>
                     </Link> */}
-                  </div>
+                  <Link to="/box">
+                    <div className="h-bento-btnimg" ref={(el) => (btnimg = el)}>
+                      <img
+                        className="fcover-fit"
+                        src={homebento_btnbg}
+                        alt=""
+                      />
+                    </div>
+                  </Link>
                 </div>
               </div>
-              <Link to="/box">
+              {/* </div> */}
+              {/* <Link to="/box">
                 <div className="h-bento-btnimg" ref={(el) => (btnimg = el)}>
                   <img className="fcover-fit" src={homebento_btnbg} alt="" />
                 </div>
-              </Link>
+              </Link> */}
               {/* 往下箭頭 */}
               <a onClick={() => fullpageApi.moveSectionDown()}>
                 <div className="h-bento-arrowdown" ref={(el) => (svg = el)}>
