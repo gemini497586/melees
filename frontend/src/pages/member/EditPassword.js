@@ -13,18 +13,13 @@ import queryMsg from './component/queryMsg'
 
 function EditPassword() {
   const [errors, setErrors] = useState({})
-  const [formValues, setFormValues] = useState({
-    oldPassword: '',
-    password: '',
-    rePassword: '',
-  })
+  const [formValues, setFormValues] = useState({})
 
   const handleFormValuesChange = (e) => {
     setFormValues({
       ...formValues,
       [e.target.name]: e.target.value,
     })
-    // console.log(formValues)
   }
 
   // 使用者修改欄位時，清空該欄位的錯誤訊息
@@ -42,7 +37,23 @@ function EditPassword() {
   // 檢驗表單的值有沒有不合法
   const handleFormValuesInvalid = (e) => {
     setErrors(validationInfo(formValues))
-    console.log('handleFormValuesInvalid: ', errors)
+    // console.log('handleFormValuesInvalid: ', errors)
+  }
+
+  const handleFormInvalid = (e) => {
+    // 擋住錯誤訊息的預設方式(跳出的訊息泡泡)
+    e.preventDefault()
+
+    // 若必填欄位未填寫，設定該 value = ''; 觸發 errorMsg
+    let setEmtpyValue = {
+      ...formValues,
+      oldPassword: formValues.oldPassword ? formValues.oldPassword : '',
+      password: formValues.password ? formValues.password : '',
+      rePassword: formValues.rePassword ? formValues.rePassword : '',
+    }
+    setFormValues(setEmtpyValue)
+    setErrors(validationInfo(formValues))
+    // console.log('handleFormInvalid', errors)
   }
 
   const handleSubmit = async (e) => {
@@ -118,6 +129,7 @@ function EditPassword() {
           className="member-form member-form-forEditMemberInfo"
           onSubmit={handleSubmit}
           onChange={handleFormChange}
+          onInvalid={handleFormInvalid}
         >
           <div className="member-form-title">
             <div className="member-form-title-icon">
@@ -206,7 +218,9 @@ function EditPassword() {
               </div>
             </div>
           </div>
-          <button className="member-form-submitBtn">送出</button>
+          <button type="submit" className="member-form-submitBtn">
+            送出
+          </button>
         </form>
       </div>
     </>

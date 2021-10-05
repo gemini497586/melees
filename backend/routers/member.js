@@ -26,12 +26,7 @@ const infoValidation = [
     .withMessage("D0101"),
   body("name").isLength({ max: 100 }).withMessage("D0102"),
 
-  // 生日驗證 --> 1.不為空值  2.檢查日期格式
-  body("birthday")
-    .custom((value, { req }) => {
-      return value ? true : false;
-    })
-    .withMessage("G0101"),
+  // 生日驗證 --> 1.系統預設值 2000/01/01   2.檢查日期格式
   body("birthday").isDate().withMessage("G0102"),
 
   // 暱稱驗證 --> 1.接受空值   2.max: 100;
@@ -43,8 +38,10 @@ const infoValidation = [
   // 手機驗證 --> 1.接受空值  2.台灣手機號碼格式
   body("cellphone")
     .custom((value, { req }) => {
-      let phoneRegex = /^(09)[0-9]{8}$/;
-      return phoneRegex.test(value);
+      if (value) {
+        let phoneRegex = /^(09)[0-9]{8}$/;
+        return !phoneRegex.test(value);
+      }
     })
     .withMessage("H0102"),
 ];
@@ -142,7 +139,7 @@ router.post(
     // 套件回覆的驗證結果
     const dataValidationResult = validationResult(req);
     if (!dataValidationResult.isEmpty()) {
-      let error = dataValidationResult.array();
+      let errors = dataValidationResult.array();
       // console.log(error);
 
       // 當 express-validator 回覆多個錯誤時
