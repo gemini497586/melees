@@ -25,6 +25,8 @@ function Box() {
   const [cal, setCal] = useState(0)
   const [product, setProduct] = useState([])
   const [recipe, setRecipe] = useState([])
+  const [reciptList, setRecipeList] = useState(null)
+  const [showrecipe, setShowRecipe] = useState([])
 
   // 從資料庫抓資料
   useEffect(() => {
@@ -121,12 +123,20 @@ function Box() {
         }
       )
       setProduct(result.data.product)
+      setShowRecipe(result2.data.showData)
+
       setRecipe(result2.data.feature)
+      let newRecipeList = {}
+      result2.data.feature.map((item) => {
+        newRecipeList[item.id] = item
+      })
+      setRecipeList(newRecipeList)
     } catch (e) {
       console.log('e', e.response)
     }
   }
 
+  console.log(showrecipe)
   // 把食材刪除
   const handleRemove = (v) => {
     const name = v.name
@@ -154,7 +164,7 @@ function Box() {
           handleRemove={handleRemove}
           bento={bento}
         />
-        <CardRecipe recipe={recipe} />
+        <CardRecipe reciptList={reciptList} showrecipe={showrecipe} />
         <Page3
           tdee={tdee}
           cal={cal}
