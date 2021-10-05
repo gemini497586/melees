@@ -129,32 +129,33 @@ router.post("/steplist/:listId?", async function (req, res, next) {
   }
   // console.log("req.session.member", req.session.member);
   // req.session 會回傳 Session { cookie: { path: '/', _expires: null, originalMaxAge: null, httpOnly: true }
-  if (req.session.member === undefined) {
-    res.json({data});
-  } else {
-    let getLike = await connection.queryAsync("SELECT * FROM feature_like WHERE member_id=? AND feature_id=?", [req.session.member.id, req.params.listId]);
-    let getSave = await connection.queryAsync("SELECT * FROM feature_save WHERE member_id=? AND feature_id=?", [req.session.member.id, req.params.listId]);
-    let getView = await connection.queryAsync("SELECT * FROM feature_view WHERE member_id=? AND feature_id=?", [req.session.member.id, req.params.listId]);
+  const memberId = req.session.member ? req.session.member.id : 0;
+  // if (req.session.member === undefined) {
+  //   res.json({data});
+  // } else {
+    let getLike = await connection.queryAsync("SELECT * FROM feature_like WHERE member_id=? AND feature_id=?", [memberId, req.params.listId]);
+    let getSave = await connection.queryAsync("SELECT * FROM feature_save WHERE member_id=? AND feature_id=?", [memberId, req.params.listId]);
+    let getView = await connection.queryAsync("SELECT * FROM feature_view WHERE member_id=? AND feature_id=?", [memberId, req.params.listId]);
     res.json({ data, getLike, getSave, getView });
-  }
+  // }
 });
 
 // 給步驟用
-router.get("/step/:listId?", async function (req, res, next) {
+router.post("/step/:listId?", async function (req, res, next) {
   // 可以檢查路由是否相通
-  // console.log("食譜步驟通了", 222);
+  console.log("食譜步驟通了", 222);
 
   let sql =
     " SELECT a.id AS listId, b.id AS stepId, b.feature_id, b.step AS steps FROM feature_list AS a INNER JOIN feature_step AS b ON a.id=b.feature_id WHERE a.id=?";
 
   let data = await connection.queryAsync(sql, [req.params.listId]);
 
-  // console.log("data", data);
+  console.log("data", data);
   res.json(data);
 });
 
 // 給食材準備用
-router.get("/prep/:listId?", async function (req, res, next) {
+router.post("/prep/:listId?", async function (req, res, next) {
   // 可以檢查路由是否相通
   // console.log("食材準備通了", 333);
 
@@ -330,18 +331,13 @@ router.get("/prepweek/:weekId?", async function (req, res, next) {
 
 // 更新瀏覽數
 router.post("/feature-view/:listId?", async (req, res, next) => {
-  console.log("通了", 1111);
-  let member_id = req.session.member.id;
-  let data = await connection.queryAsync("INSERT INTO feature_view (member_id, feature_id) VALUES (?);", [[member_id, req.params.listId]]);
-  res.json(data);
+  // console.log("通了", 1111);
+  const memberId = req.session.member ? req.session.member.id : 0;
+  let data = await connection.queryAsync("INSERT INTO feature_view (member_id, feature_id) VALUES (?);", [[memberId, req.params.listId]]);
+  let data1 = await connection.queryAsync("SELECT COUNT(member_id) AS viewqty FROM feature_view WHERE feature_id = ?", [req.params.listId] )
+  // console.log("data1", data1);
+  res.json(data1);
 });
-// router.post("/feature-view/:listId?", async function (req, res, next) {
-//   const userId = req.session.member ? req.session.member.id : 0
-//   let sql = "INSERT INTO feature_view (feature_id, member_id) VALUES (?, ?)";
-//   let data = await connection.queryAsync(sql, [req.params.ilistId, userId]);
-//   res.send("success");
-// });
-
 
 // 按讚
 router.post("/feature-like/:listId?", async (req, res, next) => {

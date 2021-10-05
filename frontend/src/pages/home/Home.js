@@ -32,9 +32,14 @@ function Home() {
   let dialog = useRef(null)
   let svg = useRef(null)
   let hl = gsap.timeline()
+  let h2 = gsap.timeline()
   useEffect(() => {
     // Images Vars
-    const Bentoimg = bentoimg.firstElementChild
+    const food1 = bentoimg.children[1]
+    const food2 = bentoimg.children[2]
+    const food3 = bentoimg.children[3]
+    const food4 = bentoimg.children[4]
+    const food5 = bentoimg.children[5]
     const Btnimg = btnimg.lastElementChild
     const Title = Titlegroup.children[0]
     const Dialog = dialog
@@ -44,20 +49,40 @@ function Home() {
     // console.log(btnimg)
 
     hl.fromTo(
-      Bentoimg,
-      { autoAlpha: 0, y: -50 },
-      { autoAlpha: 1, y: 0, duration: 1 }
+      food1,
+      { autoAlpha: 1, y: -600 },
+      { autoAlpha: 1, y: 0, duration: 0.6 }
     )
       .fromTo(
-        Title,
-        { autoAlpha: 0, y: 20 },
-        { autoAlpha: 1, y: 0, duration: 1 }
+        food2,
+        { autoAlpha: 1, y: -600 },
+        { autoAlpha: 1, y: 0, duration: 0.6 }
       )
       .fromTo(
-        Dialog,
-        { autoAlpha: 0 },
-        { autoAlpha: 1, rotate: 360, duration: 0.5 }
+        food3,
+        { autoAlpha: 1, y: -600 },
+        { autoAlpha: 1, y: 0, duration: 0.6 }
       )
+      .fromTo(
+        food4,
+        { autoAlpha: 1, y: -600 },
+        { autoAlpha: 1, y: 0, duration: 0.6 }
+      )
+      .fromTo(
+        food5,
+        { autoAlpha: 1, y: -600 },
+        { autoAlpha: 1, y: 0, duration: 0.6 }
+      )
+    hl.fromTo(
+      //   Title,
+      //   { autoAlpha: 0, y: 20 },
+      //   { autoAlpha: 1, y: 0, duration: 1 }
+      // )
+      //   .fromTo(
+      Dialog,
+      { autoAlpha: 0 },
+      { autoAlpha: 1, rotate: 360, duration: 0.5 }
+    )
       .fromTo(
         Btnimg,
         { autoAlpha: 0, x: 0 },
@@ -146,9 +171,60 @@ function Home() {
               {/* 中間內容 */}
               <div className="h-bento-group">
                 {/* 便當圖片 */}
-                <figure className="h-bento-img" ref={(el) => (bentoimg = el)}>
+                {/* <figure className="h-bento-img" ref={(el) => (bentoimg = el)}>
                   <img className="fcover-fit" src={homebento_bento} alt="" />
+                </figure> */}
+                <figure
+                  className="h-bento-imggroup"
+                  ref={(el) => (bentoimg = el)}
+                >
+                  <img
+                    src="http://localhost:3000/images/box_up.png"
+                    alt="BoxUp"
+                    className="h-bento-img h-bento-upz"
+                  />
+                  <div className="h-bento-food1">
+                    <img
+                      src="http://localhost:3001/box/friedrice2.png"
+                      alt="BoxDown"
+                      className="fcover-fit"
+                    />
+                  </div>
+                  <div className="h-bento-food2">
+                    <img
+                      src="http://localhost:3001/box/pork2.png"
+                      alt="BoxDown"
+                      className="fcover-fit"
+                    />
+                  </div>
+                  <div className="h-bento-food3">
+                    <img
+                      src="http://localhost:3001/box/broccoli2.png"
+                      alt="BoxDown"
+                      className="fcover-fit"
+                    />
+                  </div>
+                  <div className="h-bento-food4">
+                    <img
+                      src="http://localhost:3001/box/corn2.png"
+                      alt="BoxDown"
+                      className="fcover-fit"
+                    />
+                  </div>
+                  <div className="h-bento-food5">
+                    <img
+                      src="http://localhost:3001/box/egg2.png"
+                      alt="BoxDown"
+                      className="fcover-fit"
+                    />
+                  </div>
+                  <img
+                    src="http://localhost:3000/images/box_down.png"
+                    alt="BoxDown"
+                    className="h-bento-img h-bento-updown"
+                  />
                 </figure>
+
                 {/* 內容 */}
                 <div className="h-bento-contentgroup">
                   {/* 小小對話框 */}

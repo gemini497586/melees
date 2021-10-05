@@ -22,6 +22,7 @@ function FeatureContentIntro(props) {
     setLike,
     save,
     setSave,
+    setRerender,
   } = props
 
   // 收藏
@@ -79,6 +80,7 @@ function FeatureContentIntro(props) {
     } catch (err) {
       console.error(err.message)
     }
+    setRerender(true)
   }
 
   const DeleteLikeFeature = async () => {
@@ -93,6 +95,7 @@ function FeatureContentIntro(props) {
     } catch (err) {
       console.error(err.message)
     }
+    setRerender(true)
   }
 
   const handleLike = () => {
