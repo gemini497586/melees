@@ -9,16 +9,59 @@
 }
 .h-bento-dialog {
   max-width: 300px;
+  position: absolute;
+  left: 50%;
+  top: 15%;
 }
 .h-bento-group {
   height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding: 120px 0px 0px 0px;
+  align-items: center;
+  padding: 120px 80px 0px 40px;
+}
+.h-bento-imggroup {
+  position: relative;
+  max-width: 60vw;
+}
+.h-bento-food1 {
+  position: absolute;
+  width: 66%;
+  left: 11%;
+}
+.h-bento-food2 {
+  position: absolute;
+  width: 80%;
+  left: 0%;
+  top: -15%;
+}
+.h-bento-food3 {
+  position: absolute;
+  width: 80%;
+  left: 0%;
+  top: 0%;
+}
+.h-bento-food4 {
+  position: absolute;
+  width: 80%;
+  left: 55%;
+  top: 8%;
+}
+.h-bento-food5 {
+  position: absolute;
+  width: 80%;
+  left: -17%;
+  top: 10%;
+}
+.h-bento-upz {
+  position: absolute;
+  z-index: 2;
+}
+.h-bento-updown {
+  z-index: -1;
 }
 .h-bento-img {
-  max-width: 900px;
+  max-width: 80%;
   padding: 0px 0px 0px 0px;
 }
 .h-bento-contentgroup {
@@ -26,6 +69,7 @@
   flex-direction: column;
   width: 900px;
   position: relative;
+  flex-grow: 1;
 }
 .h-bento-titlegroup {
   display: flex;
@@ -43,14 +87,11 @@
   line-height: 100px;
 }
 .h-bento-subtitle {
-  max-width: 480px;
+  max-width: 400px;
   margin-bottom: 60px;
 }
 .h-bento-btnimg {
   max-width: 480px;
-  /* margin-bottom: 60px; */
-  position: absolute;
-  left: 0px;
   bottom: 15%;
 }
 /* 向下箭頭*/
