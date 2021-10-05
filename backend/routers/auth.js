@@ -242,9 +242,8 @@ passport.use(
       clientSecret: process.env.GOOGLE_SECRET,
     },
     async function (accessToken, refreshToken, profile, cb) {
-      console.log("Google profile", profile);
+      // console.log("Google profile", profile);
 
-      // let member = await connection.queryAsync("SELECT * FROM member WHERE email = ?", [profile.emails[0].value]);
       let member = await connection.queryAsync("SELECT * FROM member WHERE google_id = ?", [profile.id]);
       let returnMember = null;
       if (member.length > 0) {
@@ -315,7 +314,7 @@ passport.use(
     async function (accessToken, refreshToken, profile, cb) {
       // console.log("Fb profile", profile);
 
-      let member = await connection.queryAsync("SELECT * FROM member WHERE facebook_id", [profile.id]);
+      let member = await connection.queryAsync("SELECT * FROM member WHERE facebook_id = ?", [profile.id]);
       let returnMember = null;
       if (member.length > 0) {
         // 已經註冊過
