@@ -47,9 +47,6 @@ function CheckoutArea() {
         NT <FontAwesomeIcon icon="dollar-sign" />
         {total + deliveryCost}
       </h6>
-      {/* <button className="btn font-700M cart-checkout-btn">
-        <FontAwesomeIcon icon="credit-card" /> 結帳去
-      </button> */}
     </div>
   )
 }
