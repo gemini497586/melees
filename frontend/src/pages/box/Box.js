@@ -25,8 +25,6 @@ function Box() {
   const [cal, setCal] = useState(0)
   const [product, setProduct] = useState([])
   const [recipe, setRecipe] = useState([])
-  const [reciptList, setRecipeList] = useState(null)
-  const [showrecipe, setShowRecipe] = useState([])
 
   // 從資料庫抓資料
   useEffect(() => {
@@ -43,18 +41,17 @@ function Box() {
     }
     getData()
   }, [])
-
-  // 點選圖片
+  // 點選食材->新增至便當盒 + 新增至table + 更新下方推薦商品/食譜
   const handleCheck = async (v) => {
     // 先抓到便當裡面食材的名稱
-    let getName = bento.map((item) => {
-      return item.name
+    const getId = bento.map((v) => {
+      return v.id
     })
 
     // 判斷食材是否已存在便當裡
     // 存在->不能新增
     // 不存在->可以新增
-    if (getName.includes(v.name)) {
+    if (getId.includes(v.id)) {
       Swal.fire({
         title: '每樣食材只可挑選一次',
         confirmButtonColor: 'var(--color-primary)',
@@ -64,9 +61,9 @@ function Box() {
       const newBento = [
         ...bento,
         {
+          id: v.id,
           name: v.name,
           inside_image: v.inside_image,
-          id: v.id,
           cal: v.cal,
           product_id: v.product_id,
           feature_id: v.feature_id,
@@ -89,13 +86,13 @@ function Box() {
       setTableList(newTableList)
 
       // 現在便當裡面食材的卡路里，用reduce計算加總
-      const getCal = newBento.map((item) => {
-        return item.cal
+      const getCal = newBento.map((v) => {
+        return v.cal
       })
       const newCal = getCal.reduce((acc, curr) => acc + curr)
       setCal(newCal)
 
-      // 抓到點下去的商品id
+      // 抓到點下去，抓到商品id/食譜id
       const productIds = newBento.map((v) => {
         return v.product_id
       })
@@ -122,21 +119,12 @@ function Box() {
           withCredentials: true,
         }
       )
-      setProduct(result.data.product)
-      setShowRecipe(result2.data.showData)
-
-      setRecipe(result2.data.feature)
-      let newRecipeList = {}
-      result2.data.feature.map((item) => {
-        newRecipeList[item.id] = item
-      })
-      setRecipeList(newRecipeList)
+      setProduct(result.data)
+      setRecipe(result2.data)
     } catch (e) {
       console.log('e', e.response)
     }
   }
-
-  console.log(showrecipe)
   // 把食材刪除
   const handleRemove = (v) => {
     const name = v.name
@@ -164,7 +152,6 @@ function Box() {
           handleRemove={handleRemove}
           bento={bento}
         />
-        <CardRecipe reciptList={reciptList} showrecipe={showrecipe} />
         <Page3
           tdee={tdee}
           cal={cal}
@@ -175,6 +162,7 @@ function Box() {
           setBento={setBento}
         />
         {/* 最下面推薦食譜 商品 */}
+        <CardRecipe recipe={recipe} />
         <CardShopping product={product} />
       </section>
     </>

@@ -8,6 +8,7 @@ function CardShopping(props) {
   const { product } = props
   const [marketList, setMarketList] = useState([])
   const [saveState, setSaveState] = useState([])
+
   useEffect(() => {
     const getData = async () => {
       try {
@@ -26,26 +27,23 @@ function CardShopping(props) {
   // 檢查該商品是否有被會員收藏
   const saveToggled = (value) => {
     const save = []
-    for (let i = 0; i < saveState.length; i++) {
-      if (value === saveState[i].product_id) {
-        save.push(
-          <span className="cardPrivateRecipe-bookmark-active" key={i}>
-            <FontAwesomeIcon icon="bookmark" size="2x" />
-          </span>
-        )
-        break
-      } else {
-        save.push(
-          <span className="cardShopping-bookmark" key={i}>
-            <FontAwesomeIcon icon="bookmark" size="2x" />
-          </span>
-        )
-        break
-      }
+    save.push(
+      <span className="cardPrivateRecipe-bookmark" key={value}>
+        <FontAwesomeIcon icon="bookmark" size="2x" />
+      </span>
+    )
+    if (saveState.includes(value)) {
+      save.pop()
+      save.push(
+        <div className="d-flex cardPrivateRecipe-bookmark-active" key={value}>
+          <FontAwesomeIcon icon="bookmark" size="2x" />
+        </div>
+      )
     }
     return save
   }
   const showData = product.length > 0 ? product : marketList
+
   return (
     <div className="container">
       <div className="row">

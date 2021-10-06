@@ -6,7 +6,7 @@ import { API_URL, FEATURE_TYPE } from '../../../utils/config'
 import Axios from 'axios'
 
 function CardRecipe(props) {
-  const { reciptList, showrecipe } = props
+  const { recipe } = props
   const [recipeList, setRecipeList] = useState([])
   const [saveState, setSaveState] = useState([])
   // 從資料庫抓資料
@@ -26,30 +26,25 @@ function CardRecipe(props) {
   }, [])
 
   // 判斷出現的食譜，是否有被登入的會員收藏
-  // const saveToggled = (value) => {
-  //   const save = []
-  //   for (let i = 0; i < saveState.length; i++) {
-  //     if (value === saveState[i].feature_id) {
-  //       save.push(
-  //         <span className="cardPrivateRecipe-bookmark-active" key={i}>
-  //           <FontAwesomeIcon icon="bookmark" size="2x" />
-  //         </span>
-  //       )
-  //       break
-  //     } else {
-  //       save.push(
-  //         <span className="cardPrivateRecipe-bookmark" key={i}>
-  //           <FontAwesomeIcon icon="bookmark" size="2x" />
-  //         </span>
-  //       )
-  //       break
-  //     }
-  //   }
-  //   return save
-  // }
-  // console.log(showrecipe)
-  // console.log(reciptList)
-  // const showData = showrecipe.length > 0 ? showrecipe : recipeList
+  const saveToggled = (value) => {
+    const save = []
+    save.push(
+      <span className="cardPrivateRecipe-bookmark" key={value}>
+        <FontAwesomeIcon icon="bookmark" size="2x" />
+      </span>
+    )
+    if (saveState.includes(value)) {
+      save.pop()
+      save.push(
+        <div className="d-flex cardPrivateRecipe-bookmark-active" key={value}>
+          <FontAwesomeIcon icon="bookmark" size="2x" />
+        </div>
+      )
+    }
+    return save
+  }
+
+  const showData = recipe.length > 0 ? recipe : recipeList
 
   return (
     <div className="container">
@@ -70,40 +65,34 @@ function CardRecipe(props) {
           </div>
           <div className="cardRecipe-others-hr w-100"></div>
         </div>
-        {showrecipe.map((value) => {
+        {showData.map((value) => {
           return (
-            <div className="col-12 col-md-3" key={value}>
+            <div className="col-12 col-md-3" key={value.id}>
               <div className="cardRecipe">
-                <Link to={`/feature/step/${value}`}>
+                <Link to={`/feature/step/${value.id}`}>
                   <figure className="cardRecipe-img">
                     <img
-                      src={`${API_URL}/feature/featurefood/${
-                        reciptList && reciptList[value].featureimg
-                      }`}
+                      src={`${API_URL}/feature/featurefood/${value.featureimg}`}
                       className="b-cover-fit"
-                      alt={reciptList && reciptList[value].name}
+                      alt={value.name}
                     />
                   </figure>
-                  {/* {saveToggled(value.id)} */}
+                  {saveToggled(value.id)}
                   <span className="cardRecipe-bookmark-stat-box">
                     <div className="cardRecipe-bookmark-stat-icon">
                       <FontAwesomeIcon icon="bookmark" size="lg" />
                     </div>
                     <span className="cardRecipe-bookmark-num font-400S">
-                      {reciptList && reciptList[value].save_qty}
+                      {value.save_qty}
                     </span>
                   </span>
                   <span className="font-700S cardRecipe-type">
-                    {reciptList && FEATURE_TYPE[reciptList[value].type_id]}
+                    {FEATURE_TYPE[value.type_id]}
                   </span>
-                  <h6 className="cardRecipe-name">
-                    {reciptList && reciptList[value].name}
-                  </h6>
+                  <h6 className="cardRecipe-name">{value.name}</h6>
                   <div className="f-flex cardRecipe-ig">
                     <img src={instagram} alt="IG" />
-                    <span className="font-700S">
-                      {reciptList && reciptList[value].linkName}
-                    </span>
+                    <span className="font-700S">{value.linkName}</span>
                   </div>
                 </Link>
               </div>
@@ -112,60 +101,6 @@ function CardRecipe(props) {
         })}
       </div>
     </div>
-    // <div className="container">
-    //   <div className="row">
-    //     <div className="cardRecipe-others">
-    //       <div className="d-flex justify-content-between">
-    //         <h5>查看其他食譜</h5>
-    //         <div className="cardRecipe-others-more">
-    //           <FontAwesomeIcon
-    //             icon="chevron-right"
-    //             size="lg"
-    //             className="more-arrow"
-    //           />
-    //           <Link to="feature/index/1">
-    //             <span className="font-700M">看更多</span>
-    //           </Link>
-    //         </div>
-    //       </div>
-    //       <div className="cardRecipe-others-hr w-100"></div>
-    //     </div>
-    //     {recipeList.map((value) => {
-    //       return (
-    //         <div className="col-12 col-md-3" key={value.id}>
-    //           <div className="cardRecipe">
-    //             <Link to={`/feature/step/${value.id}`}>
-    //               <figure className="cardRecipe-img">
-    //                 <img
-    //                   src={`${API_URL}/feature/featurefood/${value.featureimg}`}
-    //                   className="b-cover-fit"
-    //                   alt={value.name}
-    //                 />
-    //               </figure>
-    //               {saveToggled(value.id)}
-    //               <span className="cardRecipe-bookmark-stat-box">
-    //                 <div className="cardRecipe-bookmark-stat-icon">
-    //                   <FontAwesomeIcon icon="bookmark" size="lg" />
-    //                 </div>
-    //                 <span className="cardRecipe-bookmark-num font-400S">
-    //                   {value.save_qty}
-    //                 </span>
-    //               </span>
-    //               <span className="font-700S cardRecipe-type">
-    //                 {FEATURE_TYPE[value.type_id]}
-    //               </span>
-    //               <h6 className="cardRecipe-name">{value.name}</h6>
-    //               <div className="f-flex cardRecipe-ig">
-    //                 <img src={instagram} alt="IG" />
-    //                 <span className="font-700S">{value.linkName}</span>
-    //               </div>
-    //             </Link>
-    //           </div>
-    //         </div>
-    //       )
-    //     })}
-    //   </div>
-    // </div>
   )
 }
 

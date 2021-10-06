@@ -16,20 +16,16 @@ router.get("/", async (req, res, next) => {
 
 router.get("/recipe", async (req, res, next) => {
     const memberId = req.session.member ? req.session.member.id : 0;
-
+    // const memberId = 2;
     // 隨機抓四個，顯示被收藏數
     let feature = await connection.queryAsync(
         "SELECT a.id, a.type_id, a.name, " +
             "b.name AS linkName, " +
-            "GROUP_CONCAT(c.file_type ORDER BY c.file_type) AS featureimg, " +
+            "c.file_type AS featureimg, " +
             "(SELECT COUNT(member_id) FROM feature_save WHERE a.id=feature_id) AS save_qty " +
             "FROM feature_list AS a INNER JOIN feature_link AS b ON a.link_id=b.id INNER JOIN feature_img AS c ON a.id=c.feature_id " +
             "GROUP BY a.id ORDER BY RAND() LIMIT 4 "
     );
-    feature = feature.map((v) => {
-        v.featureimg = v.featureimg.split(",")[0];
-        return v;
-    });
 
     // 抓這個會員收藏的所有商品，如果沒資料給0
     let member_save = await connection.queryAsync(
@@ -38,6 +34,10 @@ router.get("/recipe", async (req, res, next) => {
     );
     if (member_save.length < 1) {
         member_save = [0];
+    } else {
+        member_save = member_save.map((v) => {
+            return v.feature_id;
+        });
     }
     res.json({ feature, member_save });
 });
@@ -60,46 +60,46 @@ router.get("/product", async (req, res, next) => {
     );
     if (member_save.length < 1) {
         member_save = [0];
+    } else {
+        member_save = member_save.map((v) => {
+            return v.product_id;
+        });
     }
     res.json({ product, member_save });
 });
 
 router.post("/recommendproduct", async (req, res, next) => {
     // 先給死四個商品
-    let showArr = [5, 6, 7, 8];
+    let showData = [5, 6, 7, 8];
     for (let i = 0; i < req.body.productIds.length; i++) {
-        showArr.push(req.body.productIds[i]);
+        showData.push(req.body.productIds[i]);
     }
-    showArr = showArr.slice(-4);
-    // console.log("取最後四個id ", showArr);
+    showData = showData.slice(-4);
 
     let product = await connection.queryAsync(
-        "SELECT a.id, a.category, a.image, a.name, a.price, COUNT(member_id) AS save_qty FROM product AS a INNER JOIN product_save AS b ON a.id=product_id WHERE a.id IN ? GROUP BY a.id ",
-        [[showArr]]
+        "SELECT a.id, a.category, a.image, a.name, a.price, " +
+            "(SELECT COUNT(member_id) FROM product_save WHERE a.id=product_id) AS save_qty " +
+            "FROM product AS a WHERE a.id IN ? GROUP BY a.id ",
+        [[showData]]
     );
-    res.json({ product });
+    res.json(product);
 });
 
 router.post("/recommendrecipe", async (req, res, next) => {
     // 先給死四個商品
     let showData = [17, 18, 19, 20];
     for (let i = 0; i < req.body.recipeId.length; i++) {
-        showData.unshift(req.body.recipeId[i]);
+        showData.push(req.body.recipeId[i]);
     }
-    // showData = showData.slice(-4);
-    showData = showData.slice(0, 4);
-    // console.log(showData);
+    showData = showData.slice(-4);
 
     let feature = await connection.queryAsync(
-        // "SELECT a.id, a.type_id, a.name, b.name AS linkName, GROUP_CONCAT(c.file_type) AS featureimg, COUNT(d.member_id) AS save_qty FROM feature_list AS a INNER JOIN feature_link AS b ON a.link_id=b.id INNER JOIN feature_img AS c ON a.id=c.feature_id INNER JOIN feature_save AS d ON a.id=d.feature_id WHERE a.id IN ? GROUP BY a.id ",
-        // [[showData]]
-        "SELECT a.id, a.type_id, a.name, b.name AS linkName, GROUP_CONCAT(c.file_type) AS featureimg, COUNT(d.member_id) AS save_qty FROM feature_list AS a INNER JOIN feature_link AS b ON a.link_id=b.id INNER JOIN feature_img AS c ON a.id=c.feature_id INNER JOIN feature_save AS d ON a.id=d.feature_id GROUP BY a.id "
+        "SELECT a.id, a.type_id, a.name, b.name AS linkName, c.file_type AS featureimg, " +
+            "(SELECT COUNT(member_id) FROM feature_save WHERE a.id=feature_id) AS save_qty " +
+            "FROM feature_list AS a INNER JOIN feature_link AS b ON a.link_id=b.id INNER JOIN feature_img AS c ON a.id=c.feature_id WHERE a.id IN ? GROUP BY a.id ",
+        [[showData]]
     );
-    feature = feature.map((v) => {
-        v.featureimg = v.featureimg.split(",")[0];
-        return v;
-    });
-    res.json({ showData, feature });
+    res.json(feature);
 });
 
 // 先檢查是否已登入
