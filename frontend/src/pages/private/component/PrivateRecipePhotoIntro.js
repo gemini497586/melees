@@ -132,57 +132,57 @@ function PrivateRecipePhotoIntro(props) {
                 <pre>收藏 {JSON.stringify(saveState, null, 2)}</pre>
                 <pre>作者資訊 {JSON.stringify(memberInfo, null, 2)}</pre> */}
 
-            <div class="col-12 col-md-6">
-              <div class="PrivateRecipePhotoIntro-left">
-                <figure class="PrivateRecipePhotoIntro-photo">
+            <div className="col-12 col-md-6">
+              <div className="PrivateRecipePhotoIntro-left">
+                <figure className="PrivateRecipePhotoIntro-photo">
                   <img
                     src={`${API_URL}/private/${value.picture}`}
-                    class="PrivateRecipePhotoIntro-photo-img"
+                    className="PrivateRecipePhotoIntro-photo-img"
                     alt=""
                   />
                 </figure>
               </div>
             </div>
-            <div class="col-12 col-md-6">
-              <div class="PrivateRecipePhotoIntro-right">
-                <div class="d-flex justify-content-between">
-                  <figure class="PrivateRecipePhotoIntro-avatar">
+            <div className="col-12 col-md-6">
+              <div className="PrivateRecipePhotoIntro-right">
+                <div className="d-flex justify-content-between">
+                  <figure className="PrivateRecipePhotoIntro-avatar">
                     <img
                       src={`${API_URL}/member/${memberInfo.picture}`}
-                      class="b-cover-fit"
+                      className="b-cover-fit"
                       alt=""
                     />
                   </figure>
                   <div
-                    class="
+                    className="
                           flex-column
                           PrivateRecipePhotoIntro-user-info
                       "
                   >
-                    <div class="font-700M">{memberInfo.nickname}</div>
-                    <div class="font-400SS">
+                    <div className="font-700M">{memberInfo.nickname}</div>
+                    <div className="font-400SS">
                       {totalRecipe} 篇食譜 {totalFollow} 粉絲
                     </div>
                   </div>
                   <button
                     onClick={handleFollow}
-                    class={
+                    className={
                       followState
                         ? 'PrivateRecipePhotoIntro-follow-btn-active'
                         : 'PrivateRecipePhotoIntro-follow-btn'
                     }
                   >
-                    <span class="font-700M">
+                    <span className="font-700M">
                       {followState ? '已追蹤' : '追蹤'}
                     </span>
                   </button>
                 </div>
 
-                <div class="PrivateRecipePhotoIntro-star">
+                <div className="PrivateRecipePhotoIntro-star">
                   {starNum(index)}
 
                   <span
-                    class="
+                    className="
                           font-700S
                           PrivateRecipePhotoIntro-star-num
                       "
@@ -190,38 +190,38 @@ function PrivateRecipePhotoIntro(props) {
                     ({value.star_rate})
                   </span>
                 </div>
-                <h2 class="PrivateRecipePhotoIntro-recipe-name">
+                <h2 className="PrivateRecipePhotoIntro-recipe-name">
                   {value.name}
                 </h2>
-                <span class="font-400L PrivateRecipePhotoIntro-intro">
+                <span className="font-400L PrivateRecipePhotoIntro-intro">
                   {value.intro}
                 </span>
-                <h2 class="PrivateRecipePhotoIntro-qty">份量</h2>
-                <span class="font-400L PrivateRecipePhotoIntro-qty-num">
+                <h2 className="PrivateRecipePhotoIntro-qty">份量</h2>
+                <span className="font-400L PrivateRecipePhotoIntro-qty-num">
                   {value.qty} 份
                 </span>
 
                 <button
                   onClick={handleLike}
-                  class={
+                  className={
                     likeState
                       ? 'PrivateRecipePhotoIntro-like-btn-active'
                       : 'PrivateRecipePhotoIntro-like-btn'
                   }
                 >
                   <FontAwesomeIcon icon={['far', 'heart']} size="lg" />
-                  <span class="font-700M">{likeState ? '已按讚' : '按讚'}</span>
+                  <span className="font-700M">{likeState ? '已按讚' : '按讚'}</span>
                 </button>
                 <button
                   onClick={handleSave}
-                  class={
+                  className={
                     saveState
                       ? 'PrivateRecipePhotoIntro-bookmark-btn-active'
                       : 'PrivateRecipePhotoIntro-bookmark-btn'
                   }
                 >
                   <FontAwesomeIcon icon={['far', 'bookmark']} size="lg" />
-                  <span class="font-700M">
+                  <span className="font-700M">
                     {saveState ? '已收藏' : '加入收藏'}
                   </span>
                 </button>
