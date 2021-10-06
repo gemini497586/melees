@@ -43,6 +43,7 @@ const uploader = multer({
   },
 });
 
+
 // 抓食譜的資料 (食譜首頁)
 router.get("/index", async function (req, res, next) {
   // 每頁有幾筆
@@ -305,7 +306,7 @@ router.get("/intro/:id", async function(req, res, next) {
   let sq4 = "SELECT member.nickname, member.picture, private_comment.* FROM member LEFT JOIN private_comment ON member.id = private_comment.member_id WHERE private_comment.private_id = ?"
   let commentList = await connection.queryAsync(sq4, [req.params.id]);
 
-  res.json({ingredList, stepList, tagList, commentList})
+  res.json({resResult, ingredList, stepList, tagList, commentList})
 })
 
 // 抓取目前食譜的評論
@@ -322,10 +323,12 @@ router.use(loginCheckMiddleware);
 
 // 抓取目前使用者頭像
 router.get("/avatar", async function(req, res, next) {
+  
+  // 使用者 id
   const userId = req.session.member.id;
+
   // 使用者照片
-  const picSql = "SELECT picture FROM member WHERE id = ?"
-  const userPic = await connection.queryAsync(picSql, [userId])
+  const userPic = await connection.queryAsync("SELECT picture FROM member WHERE id = ?", [userId])
 
   res.json(userPic[0])
 })
@@ -707,5 +710,94 @@ router.get("/myrecipe", async function (req, res, next) {
   
 
 });
+
+router.get("/history", async function (req, res, next) {
+
+  const memberId = req.session.member.id
+
+  // 私藏食譜開始
+  // 篩選出會員最新觀看的前 10 筆
+  let p_recent = await connection.queryAsync("SELECT * FROM private_view WHERE user_id = ? ORDER BY id DESC LIMIT 10", [memberId])
+
+  const private_set = new Set()
+  const p_recent_filter = p_recent.filter(item => {
+    return !private_set.has(item.private_id) ? private_set.add(item.private_id) : false
+  })
+
+  // 把食譜 id 做成陣列
+  let privateId = p_recent_filter.map((value) => {
+    return value.private_id
+  })
+
+  let recipeinfo = "SELECT a.id, a.picture, a.name, a.create_date, "
+  let member = "b.id AS member_id, b.name AS member_name, b.nickname AS member_nickname, b.picture AS member_pic, "
+  let private_like = "(SELECT COUNT(user_id) FROM private_like WHERE a.id = private_id) AS like_qty, "
+  let private_view = "(SELECT COUNT(user_id) FROM private_view WHERE a.id = private_id) AS view_qty "
+  let private_join = "FROM private_recipe AS a INNER JOIN member AS b ON a.member_id = b.id WHERE a.id IN ? "
+  let private_group = "GROUP BY a.id"
+  
+  // private 應該會照著 id 由小排到大
+  let private = await connection.queryAsync(recipeinfo + member + private_like + private_view + private_join + private_group, [[privateId]])
+
+  // 過濾重複 private_id 也要由小排到大
+  p_recent_filter.sort((a, b) => {
+    return a.private_id - b.private_id
+  })
+
+  // private 新增 key, value
+  private.map((value, index) =>{
+    return value.view_id = p_recent_filter[index].id
+  })
+
+  // private 再由 id 由大排到小(因為 id 越大代表最新瀏覽)
+  private.sort((a, b) => {
+    return b.view_id - a.view_id
+  })
+  // 私藏食譜結束
+
+  // 精選食譜開始
+  // 選取該會員最新觀看的精選前 10 筆
+  let f_recent = await connection.queryAsync("SELECT * FROM feature_view WHERE member_id = ? ORDER BY id DESC LIMIT 10", [memberId])
+
+  const feature_set = new Set()
+  const p_feature_filter = f_recent.filter(item => {
+    return !feature_set.has(item.feature_id) ? feature_set.add(item.feature_id) : false
+  })
+
+  // 把食譜 id 做成陣列
+  let featureId = p_feature_filter.map((value) => {
+    return value.feature_id
+  })
+
+  
+  let list = "SELECT a.id, a.type_id, a.name AS name, "
+  let link = "b.link, b.name AS linkName, b.img AS linkImg, "
+  let img = "c.file_type AS picture, "
+  let feature_like = "(SELECT COUNT(member_id) FROM feature_like WHERE a.id = feature_id) AS like_qty, "
+  let feature_view = "(SELECT COUNT(member_id) FROM feature_view WHERE a.id = feature_id) AS view_qty "
+  let feature_join = "FROM feature_list AS a INNER JOIN feature_link AS b ON a.link_id = b.id INNER JOIN feature_img AS c ON a.id = c.feature_id WHERE a.id IN ? "
+  let feature_group = "GROUP BY a.id"
+
+  let feature = await connection.queryAsync(list + link + img + feature_like + feature_view + feature_join + feature_group, [[featureId]])
+
+  // 由小到大排列
+  p_feature_filter.sort((a, b) => {
+    return a.feature_id - b.feature_id
+  })
+
+  // private 新增 key, value
+  feature.map((value, index) =>{
+    return value.view_id = p_feature_filter[index].id
+  })
+
+  feature.sort((a, b) => {
+    return b.view_id - a.view_id
+  })
+  // 精選食譜結束
+
+  res.json({private, feature})
+
+})
+
 
 module.exports = router;
