@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import '../../style/global.css'
 import '../../style/member.css'
 import 'animate.css'

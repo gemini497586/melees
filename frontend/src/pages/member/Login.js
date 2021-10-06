@@ -8,7 +8,10 @@ import '../../style/login.css'
 import logo from '../../images/logo.png'
 import { HandleCart } from '../../utils/HandleCart'
 import FacebookLogin from 'react-facebook-login'
-import { GoogleLogin, GoogleLogout } from 'react-google-login'
+import {
+  GoogleLogin,
+  // GoogleLogout
+} from 'react-google-login'
 import 'animate.css'
 import queryMsg from './component/queryMsg'
 
@@ -109,9 +112,9 @@ function Login() {
     console.log('googleFailure', response)
   }
 
-  const onSignoutSuccess = () => {
-    console.log('You have been logged out successfully')
-  }
+  // const onSignoutSuccess = () => {
+  //   console.log('You have been logged out successfully')
+  // }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
