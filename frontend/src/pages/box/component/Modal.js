@@ -51,6 +51,7 @@ function Modal(props) {
         icon: 'success',
         title: '便當已收藏',
         text: '可至會員專區查詢',
+        confirmButtonText: '確認',
         confirmButtonColor: 'var(--color-primary)',
       })
     } catch (e) {
@@ -130,7 +131,7 @@ function Modal(props) {
             </div>
           </div>
         </div>
-      ) : null}
+      ) : <></>}
     </>
   )
 }

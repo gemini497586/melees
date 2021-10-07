@@ -19,6 +19,7 @@ function Page3(props) {
     } else {
       Swal.fire({
         title: '請先至上方挑選至少一樣食材',
+        confirmButtonText: '確認',
         confirmButtonColor: 'var(--color-primary)',
       })
     }

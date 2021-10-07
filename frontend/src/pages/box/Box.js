@@ -54,6 +54,7 @@ function Box() {
     if (getId.includes(v.id)) {
       Swal.fire({
         title: '每樣食材只可挑選一次',
+        confirmButtonText: '確認',
         confirmButtonColor: 'var(--color-primary)',
       })
       return
@@ -73,6 +74,7 @@ function Box() {
       if (newBento.length > 5) {
         Swal.fire({
           title: '最多只能挑選五樣食材',
+          confirmButtonText: '確認',
           confirmButtonColor: 'var(--color-primary)',
         })
         return

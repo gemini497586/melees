@@ -16,10 +16,10 @@ function MemberSaveProdcut() {
   const [productList, setProductList] = useState(null)
   const sortList = [
     {
-      name: '時間由新至舊',
+      name: '收藏時間由新至舊',
     },
     {
-      name: '時間由舊至新',
+      name: '收藏時間由舊至新',
     },
     {
       name: '價位由高至低',

@@ -48,7 +48,9 @@ function Page2(props) {
                     )
                   })}
                 </div>
-              ) : null}
+              ) : (
+                <></>
+              )}
             </div>
             <div className="col-md-6 b-page2-image">
               <div className="b-page2-box">
@@ -81,9 +83,7 @@ function Page2(props) {
               <div className="b-page2-btn">
                 <button
                   className={
-                    show
-                      ? 'b-btn-active font-700M me-2'
-                      : 'b-btn font-700M me-2'
+                    'font-700M me-2 ' + (show ? 'b-btn-active' : 'b-btn')
                   }
                   onClick={() => {
                     handleMain()
@@ -92,9 +92,7 @@ function Page2(props) {
                   主食
                 </button>
                 <button
-                  className={
-                    show ? 'b-btn font-700M' : 'b-btn-active font-700M'
-                  }
+                  className={'font-700M ' + (show ? 'b-btn' : 'b-btn-active')}
                   onClick={() => {
                     handleMain()
                   }}

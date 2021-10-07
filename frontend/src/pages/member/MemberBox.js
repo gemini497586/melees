@@ -16,10 +16,10 @@ function MemberBox() {
   const [sortBy, setSortBy] = useState(0)
   const itemList = [
     {
-      name: '時間由新至舊',
+      name: '收藏時間由新至舊',
     },
     {
-      name: '時間由舊至新',
+      name: '收藏時間由舊至新',
     },
     {
       name: '卡路里由多至少',

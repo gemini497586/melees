@@ -97,7 +97,7 @@ router.get("/recipe", async (req, res, next) => {
 
     if (featureIds.length > 0) {
         let feature = await connection.queryAsync(
-            "SELECT DISTINCT a.id, a.type_id, a.name AS name, " +
+            "SELECT DISTINCT a.id, a.type_id, a.name AS name, a.create_date, " +
                 "b.link, b.name AS linkName, b.img AS linkImg, " +
                 "c.file_type AS picture, " +
                 "(SELECT COUNT(member_id) FROM feature_like WHERE a.id=feature_id) AS like_qty ," +
