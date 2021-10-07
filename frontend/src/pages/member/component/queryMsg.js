@@ -8,10 +8,13 @@ export default function queryMsg(category, code) {
       A0003: '註冊成功',
       A0004: '刪除成功',
       A0005: '第三方登入成功',
+      A0006: '驗證 Email 發送成功',
+      A0007: '密碼變更成功',
       // B --> accout
       B0101: '請填寫帳號',
       B0102: '不可註冊超過 100 字元的帳號',
       B0103: '此帳號已有人使用',
+      B0104: '此帳號不存在',
       // C --> password
       // C01xx --> password
       C0101: '請填寫密碼',
@@ -25,6 +28,9 @@ export default function queryMsg(category, code) {
       C0301: '請填寫密碼',
       C0302: '請填寫6-12位密碼',
       C0303: '密碼輸入錯誤',
+      // C04xx --> resetpassword
+      C0401: '不明連結，請重新申請',
+      C0402: '連結已過期，請重新申請',
       // D --> name
       D0101: '請填寫使用者姓名',
       D0102: '不可註冊超過 100 字元的姓名',
@@ -49,6 +55,7 @@ export default function queryMsg(category, code) {
       // L --> login 登入時，確保資安，統一回覆帳號或密碼錯誤
       L0101: '帳號或密碼輸入錯誤',
       L0102: '請確實填寫帳號及密碼',
+      L0103: '發送驗證Email時，發生錯誤！請聯繫 MEELEs 客服。',
     },
     recipecomment: {
       // A --> 成功

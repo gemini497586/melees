@@ -110,7 +110,7 @@ function Register() {
     }
     setFormValues(setEmtpyValue)
     setErrors(validationInfo(formValues))
-    // console.log('handleFormInvalid', errors)
+    console.log('handleFormInvalid', errors)
   }
 
   const handleSubmit = async (e) => {
@@ -180,7 +180,7 @@ function Register() {
       let resData = err.response.data
       // instanceof 判斷資料型別是物件還是陣列時，應該優先判斷array，最後判斷object
       // 因為 Array 也是屬於物件 array01 instanceof Object  // true
-      // ==============================================
+      // -----------------------------------------------------------------
       // express-validator 回覆多個欄位發生錯誤時，resData 是 Array
       // 其他驗證 或 express-validator 回覆１個欄位發生錯誤時，resData 是 Object
       if (resData instanceof Array) {

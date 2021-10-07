@@ -104,20 +104,23 @@ function EditPassword() {
       })
 
       let resData = err.response.data
-      // 其他驗證 或 express-validator 回覆１個欄位發生錯誤時，resData 是 Object
+      // instanceof 判斷資料型別是物件還是陣列時，應該優先判斷array，最後判斷object
+      // 因為 Array 也是屬於物件 array01 instanceof Object  // true
+      // -----------------------------------------------------------------
       // express-validator 回覆多個欄位發生錯誤時，resData 是 Array
-      if (resData instanceof Object) {
-        setErrors({
-          [resData.type]: queryMsg(resData.category, resData.code),
-        })
-      } else if (resData instanceof Array) {
+      // 其他驗證 或 express-validator 回覆１個欄位發生錯誤時，resData 是 Object
+      if (resData instanceof Array) {
         let resError = {}
         for (let i = 0; i < resData.length; i++) {
           const error = resData[i]
           resError[error.type] = queryMsg(error.category, error.code)
         }
-        // console.log('editPassword.js L109, resError', resError)
+        // console.log('editPassword.js L118, resError', resError)
         setErrors(resError)
+      } else if (resData instanceof Object) {
+        setErrors({
+          [resData.type]: queryMsg(resData.category, resData.code),
+        })
       }
     }
   }
