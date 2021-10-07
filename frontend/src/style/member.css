@@ -183,3 +183,10 @@
   text-decoration: underline;
   color: var(--color-primary-A)
 }
+
+.reset-password {
+  padding-bottom: 80px;
+}
+.reset-password input{
+  padding: 20px;
+}
