@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import '../style/cardShopping.css'
-import { API_URL, P_CATEGORY } from '../utils/config'
+import { API_URL, P_CATEGORY } from '../../../utils/config'
 import Axios from 'axios'
 
-function CardShopping() {
+function CardShopping(props) {
+  const { product } = props
   const [marketList, setMarketList] = useState([])
   const [saveState, setSaveState] = useState([])
 
@@ -42,6 +42,7 @@ function CardShopping() {
     }
     return save
   }
+  const showData = product.length > 0 ? product : marketList
 
   return (
     <div className="container">
@@ -62,7 +63,7 @@ function CardShopping() {
           </div>
           <div className="cardShopping-others-hr w-100"></div>
         </div>
-        {marketList.map((value) => {
+        {showData.map((value) => {
           return (
             <div className="col-12 col-md-3" key={value.id}>
               <div className="cardShopping">

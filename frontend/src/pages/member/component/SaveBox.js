@@ -35,24 +35,25 @@ function SaveBox(props) {
   }
 
   // 彈出視窗，確認是否刪除
-  const openDeleteModal = (id) => {
+  const openDeleteModal = (id, name) => {
     Swal.fire({
-      title: '確定要刪除這個便當嗎?',
-      // text: "確定要刪除這個便當嗎?",
       icon: 'warning',
       iconColor: 'var(--color-red-C)',
+      title: '確定要刪除嗎？',
+      html: `您收藏的便當 <strong>${name}</strong> 將無法回復！`,
       showCancelButton: true,
+      confirmButtonText: '刪除',
       confirmButtonColor: 'var(--color-red-C)',
-      cancelButtonColor: 'var(--color-grey-500)',
-      confirmButtonText: '確定刪除',
       cancelButtonText: '取消',
+      cancelButtonColor: 'var(--color-grey-500)',
     }).then((result) => {
       if (result.isConfirmed) {
         handleDelete(id)
         Swal.fire({
           icon: 'success',
           title: '已刪除',
-          text: '便當已刪除',
+          confirmButtonText: '確認',
+          confirmButtonColor: 'var(--color-primary)',
         })
       }
     })
@@ -116,7 +117,7 @@ function SaveBox(props) {
                 <button
                   className="member-box-del"
                   onClick={() => {
-                    openDeleteModal(value.id)
+                    openDeleteModal(value.id, value.name)
                   }}
                 >
                   <FontAwesomeIcon icon="trash-alt" />

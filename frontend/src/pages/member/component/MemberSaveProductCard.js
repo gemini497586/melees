@@ -27,7 +27,7 @@ function MemberSaveProdcutCard(props) {
                 />
                 <FontAwesomeIcon
                   icon="bookmark"
-                  className="bookmark bookmark-active"
+                  className="bookmark"
                   size="2x"
                 />
               </div>

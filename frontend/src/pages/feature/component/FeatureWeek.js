@@ -52,18 +52,12 @@ function FeatureWeek(props) {
         let name = v[i].listName
         let id = v[i].listId
         let weekId = v[i].weekId
-        // let likeqty = v[i].likeqty
-        // let viewqty = v[i].viewqty
         recipeNames.push(
           <>
-            {/* <p className="text-center font-400SL fcolor-grey-900"> */}
             <Link to={`/feature/stepweek/${weekId}/${id}`}>{name}</Link>
-            {/* </p> */}
-            {/* <HeartViewNum likeqty={likeqty} viewqty={viewqty} /> */}
           </>
         )
       }
-      // console.log('recipeNames: ', recipeNames)
 
       return (
         <div className="fw-cards">
@@ -81,14 +75,8 @@ function FeatureWeek(props) {
     <>
       {/* 一周list */}
       <div className="fw-list">
-        {/* img */}
-        {/* <figure className="fw-img fcover-fit">
-          <img className="fcover-fit" src={food} alt="" />
-        </figure> */}
-        {/* button */}
         <div className="fw-date">{mapWeekRecipe()}</div>
       </div>
-      {/* <div className="fline-g300"></div> */}
     </>
   )
 }

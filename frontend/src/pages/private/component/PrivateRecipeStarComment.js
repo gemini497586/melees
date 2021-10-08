@@ -88,7 +88,7 @@ function PrivateRecipeStarComment(props) {
             <div className="d-flex">
               <figure className="PrivateRecipeStarComment-figure">
                 <img
-                  src={login ? `${API_URL}/member${avatar}` : default_avatar}
+                  src={login ? `${avatar}` : default_avatar}
                   className="PrivateRecipeStarComment-img"
                   alt=""
                 />

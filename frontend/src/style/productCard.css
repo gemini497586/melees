@@ -19,7 +19,7 @@
 
 .bookmark {
   position: absolute;
-  color: var(--color-FBblue);
+  color: var(--color-blue-C);
   top: 21px;
   left: 254px;
   cursor: pointer;

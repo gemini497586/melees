@@ -152,7 +152,7 @@
 .b-page2-select {
   color: var(--color-grey-900);
   width: 60%;
-  padding: 10px;
+  padding: 15px;
   margin-left: 20px;
   border-radius: 8px;
   box-shadow: 0 0 3px var(--color-grey-800);
@@ -388,10 +388,10 @@
 .b-modal-close:hover {
   color: var(--color-grey-900);
 }
-
 .b-modal-note {
   color: var(--color-grey-800);
-  margin-bottom: 10px;
+  height: 20px;
+  margin-bottom: 5px;
 }
 @media screen and (max-width: 414px) {
   .b-modal {

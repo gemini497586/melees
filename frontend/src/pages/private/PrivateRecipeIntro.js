@@ -33,12 +33,18 @@ function PrivateRecipeIntro() {
       // 設定可以跨源送 cookie
       withCredentials: true,
     }).then((res) => {
-      setAvatar(res.data.picture)
+      let loginAvatar = res.data.picture.includes('http')
+        ? res.data.picture
+        : `${API_URL}/member/${res.data.picture}`
+      setAvatar(loginAvatar)
     })
   }, [])
 
   useEffect(() => {
-    Axios.get(`${API_URL}/private/intro/${id}`).then((res) => {
+    Axios.get(`${API_URL}/private/intro/${id}`, {
+      // 設定可以跨源送 cookie
+      withCredentials: true,
+    }).then((res) => {
       setIngred(res.data.ingredList)
       setStepList(res.data.stepList)
       setTags(res.data.tagList)

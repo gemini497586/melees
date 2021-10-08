@@ -4,8 +4,8 @@ import '../../style/box.css'
 import Page1 from './component/Page1'
 import Page2 from './component/Page2'
 import Page3 from './component/Page3'
-import CardRecipe from '../../component/CardRecipe'
-import CardShopping from '../../component/CardShopping'
+import CardRecipe from './component/CardRecipe'
+import CardShopping from './component/CardShopping'
 import { API_URL } from '../../utils/config'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
@@ -23,6 +23,8 @@ function Box() {
   const [bmr, setBmr] = useState(0)
   const [tdee, setTdee] = useState(0)
   const [cal, setCal] = useState(0)
+  const [product, setProduct] = useState([])
+  const [recipe, setRecipe] = useState([])
 
   // 從資料庫抓資料
   useEffect(() => {
@@ -39,41 +41,45 @@ function Box() {
     }
     getData()
   }, [])
-
-  // 點選圖片
+  // 點選食材->新增至便當盒 + 新增至table + 更新下方推薦商品/食譜
   const handleCheck = async (v) => {
     // 先抓到便當裡面食材的名稱
-    let getName = bento.map((item) => {
-      return item.name
+    const getId = bento.map((v) => {
+      return v.id
     })
-    // console.log('新增之前 ', getName)
 
     // 判斷食材是否已存在便當裡
     // 存在->不能新增
     // 不存在->可以新增
-    if (getName.includes(v.name)) {
+    if (getId.includes(v.id)) {
       Swal.fire({
         title: '每樣食材只可挑選一次',
+        confirmButtonText: '確認',
         confirmButtonColor: 'var(--color-primary)',
       })
       return
     } else {
       const newBento = [
         ...bento,
-        { name: v.name, inside_image: v.inside_image, id: v.id, cal: v.cal },
+        {
+          id: v.id,
+          name: v.name,
+          inside_image: v.inside_image,
+          cal: v.cal,
+          product_id: v.product_id,
+          feature_id: v.feature_id,
+        },
       ]
       // 第六個的時候就不能再新增
       if (newBento.length > 5) {
         Swal.fire({
           title: '最多只能挑選五樣食材',
+          confirmButtonText: '確認',
           confirmButtonColor: 'var(--color-primary)',
         })
         return
       }
       setBento(newBento)
-      // console.log('新增之前', bento)
-      // console.log('新增之後', newBento)
-
       // 加到table
       const newTableList = [
         ...tableList,
@@ -82,15 +88,45 @@ function Box() {
       setTableList(newTableList)
 
       // 現在便當裡面食材的卡路里，用reduce計算加總
-      const getCal = newBento.map((item) => {
-        return item.cal
+      const getCal = newBento.map((v) => {
+        return v.cal
       })
       const newCal = getCal.reduce((acc, curr) => acc + curr)
       setCal(newCal)
-      // console.log('現在的卡路里 ', newCal)
+
+      // 抓到點下去，抓到商品id/食譜id
+      const productIds = newBento.map((v) => {
+        return v.product_id
+      })
+      const recipeId = newBento.map((v) => {
+        return v.feature_id
+      })
+      getProduct(productIds, recipeId)
     }
   }
-
+  // 點到的商品id丟到後端，也同時丟進product/recipe這個狀態中
+  const getProduct = async (productIds, recipeId) => {
+    try {
+      let result = await Axios.post(
+        `${API_URL}/box/recommendproduct`,
+        { productIds },
+        {
+          withCredentials: true,
+        }
+      )
+      let result2 = await Axios.post(
+        `${API_URL}/box/recommendrecipe`,
+        { recipeId },
+        {
+          withCredentials: true,
+        }
+      )
+      setProduct(result.data)
+      setRecipe(result2.data)
+    } catch (e) {
+      console.log('e', e.response)
+    }
+  }
   // 把食材刪除
   const handleRemove = (v) => {
     const name = v.name
@@ -128,8 +164,8 @@ function Box() {
           setBento={setBento}
         />
         {/* 最下面推薦食譜 商品 */}
-        <CardRecipe />
-        <CardShopping />
+        <CardRecipe recipe={recipe} />
+        <CardShopping product={product} />
       </section>
     </>
   )
