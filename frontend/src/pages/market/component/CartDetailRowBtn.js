@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import '../../../style/cartDetailRowBtn.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
@@ -6,7 +6,7 @@ import { API_URL } from '../../../utils/config'
 import useCart from '../../../utils/useCart'
 
 function CartDetailRow(props) {
-  const { carts, removeCart, productsAll, minusAmount, plusAmount } = useCart()
+  const { carts, removeCart, minusAmount, plusAmount } = useCart()
   const index = props.index
   const productID = carts[index].id - 1
   // console.log(productsAll)

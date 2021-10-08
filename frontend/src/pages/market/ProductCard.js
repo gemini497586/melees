@@ -17,8 +17,7 @@ function ProductCard(props) {
     perPage,
   } = props
 
-  const { addCart, setProductsAll, selectIndex, setSelectIndex } = useCart()
-  const [save, setSave] = useState(false)
+  const { addCart, setProductsAll, selectIndex } = useCart()
   const [saving, setSaving] = useState([])
 
   useEffect(() => {
