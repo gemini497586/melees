@@ -19,12 +19,17 @@ function Header() {
   const [recipe, setRecipe] = useState('找食譜')
   const [goods, setGoods] = useState('找商品')
 
+  const [searchData, setSearchData] = useState([])
+  const [searchList, setSearchList] = useState(false)
   const { carts, countProduct, setCountProduct } = useCart()
   const [counting, setCounting] = useState(1)
 
   const location = useLocation()
   const history = useHistory()
   // useLocation
+
+  // const color123 = { color: 'var(--color-primary-A)' }
+  // const [wordHover, setWordHover] = useState()
 
   useEffect(() => {
     // demount + deUpdate
@@ -69,7 +74,10 @@ function Header() {
     axios
       .post(`${API_URL}/market/avatar`, null, { withCredentials: true })
       .then((result) => {
-        setAvatar(result.data[0].picture)
+        let loginAvatar = result.data[0].picture.includes('http')
+          ? result.data[0].picture
+          : `${API_URL}/member/${result.data[0].picture}`
+        setAvatar(loginAvatar)
       })
   }, [login])
 
@@ -111,6 +119,12 @@ function Header() {
     }
   }, [carts])
 
+  useEffect(() => {
+    axios.get(`${API_URL}/private/search`).then((res) => {
+      setSearchData(res.data.filterArr)
+    })
+  }, [])
+
   const handleSubmit = () => {
     if (recipe === '找商品') {
       history.push(`/search/market/${word}`)
@@ -118,6 +132,33 @@ function Header() {
     if (recipe === '找食譜') {
       history.replace(`/search/recipe/${word}`)
     }
+  }
+
+  const handleSearch = () => {
+    const list = []
+    let filterData = searchData.filter((value) => {
+      return value.indexOf(word) > -1
+    })
+    filterData.map((value, index) => {
+      list.push(
+        <>
+          <div
+            className="header-search-recommend-menu-word"
+            key={index}
+            onClick={(e) => {
+              setWord(value)
+              setSearchList(false)
+            }}
+          >
+            {value}
+          </div>
+          <span>
+            <hr className="my-1" />
+          </span>
+        </>
+      )
+    })
+    return list
   }
 
   return (
@@ -175,6 +216,9 @@ function Header() {
               value={word}
               onChange={(e) => {
                 setWord(e.target.value)
+                e.target.value === ''
+                  ? setSearchList(false)
+                  : setSearchList(true)
               }}
               onKeyPress={(e) => {
                 if (e.key === 'Enter') {
@@ -186,6 +230,11 @@ function Header() {
               <FontAwesomeIcon icon="search" />
             </button>
           </div>
+          {searchList ? (
+            <div className="header-search-recommend-menu">{handleSearch()}</div>
+          ) : (
+            ''
+          )}
         </li>
         <li className="cart-btn">
           <div
@@ -210,11 +259,7 @@ function Header() {
         {login ? (
           <li className="user-btn ">
             <div className="user-avatar" data-bs-toggle="dropdown">
-              <img
-                alt="大頭貼"
-                className="cover-fit"
-                src={`${API_URL}/member${avatar}`}
-              />
+              <img alt="大頭貼" className="cover-fit" src={avatar} />
               <FontAwesomeIcon icon="user-circle" className="user" />
             </div>
             <ul className="dropdown-menu user-dropdown">

@@ -77,7 +77,6 @@ function Form2(props) {
   }
   // 表單變動時
   const handleFormChange = (e) => {
-    // console.log('目前正在更新這個欄位 ', e.target.name)
     const updatedFieldError = { ...fieldErrors, [e.target.name]: '' }
     setFieldsErrors(updatedFieldError)
   }
@@ -99,7 +98,6 @@ function Form2(props) {
       setBmr(parseInt(newBmr))
       setTdee(parseInt(newTdee))
     }
-    // console.log(newBmr, newTdee)
   }
   return (
     <>

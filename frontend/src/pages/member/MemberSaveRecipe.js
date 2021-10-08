@@ -18,10 +18,10 @@ function MemberFeature() {
   const checkList = ['全部', '精選食譜', '私藏食譜']
   const itemList = [
     {
-      name: '時間由新至舊',
+      name: '收藏時間由新至舊',
     },
     {
-      name: '時間由舊至新',
+      name: '收藏時間由舊至新',
     },
     {
       name: '按讚數由多至少',
@@ -45,15 +45,15 @@ function MemberFeature() {
         })
         // 判斷是否有收藏
         if (res.data.message) {
-          // console.log(res.data.message)
           setMessage('目前尚未收藏任何食譜，馬上去看看食譜吧！')
         } else {
+          // 把兩個食譜混再一起，先用新增日期排序
           let privateData = res.data.private
           let featureData = res.data.feature
           let totalData = privateData.concat(featureData)
+          totalData = totalData.sort((a, b) => b.saveId - a.saveId)
           setData(totalData)
           setDisplayData(totalData)
-          // console.log(res)
         }
       } catch (e) {
         console.log(e)

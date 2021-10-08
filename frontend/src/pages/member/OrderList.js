@@ -9,7 +9,6 @@ function OrderQuery() {
   const [data, setData] = useState([])
   const [count, setCount] = useState(0)
 
-  const payment_method = { 1: '信用卡', 2: '貨到付款' }
   const status = {
     1: '訂單成立',
     2: '處理中',
@@ -65,11 +64,7 @@ function OrderQuery() {
               <div className="orderList-row-10 orderList-web">問與答</div>
             </div>
             {/* 下面內容 */}
-            <OrderListRow
-              dataList={data}
-              payment_method={payment_method}
-              status={status}
-            />
+            <OrderListRow dataList={data} status={status} />
           </div>
         </div>
       </div>

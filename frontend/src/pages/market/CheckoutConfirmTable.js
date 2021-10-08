@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import '../../style/checkoutConfirm.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
@@ -7,7 +7,7 @@ import useCart from '../../utils/useCart'
 function CheckoutConfirmTable(props) {
   const { carts } = useCart()
   const index = props.index
-  const productID = carts[index].id - 1
+  // const productID = carts[index].id - 1
 
   return (
     <tr className="d-flex justify-content-between checkout-confirm-tr">

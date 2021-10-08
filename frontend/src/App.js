@@ -40,6 +40,7 @@ import SearchMarket from './pages/search/SearchMarket'
 // 會員相關
 import Login from './pages/member/Login'
 import Register from './pages/member/Register'
+import ResetPassword from './pages/member/ResetPassword'
 import EditMemberInfo from './pages/member/EditMemberInfo'
 import EditPassword from './pages/member/EditPassword'
 import OrderDetails from './pages/member/OrderDetails'
@@ -50,6 +51,7 @@ import MemberSaveProduct from './pages/member/MemberSaveProduct'
 import MemberRecipeComment from './pages/member/MemberRecipeComment'
 import Coupon from './pages/member/Coupon'
 import MyRecipe from './pages/member/MyRecipe'
+import MemberView from './pages/member/MemberView'
 
 import About from './pages/about/About'
 import Privacy from './pages/about/Privacy'
@@ -141,6 +143,9 @@ function App() {
                 <Route path="/register">
                   <Register />
                 </Route>
+                <Route path="/resetpwd/:token?">
+                  <ResetPassword />
+                </Route>
                 <ProtectedRoute path="/member/editinfo" isAuth={login}>
                   <EditMemberInfo />
                 </ProtectedRoute>
@@ -174,6 +179,9 @@ function App() {
                 </ProtectedRoute>
                 <ProtectedRoute path="/member/coupon" isAuth={login}>
                   <Coupon />
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/member/history" isAuth={login}>
+                  <MemberView />
                 </ProtectedRoute>
                 <ProtectedRoute exact path="/member" isAuth={login}>
                   <MyRecipe />

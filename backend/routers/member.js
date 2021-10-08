@@ -26,12 +26,7 @@ const infoValidation = [
     .withMessage("D0101"),
   body("name").isLength({ max: 100 }).withMessage("D0102"),
 
-  // 生日驗證 --> 1.不為空值  2.檢查日期格式
-  body("birthday")
-    .custom((value, { req }) => {
-      return value ? true : false;
-    })
-    .withMessage("G0101"),
+  // 生日驗證 --> 1.系統預設值 2000/01/01   2.檢查日期格式
   body("birthday").isDate().withMessage("G0102"),
 
   // 暱稱驗證 --> 1.接受空值   2.max: 100;
@@ -43,8 +38,10 @@ const infoValidation = [
   // 手機驗證 --> 1.接受空值  2.台灣手機號碼格式
   body("cellphone")
     .custom((value, { req }) => {
-      let phoneRegex = /^(09)[0-9]{8}$/;
-      return phoneRegex.test(value);
+      if (value) {
+        let phoneRegex = /^(09)[0-9]{8}$/;
+        return !phoneRegex.test(value);
+      }
     })
     .withMessage("H0102"),
 ];
@@ -142,7 +139,7 @@ router.post(
     // 套件回覆的驗證結果
     const dataValidationResult = validationResult(req);
     if (!dataValidationResult.isEmpty()) {
-      let error = dataValidationResult.array();
+      let errors = dataValidationResult.array();
       // console.log(error);
 
       // 當 express-validator 回覆多個錯誤時
@@ -269,143 +266,101 @@ router.post(
   }
 );
 
-// 收藏便當
-router.post("/savebox", async (req, res, next) => {
-  // 確認資料是否拿到
-  // console.log(req.body);
-  // 確認是否拿到會員id
-  const memberId = req.session.member.id;
-  // console.log(memberId);
-  const createDate = moment().format("YYYYMMDD");
-  let result = await connection.queryAsync(
-    "INSERT INTO box_save (member_id,box_ids,name,cal,create_at) VALUE (?)",
-    [[memberId, req.body.saveId, req.body.name, req.body.cal, createDate]]
-  );
-  res.status(200).json({ message: "客製化便當收藏成功" });
-});
-
-router.post("/deletesavebox", async (req, res, next) => {
-  let result = await connection.queryAsync("DELETE FROM box_save WHERE id=?", [
-    req.body.id,
-  ]);
-  res.status(200).json({ message: "客製化便當收刪除成功" });
-});
-
-router.get("/readsavebox", async (req, res, next) => {
-  const memberId = req.session.member.id;
-  // const memberId = 1;
-
-  let result = await connection.queryAsync(
-    "SELECT * FROM box_save WHERE member_id=? ORDER BY id DESC",
-    [memberId]
-  );
-  // 檢查是否有收藏
-  if (result.length === 0) {
-    res.json({ message: "您好，目前尚未收藏任何便當" });
-  } else {
-    let result2 = await connection.queryAsync(
-      "SELECT id,name,inside_image FROM box"
-    );
-    res.json({ result, result2 });
-  }
-});
-
 // 收藏商品
 router.get("/readsaveproduct", async (req, res, next) => {
   const memberId = req.session.member.id;
-  // const memberId = 1;
 
   let result = await connection.queryAsync(
-    "SELECT * FROM product_save WHERE member_id=? ORDER BY id DESC",
-    [memberId]
+      "SELECT * FROM product_save WHERE member_id=? ORDER BY id DESC",
+      [memberId]
   );
   // 檢查是否有收藏
   if (result.length === 0) {
-    res.json({ message: "您好，目前尚未收藏任何商品" });
+      res.json({ message: "您好，目前尚未收藏任何商品" });
   } else {
-    let productIds = result.map((v) => {
-      return v.product_id;
-    });
-    let result2 = await connection.queryAsync(
-      "SELECT * FROM product WHERE id IN ?",
-      [[productIds]]
-    );
-    res.json({ result, result2 });
+      let productIds = result.map((v) => {
+          return v.product_id;
+      });
+      let result2 = await connection.queryAsync(
+          "SELECT * FROM product WHERE id IN ?",
+          [[productIds]]
+      );
+      res.json({ result, result2 });
   }
 });
 
 router.get("/readsaverecipe", async (req, res, next) => {
   const memberId = req.session.member.id;
-  // const memberId = 1;
   let result = { private: [], feature: [] };
 
   // 私藏 -> 確認是否收藏
   // 有 -> 拿到該會員收藏的食譜id -> 再去撈出那些食譜的詳細內容
   let private_save = await connection.queryAsync(
-    "SELECT * FROM private_save WHERE user_id=? ORDER BY id DESC",
-    [memberId]
+      "SELECT private_id FROM private_save WHERE user_id=? ORDER BY id DESC",
+      [memberId]
   );
   // console.log("private_save ", private_save);
   if (private_save.length > 0) {
-    let privateIds = private_save.map((v) => {
-      return v.private_id;
-    });
-    // console.log("privateIds ", privateIds);
-    let private = await connection.queryAsync(
-      "SELECT a.id, a.picture, a.name, a.create_date, " +
-        "b.id AS member_id, b.name AS member_name, b.nickname AS member_nickname, b.picture AS member_pic, " +
-        "c.id AS saveId, " +
-        "(SELECT COUNT(user_id) FROM private_like WHERE a.id=private_id) AS like_qty, " +
-        "(SELECT COUNT(user_id) FROM private_view WHERE a.id=private_id)AS view_qty " +
-        "FROM private_recipe AS a INNER JOIN member AS b ON a.member_id = b.id INNER JOIN private_save AS c ON a.id = c.private_id " +
-        "WHERE a.id IN ? " +
-        "GROUP BY a.id ORDER BY saveId DESC",
-      [[privateIds]]
-    );
-    private = private.map((v) => {
-      v["type"] = 1;
-      return v;
-    });
-    result["private"] = private;
+      let privateIds = private_save.map((v) => {
+          return v.private_id;
+      });
+      // console.log("privateIds ", privateIds);
+      let private = await connection.queryAsync(
+          "SELECT a.id, a.picture, a.name, a.create_date, " +
+              "b.id AS member_id, b.name AS member_name, b.nickname AS member_nickname, b.picture AS member_pic, " +
+              "c.id AS saveId, " +
+              "(SELECT COUNT(user_id) FROM private_like WHERE a.id=private_id) AS like_qty, " +
+              "(SELECT COUNT(user_id) FROM private_view WHERE a.id=private_id) AS view_qty " +
+              "FROM private_recipe AS a INNER JOIN member AS b ON a.member_id = b.id INNER JOIN private_save AS c ON a.id = c.private_id AND c.user_id=? " +
+              "WHERE a.id IN ? " +
+              "GROUP BY a.id ORDER BY saveId DESC",
+          [memberId, [privateIds]]
+      );
+      private = private.map((v) => {
+          v["type"] = 1;
+          return v;
+      });
+      result["private"] = private;
   }
 
   // 精選 -> 確認是否收藏
   // 有 -> 拿到該會員收藏的食譜id -> 再去撈出那些食譜的詳細內容
   let feature_save = await connection.queryAsync(
-    "SELECT * FROM feature_save WHERE member_id=?",
-    [memberId]
+      "SELECT feature_id FROM feature_save WHERE member_id=?",
+      [memberId]
   );
   // console.log("feature_save ", feature_save);
   if (feature_save.length > 0) {
-    let featureIds = feature_save.map((v) => {
-      return v.feature_id;
-    });
-    // console.log("featureIds ", featureIds);
-    let feature = await connection.queryAsync(
-      "SELECT a.id , a.type_id, a.name, a.create_date, " +
-        "b.name AS linkName, b.img AS linkImg, " +
-        "c.file_type AS picture, " +
-        "d.id AS saveId, " +
-        "(SELECT COUNT(member_id) FROM feature_like WHERE a.id=feature_id) AS like_qty ," +
-        "(SELECT COUNT(member_id) FROM feature_view WHERE a.id=feature_id) AS view_qty " +
-        "FROM feature_list AS a INNER JOIN feature_link AS b ON a.link_id=b.id INNER JOIN feature_img AS c ON a.id=c.feature_id INNER JOIN feature_save AS d ON a.id=d.feature_id " +
-        "WHERE a.id IN ? GROUP BY a.id ORDER BY a.id DESC",
-      [[featureIds]]
-    );
-    feature = feature.map((v) => {
-      v["type"] = 2;
-      return v;
-    });
-    result["feature"] = feature;
+      let featureIds = feature_save.map((v) => {
+          return v.feature_id;
+      });
+      // console.log("featureIds ", featureIds);
+      let feature = await connection.queryAsync(
+          "SELECT a.id , a.type_id, a.name, a.create_date, " +
+              "b.name AS linkName, b.img AS linkImg, " +
+              "c.file_type AS picture, " +
+              "d.id AS saveId, " +
+              "(SELECT COUNT(member_id) FROM feature_like WHERE a.id=feature_id) AS like_qty ," +
+              "(SELECT COUNT(member_id) FROM feature_view WHERE a.id=feature_id) AS view_qty " +
+              "FROM feature_list AS a INNER JOIN feature_link AS b ON a.link_id=b.id INNER JOIN feature_img AS c ON a.id=c.feature_id INNER JOIN feature_save AS d ON a.id=d.feature_id  AND d.member_id = ? " +
+              "WHERE a.id IN ? GROUP BY a.id ORDER BY saveId DESC",
+          [memberId, [featureIds]]
+          
+      );
+      feature = feature.map((v) => {
+          v["type"] = 2;
+          return v;
+      });
+      result["feature"] = feature;
   }
 
   // 檢查兩種食譜是否都有被收藏
   // 沒有 -> 回傳訊息
   // 有 -> 回傳資料
   if (result.private.length === 0 && result.feature.length === 0) {
-    res.json({ message: "您好，目前尚未收藏任何食譜" });
+      res.json({ message: "您好，目前尚未收藏任何食譜" });
   } else {
-    res.json(result);
+      res.json(result);
   }
 });
 
@@ -454,6 +409,11 @@ router.post("/recipecomment/modal/read", async (req, res, next) => {
     [req.body.recipe_id]
   );
 
+  let comment_qty = await connection.queryAsync(
+    "SELECT count(*) AS count FROM private_comment WHERE private_id=? AND member_id=?",
+    [req.body.recipe_id, req.session.member.id]
+  );
+
   let author_id = await connection.queryAsync(
     "SELECT member_id FROM private_recipe WHERE id=?",
     [req.body.recipe_id]
@@ -473,6 +433,7 @@ router.post("/recipecomment/modal/read", async (req, res, next) => {
     recipe_author_avatar: author_avatar[0].picture,
     like_qty: like_qty[0].count,
     view_qty: view_qty[0].count,
+    comment_qty: comment_qty[0].count,
   };
 
   res.json(newResult);
@@ -494,19 +455,19 @@ router.post("/recipecomment/modal/edit", async (req, res, next) => {
   let sql = "UPDATE private_comment SET";
   let updateData = [];
 
-  // 2-1. 評論有更新，新增sql語法，更新comment欄位
+  //   a. 評論有更新，新增sql語法，更新comment欄位
   if (req.body.newComment) {
     sql += " comment = ?,";
     updateData.push(req.body.newComment);
   }
 
-  // 2-2. 評分有更新，新增sql語法，更新star_rate欄位
+  //   b. 評分有更新，新增sql語法，更新star_rate欄位
   if (req.body.starScore) {
     sql += " star_rate = ?,";
     updateData.push(req.body.starScore);
   }
 
-  // 2-3. 完成sql語法、整理資料
+  //   c. 完成sql語法、整理資料
   sql += " comment_time = ? WHERE id = ? AND member_id =?";
   updateData.push(
     moment().format("YYYYMMDD"),
@@ -516,11 +477,11 @@ router.post("/recipecomment/modal/edit", async (req, res, next) => {
 
   // 3. 執行 --> 資料庫更新
   try {
-    // 3-1. private_comment 更新 該食譜評論
+    //   a. private_comment 更新 該食譜評論
     let result_comment = await connection.queryAsync(sql, updateData);
     console.log("updated result_comment: ", result_comment);
 
-    // 3-2. 將該食譜的星星數做加總 / 該食譜的總評分人數
+    //   b. 將該食譜的星星數做加總 / 該食譜的總評分人數
     let result = await connection.queryAsync(
       "SELECT * FROM private_comment WHERE private_id = ?",
       [req.body.recipe_id]
@@ -573,10 +534,10 @@ router.post("/recipecomment/modal/delete", async (req, res, next) => {
     });
   }
 
-  // let result = await connection.queryAsync(
-  //   "DELETE FROM private_comment WHERE id = ? AND member_id = ?",
-  //   [req.body.id, req.session.member.id]
-  // );
+  let result = await connection.queryAsync(
+    "DELETE FROM private_comment WHERE id = ? AND member_id = ?",
+    [req.body.id, req.session.member.id]
+  );
 
   res.status(200).json({ category: "recipecomment", code: "A0004" });
 });

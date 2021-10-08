@@ -41,6 +41,7 @@ function MemberRecipeCommentRow(props) {
           recipe_author_avatar: response.data.recipe_author_avatar,
           like_qty: response.data.like_qty,
           view_qty: response.data.view_qty,
+          comment_qty: response.data.comment_qty,
         })
       } catch (err) {
         console.error(err)

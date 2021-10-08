@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： localhost
--- 產生時間： 2021 年 10 月 04 日 19:58
+-- 產生時間： 2021 年 10 月 08 日 16:28
 -- 伺服器版本： 10.4.19-MariaDB
 -- PHP 版本： 8.0.7
 
@@ -34,6 +34,7 @@ CREATE TABLE `box` (
   `inside_image` varchar(50) NOT NULL,
   `cal` int(5) UNSIGNED NOT NULL,
   `product_id` int(5) UNSIGNED DEFAULT NULL,
+  `feature_id` int(5) UNSIGNED DEFAULT NULL,
   `valid` varchar(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -41,23 +42,23 @@ CREATE TABLE `box` (
 -- 傾印資料表的資料 `box`
 --
 
-INSERT INTO `box` (`id`, `name`, `image`, `inside_image`, `cal`, `product_id`, `valid`) VALUES
-(1, '牛排', 'steak.png', 'steak2.png', 120, 2, '1'),
-(2, '雞胸肉', 'chicken.png', 'chicken2.png', 165, 12, '1'),
-(3, '豬肉', 'pork.png', 'pork2.png', 242, 8, '1'),
-(4, '白蝦', 'shrimp.png', 'shrimp2.png', 103, 17, '1'),
-(5, '白飯', 'rice.png', 'rice2.png', 280, 10, '1'),
-(6, '水煮蛋', 'egg.png', 'egg2.png', 80, 15, '1'),
-(7, '香菇', 'mushroom.png', 'mushroom2.png', 20, 19, '1'),
-(8, '生菜', 'lettuce.png', 'lettuce2.png', 17, 16, '1'),
-(9, '花椰菜', 'broccoli.png', 'broccoli2.png', 25, 16, '1'),
-(10, '高麗菜', 'cabbage.png', 'cabbage2.png', 25, 16, '1'),
-(11, '豆腐', 'tofu.png', 'tofu2.png', 76, 20, '1'),
-(12, '鮭魚', 'salmon.png', 'salmon2.png', 208, 1, '1'),
-(13, '炒飯', 'friedrice.png', 'friedrice2.png', 163, 10, '1'),
-(14, '玉米筍', 'corn.png', 'corn2.png', 31, 14, '1'),
-(15, '義大利麵', 'pasta.png', 'pasta2.png', 371, 1, '1'),
-(16, '義大利麵(直麵)', 'spaghetti.png', 'spaghetti2.png', 158, 1, '1');
+INSERT INTO `box` (`id`, `name`, `image`, `inside_image`, `cal`, `product_id`, `feature_id`, `valid`) VALUES
+(1, '牛排', 'steak.png', 'steak2.png', 120, 2, 5, '1'),
+(2, '雞胸肉', 'chicken.png', 'chicken2.png', 165, 12, 15, '1'),
+(3, '豬肉', 'pork.png', 'pork2.png', 242, 4, 57, '1'),
+(4, '白蝦', 'shrimp.png', 'shrimp2.png', 103, 17, 59, '1'),
+(5, '白飯', 'rice.png', 'rice2.png', 280, 10, 8, '1'),
+(6, '水煮蛋', 'egg.png', 'egg2.png', 80, 15, 46, '1'),
+(7, '香菇', 'mushroom.png', 'mushroom2.png', 20, 19, 22, '1'),
+(8, '生菜', 'lettuce.png', 'lettuce2.png', 17, 16, 12, '1'),
+(9, '花椰菜', 'broccoli.png', 'broccoli2.png', 25, 35, 41, '1'),
+(10, '高麗菜', 'cabbage.png', 'cabbage2.png', 25, 28, 7, '1'),
+(11, '豆腐', 'tofu.png', 'tofu2.png', 76, 20, 32, '1'),
+(12, '鮭魚', 'salmon.png', 'salmon2.png', 208, 32, 2, '1'),
+(13, '炒飯', 'friedrice.png', 'friedrice2.png', 163, 14, 36, '1'),
+(14, '玉米筍', 'corn.png', 'corn2.png', 31, 33, 16, '1'),
+(15, '義大利麵', 'pasta.png', 'pasta2.png', 371, 31, 1, '1'),
+(16, '義大利麵(直麵)', 'spaghetti.png', 'spaghetti2.png', 158, 18, 62, '1');
 
 -- --------------------------------------------------------
 
@@ -130,12 +131,26 @@ INSERT INTO `box_save_detail` (`id`, `save_id`, `box_id`) VALUES
 (52, 12, 10),
 (53, 12, 9),
 (54, 12, 7),
-(55, 13, 15),
-(56, 13, 12),
-(57, 13, 14),
-(58, 13, 11),
-(59, 13, 9),
-(60, 14, 10);
+(61, 15, 8),
+(62, 16, 8),
+(63, 17, 13),
+(64, 18, 5),
+(65, 19, 8),
+(66, 20, 13),
+(67, 20, 3),
+(68, 20, 2),
+(69, 20, 1),
+(70, 20, 4),
+(71, 21, 8),
+(72, 21, 6),
+(73, 21, 14),
+(74, 21, 12),
+(75, 21, 11),
+(83, 27, 3),
+(84, 27, 2),
+(85, 27, 1),
+(86, 28, 5),
+(87, 29, 8);
 
 -- --------------------------------------------------------
 
@@ -168,8 +183,16 @@ INSERT INTO `box_save_main` (`id`, `member_id`, `name`, `cal`, `create_date`) VA
 (10, 5, '10/03', 569, '2021-10-03'),
 (11, 4, '16:08', 531, '2021-10-03'),
 (12, 1, '9 26', 207, '2021-10-04'),
-(13, 1, 'test', 711, '2021-10-04'),
-(14, 1, 'test', 25, '2021-10-04');
+(15, 2, '123', 17, '2021-10-05'),
+(16, 2, 'test', 17, '2021-10-05'),
+(17, 2, 'Ruby', 163, '2021-10-05'),
+(18, 2, '123', 280, '2021-10-05'),
+(19, 2, '123', 17, '2021-10-05'),
+(20, 2, '10/05', 793, '2021-10-05'),
+(21, 3, '112333', 412, '2021-10-05'),
+(27, 1, '2222', 527, '2021-10-07'),
+(28, 1, '123', 280, '2021-10-07'),
+(29, 2, ' ', 17, '2021-10-08');
 
 --
 -- 已傾印資料表的索引
@@ -207,13 +230,13 @@ ALTER TABLE `box`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `box_save_detail`
 --
 ALTER TABLE `box_save_detail`
-  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `box_save_main`
 --
 ALTER TABLE `box_save_main`
-  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import '../../style/cartDetail.css'
 import CartDetailRowBtn from './component/CartDetailRowBtn'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

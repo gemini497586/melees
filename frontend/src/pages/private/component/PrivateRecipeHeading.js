@@ -6,9 +6,9 @@ function PrivateRecipeHeading(props) {
   return (
     <>
       <div className="PrivateRecipeHeading">
-        <div class="PrivateRecipeHeading-box">
+        <div className="PrivateRecipeHeading-box">
           <h3>{title}</h3>
-          <div class="PrivateRecipeHeading-color"></div>
+          <div className="PrivateRecipeHeading-color"></div>
         </div>
       </div>
     </>

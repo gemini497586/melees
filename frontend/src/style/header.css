@@ -92,6 +92,30 @@
 .header-search-btn:hover {
   color: var(--color-primary);
 }
+.header-search-recommend-menu {
+  position: absolute;
+  right: 510px;
+  width: 280px;
+  height: 500px;
+  border-radius: 0 8px 8px 8px;
+  text-align: left;
+  overflow: hidden;
+  overflow-y: auto;
+  color: var(--color-secondary);
+  border: 1px solid var(--color-grey-800);
+  background: var(--color-white);
+}
+.header-search-recommend-menu::-webkit-scrollbar {
+  display: none;
+}
+.header-search-recommend-menu-word {
+  padding: 10px 10px;
+}
+.header-search-recommend-menu-word:hover {
+  cursor: pointer;
+  color: var(--color-primary);
+  transition: 0.3s;
+}
 /* 搜尋欄結束 */
 
 /* 購物車開始 */

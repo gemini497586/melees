@@ -17,6 +17,10 @@ function MyRecipe() {
   const [followTotal, setFollowTotal] = useState()
   const [sortBy, setSortBy] = useState(0)
   const [reRender, setReRender] = useState(false)
+  const emptyStyle = {
+    margin: '160px 0 165px 0',
+    color: 'var(--color-secondary)',
+  }
 
   useEffect(() => {
     Axios.get(`${API_URL}/private/myrecipe`, {
@@ -108,25 +112,29 @@ function MyRecipe() {
               followTotal={followTotal}
             />
           </div>
-          <div className="row justify-content-end">
-            <DropDown
-              sortList={sortList}
-              sortBy={sortBy}
-              setSortBy={setSortBy}
-            />
-          </div>
-          <div className="col-12">
-            <MyRecipeTable recipeList={recipeList} setReRender={setReRender} />
-          </div>
-          {/* <pre>食譜 {JSON.stringify(recipeList, null, 2)}</pre>
-          <span>---------------------------------</span>
-          <pre>按讚 {JSON.stringify(likeTotal, null, 2)}</pre>
-          <span>---------------------------------</span>
-          <pre>瀏覽 {JSON.stringify(viewTotal, null, 2)}</pre>
-          <span>---------------------------------</span>
-          <pre>評論 {JSON.stringify(commentTotal, null, 2)}</pre>
-          <span>---------------------------------</span>
-          <pre>粉絲 {JSON.stringify(followTotal, null, 2)}</pre> */}
+          {recipeList.length === 0 ? (
+            <div style={emptyStyle}>
+              <h1 className="row justify-content-center">
+                目前還沒有食譜喔! 快去新增吧!
+              </h1>
+            </div>
+          ) : (
+            <>
+              <div className="row justify-content-end">
+                <DropDown
+                  sortList={sortList}
+                  sortBy={sortBy}
+                  setSortBy={setSortBy}
+                />
+              </div>
+              <div className="col-12">
+                <MyRecipeTable
+                  recipeList={recipeList}
+                  setReRender={setReRender}
+                />
+              </div>
+            </>
+          )}
         </div>
       </div>
     </>

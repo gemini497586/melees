@@ -9,6 +9,7 @@ import PrivateReicpeAnimate from './component/PrivateRecipeAnimate'
 import Swal from 'sweetalert2'
 
 function PrivateRecipeUpload() {
+  const title = ['新增']
   // 要送出的資料初始狀態
   const [recipePhoto, setRecipePhoto] = useState()
   const [recipeName, setRecipeName] = useState('')
@@ -18,13 +19,11 @@ function PrivateRecipeUpload() {
     { ingred: '', ingred_unit: '' },
   ])
   const [steps, setSteps] = useState([{ step: '' }])
-  const [imgPreview, setImgPreview] = useState(null)
   const [tag, setTag] = useState('')
   const [displayTag, setDisplayTag] = useState([])
+
+  const [imgPreview, setImgPreview] = useState(null)
   const [error, setError] = useState(false)
-  const [ingredAuth, setIngredAuth] = useState(false)
-  const [stepsAuth, setStepsAuth] = useState(false)
-  const title = ['新增']
 
   const handleImageChange = (e) => {
     const seleted = e.target.files[0]
@@ -37,7 +36,12 @@ function PrivateRecipeUpload() {
       }
       reader.readAsDataURL(seleted)
     } else {
-      alert('not found')
+      setRecipePhoto(undefined)
+      Swal.fire({
+        icon: 'error',
+        title: '錯誤的檔案格式!',
+        timer: 1500,
+      })
     }
   }
   // 食材的部分
@@ -56,6 +60,15 @@ function PrivateRecipeUpload() {
 
   // 刪除食材欄位
   const DeleteIngred = (index) => {
+    if (ingredList.length === 1) {
+      Swal.fire({
+        text: '至少新增一筆食材',
+        icon: 'warning',
+        confirmButtonText: '確定',
+        confirmButtonColor: '#fe9900',
+      })
+      return
+    }
     const list = [...ingredList]
     list.splice(index, 1)
     setIngredList(list)
@@ -75,13 +88,49 @@ function PrivateRecipeUpload() {
   }
   // 刪除步驟欄位
   const DeleteStep = (index) => {
+    if (steps.length === 1) {
+      Swal.fire({
+        text: '至少新增一道步驟',
+        icon: 'warning',
+        confirmButtonText: '確定',
+        confirmButtonColor: '#fe9900',
+      })
+      return
+    }
     const list = [...steps]
     list.splice(index, 1)
     setSteps(list)
   }
 
   const handleTag = async () => {
-    await setDisplayTag([...displayTag, tag])
+    let trim_tag = tag.trim()
+    if (trim_tag === '') {
+      Swal.fire({
+        text: '標籤不能為空!',
+        icon: 'warning',
+        confirmButtonText: '確定',
+        confirmButtonColor: '#fe9900',
+      })
+      setTag('')
+      return
+    }
+    let repeat = false
+    displayTag.map((value) => {
+      if (value === trim_tag) {
+        return (repeat = true)
+      }
+    })
+    if (repeat) {
+      Swal.fire({
+        text: '不能重複輸入標籤!',
+        icon: 'warning',
+        confirmButtonText: '確定',
+        confirmButtonColor: '#fe9900',
+      })
+      setTag('')
+      return
+    }
+    await setDisplayTag([...displayTag, trim_tag])
     await setTag('')
   }
   const deleteTag = (index) => {
@@ -93,34 +142,81 @@ function PrivateRecipeUpload() {
   // 上傳食譜 function
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (recipePhoto === '' || recipeName === '' || recipeIntro === '') {
+    console.log(recipePhoto)
+    if (recipePhoto === undefined) {
       Swal.fire({
-        text: '還沒輸入完成哦!',
+        text: '尚未輸入食譜照片!',
         icon: 'warning',
         confirmButtonText: '確定',
+        confirmButtonColor: '#fe9900',
       })
       return
     }
-    ingredList.map((value) => {
-      if (value.ingred === '' || value.ingred_unit === '') {
-        console.log('ingred', value)
-        setIngredAuth(true)
-      } else {
-        setIngredAuth(false)
-      }
-    })
-    steps.map((value) => {
-      if (value.steps === '') {
-        setStepsAuth(true)
-      } else {
-        setStepsAuth(false)
-      }
-    })
-    if (ingredAuth || stepsAuth) {
+    if (recipeName === '') {
       Swal.fire({
-        text: '還沒輸入完成哦!',
+        text: '尚未輸入食譜名稱',
         icon: 'warning',
         confirmButtonText: '確定',
+        confirmButtonColor: '#fe9900',
+      })
+      return
+    }
+    if (recipeIntro === '') {
+      Swal.fire({
+        text: '尚未輸入食譜介紹',
+        icon: 'warning',
+        confirmButtonText: '確定',
+        confirmButtonColor: '#fe9900',
+      })
+      return
+    }
+    if (ingredList[0].ingred === '' || ingredList[0].ingred_unit === '') {
+      Swal.fire({
+        text: '至少填寫一筆食材',
+        icon: 'warning',
+        confirmButtonText: '確定',
+        confirmButtonColor: '#fe9900',
+      })
+      return
+    }
+    let emptyIngred = false
+    ingredList.map((value) => {
+      if (value.ingred === '' || value.ingred_unit === '') {
+        return (emptyIngred = true)
+      }
+    })
+
+    if (emptyIngred) {
+      Swal.fire({
+        text: '食材不能為空',
+        icon: 'warning',
+        confirmButtonText: '確定',
+        confirmButtonColor: '#fe9900',
+      })
+      return
+    }
+
+    if (steps[0].step === '') {
+      Swal.fire({
+        text: '至少填寫一筆步驟',
+        icon: 'warning',
+        confirmButtonText: '確定',
+        confirmButtonColor: '#fe9900',
+      })
+      return
+    }
+    let emptyStep = false
+    steps.map((value) => {
+      if (value.step === '') {
+        return (emptyStep = true)
+      }
+    })
+    if (emptyStep) {
+      Swal.fire({
+        text: '步驟不能為空',
+        icon: 'warning',
+        confirmButtonText: '確定',
+        confirmButtonColor: '#fe9900',
       })
       return
     }
@@ -141,8 +237,20 @@ function PrivateRecipeUpload() {
       let res = await Axios.post(`${API_URL}/private/upload/main`, formData, {
         withCredentials: true,
       })
-    } catch (e) {
-      console.error(e)
+
+      if (res.status === 202) {
+        Swal.fire({
+          icon: 'success',
+          title: '新增成功!',
+          text: '回到私藏主頁...',
+          // confirmButtonColor: '#fe9900',
+          timer: 1500,
+        }).then(() => {
+          window.location = 'http://localhost:3000/private'
+        })
+      }
+    } catch (err) {
+      console.error(err)
     }
   }
   return (
@@ -174,7 +282,7 @@ function PrivateRecipeUpload() {
                               icon={['far', 'image']}
                               size="10x"
                             />
-                            <p>add an image</p>
+                            <p>choose an image</p>
                             <span>(jpg, jpeg, png)</span>
                           </label>
                           <input
@@ -191,6 +299,7 @@ function PrivateRecipeUpload() {
                         className="font-700M"
                         onClick={(e) => {
                           setImgPreview(null)
+                          setRecipePhoto(undefined)
                         }}
                       >
                         移除圖片
@@ -211,7 +320,6 @@ function PrivateRecipeUpload() {
                     onChange={(e) => {
                       setRecipeName(e.target.value)
                     }}
-                    required
                   />
 
                   {/* 食譜介紹 */}
@@ -228,7 +336,6 @@ function PrivateRecipeUpload() {
                     onChange={(e) => {
                       setRecipeIntro(e.target.value)
                     }}
-                    required
                   ></textarea>
 
                   {/* 份量 */}
@@ -254,6 +361,9 @@ function PrivateRecipeUpload() {
                         size="lg"
                         onClick={(e) => {
                           setRecipeQty(recipeQty + 1)
+                          if (recipeQty > 5) {
+                            setRecipeQty(6)
+                          }
                         }}
                       />
                     </div>
@@ -272,7 +382,6 @@ function PrivateRecipeUpload() {
                           name="ingred"
                           placeholder="高麗菜"
                           onChange={(e) => ChangeIngred(e, index)}
-                          required
                         />
                         <input
                           type="text"
@@ -280,7 +389,6 @@ function PrivateRecipeUpload() {
                           name="ingred_unit"
                           placeholder="1顆"
                           onChange={(e) => ChangeIngred(e, index)}
-                          required
                         />
                         <FontAwesomeIcon
                           className="d-flex privateRecipeUpload-ingred-delete"
@@ -317,7 +425,6 @@ function PrivateRecipeUpload() {
                             placeholder="輸入步驟說明"
                             value={value.step}
                             onChange={(e) => changeStep(e, index)}
-                            required
                           />
                           <FontAwesomeIcon
                             className="privateRecipeUpload-step-delete"

@@ -156,8 +156,8 @@
   color: var(--color-grey-900);
 }
 .product-detail-bookmark:hover {
-  color: var(--color-blue-B);
+  color: var(--color-blue-C);
 }
 .product-detail .active {
-  color: var(--color-blue-B);
+  color: var(--color-blue-C);
 }

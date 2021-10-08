@@ -78,6 +78,18 @@
   display: flex;
   justify-content: space-between;
   margin: 14px 0 34px;
+  color: var(--color-grey-800);
+}
+
+.forgot-password {
+  border: none;
+  background-color: var(--color-white);
+  color: var(--color-grey-800);
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+  color: var(--color-primary-A);
 }
 
 .quickLogin {

@@ -8,9 +8,13 @@ import '../../style/login.css'
 import logo from '../../images/logo.png'
 import { HandleCart } from '../../utils/HandleCart'
 import FacebookLogin from 'react-facebook-login'
-import { GoogleLogin, GoogleLogout } from 'react-google-login'
+import {
+  GoogleLogin,
+  // GoogleLogout
+} from 'react-google-login'
 import 'animate.css'
 import queryMsg from './component/queryMsg'
+import Swal from 'sweetalert2'
 
 function Login() {
   const { setLogin } = useContext(HandleCart) //登入用
@@ -86,7 +90,7 @@ function Login() {
   }
 
   const googleSuccess = (response) => {
-    // console.log('googleSuccess', response)
+    console.log('googleSuccess', response)
     try {
       let result = axios.post(
         `${API_URL}/auth/login/google`,
@@ -109,8 +113,65 @@ function Login() {
     console.log('googleFailure', response)
   }
 
-  const onSignoutSuccess = () => {
-    console.log('You have been logged out successfully')
+  // const onSignoutSuccess = () => {
+  //   console.log('You have been logged out successfully')
+  // }
+
+  const forgotPwdModal = (e) => {
+    // 防止送出表單
+    e.preventDefault()
+    Swal.fire({
+      icon: 'question',
+      title: '忘記密碼？',
+      html: '請輸入 <strong>您的帳號</strong>，系統將發送驗證 Email 給您！',
+      input: 'text',
+      inputAttributes: {
+        autocapitalize: 'off',
+      },
+      showCancelButton: true,
+      confirmButtonText: '送出',
+      confirmButtonColor: 'var(--color-primary)',
+      cancelButtonText: '取消',
+      cancelButtonColor: 'var(--color-grey-500)',
+      showLoaderOnConfirm: true,
+      preConfirm: (account) => {
+        return axios
+          .post(
+            `${API_URL}/auth/forgotpwd`,
+            { account },
+            {
+              withCredentials: true,
+            }
+          )
+          .then((response) => {
+            console.log('preConfirm axios res:', response)
+            return response
+          })
+          .catch((error) => {
+            Swal.fire({
+              icon: 'error',
+              title: '請求失敗！',
+              text: queryMsg(
+                error.response.data.category,
+                error.response.data.code
+              ),
+              confirmButtonColor: 'var(--color-primary)',
+              confirmButtonText: '確認',
+            })
+            // Swal.showValidationMessage(`請求失敗: ${error}`)
+          })
+      },
+      allowOutsideClick: () => !Swal.isLoading(),
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: `請求成功`,
+          text: '系統驗證 Email 已發送！請至收件區確認信封。',
+          confirmButtonText: '確認',
+          confirmButtonColor: 'var(--color-primary)',
+        })
+      }
+    })
   }
 
   const handleSubmit = async (e) => {
@@ -184,10 +245,12 @@ function Login() {
                 登入
               </button>
               <div className="login-setting">
-                <a href="#/">忘記密碼?</a>
+                <button className="forgot-password" onClick={forgotPwdModal}>
+                  忘記密碼?
+                </button>
                 <div>
                   <input type="checkbox" />
-                  <label for="">記住我</label>
+                  <label htmlFor="">記住我</label>
                 </div>
               </div>
             </form>
