@@ -40,7 +40,7 @@ const infoValidation = [
     .custom((value, { req }) => {
       if (value) {
         let phoneRegex = /^(09)[0-9]{8}$/;
-        return !phoneRegex.test(value);
+        return phoneRegex.test(value);
       }
     })
     .withMessage("H0102"),
