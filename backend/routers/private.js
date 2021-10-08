@@ -42,7 +42,29 @@ const uploader = multer({
     fileSize: 1024 * 1024,
   },
 });
+// 抓食譜的資料 (食譜首頁)
+router.get("/search", async function (req, res, next) {
+  let sql = "SELECT tags FROM private_tags"
+  let result = await connection.queryAsync(sql)
+  let tagList = result.map((value) => {
+    return value.tags
+  })
+  // let tagLength = tagList.length
+  // let uniqueArr = [...new Set(tagList)]
+  // let arrLength = uniqueArr.length
+  let sql2 = "SELECT ingred FROM private_ingred"
+  let result2 = await connection.queryAsync(sql2)
+  let ingredList = result2.map((value) => {
+    return value.ingred
+  })
 
+  let total = tagList.concat(ingredList)
+  let test = total.length
+
+  let filterArr = [...new Set(total)]
+  let filetLength = filterArr.length
+  res.send({total,test,filterArr,filetLength})
+})
 
 // 抓食譜的資料 (食譜首頁)
 router.get("/index", async function (req, res, next) {
@@ -335,7 +357,7 @@ router.get("/avatar", async function(req, res, next) {
 
 // 編輯食譜，先去資料庫拿資料
 router.get("/edit/get-data/:id", async function (req, res, next) {
-  console.log("123");
+  // console.log("123");
   // const userId = req.session.member.id
   let sql = "SELECT * FROM private_recipe WHERE id = ?";
   let recipe = await connection.queryAsync(sql, [req.params.id]);
@@ -510,6 +532,7 @@ router.post("/edit/post-data/:id", uploader.single("photo"), async function (req
       let ingredResult = await connection.queryAsync(tagList, [value.tags, oldTag[index].id]);
     });
   }
+  res.sendStatus(202);
 });
 
 // 上傳食譜
@@ -549,13 +572,13 @@ router.post("/upload/main", uploader.single("photo"), async function (req, res, 
     let stepResult = await connection.queryAsync(stepList, [[lastId[0].id, value.step]]);
   });
 
-  // 新增步驟到資料表
+  // 新增 tag 到資料表
   tag.forEach(async (value) => {
     let tagList = "INSERT INTO private_tags (private_id, tags) VALUES (?)";
-    let stepResult = await connection.queryAsync(tagList, [[lastId[0].id, value]]);
+    let tagResult = await connection.queryAsync(tagList, [[lastId[0].id, value]]);
   });
-
-  res.json(data);
+  res.sendStatus(202);
+  // res.json(data);
 });
 
 // 上傳留言及評分部分
