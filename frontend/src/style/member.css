@@ -62,6 +62,7 @@
 .member-form-group input:not(.member-form-group-gender input) {
   width: 100%;
   height: 45px;
+  padding: 14px;
 }
 .member-form-group-gender input {
   /* line-height 跟 input 設定一樣高 */
@@ -181,4 +182,11 @@
 .register-loginLink:hover{
   text-decoration: underline;
   color: var(--color-primary-A)
+}
+
+.reset-password {
+  padding-bottom: 80px;
+}
+.reset-password input{
+  padding: 20px;
 }

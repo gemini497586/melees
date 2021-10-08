@@ -52,16 +52,8 @@ export default function validationInfo(formValues) {
     }
   }
 
-  if (formValues.gender !== undefined) {
-    if (formValues.gender.length === 0) {
-      errors.gender = queryMsg(category, 'F0101')
-    }
-  }
-
-  if (formValues.cellphone !== undefined) {
-    if (formValues.cellphone.length === 0) {
-      errors.cellphone = queryMsg(category, 'H0101')
-    } else if (!/^(09)[0-9]{8}$/.test(formValues.cellphone)) {
+  if (formValues.cellphone && formValues.cellphone.length > 0) {
+    if (!/^(09)[0-9]{8}$/.test(formValues.cellphone)) {
       errors.cellphone = queryMsg(category, 'H0102')
     }
   }
