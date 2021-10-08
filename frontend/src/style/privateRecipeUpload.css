@@ -38,6 +38,9 @@
   margin-top: 10px;
   color: var(--color-white);
 }
+.privateRecipeUpload-img button:hover {
+  background: var(--color-primary-A);
+}
 
 .privateRecipeUpload input {
   padding-left: 15px;

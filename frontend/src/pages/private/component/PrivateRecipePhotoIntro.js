@@ -29,7 +29,7 @@ function PrivateRecipePhotoIntro(props) {
       setMemberInfo(res.data.memResult[0])
       setTotalRecipe(res.data.memberT)
       setTotalFollow(res.data.followT)
-      console.log(res.data)
+      // console.log(res.data)
     })
   }, [])
 
