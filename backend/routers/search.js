@@ -59,7 +59,7 @@ router.get("/recipe", async (req, res, next) => {
 
     // 把上面全部id整理成一個陣列，在用id撈出所有資料(不重複)
     let privateIds = privateNameIds.concat(privateIngredIds).concat(tagIds);
-    // console.log("privateIds ", privateIds);
+    console.log("privateIds ", privateIds);
 
     if (privateIds.length > 0) {
         let private = await connection.queryAsync(
