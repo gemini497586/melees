@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import HeartViewNum from '../../../component/HeartViewNum'
 import Ig from '../../../component/Ig'
 import '../../../style/featureContentIntro.css'
@@ -8,9 +8,15 @@ import '../../../component/FontawsomeIcons'
 import Axios from 'axios'
 import { API_URL } from '../../../utils/config'
 import { useParams } from 'react-router'
+import { HandleCart } from '../../../utils/HandleCart'
+import { Redirect, useLocation } from 'react-router-dom'
 
 function FeatureContentIntro(props) {
   const { listId } = useParams()
+  const { login } = useContext(HandleCart)
+  const [redirect, setRedirect] = useState(false)
+  const location = useLocation()
+
   const {
     linkImg,
     listName,
@@ -22,8 +28,28 @@ function FeatureContentIntro(props) {
     setLike,
     save,
     setSave,
+    reRender,
     setRerender,
+    updataLikeqty,
   } = props
+
+  // 判斷是否有登入
+  // 沒有 -> 跳去登入畫面
+  // 有 -> 打開modal
+  const handleLoginLike = () => {
+    if (login) {
+      setLike(!like)
+    } else {
+      setRedirect(true)
+    }
+  }
+  const handleLoginSave = () => {
+    if (login) {
+      setSave(!save)
+    } else {
+      setRedirect(true)
+    }
+  }
 
   // 收藏
   const SaveFeature = async () => {
@@ -34,6 +60,7 @@ function FeatureContentIntro(props) {
     } catch (err) {
       console.error(err.message)
     }
+    setRerender(true)
   }
 
   const DeleteFeature = async () => {
@@ -44,6 +71,7 @@ function FeatureContentIntro(props) {
     } catch (err) {
       console.error(err.message)
     }
+    setRerender(true)
   }
   const handleSave = () => {
     return (
@@ -77,10 +105,10 @@ function FeatureContentIntro(props) {
       await Axios.post(`${API_URL}/feature/feature-like/${listId}`, null, {
         withCredentials: true,
       })
+      setRerender((prev) => !prev)
     } catch (err) {
       console.error(err.message)
     }
-    setRerender(true)
   }
 
   const DeleteLikeFeature = async () => {
@@ -92,10 +120,10 @@ function FeatureContentIntro(props) {
           withCredentials: true,
         }
       )
+      setRerender((prev) => !prev)
     } catch (err) {
       console.error(err.message)
     }
-    setRerender(true)
   }
 
   const handleLike = () => {
@@ -124,8 +152,21 @@ function FeatureContentIntro(props) {
     )
   }
 
+  useEffect(() => {
+    // 為了刷新畫面，即時更新按讚數
+  }, [reRender])
+
   return (
     <>
+      {redirect ? (
+        <Redirect
+          to={{
+            pathname: '/login',
+            state: { from: location.pathname },
+          }}
+        />
+      ) : null}
+
       <div className="fintro-boxsize">
         <div>
           {/* IG連結 */}
@@ -156,20 +197,8 @@ function FeatureContentIntro(props) {
           {/* 愛心瀏覽數 */}
           <HeartViewNum likeqty={likeqty} viewqty={viewqty} />
           {/* 收藏btn */}
-          <div
-            onClick={() => {
-              setLike(!like)
-            }}
-          >
-            {handleLike()}
-          </div>
-          <div
-            onClick={() => {
-              setSave(!save)
-            }}
-          >
-            {handleSave()}
-          </div>
+          <div onClick={handleLoginLike}>{handleLike()}</div>
+          <div onClick={handleLoginSave}>{handleSave()}</div>
         </div>
       </div>
     </>
