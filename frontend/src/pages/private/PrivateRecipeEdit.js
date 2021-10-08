@@ -41,7 +41,7 @@ function PrivateRecipeEdit() {
 
       setRecipeName(recipe.name)
       setRecipeIntro(recipe.intro)
-      setRecipeQty(recipe.qty)
+      setRecipeQty(parseInt(recipe.qty))
       setIngredList(ingred)
       setSteps(steps)
       setImgPreview(`${API_URL}/private/${recipe.picture}`)
@@ -61,7 +61,12 @@ function PrivateRecipeEdit() {
       }
       reader.readAsDataURL(seleted)
     } else {
-      alert('not found')
+      setRecipePhoto(undefined)
+      Swal.fire({
+        icon: 'error',
+        title: '錯誤的檔案格式!',
+        timer: 1500,
+      })
     }
   }
 
@@ -81,6 +86,15 @@ function PrivateRecipeEdit() {
 
   // 刪除食材欄位
   const DeleteIngred = (index) => {
+    if (ingredList.length === 1) {
+      Swal.fire({
+        text: '至少新增一筆食材',
+        icon: 'warning',
+        confirmButtonText: '確定',
+        confirmButtonColor: '#fe9900',
+      })
+      return
+    }
     const list = [...ingredList]
     list.splice(index, 1)
     setIngredList(list)
@@ -100,17 +114,45 @@ function PrivateRecipeEdit() {
   }
   // 刪除步驟欄位
   const DeleteStep = (index) => {
+    if (steps.length === 1) {
+      Swal.fire({
+        text: '至少新增一道步驟',
+        icon: 'warning',
+        confirmButtonText: '確定',
+        confirmButtonColor: '#fe9900',
+      })
+      return
+    }
     const list = [...steps]
     list.splice(index, 1)
     setSteps(list)
   }
   const handleTag = async () => {
-    if (tag === '') {
+    let trim_tag = tag.trim()
+    if (trim_tag === '') {
       Swal.fire({
-        text: '還沒輸入標籤哦!',
+        text: '標籤不能為空!',
         icon: 'warning',
         confirmButtonText: '確定',
+        confirmButtonColor: '#fe9900',
       })
+      setTag('')
+      return
+    }
+    let repeat = false
+    displayTag.map((value) => {
+      if (value === trim_tag) {
+        return (repeat = true)
+      }
+    })
+    if (repeat) {
+      Swal.fire({
+        text: '不能重複輸入標籤!',
+        icon: 'warning',
+        confirmButtonText: '確定',
+        confirmButtonColor: '#fe9900',
+      })
+      setTag('')
       return
     }
     await setDisplayTag([...displayTag, { private_id: '', tags: `${tag}` }])
@@ -125,6 +167,85 @@ function PrivateRecipeEdit() {
   // 上傳食譜 function
   const handleSubmit = async (e) => {
     e.preventDefault()
+    console.log(recipePhoto)
+    console.log(imgPreview)
+    if (recipePhoto === undefined && imgPreview === null) {
+      Swal.fire({
+        text: '尚未輸入食譜照片!',
+        icon: 'warning',
+        confirmButtonText: '確定',
+        confirmButtonColor: '#fe9900',
+      })
+      return
+    }
+    if (recipeName === '') {
+      Swal.fire({
+        text: '尚未輸入食譜名稱',
+        icon: 'warning',
+        confirmButtonText: '確定',
+        confirmButtonColor: '#fe9900',
+      })
+      return
+    }
+    if (recipeIntro === '') {
+      Swal.fire({
+        text: '尚未輸入食譜介紹',
+        icon: 'warning',
+        confirmButtonText: '確定',
+        confirmButtonColor: '#fe9900',
+      })
+      return
+    }
+    if (ingredList[0].ingred === '' || ingredList[0].ingred_unit === '') {
+      Swal.fire({
+        text: '至少填寫一筆食材',
+        icon: 'warning',
+        confirmButtonText: '確定',
+        confirmButtonColor: '#fe9900',
+      })
+      return
+    }
+    let emptyIngred = false
+    ingredList.map((value) => {
+      if (value.ingred === '' || value.ingred_unit === '') {
+        return (emptyIngred = true)
+      }
+    })
+
+    if (emptyIngred) {
+      Swal.fire({
+        text: '食材不能為空',
+        icon: 'warning',
+        confirmButtonText: '確定',
+        confirmButtonColor: '#fe9900',
+      })
+      return
+    }
+
+    if (steps[0].steps === '') {
+      Swal.fire({
+        text: '至少填寫一筆步驟',
+        icon: 'warning',
+        confirmButtonText: '確定',
+        confirmButtonColor: '#fe9900',
+      })
+      return
+    }
+    let emptyStep = false
+    steps.map((value) => {
+      if (value.steps === '') {
+        return (emptyStep = true)
+      }
+    })
+    if (emptyStep) {
+      Swal.fire({
+        text: '步驟不能為空',
+        icon: 'warning',
+        confirmButtonText: '確定',
+        confirmButtonColor: '#fe9900',
+      })
+      return
+    }
 
     // 要上傳檔案/圖片的版本，需要透過 FormData
     // Content-Type: multipart/form-data
@@ -146,8 +267,17 @@ function PrivateRecipeEdit() {
           withCredentials: true,
         }
       )
-
-      console.log(res)
+      if (res.status === 202) {
+        Swal.fire({
+          icon: 'success',
+          title: '編輯成功!',
+          text: '回到私藏主頁...',
+          // confirmButtonColor: '#fe9900',
+          timer: 1500,
+        }).then(() => {
+          window.location = 'http://localhost:3000/private'
+        })
+      }
     } catch (e) {
       console.error(e)
     }
@@ -157,11 +287,11 @@ function PrivateRecipeEdit() {
       <div className="page-group">
         <PrivateReicpeAnimate />
 
-        <pre>食譜資訊 {JSON.stringify(recipePhoto, null, 2)}</pre>
-        <pre>食譜資訊 {JSON.stringify(recipeName, null, 2)}</pre>
-        <pre>食譜資訊 {JSON.stringify(imgPreview, null, 2)}</pre>
-        <pre>食譜資訊 {JSON.stringify(displayTag, null, 2)}</pre>
-        <pre>食譜資訊 {JSON.stringify(recipeIntro, null, 2)}</pre>
+        <pre>照片 {JSON.stringify(recipePhoto, null, 2)}</pre>
+        <pre>名稱 {JSON.stringify(recipeName, null, 2)}</pre>
+        <pre>預覽 {JSON.stringify(imgPreview, null, 2)}</pre>
+        <pre>tag {JSON.stringify(displayTag, null, 2)}</pre>
+        <pre>介紹 {JSON.stringify(recipeIntro, null, 2)}</pre>
 
         <div className="container">
           <div className="row justify-content-center">
@@ -206,6 +336,7 @@ function PrivateRecipeEdit() {
                         className="font-700M"
                         onClick={(e) => {
                           setImgPreview(null)
+                          setRecipePhoto(undefined)
                         }}
                       >
                         移除圖片
@@ -249,16 +380,29 @@ function PrivateRecipeEdit() {
                   <label htmlFor="qty" className="privateRecipeUpload-label">
                     <h4>份量</h4>
                   </label>
-                  <input
-                    className="w-100"
-                    type="text"
-                    id="qty"
-                    name="qty"
-                    value={recipeQty}
-                    onChange={(e) => {
-                      setRecipeQty(e.target.value)
-                    }}
-                  />
+                  <div className="privateRecipeUpload-qty">
+                    <div className="d-flex privateRecipeUpload-qty-icon">
+                      <FontAwesomeIcon
+                        icon="minus"
+                        size="lg"
+                        onClick={(e) => {
+                          setRecipeQty(recipeQty - 1)
+                          if (recipeQty < 2) {
+                            setRecipeQty(1)
+                          }
+                        }}
+                      />
+                      <span>{recipeQty}</span>
+
+                      <FontAwesomeIcon
+                        icon="plus"
+                        size="lg"
+                        onClick={(e) => {
+                          setRecipeQty(recipeQty + 1)
+                        }}
+                      />
+                    </div>
+                  </div>
 
                   {/* 食材 */}
                   <label htmlFor="ingred" className="privateRecipeUpload-label">
@@ -271,6 +415,7 @@ function PrivateRecipeEdit() {
                           type="text"
                           id="ingred"
                           name="ingred"
+                          placeholder="高麗菜"
                           value={value.ingred}
                           onChange={(e) => ChangeIngred(e, index)}
                         />
@@ -278,6 +423,7 @@ function PrivateRecipeEdit() {
                           type="text"
                           id="ingred_unit"
                           name="ingred_unit"
+                          placeholder="1顆"
                           value={value.ingred_unit}
                           onChange={(e) => ChangeIngred(e, index)}
                         />
@@ -314,6 +460,7 @@ function PrivateRecipeEdit() {
                             type="text"
                             id="steps"
                             name="steps"
+                            placeholder="輸入步驟說明"
                             value={value.steps}
                             onChange={(e) => changeStep(e, index)}
                           />
