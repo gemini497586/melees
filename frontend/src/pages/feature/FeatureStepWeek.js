@@ -26,7 +26,7 @@ function FeatureStepWeek(props) {
   const [weekprep, setWeekprep] = useState([])
   const [save, setSave] = useState(false)
   const [like, setLike] = useState(false)
-  const [view, setView] = useState(false)
+  const [reRender, setRerender] = useState(false)
 
   useEffect(() => {
     // 上面菜單
@@ -42,48 +42,52 @@ function FeatureStepWeek(props) {
     })
   }, [])
 
+  // 取得食譜所有資料
   useEffect(() => {
-    // 食譜資料
-    Axios.post(`${API_URL}/feature/steplist/${listId}`, null, {
-      // 讓 Axios 攜帶cookie
-      withCredentials: true,
-    }).then((response) => {
-      console.log('response.data', response.data)
-      if (response.data.getSave && response.data.getSave.length > 0) {
-        // 如果回傳不是undefined，代表資料庫有資料，那就是該會員有收藏過，所以把按鈕設成true
-        setSave(true)
-      }
-      // console.log('response.data', response.data)
-      if (response.data.getLike && response.data.getLike.length > 0) {
-        setLike(true)
-      }
-      if (response.data.getView && response.data.getView.length > 0) {
-        setView(true)
-      }
-      // response.data[0] 我只要陣列裡面的這一個物件 (3層以上就會掛掉)
-      setListdata(response.data.data[0])
-      setFeatureimg123(response.data.data[0].featureimg)
-    })
+    const stepList = async () => {
+      try {
+        let response = await Axios.post(
+          `${API_URL}/feature/steplist/${listId}`,
+          null,
+          {
+            withCredentials: true,
+          }
+        )
 
-    // 瀏覽數
-    Axios.post(`${API_URL}/feature/feature-view/${listId}`, null, {
-      withCredentials: true,
-    }).then((response) => {
-      console.log(response.data)
-    })
-
-    // 食譜步驟
-    Axios.get(`${API_URL}/feature/step/${listId}`).then((response) => {
-      setStepList(response.data)
-      // console.log(response.data.steps)
-    })
-
-    // 食譜準備
-    Axios.get(`${API_URL}/feature/prep/${listId}`).then((response) => {
-      setIngred(response.data)
-      // console.log(response.data.steps)
-    })
+        setListdata(response.data.recipe)
+        setFeatureimg123(response.data.recipe.featureimg)
+        setStepList(response.data.recipe.step)
+        setIngred(response.data.recipe.ingred)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    stepList()
+    console.log('listdata', listdata)
   }, [listId])
+
+  // 設定按讚數
+  const [setLikeqty, setSetLikeqty] = useState()
+  useEffect(() => {
+    const newLike = async () => {
+      try {
+        let response = await Axios.post(
+          `${API_URL}/feature/setstatus/${listId}`,
+          null,
+          {
+            withCredentials: true,
+          }
+        )
+        setSetLikeqty(response.data.status.likeqty)
+        setLike(response.data.status.like)
+        setSave(response.data.status.save)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    newLike()
+    // setRerender(false)
+  }, [reRender])
 
   // 將食材資料分半
   const total = ingred.length
@@ -124,15 +128,16 @@ function FeatureStepWeek(props) {
                     <FeatureContentImg featureimg={featureimg123} />
                     <FeatureContentIntro
                       linkImg={listdata.linkImg}
+                      linkName={listdata.linkName}
                       listName={listdata.listName}
                       qty={listdata.qty}
-                      linkName={listdata.linkName}
-                      likeqty={listdata.likeqty}
+                      likeqty={setLikeqty ? setLikeqty : listdata.likeqty}
                       viewqty={listdata.viewqty}
                       save={save}
                       setSave={setSave}
                       like={like}
                       setLike={setLike}
+                      setRerender={setRerender}
                     />
                   </div>
                   {/* 食材準備 */}

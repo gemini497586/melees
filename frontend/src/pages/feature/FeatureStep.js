@@ -19,63 +19,56 @@ function FeatureStep() {
   const [featureimg123, setFeatureimg123] = useState([])
   const [stepList, setStepList] = useState([])
   const [ingred, setIngred] = useState([])
-  const [save, setSave] = useState(false)
-  const [like, setLike] = useState(false)
-  const [view, setView] = useState(false)
+  const [save, setSave] = useState()
+  const [like, setLike] = useState()
   const [reRender, setRerender] = useState(false)
 
+  // 取得食譜所有資料
   useEffect(() => {
-    const getView = async () => {
+    const stepList = async () => {
       try {
-        // 瀏覽數
-        let result2 = await Axios.post(
-          `${API_URL}/feature/feature-view/${listId}`,
+        let response = await Axios.post(
+          `${API_URL}/feature/steplist/${listId}`,
           null,
           {
             withCredentials: true,
           }
         )
-        // console.log('result2', result2)
-        setView(result2.data[0].viewqty)
-      } catch (err) {
-        console.log(err)
+
+        setListdata(response.data.recipe)
+        setFeatureimg123(response.data.recipe.featureimg)
+        setStepList(response.data.recipe.step)
+        setIngred(response.data.recipe.ingred)
+      } catch (error) {
+        console.log(error)
       }
     }
-    getView()
-  }, [])
-
-  useEffect(() => {
-    Axios.post(`${API_URL}/feature/step/${listId}`).then((response) => {
-      setStepList(response.data)
-    })
-
-    // 食材準備
-    Axios.post(`${API_URL}/feature/prep/${listId}`).then((response) => {
-      setIngred(response.data)
-    })
+    stepList()
+    // console.log('listdata', listdata)
   }, [listId])
 
-  // 取得食譜資料
+  // 設定按讚數
+  const [setLikeqty, setSetLikeqty] = useState()
   useEffect(() => {
-    // 食譜資料
-    Axios.post(`${API_URL}/feature/steplist/${listId}`, null, {
-      // 讓 Axios 攜帶cookie
-      withCredentials: true,
-    }).then((response) => {
-      // console.log('response.data', response.data)
-      if (response.data.getSave && response.data.getSave.length > 0) {
-        // 如果回傳不是undefined，代表資料庫有資料，那就是該會員有收藏過，所以把按鈕設成true
-        setSave(true)
+    const newLike = async () => {
+      try {
+        let response = await Axios.post(
+          `${API_URL}/feature/setstatus/${listId}`,
+          null,
+          {
+            withCredentials: true,
+          }
+        )
+        setSetLikeqty(response.data.status.likeqty)
+        setLike(response.data.status.like)
+        setSave(response.data.status.save)
+      } catch (error) {
+        console.error(error)
       }
-      // console.log('response.data', response.data)
-      if (response.data.getLike && response.data.getLike.length > 0) {
-        setLike(true)
-      }
-      // response.data[0] 我只要陣列裡面的這一個物件 (3層以上就會掛掉)
-      setListdata(response.data.data[0])
-      setFeatureimg123(response.data.data[0].featureimg)
-    })
-    setRerender(false)
+    }
+    newLike()
+    // setRerender(false)
+    console.log('listdata', listdata)
   }, [reRender])
 
   // 將食材資料分半
@@ -99,8 +92,8 @@ function FeatureStep() {
                 linkName={listdata.linkName}
                 listName={listdata.listName}
                 qty={listdata.qty}
-                likeqty={listdata.likeqty}
-                viewqty={view}
+                likeqty={setLikeqty ? setLikeqty : listdata.likeqty}
+                viewqty={listdata.viewqty}
                 save={save}
                 setSave={setSave}
                 like={like}

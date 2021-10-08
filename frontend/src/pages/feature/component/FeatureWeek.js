@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import '../../../style/featureWeek.css'
-import HeartViewNum from '../../../component/HeartViewNum'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 

@@ -25,14 +25,13 @@ import { gsap, back, Power3, elastic } from 'gsap'
 
 function Home() {
   // 客製化便當用
-  let hoomebento = useRef(null)
+  let homebento = useRef(null)
   let btnimg = useRef(null)
   let bentoimg = useRef(null)
   let Titlegroup = useRef(null)
   let dialog = useRef(null)
   let svg = useRef(null)
   let hl = gsap.timeline()
-  let h2 = gsap.timeline()
   useEffect(() => {
     // Images Vars
     const food1 = bentoimg.children[1]
@@ -45,33 +44,33 @@ function Home() {
     const Dialog = dialog
     const Svg = svg
 
-    gsap.to(hoomebento, 0, { css: { visibility: 'visible' } })
+    gsap.to(homebento, 0, { css: { visibility: 'visible' } })
     // console.log(btnimg)
 
     hl.fromTo(
       food1,
       { autoAlpha: 1, y: -600 },
-      { autoAlpha: 1, y: 0, duration: 0.6 }
+      { autoAlpha: 1, y: 0, duration: 0.4 }
     )
       .fromTo(
         food2,
         { autoAlpha: 1, y: -600 },
-        { autoAlpha: 1, y: 0, duration: 0.6 }
+        { autoAlpha: 1, y: 0, duration: 0.4 }
       )
       .fromTo(
         food3,
         { autoAlpha: 1, y: -600 },
-        { autoAlpha: 1, y: 0, duration: 0.6 }
+        { autoAlpha: 1, y: 0, duration: 0.4 }
       )
       .fromTo(
         food4,
         { autoAlpha: 1, y: -600 },
-        { autoAlpha: 1, y: 0, duration: 0.6 }
+        { autoAlpha: 1, y: 0, duration: 0.4 }
       )
       .fromTo(
         food5,
         { autoAlpha: 1, y: -600 },
-        { autoAlpha: 1, y: 0, duration: 0.6 }
+        { autoAlpha: 1, y: 0, duration: 0.4 }
       )
     hl.fromTo(
       //   Title,
@@ -81,7 +80,7 @@ function Home() {
       //   .fromTo(
       Dialog,
       { autoAlpha: 0 },
-      { autoAlpha: 1, rotate: 360, duration: 0.5 }
+      { autoAlpha: 1, rotate: 720, duration: 0.5 }
     )
       .fromTo(
         Btnimg,
@@ -94,6 +93,7 @@ function Home() {
         { autoAlpha: 1, y: 0, duration: 1 }
       )
   })
+
   // 精選食譜用
   // 精選食譜資料
   const [featuredata, setFeaturedata] = useState([])
@@ -115,12 +115,13 @@ function Home() {
   useEffect(() => {
     Axios.get(`${API_URL}/home/feature`).then((response) => {
       setFeaturedata(response.data)
-      // console.log(response.data[0])
+      console.log(response.data[0])
       // 給預設
       setLargeimg(response.data[0].img.file_type)
       setLargetype(response.data[0].type_id)
       setLargelistname(response.data[0].listName)
       setLargelinkname(response.data[0].linkName)
+      setLargelistid(response.data[0].listId)
     })
 
     // 購物商城的API
@@ -166,7 +167,7 @@ function Home() {
             {/* 便當頁面 */}
             <article
               className="section h-bento-bg"
-              ref={(el) => (hoomebento = el)}
+              ref={(el) => (homebento = el)}
             >
               {/* 中間內容 */}
               <div className="h-bento-group">
@@ -269,11 +270,11 @@ function Home() {
                 </div>
               </Link> */}
               {/* 往下箭頭 */}
-              <a onClick={() => fullpageApi.moveSectionDown()}>
+              <div onClick={() => fullpageApi.moveSectionDown()}>
                 <div className="h-bento-arrowdown" ref={(el) => (svg = el)}>
                   <FontAwesomeIcon icon={['fas', 'chevron-down']} fixedWidth />
                 </div>
-              </a>
+              </div>
             </article>
 
             {/* 精選食譜 */}
@@ -324,7 +325,7 @@ function Home() {
                             className="fcover-fit"
                             src={`http://localhost:3001/feature/featurefood/${v.img.file_type}`}
                             alt=""
-                            // data 是固定語法，key可以自己取名，想區分同一個標籤時(區分哪一個是listId)
+                            // datdiv 是固定語法，key可以自己取名，想區分同一個標籤時(區分哪一個是listId)
                           />
                         </div>
                         <p className="font-400L fcolor-white">{v.listName}</p>
@@ -342,11 +343,11 @@ function Home() {
                 </div>
               </div>
               {/* 往下箭頭 */}
-              <a onClick={() => fullpageApi.moveSectionDown()}>
+              <div onClick={() => fullpageApi.moveSectionDown()}>
                 <div className="h-feature-arrowdown">
                   <FontAwesomeIcon icon={['fas', 'chevron-down']} fixedWidth />
                 </div>
-              </a>
+              </div>
             </article>
 
             {/* 私藏食譜 */}
@@ -407,11 +408,11 @@ function Home() {
                 </div>
               </div>
               {/* 往下箭頭 */}
-              <a onClick={() => fullpageApi.moveSectionDown()}>
+              <div onClick={() => fullpageApi.moveSectionDown()}>
                 <div className="h-recipe-arrowdown">
                   <FontAwesomeIcon icon={['fas', 'chevron-down']} fixedWidth />
                 </div>
-              </a>
+              </div>
             </article>
             {/* 購物商城 */}
             <article className="section h-shop-bg">
@@ -476,11 +477,11 @@ function Home() {
                 })}
               </div>
               {/* 往下箭頭 */}
-              <a onClick={() => fullpageApi.moveSectionDown()}>
+              <div onClick={() => fullpageApi.moveSectionDown()}>
                 <div className="h-recipe-arrowdown">
                   <FontAwesomeIcon icon={['fas', 'chevron-down']} fixedWidth />
                 </div>
-              </a>
+              </div>
             </article>
             {/* footer */}
             <div className="section fp-auto-height h-footer">
