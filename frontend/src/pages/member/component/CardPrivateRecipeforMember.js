@@ -43,18 +43,20 @@ function CardPrivateRecipeforMember(props) {
               {recipeDataDetails.recipe_star_rate}
             </span>
           </div>
-          <div className="cardPrivateRecipe-stat">
+          <div className="d-flex justify-content-center cardPrivateRecipe-stat">
             <FontAwesomeIcon
               icon="heart"
-              className="cardPrivateRecipe-stat-heart"
+              // className="cardPrivateRecipe-stat-heart"
             />
             <span>{recipeDataDetails.like_qty}</span>
             <div></div>
             <FontAwesomeIcon
               icon="eye"
-              className="cardPrivateRecipe-stat-eye"
+              // className="cardPrivateRecipe-stat-eye"
             />
             <span>{recipeDataDetails.view_qty}</span>
+            <FontAwesomeIcon icon="comment-alt" />
+            <span>{recipeDataDetails.comment_qty}</span>
           </div>
         </Link>
       </div>

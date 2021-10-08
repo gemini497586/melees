@@ -40,6 +40,7 @@ import SearchMarket from './pages/search/SearchMarket'
 // 會員相關
 import Login from './pages/member/Login'
 import Register from './pages/member/Register'
+import ResetPassword from './pages/member/ResetPassword'
 import EditMemberInfo from './pages/member/EditMemberInfo'
 import EditPassword from './pages/member/EditPassword'
 import OrderDetails from './pages/member/OrderDetails'
@@ -140,6 +141,9 @@ function App() {
                 </Route>
                 <Route path="/register">
                   <Register />
+                </Route>
+                <Route path="/resetpwd/:token?">
+                  <ResetPassword />
                 </Route>
                 <ProtectedRoute path="/member/editinfo" isAuth={login}>
                   <EditMemberInfo />

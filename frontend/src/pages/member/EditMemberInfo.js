@@ -2,16 +2,16 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../../style/global.css'
 import '../../style/member.css'
-import avatar from '../../images/default_member_avatar.png'
-import MinorBar from './component/MinorBar'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../component/FontawsomeIcons'
-import { API_URL } from '../../utils/config'
-import axios from 'axios'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import MinorBar from './component/MinorBar'
 import validationInfo from './component/validationInfo'
 import InputErrorMsg from './component/InputErrorMsg'
-import Swal from 'sweetalert2'
 import queryMsg from './component/queryMsg'
+import avatar from '../../images/default_member_avatar.png'
+import axios from 'axios'
+import Swal from 'sweetalert2'
+import { API_URL } from '../../utils/config'
 
 function EditMemberInfo() {
   const [errors, setErrors] = useState({})
@@ -79,10 +79,22 @@ function EditMemberInfo() {
 
   // 檢驗表單的值有沒有不合法
   const handleFormValuesInvalid = (e) => {
+    setErrors(validationInfo(formValues))
+  }
+
+  const handleFormInvalid = (e) => {
     // 擋住錯誤訊息的預設方式(跳出的訊息泡泡)
     e.preventDefault()
+
+    // 若必填欄位未填寫，設定該 value = ''; 觸發 errorMsg
+    let setEmtpyValue = {
+      ...formValues,
+      name: formValues.name ? formValues.name : '',
+      email: formValues.email ? formValues.email : '',
+    }
+    setFormValues(setEmtpyValue)
     setErrors(validationInfo(formValues))
-    console.log(errors)
+    // console.log('handleFormInvalid', errors)
   }
 
   const handleSubmit = async (e) => {
@@ -90,7 +102,9 @@ function EditMemberInfo() {
 
     // 1. 發送axios前，再次驗證表單的值有沒有不合法
     //    不通過 --> return false
-    setErrors({}) // 清空errors --> 為了刷新動畫
+
+    // 清空errors --> 為了刷新動畫
+    setErrors({})
     handleFormValuesInvalid(e)
     if (Object.keys(errors).length > 0) {
       console.log('Object.keys(errors).length:', Object.keys(errors).length)
@@ -123,20 +137,14 @@ function EditMemberInfo() {
         confirmButtonText: '確認',
       })
     } catch (err) {
-      // console.error(err.response.data)
       let resData = err.response.data
 
-      // 其他驗證 或 express-validator 回覆１個欄位發生錯誤時，resData 是 Object
+      // instanceof 判斷資料型別是物件還是陣列時，應該優先判斷array，最後判斷object
+      // 因為 Array 也是屬於物件 array01 instanceof Object  // true
+      // -----------------------------------------------------------------
       // express-validator 回覆多個欄位發生錯誤時，resData 是 Array
-      if (resData instanceof Object) {
-        if (resData.type === 'picture') {
-          setPictureErrors(queryMsg(resData.category, resData.code))
-          return
-        }
-        setErrors({
-          [resData.type]: queryMsg(resData.category, resData.code),
-        })
-      } else if (resData instanceof Array) {
+      // 其他驗證 或 express-validator 回覆１個欄位發生錯誤時，resData 是 Object
+      if (resData instanceof Array) {
         let resError = {}
         for (let i = 0; i < resData.length; i++) {
           const error = resData[i]
@@ -148,6 +156,14 @@ function EditMemberInfo() {
         }
         console.log(resError)
         setErrors(resError)
+      } else if (resData instanceof Object) {
+        if (resData.type === 'picture') {
+          setPictureErrors(queryMsg(resData.category, resData.code))
+          return
+        }
+        setErrors({
+          [resData.type]: queryMsg(resData.category, resData.code),
+        })
       }
     }
   }
@@ -188,6 +204,7 @@ function EditMemberInfo() {
           className="member-form member-form-forEditMemberInfo"
           onSubmit={handleSubmit}
           onChange={handleFormChange}
+          onInvalid={handleFormInvalid}
         >
           <div className="member-form-title">
             <div className="member-form-title-icon">
@@ -302,53 +319,6 @@ function EditMemberInfo() {
               </div>
             </div>
             <div className="member-form-group row">
-              <label className="font-700SL col-2" htmlFor="birthday">
-                出生日期*
-              </label>
-              <div className="col-4">
-                <input
-                  className={
-                    errors.birthday
-                      ? 'form-input-invalid animate__animated animate__headShake'
-                      : null
-                  }
-                  type="date"
-                  id="birthday"
-                  name="birthday"
-                  value={formValues.birthday}
-                  onChange={handleFormValuesChange}
-                  onBlur={handleFormValuesInvalid}
-                  placeholder=""
-                  required
-                />
-                <InputErrorMsg errorMsg={errors.birthday} />
-              </div>
-            </div>
-            <div className="member-form-group row">
-              <label className="font-700SL col-2" htmlFor="cellphone">
-                手機號碼*
-              </label>
-              <div className="col-4">
-                <input
-                  className={
-                    errors.cellphone
-                      ? 'form-input-invalid animate__animated animate__headShake'
-                      : null
-                  }
-                  type="text"
-                  id="cellphone"
-                  name="cellphone"
-                  value={formValues.cellphone}
-                  onChange={handleFormValuesChange}
-                  onBlur={handleFormValuesInvalid}
-                  placeholder=""
-                  required
-                  maxLength="100"
-                />
-                <InputErrorMsg errorMsg={errors.cellphone} />
-              </div>
-            </div>
-            <div className="member-form-group row">
               <label className="font-700SL col-2" htmlFor="email">
                 電子信箱*
               </label>
@@ -367,11 +337,55 @@ function EditMemberInfo() {
                   onBlur={handleFormValuesInvalid}
                   placeholder=""
                   required
-                  maxLength="100"
+                  maxlength="100"
                 />
                 <InputErrorMsg errorMsg={errors.email} />
               </div>
             </div>
+            <div className="member-form-group row">
+              <label className="font-700SL col-2" htmlFor="birthday">
+                出生日期
+              </label>
+              <div className="col-4">
+                <input
+                  className={
+                    errors.birthday
+                      ? 'form-input-invalid animate__animated animate__headShake'
+                      : null
+                  }
+                  type="date"
+                  id="birthday"
+                  name="birthday"
+                  value={formValues.birthday}
+                  onChange={handleFormValuesChange}
+                  onBlur={handleFormValuesInvalid}
+                />
+                <InputErrorMsg errorMsg={errors.birthday} />
+              </div>
+            </div>
+            <div className="member-form-group row">
+              <label className="font-700SL col-2" htmlFor="cellphone">
+                手機號碼
+              </label>
+              <div className="col-4">
+                <input
+                  className={
+                    errors.cellphone
+                      ? 'form-input-invalid animate__animated animate__headShake'
+                      : null
+                  }
+                  type="text"
+                  id="cellphone"
+                  name="cellphone"
+                  value={formValues.cellphone}
+                  onChange={handleFormValuesChange}
+                  onBlur={handleFormValuesInvalid}
+                  maxlength="100"
+                />
+                <InputErrorMsg errorMsg={errors.cellphone} />
+              </div>
+            </div>
+
             <div className="member-form-group row">
               <label className="font-700SL col-2" htmlFor="address">
                 地址
@@ -396,7 +410,9 @@ function EditMemberInfo() {
               </div>
             </div>
           </div>
-          <button className="member-form-submitBtn">送出</button>
+          <button type="submit" className="member-form-submitBtn">
+            送出
+          </button>
         </form>
       </div>
     </>
