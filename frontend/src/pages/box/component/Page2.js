@@ -35,7 +35,10 @@ function Page2(props) {
                   已選擇食材
                   {bento.map((v, i) => {
                     return (
-                      <div key={i}>
+                      <div
+                        className="d-flex align-items-center justify-content-between my-1"
+                        key={i}
+                      >
                         {v.name}
                         <FontAwesomeIcon
                           icon="times"
