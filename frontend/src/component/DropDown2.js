@@ -3,7 +3,6 @@ import '../style/dropdown.css'
 
 function DropDown2(props) {
   const [isDropDown, setIsDropDown] = useState(false)
-  // const [selectIndex, setSelectIndex] = useState(null)
   const { itemList, sortBy, setSortBy } = props
 
   return (

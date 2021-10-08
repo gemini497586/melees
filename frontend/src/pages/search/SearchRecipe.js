@@ -6,6 +6,7 @@ import RadioBox from './component/RadioBox'
 import DropDown2 from '../../component/DropDown2'
 import Axios from 'axios'
 import { API_URL } from '../../utils/config'
+import moment from 'moment'
 
 function SearchRecipe() {
   const { word } = useParams()
@@ -38,7 +39,7 @@ function SearchRecipe() {
       name: '瀏覽數由少至多',
     },
   ]
-
+  console.log(displayData)
   // 初始化
   useEffect(() => {
     const getData = async () => {
@@ -46,7 +47,11 @@ function SearchRecipe() {
         let res = await Axios.get(`${API_URL}/search/recipe?word=${word}`)
         let privateData = res.data.result.private
         let featureData = res.data.result.feature
+        // 把兩個食譜混再一起，先用新增日期排序
         let totalData = privateData.concat(featureData)
+        totalData = totalData.sort(
+          (a, b) => moment(b.create_date) - moment(a.create_date)
+        )
         setData(totalData)
         setDisplayData(totalData)
         setPrivateCount(res.data.count.privateCount)
@@ -63,10 +68,14 @@ function SearchRecipe() {
   const handleSortBy = (displayData, sortBy) => {
     let newData = [...displayData]
     if (sortBy === 0) {
-      newData = [...newData].sort((a, b) => b.id - a.id)
+      newData = [...newData].sort(
+        (a, b) => moment(b.create_date) - moment(a.create_date)
+      )
     }
     if (sortBy === 1) {
-      newData = [...newData].sort((a, b) => a.id - b.id)
+      newData = [...newData].sort(
+        (a, b) => moment(a.create_date) - moment(b.create_date)
+      )
     }
     if (sortBy === 2) {
       newData = [...newData].sort((a, b) => b.like_qty - a.like_qty)
@@ -85,18 +94,15 @@ function SearchRecipe() {
   // 篩選
   const handleChecked = (data, checked) => {
     let newDisplayData = [...data]
-    // let newCount = ''
     if (checked === '私藏食譜') {
       newDisplayData = [...data].filter((p) => {
         return p.type === 1
       })
-      // newCount += privatecount
     }
     if (checked === '精選食譜') {
       newDisplayData = [...data].filter((p) => {
         return p.type === 2
       })
-      // newCount += featurecount
     }
     return newDisplayData
   }
@@ -155,11 +161,7 @@ function SearchRecipe() {
               })}
             </div>
           </div>
-          <SearchCardRecipe
-            recipeData={displayData}
-            setDisplayData={setDisplayData}
-            sortBy={sortBy}
-          />
+          <SearchCardRecipe recipeData={displayData} />
         </div>
       </section>
     </>
