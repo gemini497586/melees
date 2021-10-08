@@ -260,12 +260,7 @@ function Header() {
         {login ? (
           <li className="user-btn ">
             <div className="user-avatar" data-bs-toggle="dropdown">
-              <img
-                alt="大頭貼"
-                className="cover-fit"
-                // src={`${API_URL}/member${avatar}`}
-                src={avatar}
-              />
+              <img alt="大頭貼" className="cover-fit" src={avatar} />
               <FontAwesomeIcon icon="user-circle" className="user" />
             </div>
             <ul className="dropdown-menu user-dropdown">
