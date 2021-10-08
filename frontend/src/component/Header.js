@@ -76,8 +76,7 @@ function Header() {
       .then((result) => {
         let loginAvatar = result.data[0].picture.includes('http')
           ? result.data[0].picture
-          : `${API_URL}/member${result.data[0].picture}`
-        console.log(loginAvatar)
+          : `${API_URL}/member/${result.data[0].picture}`
         setAvatar(loginAvatar)
       })
   }, [login])

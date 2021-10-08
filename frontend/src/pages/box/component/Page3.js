@@ -9,9 +9,9 @@ import Swal from 'sweetalert2'
 
 function Page3(props) {
   const { cal, setCal, tdee, tableList, setTableList, bento, setBento } = props
+  const { login } = useContext(HandleCart)
   const location = useLocation()
   const [redirect, setRedirect] = useState(false)
-  const { login } = useContext(HandleCart)
   const [showModal, setShowModal] = useState(false)
   const openModal = () => {
     if (bento.length > 0) {
@@ -19,6 +19,7 @@ function Page3(props) {
     } else {
       Swal.fire({
         title: '請先至上方挑選至少一樣食材',
+        confirmButtonText: '確認',
         confirmButtonColor: 'var(--color-primary)',
       })
     }

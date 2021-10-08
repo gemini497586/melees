@@ -5,7 +5,7 @@ const { loginCheckMiddleware } = require("../middlewares/auth");
 const moment = require("moment");
 
 // 登入才可以使用
-// router.use(loginCheckMiddleware);
+router.use(loginCheckMiddleware);
 
 router.post("/", async (req, res, next) => {
     // 確認是否拿到會員id

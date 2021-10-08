@@ -2,9 +2,10 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../../../component/FontawsomeIcons'
 import { Link } from 'react-router-dom'
+import { P_PAYMENT_METHOD } from '../../../utils/config'
 
 function OrderListRow(props) {
-  const { dataList, payment_method, status } = props
+  const { dataList, status } = props
 
   return (
     <>
@@ -16,7 +17,7 @@ function OrderListRow(props) {
               <Link to={`/member/orderdetail/${value.id}`}>{value.id}</Link>
             </div>
             <div className="orderList-row-10 orderList-web">
-              {payment_method[value.payment_method]}
+              {P_PAYMENT_METHOD[value.payment_method]}
             </div>
             <div className="orderList-row-10">{status[value.status]}</div>
             <div className="orderList-row-date orderList-web">

@@ -19,8 +19,6 @@ function OrderDetails(props) {
   const [product, setProduct] = useState([])
   const [productList, setProductList] = useState(null)
 
-  const payment_method = { 1: '信用卡', 2: '貨到付款' }
-
   // 初始值
   useEffect(() => {
     const getData = async () => {
@@ -128,7 +126,7 @@ function OrderDetails(props) {
               <h5>付款方式與寄送資料</h5>
             </div>
             <div className="member-form-group-content member-form-group-content-forPayInfo">
-              <PayInfo mainList={mainList} payment_method={payment_method} />
+              <PayInfo mainList={mainList} />
             </div>
           </div>
           {/* 注意事項  */}

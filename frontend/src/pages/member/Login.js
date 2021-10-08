@@ -250,7 +250,7 @@ function Login() {
                 </button>
                 <div>
                   <input type="checkbox" />
-                  <label for="">記住我</label>
+                  <label htmlFor="">記住我</label>
                 </div>
               </div>
             </form>

@@ -1,13 +1,14 @@
 import React from 'react'
+import { P_PAYMENT_METHOD } from '../../../utils/config'
 
 function PayInfo(props) {
-  const { mainList, payment_method } = props
+  const { mainList } = props
   return (
     <>
       <ul className="orderDetail-payInfo">
         <li className="font-400SL">
           <strong className="font-700SL">付款方式</strong>
-          {payment_method[mainList.payment_method]}
+          {P_PAYMENT_METHOD[mainList.payment_method]}
         </li>
         <li className="font-400SL">
           <strong className="font-700SL">訂購姓名</strong>
