@@ -36,16 +36,17 @@ function EditModal(props) {
     setCurrent(recipeDataDetails.member_star_rate)
   }, [recipeDataDetails])
 
+  // 清除編輯中評論，並關閉 Modal
   const handleCancelEdit = () => {
-    // 清除：編輯中評論，並關閉 Modal
     setNewComment('')
+    setNewStarScore()
     openEditModal()
   }
 
   const handleEdit = async (e) => {
     e.preventDefault()
     try {
-      // 評論與評分都沒有更新，丟錯誤訊息
+      // 1. N: 評論與評分都沒有更新，丟錯誤訊息
       if (!newComment && !newStarScore) {
         let errCode = {
           category: 'recipecomment',
@@ -54,7 +55,7 @@ function EditModal(props) {
         throw errCode
       }
 
-      // 評論與評分有更新，發axios送到後端
+      // 1. Y: 評論與評分有更新，發axios送到後端
       let data = {
         id: recipeDataDetails.id,
         recipe_id: recipeDataDetails.recipe_id,
@@ -70,8 +71,9 @@ function EditModal(props) {
         }
       )
 
+      // 2. Y: 後端回覆成功 a. 關閉EditModal b. 清空資料 c. 開啟 success Swal
       // console.log(`id: ${recipeDataDetails.id} edits successfully`)
-      openEditModal()
+      handleCancelEdit() // 關閉EditModal + 清空資料
       Swal.fire({
         icon: 'success',
         title: queryMsg(response.data.category, response.data.code),
@@ -83,11 +85,11 @@ function EditModal(props) {
     } catch (err) {
       let errMsg = ''
 
-      // 前端丟錯誤
+      // 1. N: 前端丟錯誤 a. queryMsg() 查詢錯誤訊息 b. 開啟 error Swal
       if (err.code !== undefined) {
         errMsg = queryMsg(err.category, err.code)
       }
-      // 後端回覆錯誤
+      // 2. N: 後端回覆錯誤 a. queryMsg() 查詢錯誤訊息 b. 開啟 error Swal
       if (err.response !== undefined) {
         errMsg = queryMsg(err.response.data.category, err.response.data.code)
       }

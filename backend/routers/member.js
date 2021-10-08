@@ -26,12 +26,7 @@ const infoValidation = [
     .withMessage("D0101"),
   body("name").isLength({ max: 100 }).withMessage("D0102"),
 
-  // 生日驗證 --> 1.不為空值  2.檢查日期格式
-  body("birthday")
-    .custom((value, { req }) => {
-      return value ? true : false;
-    })
-    .withMessage("G0101"),
+  // 生日驗證 --> 1.系統預設值 2000/01/01   2.檢查日期格式
   body("birthday").isDate().withMessage("G0102"),
 
   // 暱稱驗證 --> 1.接受空值   2.max: 100;
@@ -43,8 +38,10 @@ const infoValidation = [
   // 手機驗證 --> 1.接受空值  2.台灣手機號碼格式
   body("cellphone")
     .custom((value, { req }) => {
-      let phoneRegex = /^(09)[0-9]{8}$/;
-      return phoneRegex.test(value);
+      if (value) {
+        let phoneRegex = /^(09)[0-9]{8}$/;
+        return !phoneRegex.test(value);
+      }
     })
     .withMessage("H0102"),
 ];
@@ -142,7 +139,7 @@ router.post(
     // 套件回覆的驗證結果
     const dataValidationResult = validationResult(req);
     if (!dataValidationResult.isEmpty()) {
-      let error = dataValidationResult.array();
+      let errors = dataValidationResult.array();
       // console.log(error);
 
       // 當 express-validator 回覆多個錯誤時
@@ -454,6 +451,11 @@ router.post("/recipecomment/modal/read", async (req, res, next) => {
     [req.body.recipe_id]
   );
 
+  let comment_qty = await connection.queryAsync(
+    "SELECT count(*) AS count FROM private_comment WHERE private_id=? AND member_id=?",
+    [req.body.recipe_id, req.session.member.id]
+  );
+
   let author_id = await connection.queryAsync(
     "SELECT member_id FROM private_recipe WHERE id=?",
     [req.body.recipe_id]
@@ -473,6 +475,7 @@ router.post("/recipecomment/modal/read", async (req, res, next) => {
     recipe_author_avatar: author_avatar[0].picture,
     like_qty: like_qty[0].count,
     view_qty: view_qty[0].count,
+    comment_qty: comment_qty[0].count,
   };
 
   res.json(newResult);
@@ -494,19 +497,19 @@ router.post("/recipecomment/modal/edit", async (req, res, next) => {
   let sql = "UPDATE private_comment SET";
   let updateData = [];
 
-  // 2-1. 評論有更新，新增sql語法，更新comment欄位
+  //   a. 評論有更新，新增sql語法，更新comment欄位
   if (req.body.newComment) {
     sql += " comment = ?,";
     updateData.push(req.body.newComment);
   }
 
-  // 2-2. 評分有更新，新增sql語法，更新star_rate欄位
+  //   b. 評分有更新，新增sql語法，更新star_rate欄位
   if (req.body.starScore) {
     sql += " star_rate = ?,";
     updateData.push(req.body.starScore);
   }
 
-  // 2-3. 完成sql語法、整理資料
+  //   c. 完成sql語法、整理資料
   sql += " comment_time = ? WHERE id = ? AND member_id =?";
   updateData.push(
     moment().format("YYYYMMDD"),
@@ -516,11 +519,11 @@ router.post("/recipecomment/modal/edit", async (req, res, next) => {
 
   // 3. 執行 --> 資料庫更新
   try {
-    // 3-1. private_comment 更新 該食譜評論
+    //   a. private_comment 更新 該食譜評論
     let result_comment = await connection.queryAsync(sql, updateData);
     console.log("updated result_comment: ", result_comment);
 
-    // 3-2. 將該食譜的星星數做加總 / 該食譜的總評分人數
+    //   b. 將該食譜的星星數做加總 / 該食譜的總評分人數
     let result = await connection.queryAsync(
       "SELECT * FROM private_comment WHERE private_id = ?",
       [req.body.recipe_id]
@@ -573,10 +576,10 @@ router.post("/recipecomment/modal/delete", async (req, res, next) => {
     });
   }
 
-  // let result = await connection.queryAsync(
-  //   "DELETE FROM private_comment WHERE id = ? AND member_id = ?",
-  //   [req.body.id, req.session.member.id]
-  // );
+  let result = await connection.queryAsync(
+    "DELETE FROM private_comment WHERE id = ? AND member_id = ?",
+    [req.body.id, req.session.member.id]
+  );
 
   res.status(200).json({ category: "recipecomment", code: "A0004" });
 });
