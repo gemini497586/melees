@@ -20,6 +20,19 @@ function ProductDetails() {
       })
   }, [])
 
+  const [product, setProduct] = useState([])
+
+  useEffect(() => {
+    axios
+      .post(`${API_URL}/market/order-productData`, null, {
+        withCredentials: true,
+      })
+      .then((result) => {
+        console.log(result.data)
+        setProduct(result.data)
+      })
+  }, [])
+
   const payment = { 1: '貨到付款', 2: '信用卡付款' }
   return (
     <div className="container">
@@ -62,11 +75,13 @@ function ProductDetails() {
               <p className="font-400L cart-detail-title-amount">數量</p>
               <p className="font-400L cart-detail-title-total">總價</p>
             </div>
-            <CartDetailRow />
-            <div className="main-detail-checkout-area">
-              <p className="font-400S main-detail-total-amount">商品金額總計</p>
-              <h6 className="main-detail-total-amount-num">NT 2,820</h6>
-            </div>
+          </div>
+          {product.map((value) => {
+            return <CartDetailRow value={value} />
+          })}
+          <div className="main-detail-checkout-area">
+            <p className="font-400S main-detail-total-amount">商品金額總計</p>
+            <h6 className="main-detail-total-amount-num">NT 2,820</h6>
           </div>
         </div>
       </div>

@@ -13,8 +13,8 @@ import axios from 'axios'
 import { API_URL } from '../../utils/config'
 
 function CheckoutConfirm() {
-  const { carts, removeCart, clearCart } = useCart()
-  const { info, addInfo, total, clearInfo } = useCheckoutInfo()
+  const { carts, clearCart } = useCart()
+  const { info, total, clearInfo } = useCheckoutInfo()
 
   const handleData = async () => {
     // 把資料傳進後端

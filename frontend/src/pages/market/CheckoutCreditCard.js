@@ -2,7 +2,7 @@ import React from 'react'
 import '../../style/checkoutCreditCard.css'
 
 function CheckoutCreditCard() {
-  let one = document.getElementById('credit1')
+  // let one = document.getElementById('credit1')
   const handleCredit = (e, v) => {
     let Length = e.target.maxLength
     let target = e.target

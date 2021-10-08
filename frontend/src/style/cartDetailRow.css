@@ -1,9 +1,9 @@
 .cart-detail-row {
+  margin-top: 5px;
   width: 1318px;
   height: 176px;
   position: relative;
   border-bottom: 1px solid var(--color-grey-500);
-  top: 35px;
 }
 
 .cart-detail-row img,
@@ -40,6 +40,13 @@
   color: var(--color-grey-800);
   top: 76px;
   left: 308px;
+  width: 380px;
+  height: 78px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  -webkit-line-clamp: 4; /*行數 */
 }
 
 .cart-detail-price {
