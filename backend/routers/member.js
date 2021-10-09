@@ -337,7 +337,7 @@ router.get("/readsaverecipe", async (req, res, next) => {
       // console.log("featureIds ", featureIds);
       let feature = await connection.queryAsync(
           "SELECT a.id , a.type_id, a.name, a.create_date, " +
-              "b.name AS linkName, b.img AS linkImg, " +
+              "b.link, b.name AS linkName, b.img AS linkImg, " +
               "c.file_type AS picture, " +
               "d.id AS saveId, " +
               "(SELECT COUNT(member_id) FROM feature_like WHERE a.id=feature_id) AS like_qty ," +

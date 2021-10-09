@@ -27,8 +27,10 @@ function Modal(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!name) {
+    let trimName = name.trim()
+    if (trimName === '') {
       setError('請為您的便當命名')
+      setName('')
       return
     }
     try {
@@ -131,7 +133,9 @@ function Modal(props) {
             </div>
           </div>
         </div>
-      ) : <></>}
+      ) : (
+        <></>
+      )}
     </>
   )
 }
