@@ -161,6 +161,16 @@ function EditMemberInfo() {
           setPictureErrors(queryMsg(resData.category, resData.code))
           return
         }
+        if (resData.type === 'login') {
+          Swal.fire({
+            icon: 'error',
+            title: '發生錯誤！',
+            text: queryMsg(resData.category, resData.code),
+            confirmButtonText: '確認',
+            confirmButtonColor: '#fe9900',
+          })
+          return
+        }
         setErrors({
           [resData.type]: queryMsg(resData.category, resData.code),
         })

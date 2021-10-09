@@ -5,6 +5,9 @@ module.exports = {
       return next({
         status: 401,
         message: "登入會員後，即可享受更多專屬功能",
+        category: "auth",
+        type: "login",
+        code: "L0104",
       });
     } else {
       next();
