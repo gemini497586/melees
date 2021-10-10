@@ -273,6 +273,7 @@
   border-radius: 50%;
   overflow: hidden;
   margin: 10px 0px;
+  cursor: pointer;
 }
 /* 向下箭頭*/
 .h-recipe-arrowdown {
