@@ -1,8 +1,9 @@
 .PrivateRecipeComment-container {
   width: 306px;
-  height: 400px;
+  height: 350px;
   padding: 20px;
   margin: auto;
+  /* border: 1px solid green; */
   border-bottom: 1px solid var(--color-grey-500);
   margin-bottom: 60px;
 }

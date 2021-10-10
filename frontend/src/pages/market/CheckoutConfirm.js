@@ -86,7 +86,7 @@ function CheckoutConfirm() {
           </table>
         </div>
         <div className="cart-checkout-box">
-          <CheckoutArea toGO="" />
+          <CheckoutArea />
           <Link to="/market/orders-complete">
             <button
               className="btn font-700M cart-checkout-btn"

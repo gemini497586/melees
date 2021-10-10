@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import { API_URL, FACEBOOK_APP_ID, GOOGLE_APP_ID } from '../../utils/config'
 import axios from 'axios'
@@ -17,9 +17,7 @@ import queryMsg from './component/queryMsg'
 import Swal from 'sweetalert2'
 
 function Login() {
-  const { setLogin } = useContext(HandleCart) //登入用
-  // const [socialLogin, setSocialLogin] = useState(false) //查看是否為第三方登入
-
+  const { login, setLogin } = useContext(HandleCart) //登入用
   const [errorMsg, setErrorMsg] = useState()
   const [formValues, setFormValues] = useState({
     // account: '',
@@ -63,6 +61,16 @@ function Login() {
     // console.log('login.js L57, from: ', from)
     history.push(from)
   }
+
+  // 重新整理等情況，login 會回到預設 false
+  // --> ProtectedRoute 會先 redirect 到登入畫面
+  // App.js 會 發送axios 到後端確認 session 的登入狀態
+  // --> 若會員已登入，跳轉回原本的頁面；未登入，停留在登入畫面
+  useEffect(() => {
+    if (login) {
+      loginRedirect()
+    }
+  }, [login])
 
   const isLoggedIn = () => {
     setLogin(true)
