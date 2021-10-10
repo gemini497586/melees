@@ -69,7 +69,7 @@ router.get("/search", async function (req, res, next) {
 // 抓食譜的資料 (食譜首頁)
 router.get("/index", async function (req, res, next) {
   // 每頁有幾筆
-  const perPage = 8
+  const perPage = 16
 
   // 預設第 1 頁
   let page = parseInt(req.query.page || 1)
