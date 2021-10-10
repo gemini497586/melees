@@ -169,6 +169,7 @@
   justify-content: space-between;
   margin: 0px 10px;
   text-decoration: none;
+  cursor: pointer;
 }
 .f-feature-card:hover {
   border-radius: 15px;
@@ -293,7 +294,7 @@
 /*購物商城*/
 .h-shop-bg {
   background: url('../images/homeshop_bg.png') -500px no-repeat;
-  background-size: 1525px auto;
+  background-size: 85% auto;
 }
 /*右邊標題*/
 .h-shop-titlegroup {
@@ -302,7 +303,7 @@
   align-items: flex-end;
   position: absolute;
   right: 8%;
-  top: 20%;
+  top: 17%;
   z-index: 2;
 }
 .h-shop-title {
@@ -321,6 +322,7 @@
 }
 .h-shop-titlebtn:hover {
   color: var(--color-white);
+  background-color: var(--color-primary-A);
 }
 /*圖片內容*/
 .h-shop-cardgroup {
@@ -398,7 +400,11 @@
   margin: 0px 0px;
 }
 .h-shop-cardfontsmalltwo {
-  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  max-width: 250px;
+  height: 90px;
   text-align: center;
   margin: 0 auto;
 }
@@ -407,9 +413,7 @@
 }
 /*footer*/
 .h-footer {
-  /* height: 100px; */
   position: absolute;
-  /* margin-top: -300px; */
 }
 .h-footer-div {
   height: 305px;

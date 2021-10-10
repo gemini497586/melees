@@ -18,6 +18,7 @@ function FeatureContentIntro(props) {
   const location = useLocation()
 
   const {
+    link,
     linkImg,
     listName,
     qty,
@@ -170,7 +171,12 @@ function FeatureContentIntro(props) {
       <div className="fintro-boxsize">
         <div>
           {/* IG連結 */}
-          <a href="#/" className="text-decoration-none">
+          <a
+            href={link}
+            target="_blank"
+            className="text-decoration-none"
+            rel="noreferrer"
+          >
             <div className="fintro-ig">
               <figure className="fintro-avatar-bg">
                 <img
