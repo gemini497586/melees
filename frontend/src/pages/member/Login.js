@@ -8,10 +8,7 @@ import '../../style/login.css'
 import logo from '../../images/logo.png'
 import { HandleCart } from '../../utils/HandleCart'
 import FacebookLogin from 'react-facebook-login'
-import {
-  GoogleLogin,
-  // GoogleLogout
-} from 'react-google-login'
+import { GoogleLogin } from 'react-google-login'
 import 'animate.css'
 import queryMsg from './component/queryMsg'
 import Swal from 'sweetalert2'
@@ -20,10 +17,10 @@ function Login() {
   const { login, setLogin } = useContext(HandleCart) //登入用
   const [errorMsg, setErrorMsg] = useState()
   const [formValues, setFormValues] = useState({
-    // account: '',
-    // password: '',
-    account: 'meleesadminx1',
-    password: '123456',
+    account: '',
+    password: '',
+    // account: 'meleesadminx1',
+    // password: '123456',
   })
 
   const handleFormValuesChange = (e) => {
@@ -91,7 +88,6 @@ function Login() {
       )
       console.log(result)
       isLoggedIn()
-      // setSocialLogin(true)
     } catch (err) {
       console.error(err)
     }
@@ -111,7 +107,6 @@ function Login() {
       )
       console.log(result)
       isLoggedIn()
-      // setSocialLogin(true)
     } catch (err) {
       console.error(err)
     }
@@ -120,10 +115,6 @@ function Login() {
   const googleFailure = (response) => {
     console.log('googleFailure', response)
   }
-
-  // const onSignoutSuccess = () => {
-  //   console.log('You have been logged out successfully')
-  // }
 
   const forgotPwdModal = (e) => {
     // 防止送出表單
@@ -220,7 +211,7 @@ function Login() {
             <form
               onSubmit={handleSubmit}
               onChange={handleFormChange}
-              // onInvalid={handleFormValuesInvalid}
+              onInvalid={handleFormValuesInvalid}
             >
               <input
                 type="text"
@@ -228,7 +219,6 @@ function Login() {
                 name="account"
                 value={formValues.account}
                 onChange={handleFormValuesChange}
-                onBlur={handleFormValuesInvalid}
                 placeholder="請輸入帳號"
               />
               <input
@@ -237,7 +227,6 @@ function Login() {
                 name="password"
                 value={formValues.password}
                 onChange={handleFormValuesChange}
-                onBlur={handleFormValuesInvalid}
                 placeholder="請輸入密碼"
               />
               <p
@@ -263,11 +252,6 @@ function Login() {
               </div>
             </form>
             <div className="quickLogin">
-              {/* <GoogleLogout
-                clientId={GOOGLE_APP_ID}
-                buttonText="Sign Out"
-                onLogoutSuccess={onSignoutSuccess}
-              /> */}
               <GoogleLogin
                 className="quickLogin-googleBtn"
                 clientId={GOOGLE_APP_ID}
