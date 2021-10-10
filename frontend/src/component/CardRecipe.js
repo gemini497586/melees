@@ -57,7 +57,7 @@ function CardRecipe() {
                 size="lg"
                 className="more-arrow"
               />
-              <Link to="feature/index/1">
+              <Link to="/feature/index/1">
                 <span className="font-700M">看更多</span>
               </Link>
             </div>
