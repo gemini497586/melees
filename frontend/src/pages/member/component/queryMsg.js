@@ -56,6 +56,7 @@ export default function queryMsg(category, code) {
       L0101: '帳號或密碼輸入錯誤',
       L0102: '請確實填寫帳號及密碼',
       L0103: '發送驗證Email時，發生錯誤！請聯繫 MEELEs 客服。',
+      L0104: '系統讀取不到您的資料，請重新登入！',
     },
     recipecomment: {
       // A --> 成功
