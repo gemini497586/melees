@@ -126,6 +126,7 @@ function Header() {
   }, [])
 
   const handleSubmit = () => {
+    setSearchList(false)
     if (recipe === '找商品') {
       history.push(`/search/market/${word}`)
     }
@@ -231,7 +232,11 @@ function Header() {
             </button>
           </div>
           {searchList ? (
-            <div className="header-search-recommend-menu">{handleSearch()}</div>
+            <div className="d-flex flex-row-reverse">
+              <div className="header-search-recommend-menu">
+                {handleSearch()}
+              </div>
+            </div>
           ) : (
             ''
           )}

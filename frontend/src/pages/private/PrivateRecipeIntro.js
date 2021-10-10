@@ -63,7 +63,7 @@ function PrivateRecipeIntro() {
       <div className="page-group">
         <div className="container">
           <div className="row">
-            <PrivateRecipePhotoIntro id={id} />
+            <PrivateRecipePhotoIntro id={id} reRender={reRender}/>
             <PrivateRecipeHeading title={heading[0]} />
             <div className="col-12 col-md-6 g-0">
               <Table tableList={table_L} />
