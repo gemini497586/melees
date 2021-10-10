@@ -7,7 +7,7 @@ import Axios from 'axios'
 import { API_URL } from '../../../utils/config'
 
 function PrivateRecipePhotoIntro(props) {
-  const { id } = props
+  const { id, reRender } = props
   const [recipe, setRecipe] = useState([])
   const [memberInfo, setMemberInfo] = useState([])
   const [totalRecipe, setTotalRecipe] = useState('')
@@ -29,9 +29,8 @@ function PrivateRecipePhotoIntro(props) {
       setMemberInfo(res.data.memResult[0])
       setTotalRecipe(res.data.memberT)
       setTotalFollow(res.data.followT)
-      // console.log(res.data)
     })
-  }, [])
+  }, [reRender])
 
   useEffect(() => {
     Axios.get(`${API_URL}/private/index/recipe/${id}`, {
@@ -210,7 +209,9 @@ function PrivateRecipePhotoIntro(props) {
                   }
                 >
                   <FontAwesomeIcon icon={['far', 'heart']} size="lg" />
-                  <span className="font-700M">{likeState ? '已按讚' : '按讚'}</span>
+                  <span className="font-700M">
+                    {likeState ? '已按讚' : '按讚'}
+                  </span>
                 </button>
                 <button
                   onClick={handleSave}
