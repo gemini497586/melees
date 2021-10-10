@@ -1,3 +1,10 @@
+.header-cart-max {
+  width: 100%;
+  max-height: 560px;
+  /* overflow-x: hidden; */
+  overflow-y: auto;
+}
+
 /* 購物車彈出視窗 */
 .header-cart-row {
   position: relative;
@@ -99,6 +106,7 @@
   background: var(--color-primary);
   margin: 5px 0px 0px;
   color: var(--color-white);
+  z-index: 2;
 }
 
 /* 購物車內沒商品的提示訊息 */

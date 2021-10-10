@@ -38,10 +38,16 @@ function CheckoutPersonalData() {
       setAlert(true)
       let red = document.getElementById('payingBtn')
       red.classList.add('checkout-alert')
-    } else if (!name || !phone || !email || !address) {
+    } else if (
+      !name ||
+      !phone ||
+      !email ||
+      !address ||
+      !/^(09)[0-9]{8}$/.test(phone) ||
+      !/^[A-Z0-9._%+-]+@[A-Z0-9._]+\.[A-Z]{2,}$/i.test(email)
+    ) {
       Swal.fire('請完整填寫購買資料')
     } else {
-      console.log('3')
       addInfo({
         id: id,
         name: name,
@@ -60,13 +66,17 @@ function CheckoutPersonalData() {
       !name ||
       !phone ||
       !email ||
-      !address
+      !address ||
+      !/^(09)[0-9]{8}$/.test(phone) ||
+      !/^[A-Z0-9._%+-]+@[A-Z0-9._]+\.[A-Z]{2,}$/i.test(email)
     ) {
       setPath('checkout-personalData')
     } else {
       setPath('checkout-confirm')
     }
   }, [frontendCheck])
+
+  useEffect(() => {})
 
   useEffect(() => {
     // 拿到會員的資料
@@ -117,12 +127,14 @@ function CheckoutPersonalData() {
             className="checkout-personal-data-input"
             type="text"
             placeholder="請輸入您的聯絡電話"
+            pattern="[0-9]{8,10}"
             required
             value={phone}
             onChange={(e) => {
               setPhone(e.target.value)
             }}
           />
+          <span className="font-400SS">電話號碼格式有誤</span>
         </div>
         <div className="checkout-personal-data-email">
           <label className="checkout-personal-data-label">電子信箱 *</label>
@@ -136,6 +148,7 @@ function CheckoutPersonalData() {
               setEmail(e.target.value)
             }}
           />
+          <span className="font-400SS">電子信箱格式有誤</span>
         </div>
         <div className="checkout-credit-card-address">
           <label className="checkout-personal-data-label">地址 *</label>

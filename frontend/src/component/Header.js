@@ -318,7 +318,7 @@ function Header() {
         )}
       </ul>
       {hidden && (
-        <div className="header-cart position-absolute" id="abc">
+        <div className="header-cart position-absolute">
           <HeaderCart />
         </div>
       )}

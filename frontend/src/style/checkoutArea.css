@@ -54,7 +54,7 @@
 
 .cart-checkout-price-amount-num {
   top: 37px;
-  left: 1198px;
+  left: 1183px;
 }
 
 /* 優惠券 */
@@ -65,8 +65,7 @@
 
 .cart-checkout-coupon-num {
   top: 79px;
-  left: 1166px;
-  text-align: end;
+  left: 1183px;
 }
 
 /* 運費 */
@@ -77,8 +76,7 @@
 
 .cart-checkout-freight-num {
   top: 121px;
-  left: 1166px;
-  text-align: end;
+  left: 1183px;
 }
 
 .w244 {
@@ -114,6 +112,6 @@
 .cart-back-btn {
   color: var(--color-primary);
   border: 1px solid var(--color-primary);
-  top: 163px;
+  bottom: 94px;
   left: 50px;
 }
