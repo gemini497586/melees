@@ -36,7 +36,11 @@ function MyRecipeTable(props) {
       confirmButtonColor: '#d33',
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire('成功刪除!', '食譜已經成功刪除', 'success')
+        Swal.fire({
+          icon: 'success',
+          title: '刪除成功!',
+          confirmButtonColor: '#fe9900',
+        })
         Axios.get(`${API_URL}/private/delete-recipe/${id}`, {
           withCredentials: true,
         }).then((res) => {

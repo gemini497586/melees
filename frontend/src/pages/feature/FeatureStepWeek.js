@@ -127,6 +127,7 @@ function FeatureStepWeek(props) {
                   <div className="d-flex fcard-mb65">
                     <FeatureContentImg featureimg={featureimg123} />
                     <FeatureContentIntro
+                      link={listdata.link}
                       linkImg={listdata.linkImg}
                       linkName={listdata.linkName}
                       listName={listdata.listName}
