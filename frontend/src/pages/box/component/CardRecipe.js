@@ -51,14 +51,14 @@ function CardRecipe(props) {
       <div className="row">
         <div className="cardRecipe-others">
           <div className="d-flex justify-content-between">
-            <h5>查看其他食譜</h5>
+            <h5>推薦食譜</h5>
             <div className="cardRecipe-others-more">
               <FontAwesomeIcon
                 icon="chevron-right"
                 size="lg"
                 className="more-arrow"
               />
-              <Link to="feature/index/1">
+              <Link to="/feature/index/1">
                 <span className="font-700M">看更多</span>
               </Link>
             </div>

@@ -50,7 +50,9 @@ function SearchCardRecipe(props) {
               <div className="s-recipe-count font-400M">
                 <HeartViewNum likeqty={v.like_qty} viewqty={v.view_qty} />
                 {v.linkName ? (
-                  <Ig linkName={v.linkName} />
+                  <a href={v.link} target="_blank">
+                    <Ig linkName={v.linkName} />
+                  </a>
                 ) : (
                   <div className="s-recipe-count-user">
                     <div className="s-recipe-count-circle">
