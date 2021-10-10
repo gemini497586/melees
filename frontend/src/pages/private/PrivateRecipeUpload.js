@@ -60,6 +60,8 @@ function PrivateRecipeUpload() {
 
   // 刪除食材欄位
   const DeleteIngred = (index) => {
+    console.log(index)
+    console.log(ingredList)
     if (ingredList.length === 1) {
       Swal.fire({
         text: '至少新增一筆食材',
@@ -381,6 +383,7 @@ function PrivateRecipeUpload() {
                           id="ingred"
                           name="ingred"
                           placeholder="高麗菜"
+                          value={value.ingred}
                           onChange={(e) => ChangeIngred(e, index)}
                         />
                         <input
@@ -388,6 +391,7 @@ function PrivateRecipeUpload() {
                           id="ingred_unit"
                           name="ingred_unit"
                           placeholder="1顆"
+                          value={value.ingred_unit}
                           onChange={(e) => ChangeIngred(e, index)}
                         />
                         <FontAwesomeIcon
@@ -408,7 +412,7 @@ function PrivateRecipeUpload() {
                       <span className="font-700M">添加</span>
                     </div>
                   </div>
-
+                  {/* <pre>食材 {JSON.stringify(ingredList, null, 2)}</pre> */}
                   {/* 步驟 */}
                   <label htmlFor="step" className="privateRecipeUpload-label">
                     <h4>步驟</h4>
@@ -445,6 +449,7 @@ function PrivateRecipeUpload() {
                       <span className="font-700M">添加</span>
                     </div>
                   </div>
+                  {/* <pre>步驟 {JSON.stringify(steps, null, 2)}</pre> */}
                   {/* 標籤 */}
                   <label htmlFor="tag" className="privateRecipeUpload-label">
                     <h4>標籤</h4>
