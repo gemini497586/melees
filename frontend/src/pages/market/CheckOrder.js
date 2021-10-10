@@ -15,7 +15,6 @@ function ProductDetails() {
         withCredentials: true,
       })
       .then((response) => {
-        console.log(response.data)
         setPersonalData(response.data[0])
       })
   }, [])
@@ -28,7 +27,6 @@ function ProductDetails() {
         withCredentials: true,
       })
       .then((result) => {
-        console.log(result.data)
         setProduct(result.data)
       })
   }, [])
@@ -81,7 +79,10 @@ function ProductDetails() {
           })}
           <div className="main-detail-checkout-area">
             <p className="font-400S main-detail-total-amount">商品金額總計</p>
-            <h6 className="main-detail-total-amount-num">NT 2,820</h6>
+            <h6 className="main-detail-total-amount-num">
+              NT <FontAwesomeIcon icon="dollar-sign" />
+              {personalData.total_price}
+            </h6>
           </div>
         </div>
       </div>

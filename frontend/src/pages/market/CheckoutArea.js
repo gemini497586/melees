@@ -20,8 +20,10 @@ function CheckoutArea() {
 
   return (
     <div className="cart-checkout-area">
-      <Link to="/market" className="btn font-700M cart-checkout-market-btn">
-        {/* <button > </button> */}
+      <Link
+        to="/market/home"
+        className="btn font-700M cart-checkout-market-btn"
+      >
         <FontAwesomeIcon icon="long-arrow-alt-left" /> 回到商城
       </Link>
       <button className="btn font-700M cart-checkout-coupon-btn">

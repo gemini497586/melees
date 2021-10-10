@@ -24,7 +24,11 @@ const useCart = () => {
 
     if (index > -1) {
       //currentCart[index].amount++
-      Swal.fire('該商品已經加入購物車', '', 'warning')
+      Swal.fire({
+        title: '該商品已經加入購物車',
+        icon: 'warning',
+        confirmButtonColor: '#fe9900',
+      })
       return
     } else {
       // 如果商品沒有重複就放進購物車
@@ -41,7 +45,11 @@ const useCart = () => {
     const index = currentCart.findIndex((v) => v.id === e.id)
     if (index === -1) {
       currentCart.splice(e, 1)
-      Swal.fire('成功刪除商品', '', 'warning')
+      Swal.fire({
+        title: '成功刪除商品',
+        icon: 'warning',
+        confirmButtonColor: '#fe9900',
+      })
     }
     sessionStorage.setItem('cartList', JSON.stringify(currentCart))
     setCarts(currentCart)

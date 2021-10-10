@@ -11,7 +11,8 @@
 .checkout-personal-data h6,
 .checkout-personal-data p,
 .checkout-personal-data div,
-.checkout-personal-data button {
+.checkout-personal-data button,
+.checkout-personal-data span {
   position: absolute;
 }
 
@@ -74,6 +75,29 @@
   height: 45px;
   top: 191px;
   left: 76px;
+}
+
+.checkout-personal-data input:invalid {
+  border: 2px solid var(--color-red-C);
+  box-shadow: 0px 0px 5px 2px rgba(255, 21, 21, 0.2);
+}
+
+.checkout-personal-data input:invalid:focus {
+  outline: 1px solid var(--color-red-C);
+}
+
+.checkout-personal-data span {
+  top: -20px;
+  left: 150px;
+  color: var(--color-red-C);
+}
+
+.checkout-personal-data input:valid + span {
+  display: none;
+}
+
+.checkout-personal-data input:invalid + span {
+  display: inline;
 }
 
 .checkout-personal-data-email {
