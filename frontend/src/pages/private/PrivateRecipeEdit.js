@@ -272,7 +272,7 @@ function PrivateRecipeEdit() {
           icon: 'success',
           title: '編輯成功!',
           text: '回到私藏主頁...',
-          // confirmButtonColor: '#fe9900',
+          confirmButtonColor: '#fe9900',
           timer: 1500,
         }).then(() => {
           window.location = 'http://localhost:3000/private'
@@ -285,14 +285,6 @@ function PrivateRecipeEdit() {
   return (
     <>
       <div className="page-group">
-        <PrivateReicpeAnimate />
-
-        {/* <pre>照片 {JSON.stringify(recipePhoto, null, 2)}</pre>
-        <pre>名稱 {JSON.stringify(recipeName, null, 2)}</pre>
-        <pre>預覽 {JSON.stringify(imgPreview, null, 2)}</pre>
-        <pre>tag {JSON.stringify(displayTag, null, 2)}</pre>
-        <pre>介紹 {JSON.stringify(recipeIntro, null, 2)}</pre> */}
-
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-6">
@@ -546,12 +538,6 @@ function PrivateRecipeEdit() {
                   </div>
                 </form>
               </div>
-
-              <pre>{JSON.stringify(ingredList, null, 2)}</pre>
-              <pre>{JSON.stringify(steps, null, 2)}</pre>
-              <pre>{JSON.stringify(recipeName, null, 2)}</pre>
-              <pre>{JSON.stringify(recipeIntro, null, 2)}</pre>
-              <pre>{JSON.stringify(recipePhoto, null, 2)}</pre>
             </div>
           </div>
         </div>
