@@ -10,8 +10,7 @@ import default_avatar from '../../../images/default_member_avatar.png'
 import Swal from 'sweetalert2'
 
 const colors = {
-  yellow: 'var(--color-primary-A)',
-  grey: 'var(--color-grey-500)',
+  color: 'var(--color-primary-A)',
 }
 
 function PrivateRecipeStarComment(props) {
@@ -47,12 +46,15 @@ function PrivateRecipeStarComment(props) {
 
   const addComment = async (e) => {
     e.preventDefault()
-    if (comment === '' || currentValue === 0) {
+    let trim_comment = comment.trim()
+    if (trim_comment === '' || currentValue === 0) {
       Swal.fire({
-        text: '還沒輸入評論哦!',
+        text: '尚未輸入評論喔!',
         icon: 'warning',
         confirmButtonText: '確定',
+        confirmButtonColor: '#fe9900',
       })
+      setComment('')
       return
     }
 
@@ -68,6 +70,15 @@ function PrivateRecipeStarComment(props) {
       setReRender((prev) => !prev)
       setCurrentValue(0)
       setComment('')
+      if (res.status === 202) {
+        Swal.fire({
+          text: '新增成功!',
+          icon: 'success',
+          timer: 1500,
+          confirmButtonText: '確定',
+          confirmButtonColor: '#fe9900',
+        })
+      }
     } catch (e) {
       console.log(e)
     }
@@ -99,6 +110,7 @@ function PrivateRecipeStarComment(props) {
                   type="text"
                   placeholder="留下您的評論"
                   value={comment}
+                  maxLength={60}
                   onChange={(e) => {
                     setComment(e.target.value)
                   }}
@@ -108,14 +120,14 @@ function PrivateRecipeStarComment(props) {
                     {stars.map((value, index) => {
                       return (
                         <FontAwesomeIcon
-                          icon="star"
+                          icon={
+                            (hoverValue || currentValue) > index
+                              ? 'star'
+                              : ['far', 'star']
+                          }
                           size="2x"
                           key={index}
-                          color={
-                            (hoverValue || currentValue) > index
-                              ? colors.yellow
-                              : colors.grey
-                          }
+                          style={colors}
                           onClick={() => {
                             handleClick(index + 1)
                           }}
