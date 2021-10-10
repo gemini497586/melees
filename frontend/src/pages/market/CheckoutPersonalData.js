@@ -38,15 +38,12 @@ function CheckoutPersonalData() {
       setAlert(true)
       let red = document.getElementById('payingBtn')
       red.classList.add('checkout-alert')
-    } else if (
-      !name ||
-      !phone ||
-      !email ||
-      !address ||
-      !/^(09)[0-9]{8}$/.test(phone) ||
-      !/^[A-Z0-9._%+-]+@[A-Z0-9._]+\.[A-Z]{2,}$/i.test(email)
-    ) {
+    } else if (!name || !phone || !email || !address) {
       Swal.fire('請完整填寫購買資料')
+    } else if (!/^(09)[0-9]{8}$/.test(phone)) {
+      Swal.fire('電話號碼格式有誤')
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9._]+\.[A-Z]{2,}$/i.test(email)) {
+      Swal.fire('電子信箱格式有誤')
     } else {
       addInfo({
         id: id,
