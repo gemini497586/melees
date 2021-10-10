@@ -33,10 +33,13 @@ function PrivateRecipeComment(props) {
               <div className="col-12 col-md-3">
                 <div className="PrivateRecipeComment-container">
                   <div className="d-flex">
-                    {/* {avatar1(value, index)} */}
                     <figure className="PrivateRecipeComment-avatar">
                       <img
-                        src={`${API_URL}/member/${value.picture}`}
+                        src={
+                          value.picture.includes('http')
+                            ? `${value.picture}`
+                            : `${API_URL}/member/${value.picture}`
+                        }
                         className="b-cover-fit"
                         alt=""
                       />
@@ -55,9 +58,9 @@ function PrivateRecipeComment(props) {
                   <span className="font-400SL PrivateRecipeComment">
                     {value.comment}
                   </span>
-                  <div className="d-flex PrivateRecipeComment-more justify-content-end">
+                  {/* <div className="d-flex PrivateRecipeComment-more justify-content-end">
                     <span className="font-400SS">看更多→</span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             )
