@@ -287,11 +287,11 @@ function PrivateRecipeEdit() {
       <div className="page-group">
         <PrivateReicpeAnimate />
 
-        <pre>照片 {JSON.stringify(recipePhoto, null, 2)}</pre>
+        {/* <pre>照片 {JSON.stringify(recipePhoto, null, 2)}</pre>
         <pre>名稱 {JSON.stringify(recipeName, null, 2)}</pre>
         <pre>預覽 {JSON.stringify(imgPreview, null, 2)}</pre>
         <pre>tag {JSON.stringify(displayTag, null, 2)}</pre>
-        <pre>介紹 {JSON.stringify(recipeIntro, null, 2)}</pre>
+        <pre>介紹 {JSON.stringify(recipeIntro, null, 2)}</pre> */}
 
         <div className="container">
           <div className="row justify-content-center">
@@ -399,6 +399,9 @@ function PrivateRecipeEdit() {
                         size="lg"
                         onClick={(e) => {
                           setRecipeQty(recipeQty + 1)
+                          if (recipeQty > 5) {
+                            setRecipeQty(6)
+                          }
                         }}
                       />
                     </div>

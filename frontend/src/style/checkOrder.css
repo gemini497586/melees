@@ -1,6 +1,6 @@
 .check-order {
   width: 1320px;
-  height: 1363px;
+  /* height: 1363px; */
   margin: 154px 0px 40px;
 }
 
@@ -132,7 +132,7 @@
 .main-detail-row-area {
   width: 1318px;
   height: 20px;
-  margin-top: 150px;
+  margin: 150px 0px 15px;
 }
 
 .main-detail-row-title {
@@ -144,7 +144,7 @@
 .main-detail-checkout-area {
   width: 1318px;
   height: 50px;
-  margin-top: 45px;
+  margin-top: 25px;
 }
 
 .main-detail-checkout-area p,
@@ -154,12 +154,12 @@
 }
 
 .main-detail-total-amount {
-  left: 1018px;
+  left: 850px;
   color: var(--color-red-C);
 }
 
 .main-detail-total-amount-num {
-  left: 1183px;
+  left: 1050px;
   font-weight: bold;
   color: var(--color-red-C);
 }

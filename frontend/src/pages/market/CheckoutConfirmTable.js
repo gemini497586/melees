@@ -10,10 +10,10 @@ function CheckoutConfirmTable(props) {
   // const productID = carts[index].id - 1
 
   return (
-    <tr className="d-flex justify-content-between checkout-confirm-tr">
-      <td>{carts[index].name}</td>
-      <td>*{carts[index].amount}</td>
-      <td>
+    <tr className="d-flex checkout-confirm-tr">
+      <td className="checkout-confirm-tr-name">{carts[index].name}</td>
+      <td className="checkout-confirm-tr-amount">*{carts[index].amount}</td>
+      <td className="checkout-confirm-tr-price">
         <FontAwesomeIcon icon="dollar-sign" />
         {carts[index].amount * carts[index].price}
       </td>

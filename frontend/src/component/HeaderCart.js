@@ -9,9 +9,11 @@ function HeaderCart() {
   const { carts } = useCart()
   return (
     <>
-      {carts.map((value, index) => (
-        <HeaderCartRow key={index} id={value} index={index} />
-      ))}
+      <div className="header-cart-max">
+        {carts.map((value, index) => (
+          <HeaderCartRow key={index} id={value} index={index} />
+        ))}
+      </div>
       {carts.length > 0 ? (
         <Link to="/market/cart-detail">
           <button className="font-400S btn header-checkout-btn">

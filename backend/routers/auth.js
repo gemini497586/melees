@@ -61,14 +61,6 @@ const dataValidation = [
 
   // 地址驗證 --> 1.接受空值  2.max: 100;
   body("address").isLength({ max: 100 }).withMessage("J0101"),
-
-  // 手機驗證 --> 1.接受空值  2.台灣手機號碼格式
-  body("cellphone")
-    .custom((value, { req }) => {
-      let phoneRegex = /^(09)[0-9]{8}$/;
-      return phoneRegex.test(value);
-    })
-    .withMessage("H0102"),
 ];
 
 // 重設密碼的驗證
@@ -163,6 +155,25 @@ router.post(
     // 確認資料是否有正確取得
     console.log("register req.body: ", req.body);
     console.log("register req.file: ", req.file);
+
+    // 手機驗證 --> 1.接受空值  2.台灣手機號碼格式
+    console.log("req.body.cellphone", req.body.cellphone);
+
+    if (req.body.cellphone === undefined || req.body.cellphone === null) {
+      console.log("req.body.cellphone false", req.body.cellphone);
+      req.body.cellphone = "";
+    } else if (req.body.cellphone) {
+      console.log("req.body.cellphone value", req.body.cellphone);
+      let phoneRegex = /^(09)[0-9]{8}$/.test(req.body.cellphone);
+      if (!phoneRegex) {
+        return next({
+          status: 400,
+          category: "auth",
+          type: "cellphone",
+          code: "H0102",
+        });
+      }
+    }
 
     // 帳號驗證 --> 3.是否有重複註冊
     let memberAccount = await connection.queryAsync(

@@ -325,7 +325,7 @@ router.get("/intro/:id", async function(req, res, next) {
   let sq3 = "SELECT * FROM private_tags WHERE private_id = ?";
   let tagList = await connection.queryAsync(sq3, [req.params.id]);
 
-  let sq4 = "SELECT member.nickname, member.picture, private_comment.* FROM member LEFT JOIN private_comment ON member.id = private_comment.member_id WHERE private_comment.private_id = ?"
+  let sq4 = "SELECT member.nickname, member.picture, private_comment.* FROM member LEFT JOIN private_comment ON member.id = private_comment.member_id WHERE private_comment.private_id = ? ORDER BY id DESC"
   let commentList = await connection.queryAsync(sq4, [req.params.id]);
 
   res.json({resResult, ingredList, stepList, tagList, commentList})
@@ -610,7 +610,8 @@ router.post("/comment/upload/:id", async function (req, res, next) {
   // 寫回 private_recipe 的 star_rate
   let sql3 = "UPDATE private_recipe SET star_rate = ? WHERE id = ?";
   let result2 = await connection.queryAsync(sql3, [averageStar, req.params.id]);
-  res.json(data);
+  // res.json(data);
+  res.sendStatus(202)
 });
 
 // 刪除食譜
