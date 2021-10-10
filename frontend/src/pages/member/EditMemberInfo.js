@@ -113,15 +113,21 @@ function EditMemberInfo() {
 
     try {
       //  2. 通過 --> 發 axios
+      let optionalData = {
+        nickname: formValues.nickname ? formValues.nickname : '',
+        birthday: formValues.birthday ? formValues.birthday : '',
+        cellphone: formValues.cellphone ? formValues.cellphone : '',
+        address: formValues.address ? formValues.address : '',
+      }
       let formData = new FormData()
       formData.append('picture', formValues.picture)
       formData.append('name', formValues.name)
       formData.append('gender', formValues.gender)
-      formData.append('nickname', formValues.nickname)
-      formData.append('birthday', formValues.birthday)
-      formData.append('cellphone', formValues.cellphone)
       formData.append('email', formValues.email)
-      formData.append('address', formValues.address)
+      formData.append('nickname', optionalData.nickname)
+      formData.append('birthday', optionalData.birthday)
+      formData.append('cellphone', optionalData.cellphone)
+      formData.append('address', optionalData.address)
       let response = await axios.post(`${API_URL}/member/editinfo`, formData, {
         // 設定可以跨源送 cookie
         withCredentials: true,
