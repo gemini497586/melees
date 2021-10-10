@@ -126,11 +126,20 @@ function Header(props) {
 
   const handleSubmit = () => {
     setSearchList(false)
-    if (recipe === '找商品') {
-      history.push(`/search/market/${word}`)
-    }
-    if (recipe === '找食譜') {
-      history.replace(`/search/recipe/${word}`)
+    if (word !== '') {
+      if (recipe === '找商品') {
+        history.push(`/search/market/${word}`)
+      }
+      if (recipe === '找食譜') {
+        history.replace(`/search/recipe/${word}`)
+      }
+    } else {
+      Swal.fire({
+        icon: 'warning',
+        title: '請輸入搜尋文字',
+        confirmButtonText: '確認',
+        confirmButtonColor: '#fe9900',
+      })
     }
   }
 
