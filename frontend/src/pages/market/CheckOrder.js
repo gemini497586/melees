@@ -78,7 +78,9 @@ function ProductDetails() {
             return <CartDetailRow value={value} />
           })}
           <div className="main-detail-checkout-area">
-            <p className="font-400S main-detail-total-amount">訂單金額總計</p>
+            <p className="font-400S main-detail-total-amount">
+              訂單金額總計(運費150元)
+            </p>
             <h6 className="main-detail-total-amount-num">
               NT <FontAwesomeIcon icon="dollar-sign" />
               {personalData.total_price}
