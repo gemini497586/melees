@@ -1,0 +1,114 @@
+.header-cart-max {
+  width: 100%;
+  max-height: 560px;
+  /* overflow-x: hidden; */
+  overflow-y: auto;
+}
+
+/* 購物車彈出視窗 */
+.header-cart-row {
+  position: relative;
+  height: 120px;
+  border-bottom: 1px solid var(--color-grey-500);
+}
+
+.header-cart-row div,
+.header-cart-row .header-cart-row-name,
+.header-cart-row-delete {
+  position: absolute;
+}
+
+.header-cart-row-img {
+  width: 150px;
+  height: 100px;
+  top: 10px;
+  left: 22px;
+  text-align: center;
+}
+
+.header-cart-img {
+  width: 150px;
+  height: 100px;
+}
+
+.header-cart-row-name {
+  width: 160px;
+  height: 27px;
+  top: 20px;
+  left: 228px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.header-cart-row-delete {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--color-primary);
+  background: var(--color-white);
+  border-radius: 50%;
+  color: var(--color-primary);
+  top: 15px;
+  left: 420px;
+  text-align: center;
+  line-height: 35px;
+}
+
+.header-cart-row-operation {
+  width: 115px;
+  height: 36px;
+  top: 70px;
+  left: 220px;
+  text-align: center;
+  background: var(--color-grey-500);
+  border-radius: 100px;
+}
+
+.header-cart-row-operation p {
+  width: 20px;
+  padding: 0px 2px;
+  height: 36px;
+  line-height: 36px;
+}
+
+.operation-btn {
+  height: 36px;
+  line-height: 20px;
+}
+
+.operation-btn:focus {
+  box-shadow: none;
+}
+
+.header-cart-row-operation .minus {
+  margin-right: 5px;
+  border-radius: 100px 0px 0px 100px;
+}
+
+.header-cart-row-operation .plus {
+  margin-left: 10px;
+  border-radius: 0px 100px 100px 0px;
+}
+
+.header-cart-row-price {
+  width: 100px;
+  height: 27px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 26.4px;
+  top: 75px;
+  left: 370px;
+}
+
+/* 前往結帳按鈕 */
+.header-checkout-btn {
+  width: 100%;
+  background: var(--color-primary);
+  margin: 5px 0px 0px;
+  color: var(--color-white);
+  z-index: 2;
+}
+
+/* 購物車內沒商品的提示訊息 */
+.no-product-in-cart {
+}

@@ -1,0 +1,363 @@
+/* 訂單進度條 */
+.progressBar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 20px 0 0;
+}
+
+.progressBar li {
+  width: 70px;
+  /* height: 140px; */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.progressBar li + li {
+  margin-left: 70px;
+}
+
+.progressBar li + li::before {
+  content: '';
+  position: absolute;
+  width: 150px;
+  height: 6px;
+  background-color: var(--color-secondary);
+  z-index: -1;
+  top: 18px;
+  bottom: 0;
+  left: -110px;
+  /* margin: auto; */
+}
+
+.progressBar li.active {
+  border: none;
+}
+
+.progressBar li.active ~ li .progressBar-icon {
+  background-color: var(--color-primary);
+}
+
+.progressBar li.active ~ li .progressBar-text {
+  color: var(--color-primary);
+}
+
+.progressBar li.active ~ li::before {
+  background-color: var(--color-primary);
+}
+
+.progressBar-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+}
+
+.progressBar-text {
+  color: var(--color-secondary);
+  padding-top: 10px;
+}
+
+/* 訂單查詢 */
+.orderList-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+}
+.orderList-refundBtn {
+  width: 205px;
+  height: 43px;
+  border: none;
+  border-radius: 8px;
+  color: var(--color-white);
+  background-color: var(--color-primary);
+}
+.orderList-refundBtn:hover {
+  background-color: var(--color-primary-A);
+}
+
+.orderList-table-wrap {
+  border: 1px solid var(--color-secondary);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.orderList-header {
+  display: flex;
+  justify-content: space-evenly;
+  border-bottom: 1px solid var(--color-grey-500);
+  text-align: center;
+  padding: 18.5px 0;
+}
+.orderList-row {
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+  padding: 20px 0;
+}
+.orderList-row-date {
+  width: 12%;
+}
+.orderList-row-10 {
+  width: 10%;
+}
+.rderList-row-refund {
+  width: 20%;
+}
+.orderList-row:nth-child(even) {
+  background-color: var(--color-grey-300);
+}
+.orderList-row a {
+  text-decoration: none;
+  color: var(--color-primary);
+}
+.orderList-row a:hover {
+  /* text-decoration: underline; */
+  color: var(--color-primary-A);
+}
+
+@media screen and (max-width: 768px) {
+  .orderList-header,
+  .orderList-row {
+    justify-content: space-between;
+  }
+  .orderList-row {
+    font-size: 14px;
+    line-height: 19.6px;
+    letter-spacing: 3px;
+  }
+  .orderList-row-date {
+    width: 30%;
+  }
+  .orderList-row-10 {
+    width: 20%;
+  }
+  .orderList-web {
+    display: none;
+  }
+}
+
+/* 訂單查詢 */
+.orderDetail-title {
+  height: 38px;
+  width: 100%;
+  border-bottom: 1px solid var(--color-grey-500);
+  color: var(--color-grey-800);
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+.orderDetail-title-info {
+  width: 50%;
+  text-align: left;
+}
+.orderDetail-title-count {
+  width: 40%;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+  text-align: center;
+}
+.orderDetail-title-price,
+.orderDetail-title-amount,
+.orderDetail-title-total {
+  width: 30%;
+}
+
+.member-form-forOrderDetail .sumGroup {
+  width: 30%;
+  margin-left: auto;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.member-form-forOrderDetail .sumGroup-item {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  text-align: right;
+  padding-bottom: 16px;
+}
+
+.member-form-forOrderDetail .sumGroup-item-subtitle {
+  width: 50%;
+  color: var(--color-grey-800);
+}
+.member-form-forOrderDetail .sumGroup-item-money {
+  width: 50%;
+  margin-left: auto;
+}
+.member-form-forOrderDetail .sumGroup-item-total {
+  color: var(--color-red-C);
+  border-top: 1px solid var(--color-grey-800);
+  padding-top: 16px;
+}
+
+/* 訂單查詢內容的row */
+.orderDetail-row {
+  width: 100%;
+  height: 176px;
+  border-bottom: 1px solid var(--color-grey-500);
+  color: var(--color-grey-900);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.orderDetail-info {
+  width: 50%;
+  display: flex;
+  align-items: center;
+}
+.orderDetail-image {
+  width: 35%;
+  height: 150px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.orderDetail-name {
+  width: 65%;
+  padding-left: 50px;
+}
+.orderDetail-count {
+  width: 40%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  justify-content: flex-end;
+}
+.orderDetail-price,
+.orderDetail-total {
+  width: 30%;
+  margin: 0;
+}
+.orderDetail-amount {
+  width: 30%;
+  background: var(--color-grey-300);
+  height: 43px;
+  line-height: 43px;
+  border-radius: 100px;
+}
+.orderDetail-total {
+  text-align: end;
+}
+.orderDetail {
+  width: 1320px;
+  height: 900px;
+  border: 1px solid var(--color-secondary);
+  border-radius: 4px;
+  margin-top: 120px;
+}
+
+/* 訂單明細的客製版 */
+.member-form-forOrderDetail {
+  margin-top: 30px;
+}
+.member-form-title {
+  color: var(--color-grey-900);
+}
+
+/* 付款方式與寄送資料 */
+.member-form-group-content-forPayInfo {
+  margin: 0 0 30px 0;
+}
+.member-form-forOrderDetail .orderDetail-payInfo {
+  list-style: none;
+  color: var(--color-grey-800);
+  padding: 0 50px;
+}
+.member-form-forOrderDetail .orderDetail-payInfo li {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--color-grey-500);
+}
+.member-form-forOrderDetail .orderDetail-payInfo li strong {
+  margin-right: 26px;
+}
+
+/* 注意事項 */
+.member-form-forOrderDetail .orderDetail-notes {
+  color: var(--color-grey-800);
+  padding-left: 80px;
+}
+.member-form-forOrderDetail .orderDetail-notes li {
+  line-height: 36px;
+}
+.member-form-forOrderDetail .orderDetail-notes li a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+.member-form-forOrderDetail .orderDetail-notes li strong {
+  color: var(--color-red-C);
+  font-weight: 400;
+}
+
+@media screen and (max-width: 768px) {
+  .orderDetail-title,
+  .orderDetail-total {
+    display: none;
+  }
+  .orderDetail-row {
+    justify-content: start;
+  }
+  .orderDetail-info {
+    width: 70%;
+    flex-grow: 1;
+  }
+  .orderDetail-image {
+    width: 150px;
+    height: 100px;
+  }
+  .orderDetail-name {
+    padding-left: 5px;
+  }
+  .orderDetail-activity,
+  .orderDetail-price {
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: 3px;
+  }
+  .orderDetail-activity {
+    margin: 0;
+  }
+  .orderDetail-productname {
+    font-size: 14px;
+    line-height: 19.6px;
+    letter-spacing: 3px;
+  }
+  .orderDetail-count {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+  }
+  .orderDetail-price {
+    text-align: end;
+    width: 100%;
+  }
+  .orderDetail-amount,
+  .orderDetail-price {
+    text-align: end;
+    width: 100%;
+    background: transparent;
+    font-size: 16px;
+    line-height: 22.4px;
+    letter-spacing: 3px;
+  }
+  .member-form-forOrderDetail .sumGroup {
+    width: 100%;
+    margin-left: auto;
+  }
+  .member-form-forOrderDetail .orderDetail-payInfo,
+  .member-form-forOrderDetail .orderDetail-notes {
+    padding: 0;
+  }
+}

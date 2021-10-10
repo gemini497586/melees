@@ -1,0 +1,16 @@
+.tag-box {
+  padding: 6px 18px;
+  border-radius: 60px;
+  background: var(--color-secondary);
+  color: var(--color-white);
+  cursor: pointer;
+}
+.tag-box a {
+  text-decoration: none;
+  color: var(--color-white);
+}
+.tag-box:hover {
+  transition: 0.2s;
+  color: var(--color-white);
+  background: var(--color-grey-500);
+}

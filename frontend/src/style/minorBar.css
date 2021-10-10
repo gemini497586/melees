@@ -1,0 +1,31 @@
+.minor-bar {
+  display: flex;
+  flex-wrap: nowrap;
+  margin: 0px 0px 10px 220px;
+  font-size: 16px;
+  list-style: none;
+}
+
+.minor-bar a {
+  display: block;
+  text-decoration: none;
+  color: #606060;
+  padding: 0px 20px;
+}
+
+.minor-bar li {
+  border-right: 1px solid rgba(96, 96, 96, 0.5);
+  flex-shrink: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .minor-bar {
+    margin: 0px 0px 10px 0px;
+  }
+}
+
+.sub-line {
+  width: 100%;
+  height: 1px;
+  background: rgba(96, 96, 96, 0.5);
+}

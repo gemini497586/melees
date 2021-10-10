@@ -1,0 +1,111 @@
+.card-recipe {
+  margin-top: 70px;
+}
+
+.cardRecipe-others {
+  color: var(--color-grey-900);
+}
+.cardRecipe-others-hr {
+  display: block;
+  height: 1px;
+  background: var(--color-grey-900);
+  margin-bottom: 20px;
+}
+.cardRecipe-others h5 {
+  font-weight: 700;
+}
+.cardRecipe-others-more {
+  margin-right: 60px;
+}
+.cardRecipe-others-more .more-arrow {
+  margin-right: 18px;
+}
+.cardRecipe {
+  position: relative;
+  width: 306px;
+  height: 379px;
+  border-radius: 8px;
+  margin: auto;
+  margin-bottom: 60px;
+}
+.cardRecipe:hover {
+  box-shadow: 0px 0px 15px var(--color-grey-800);
+  transition: 0.4s;
+}
+.cardRecipe a,
+.cardRecipe-others-more a {
+  text-decoration: none;
+  color: var(--color-grey-900);
+}
+.cardRecipe-others-more a:hover {
+  color: var(--color-grey-800);
+}
+.cardRecipe-img {
+  width: 306px;
+  height: 250px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  overflow: hidden;
+}
+.cardRecipe-bookmark {
+  position: absolute;
+  right: 28px;
+  top: 21px;
+  color: var(--color-white);
+}
+.cardRecipe-bookmark-stat-box {
+  position: absolute;
+  width: 113px;
+  height: 33px;
+  left: 12px;
+  top: 207px;
+  border-radius: 14px;
+  background: #f0f0f0;
+}
+.cardRecipe-bookmark-stat-icon {
+  position: absolute;
+  left: 18px;
+  top: 2px;
+  color: var(--color-blue-C);
+}
+.cardRecipe-bookmark-num {
+  position: absolute;
+  width: 46px;
+  height: 20px;
+  margin-top: 6px;
+  margin-left: 46px;
+  color: var(--color-secondary);
+}
+.cardRecipe-type {
+  position: relative;
+  margin-left: 12px;
+  color: var(--color-grey-500);
+}
+.cardRecipe-name {
+  font-weight: 700;
+  position: relative;
+  margin-top: 10px;
+  margin-left: 12px;
+  color: var(--color-grey-900);
+}
+.cardRecipe-ig {
+  position: relative;
+  margin-left: 12px;
+  margin-top: 12px;
+}
+.cardRecipe-ig img {
+  width: 25px;
+}
+.cardRecipe-ig span {
+  color: var(--color-grey-800);
+  margin-left: 10px;
+}
+
+@media only screen and (min-width: 321px) and (max-width: 768px) {
+  .cardRecipe-others {
+    padding: 0 35px;
+  }
+  .cardRecipe-others-more {
+    margin-right: 0px;
+  }
+}

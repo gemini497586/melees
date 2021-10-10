@@ -1,0 +1,166 @@
+/* 登入 */
+.login {
+  width: 100%;
+  background-color: var(--color-primary);
+  margin-top: 104px;
+  padding: 150px 0;
+}
+
+.login-container {
+  max-width: 1320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.login-logo {
+  width: 42%;
+  max-width: 560px;
+  margin-right: 10%;
+}
+
+.login-logo figure img {
+  width: 100%;
+  height: 100%;
+}
+
+.login-logo h4 {
+  color: var(--color-white);
+}
+
+.login-form {
+  width: 42%;
+  max-width: 531px;
+  /* height: 668px; */
+  background: var(--color-white);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  /* text-align: center; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-form h4 {
+  margin: 60px 0 30px;
+}
+
+.login-form form {
+  width: 381px;
+}
+
+.login-form form > input {
+  width: 100%;
+  height: 45px;
+  margin-top: 20px;
+}
+
+.login-form-loginBtn {
+  width: 100%;
+  height: 43px;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border-radius: 8px;
+  border: none;
+}
+
+.login-form-loginBtn:hover {
+  background-color: var(--color-primary-A);
+}
+
+.login-form-errorMsg {
+  opacity: 0;
+  margin: 0;
+}
+
+.login-setting {
+  display: flex;
+  justify-content: space-between;
+  margin: 14px 0 34px;
+  color: var(--color-grey-800);
+}
+
+.forgot-password {
+  border: none;
+  background-color: var(--color-white);
+  color: var(--color-grey-800);
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+  color: var(--color-primary-A);
+}
+
+.quickLogin {
+  display: flex;
+  align-items: center;
+  height: 43px;
+  font-size: 16px;
+}
+
+.quickLogin-googleBtn {
+  width: 218px;
+  height: 41px;
+  box-sizing: border-box;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+}
+
+/* google 左側 icon */
+/* .quickLogin-googleBtn div {} */
+
+/* google 右側 文字 */
+.quickLogin-googleBtn span {
+  font-size: 16px;
+}
+
+.quickLogin-googleBtn:hover {
+  background-color: var(--color-grey-300);
+}
+
+.quickLogin-facebookBtn {
+  width: 232px;
+  height: 43px;
+  background-color: var(--color-FBblue);
+  color: var(--color-white);
+  border: none;
+  display: flex;
+  align-items: center;
+}
+.quickLogin-facebookBtn i {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  font-size: 22px;
+  line-height: 43px;
+}
+
+.quickLogin-facebookBtn:hover {
+  background-color: var(--color-blue-B);
+}
+
+.shoppingRule {
+  color: var(--color-grey-500);
+  text-align: center;
+  padding: 50px 24px 20px;
+  border-bottom: 1px solid var(--color-grey-500);
+}
+.shoppingRule strong {
+  color: var(--color-grey-900);
+}
+
+.login-registerText {
+  color: var(--color-grey-500);
+  margin-bottom: 60px;
+}
+.login-registerText a {
+  text-decoration: none;
+  color: var(--color-primary);
+}
+
+.login-registerText a:hover {
+  text-decoration: underline;
+  color: var(--color-primary-A);
+}

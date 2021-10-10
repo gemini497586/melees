@@ -1,0 +1,65 @@
+/* 訂單進度條 */
+.orderProgressBar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin-top: 124px;
+}
+
+.orderProgressBar li {
+  width: 70px;
+  /* height: 140px; */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.orderProgressBar li + li {
+  margin-left: 70px;
+}
+
+.orderProgressBar li + li::before {
+  content: '';
+  position: absolute;
+  width: 150px;
+  height: 6px;
+  background-color: var(--color-secondary);
+  z-index: -1;
+  top: 18px;
+  bottom: 0;
+  left: -110px;
+  /* margin: auto; */
+}
+
+.orderProgressBar li.active ~ li .orderProgressBar-icon {
+  background-color: var(--color-primary);
+}
+
+.orderProgressBar li.active ~ li .orderProgressBar-text {
+  color: var(--color-primary);
+}
+
+.orderProgressBar li.active ~ li::before {
+  background-color: var(--color-primary);
+}
+
+.orderProgressBar-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+}
+
+.orderProgressBar-text {
+  color: var(--color-secondary);
+  padding-top: 10px;
+}

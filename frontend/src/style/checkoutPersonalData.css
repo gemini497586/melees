@@ -1,0 +1,197 @@
+.checkout-personal-data {
+  width: 1320px;
+  height: 936px;
+  border: 1px solid #000;
+  border-radius: 4px;
+  margin: 56px 0px 40px;
+  position: relative;
+}
+
+.checkout-personal-data h5,
+.checkout-personal-data h6,
+.checkout-personal-data p,
+.checkout-personal-data div,
+.checkout-personal-data button,
+.checkout-personal-data span {
+  position: absolute;
+}
+
+.form-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  top: 32px;
+  left: 65px;
+  background: var(--color-secondary);
+  color: #fff;
+  line-height: 40px;
+  text-align: center;
+}
+
+.checkout-personal-data-title {
+  font-weight: bold;
+  top: 37px;
+  left: 112px;
+  color: var(--color-grey-900);
+}
+
+.checkout-personal-data-w1100 {
+  width: 1100px;
+  height: 1px;
+  top: 72px;
+  left: 114px;
+  background: var(--color-grey-900);
+}
+
+.checkout-personal-data-label {
+  top: 14px;
+  right: 338px;
+  position: absolute;
+}
+
+.checkout-personal-data-input {
+  padding: 20px;
+}
+
+.checkout-personal-data-input,
+.checkout-personal-data-btn {
+  top: 0px;
+  left: 144px;
+  position: absolute;
+  width: 306px;
+  height: 45px;
+  border: 1px solid #555;
+}
+
+.checkout-personal-data-name {
+  width: 450px;
+  height: 45px;
+  top: 105px;
+  left: 76px;
+}
+
+.checkout-personal-data-phone {
+  width: 450px;
+  height: 45px;
+  top: 191px;
+  left: 76px;
+}
+
+.checkout-personal-data input:invalid {
+  border: 2px solid var(--color-red-C);
+  box-shadow: 0px 0px 5px 2px rgba(255, 21, 21, 0.2);
+}
+
+.checkout-personal-data input:invalid:focus {
+  outline: 1px solid var(--color-red-C);
+}
+
+.checkout-personal-data span {
+  top: -20px;
+  left: 150px;
+  color: var(--color-red-C);
+}
+
+.checkout-personal-data input:valid + span {
+  display: none;
+}
+
+.checkout-personal-data input:invalid + span {
+  display: inline;
+}
+
+.checkout-personal-data-email {
+  width: 450px;
+  height: 45px;
+  top: 277px;
+  left: 76px;
+}
+
+/* 地址部分 */
+.checkout-credit-card-address {
+  width: 450px;
+  height: 45px;
+  top: 363px;
+  left: 76px;
+}
+
+/* 付款方式 */
+.checkout-personal-data-paying {
+  width: 450px;
+  height: 45px;
+  top: 449px;
+  left: 76px;
+}
+
+.paying-dropdown-btn li {
+  width: 294px;
+  text-align: center;
+  line-height: 40px;
+  cursor: pointer;
+  padding: 0px;
+}
+
+.paying-dropdown-btn li:hover {
+  background: var(--color-primary);
+}
+
+/* 未選擇付款方式的提示訊息 */
+.show-alert {
+  top: 428px;
+  left: 230px;
+  color: red;
+}
+.checkout-alert {
+  border: 1px solid var(--color-red-C);
+  box-shadow: 0px 0px 5px 2px rgba(255, 76, 76, 0.2);
+}
+
+/* 下方按鈕部分 */
+.checkout-personal-data-checkout-area {
+  width: 1318px;
+  height: 101px;
+  bottom: 51px;
+}
+
+.checkout-personal-data-checkout-area .btn {
+  width: 205px;
+  height: 43px;
+  border-radius: 100px;
+}
+
+.checkout-personal-data-checkout-area .btn:focus {
+  box-shadow: 0px 0px 10px rgba(255, 153, 0, 0.7);
+}
+
+.checkout-personal-data-back-btn {
+  top: 48px;
+  left: 50px;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.checkout-personal-data-checkout-area p {
+  top: 10px;
+  left: 1029px;
+  letter-spacing: 0px;
+  color: var(--color-red-C);
+}
+
+.checkout-personal-data-checkout-area h6 {
+  top: 10px;
+  left: 1164px;
+  font-weight: bold;
+  color: var(--color-red-C);
+}
+
+.checkout-personal-data-next-btn {
+  top: 48px;
+  left: 1050px;
+  color: #fff;
+  background: var(--color-primary);
+}
+
+.checkout-personal-data input::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: var(--color-red-C);
+}

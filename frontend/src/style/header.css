@@ -1,0 +1,222 @@
+.header-bar {
+  font-size: 18px;
+  display: flex;
+  height: 104px;
+  /* 黏在頁面最上面 */
+  position: fixed;
+  top: 0px;
+  background: var(--color-white);
+  width: 100%;
+  z-index: 10;
+}
+
+.header-bar a {
+  color: var(--color-grey-900);
+  text-decoration: none;
+}
+
+.logo {
+  margin: 0px 20px 0px 80px;
+}
+
+.header-bar-main-ul {
+  list-style: none;
+  display: flex;
+  font-size: 18px;
+  margin-top: 15px;
+}
+
+.header-bar ul li {
+  margin: 10px 5px;
+  min-width: 100px;
+  height: 40px;
+  text-align: center;
+}
+
+/* 搜尋欄開始 */
+.header-search-input-group {
+  display: flex;
+  height: 45px;
+  border: 1px solid var(--color-grey-800);
+  border-radius: 4px;
+}
+
+.header-search-dropdown-btn {
+  color: var(--color-secondary);
+  border-right: 1px solid var(--color-secondary);
+  border-radius: 4px 0px 0px 4px;
+  align-self: center;
+  padding: 10px;
+  position: relative;
+}
+
+.header-search-dropdown-btn:focus {
+  box-shadow: 0px 0px 8px var(--color-primary);
+}
+
+.header-dropdown-item {
+  position: absolute;
+  width: 94px;
+  height: 40px;
+  top: 43px;
+  left: -2px;
+  line-height: 40px;
+  border: 1px solid var(--color-secondary);
+  /* border-top: none; */
+  border-radius: 4px 0 4px 4px;
+  background-color: var(--color-white);
+}
+
+.dropdown-menu li a:focus {
+  background: var(--color-grey-800);
+}
+
+.header-search-input {
+  border: none;
+  margin-left: 10px;
+}
+
+.header-search-input:focus {
+  outline: none;
+}
+
+.header-search-btn {
+  border-left: 1px solid var(--color-grey-800);
+  border-radius: 0px;
+  margin: 6px;
+  padding: 0px 10px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.header-search-btn:hover {
+  color: var(--color-primary);
+}
+
+.header-search-recommend-menu {
+  width: 280px;
+  max-height: 450px;
+  border-radius: 0 4px 4px 4px;
+  text-align: left;
+  overflow: hidden;
+  overflow-y: auto;
+  color: var(--color-secondary);
+  border: 1px solid var(--color-grey-800);
+  border-top: 0px;
+  background: var(--color-white);
+  box-shadow: 0 0 6px var(--color-grey-800);
+}
+.header-search-recommend-menu::-webkit-scrollbar {
+  display: none;
+}
+.header-search-recommend-menu-word {
+  padding: 10px 10px;
+}
+.header-search-recommend-menu-word:hover {
+  cursor: pointer;
+  color: var(--color-primary);
+  transition: 0.3s;
+}
+/* 搜尋欄結束 */
+
+/* 購物車開始 */
+.cart-btn {
+  margin: 10px -10px 0px 10px;
+  cursor: pointer;
+}
+
+.gray-circle {
+  margin: auto;
+  width: 50px;
+  height: 50px;
+  background: var(--color-grey-300);
+  border-radius: 50%;
+  align-items: center;
+  position: relative;
+}
+
+.shopping-cart {
+  position: absolute;
+  top: calc(50% - 12px);
+  right: calc(50% - 12px);
+}
+
+.cartNum {
+  width: 20px;
+  height: 20px;
+  top: 5px;
+  left: 28px;
+  border-radius: 50%;
+  position: absolute;
+  background: var(--color-primary);
+  color: var(--color-white);
+  letter-spacing: 0px;
+  z-index: 2;
+}
+/* 購物車結束 */
+
+/* 使用者開始 */
+.user-btn {
+  cursor: pointer;
+}
+
+.user-avatar {
+  width: 47px;
+  height: 47px;
+  margin-left: 20px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.user {
+  min-width: 48px;
+  height: 48px;
+}
+
+.user-dropdown hr {
+  margin: -10px 0px 0px;
+}
+
+.user-dropdown li {
+  margin: 5px;
+}
+/* 使用者結束 */
+
+/* 這是中間拿來隔開主選單跟搜尋欄的box */
+.box {
+  width: 300px;
+}
+
+/* 選取(當前頁面) */
+.header-active a {
+  color: var(--color-primary);
+}
+
+.header-active {
+  border-bottom: 2px solid var(--color-primary);
+}
+/* 選取(當前頁面)結束 */
+
+/* 購物車彈出視窗 */
+.header-cart {
+  width: 510px;
+  max-height: 800px;
+  background: rgba(255, 255, 255, 0.9);
+  top: 80px;
+  right: 60px;
+  border-radius: 4px;
+  border: 1px solid var(--color-grey-300);
+  padding: 10px;
+  overflow: hidden;
+}
+
+/* 註冊及登入 */
+.header-register,
+.header-login {
+  line-height: 40px;
+  color: var(--color-grey-900);
+}
+.header-register {
+  color: var(--color-primary);
+  border-right: 1px solid var(--color-grey-500);
+}

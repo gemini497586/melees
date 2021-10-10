@@ -1,0 +1,24 @@
+{
+  "featureType": [
+    {
+      "id": 1,
+      "typeid": 1,
+      "text": "健康長肉肉"
+    },
+    {
+      "id": 2,
+      "typeid": 2,
+      "text": "健康不吃肉"
+    },
+    {
+      "id": 3,
+      "typeid": 3,
+      "text": "家常好手藝"
+    },
+    {
+      "id": 4,
+      "typeid": 4,
+      "text": "上班不煩惱"
+    }
+  ]
+}
