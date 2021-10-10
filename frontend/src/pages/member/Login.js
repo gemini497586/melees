@@ -47,7 +47,7 @@ function Login() {
     if (!formValues.account || !formValues.password) {
       let errCode = {
         category: 'auth',
-        code: 'B0102',
+        code: 'L0102',
       }
       setErrorMsg(queryMsg(errCode.category, errCode.code))
     }
