@@ -73,8 +73,6 @@ function CheckoutPersonalData() {
     }
   }, [frontendCheck])
 
-  useEffect(() => {})
-
   useEffect(() => {
     // 拿到會員的資料
     axios
