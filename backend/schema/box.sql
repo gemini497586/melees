@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： localhost
--- 產生時間： 2021 年 10 月 08 日 16:28
+-- 產生時間： 2021 年 10 月 10 日 15:23
 -- 伺服器版本： 10.4.19-MariaDB
 -- PHP 版本： 8.0.7
 
@@ -47,18 +47,18 @@ INSERT INTO `box` (`id`, `name`, `image`, `inside_image`, `cal`, `product_id`, `
 (2, '雞胸肉', 'chicken.png', 'chicken2.png', 165, 12, 15, '1'),
 (3, '豬肉', 'pork.png', 'pork2.png', 242, 4, 57, '1'),
 (4, '白蝦', 'shrimp.png', 'shrimp2.png', 103, 17, 59, '1'),
-(5, '白飯', 'rice.png', 'rice2.png', 280, 10, 8, '1'),
+(5, '白飯', 'rice.png', 'rice2.png', 280, 36, 8, '1'),
 (6, '水煮蛋', 'egg.png', 'egg2.png', 80, 15, 46, '1'),
 (7, '香菇', 'mushroom.png', 'mushroom2.png', 20, 19, 22, '1'),
 (8, '生菜', 'lettuce.png', 'lettuce2.png', 17, 16, 12, '1'),
 (9, '花椰菜', 'broccoli.png', 'broccoli2.png', 25, 35, 41, '1'),
 (10, '高麗菜', 'cabbage.png', 'cabbage2.png', 25, 28, 7, '1'),
 (11, '豆腐', 'tofu.png', 'tofu2.png', 76, 20, 32, '1'),
-(12, '鮭魚', 'salmon.png', 'salmon2.png', 208, 32, 2, '1'),
-(13, '炒飯', 'friedrice.png', 'friedrice2.png', 163, 14, 36, '1'),
+(12, '鮭魚', 'salmon.png', 'salmon2.png', 208, 31, 2, '1'),
+(13, '炒飯', 'friedrice.png', 'friedrice2.png', 163, 10, 36, '1'),
 (14, '玉米筍', 'corn.png', 'corn2.png', 31, 33, 16, '1'),
-(15, '義大利麵', 'pasta.png', 'pasta2.png', 371, 31, 1, '1'),
-(16, '義大利麵(直麵)', 'spaghetti.png', 'spaghetti2.png', 158, 18, 62, '1');
+(15, '義大利麵', 'pasta.png', 'pasta2.png', 371, 18, 1, '1'),
+(16, '義大利麵(直麵)', 'spaghetti.png', 'spaghetti2.png', 158, 38, 62, '1');
 
 -- --------------------------------------------------------
 
@@ -150,7 +150,9 @@ INSERT INTO `box_save_detail` (`id`, `save_id`, `box_id`) VALUES
 (84, 27, 2),
 (85, 27, 1),
 (86, 28, 5),
-(87, 29, 8);
+(87, 29, 8),
+(88, 30, 8),
+(89, 31, 13);
 
 -- --------------------------------------------------------
 
@@ -192,7 +194,9 @@ INSERT INTO `box_save_main` (`id`, `member_id`, `name`, `cal`, `create_date`) VA
 (21, 3, '112333', 412, '2021-10-05'),
 (27, 1, '2222', 527, '2021-10-07'),
 (28, 1, '123', 280, '2021-10-07'),
-(29, 2, ' ', 17, '2021-10-08');
+(29, 2, ' ', 17, '2021-10-08'),
+(30, 1, ' ', 17, '2021-10-08'),
+(31, 1, '123', 163, '2021-10-08');
 
 --
 -- 已傾印資料表的索引
@@ -230,13 +234,13 @@ ALTER TABLE `box`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `box_save_detail`
 --
 ALTER TABLE `box_save_detail`
-  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `box_save_main`
 --
 ALTER TABLE `box_save_main`
-  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
