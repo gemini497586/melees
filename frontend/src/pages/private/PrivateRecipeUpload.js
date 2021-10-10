@@ -245,7 +245,7 @@ function PrivateRecipeUpload() {
           icon: 'success',
           title: '新增成功!',
           text: '回到私藏主頁...',
-          // confirmButtonColor: '#fe9900',
+          confirmButtonColor: '#fe9900',
           timer: 1500,
         }).then(() => {
           window.location = 'http://localhost:3000/private'
