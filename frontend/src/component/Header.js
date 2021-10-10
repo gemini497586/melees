@@ -11,8 +11,10 @@ import { API_URL } from '../utils/config'
 import { HandleCart } from '../utils/HandleCart'
 import Swal from 'sweetalert2'
 
-function Header() {
+function Header(props) {
   const { login, setLogin } = useContext(HandleCart)
+  // 顯示header購物車
+  const [hidden, setHidden] = useState(false)
   const [word, setWord] = useState('')
 
   const [isDropDown, setIsDropDown] = useState(false)
@@ -80,9 +82,6 @@ function Header() {
         setAvatar(loginAvatar)
       })
   }, [login])
-
-  // 顯示header購物車
-  const [hidden, setHidden] = useState(false)
 
   const handleLogout = async () => {
     try {

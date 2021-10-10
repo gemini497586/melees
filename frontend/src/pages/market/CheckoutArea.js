@@ -26,9 +26,9 @@ function CheckoutArea() {
       >
         <FontAwesomeIcon icon="long-arrow-alt-left" /> 回到商城
       </Link>
-      <button className="btn font-700M cart-checkout-coupon-btn">
+      {/* <button className="btn font-700M cart-checkout-coupon-btn">
         選取優惠券
-      </button>
+      </button> */}
       <p className="font-400S cart-checkout-price-amount">商品金額總計</p>
       <p className="font-700SL cart-checkout-price-amount-num">
         NT <FontAwesomeIcon icon="dollar-sign" />

@@ -34,16 +34,28 @@ function CheckoutPersonalData() {
 
   const frontendCheck = () => {
     if (howToPay === '請選擇付款方式') {
-      Swal.fire('請選擇付款方式')
+      Swal.fire({
+        title: '請選擇付款方式',
+        confirmButtonColor: '#fe9900',
+      })
       setAlert(true)
       let red = document.getElementById('payingBtn')
       red.classList.add('checkout-alert')
     } else if (!name || !phone || !email || !address) {
-      Swal.fire('請完整填寫購買資料')
+      Swal.fire({
+        title: '請完整填寫購買資料',
+        confirmButtonColor: '#fe9900',
+      })
     } else if (!/^(09)[0-9]{8}$/.test(phone)) {
-      Swal.fire('電話號碼格式有誤')
+      Swal.fire({
+        title: '電話號碼格式有誤',
+        confirmButtonColor: '#fe9900',
+      })
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9._]+\.[A-Z]{2,}$/i.test(email)) {
-      Swal.fire('電子信箱格式有誤')
+      Swal.fire({
+        title: '電子信箱格式有誤',
+        confirmButtonColor: '#fe9900',
+      })
     } else {
       addInfo({
         id: id,
@@ -72,8 +84,6 @@ function CheckoutPersonalData() {
       setPath('checkout-confirm')
     }
   }, [frontendCheck])
-
-  useEffect(() => {})
 
   useEffect(() => {
     // 拿到會員的資料
