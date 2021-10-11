@@ -137,7 +137,7 @@ function FeatureContentIntro(props) {
               DeleteLikeFeature()
             }}
           >
-            取消按讚 <FontAwesomeIcon icon={['fas', 'bookmark']} />
+            取消按讚 <FontAwesomeIcon icon={['far', 'heart']} />
           </button>
         ) : (
           <button
@@ -146,7 +146,7 @@ function FeatureContentIntro(props) {
               LikeFeature()
             }}
           >
-            按讚 <FontAwesomeIcon icon={['far', 'bookmark']} />
+            按讚 <FontAwesomeIcon icon={['far', 'heart']} />
           </button>
         )}
       </>
