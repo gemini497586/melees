@@ -17,10 +17,10 @@ function Login() {
   const { login, setLogin } = useContext(HandleCart) //登入用
   const [errorMsg, setErrorMsg] = useState()
   const [formValues, setFormValues] = useState({
-    account: '',
-    password: '',
-    // account: 'meleesadminx1',
-    // password: '123456',
+    // account: '',
+    // password: '',
+    account: 'meleesadminx1',
+    password: '123456',
   })
 
   const handleFormValuesChange = (e) => {
