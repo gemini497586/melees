@@ -10,6 +10,7 @@ import axios from 'axios'
 import { API_URL } from '../utils/config'
 import { HandleCart } from '../utils/HandleCart'
 import Swal from 'sweetalert2'
+import default_avatar from '../images/default_member_avatar.png'
 
 function Header(props) {
   const { login, setLogin } = useContext(HandleCart)
@@ -73,15 +74,18 @@ function Header(props) {
   // 抓到大頭貼
   const [avatar, setAvatar] = useState('')
   useEffect(() => {
+    setAvatar(`${default_avatar}`)
+    // console.log('沒有抓到')
     axios
       .post(`${API_URL}/market/avatar`, null, { withCredentials: true })
       .then((result) => {
+        console.log('79', result.data[0].picture)
         let loginAvatar = result.data[0].picture.includes('http')
           ? result.data[0].picture
           : `${API_URL}/member/${result.data[0].picture}`
         setAvatar(loginAvatar)
       })
-  }, [login])
+  }, [login, history])
 
   const handleLogout = async () => {
     try {
@@ -332,7 +336,7 @@ function Header(props) {
       </ul>
       {hidden && (
         <div className="header-cart position-absolute">
-          <HeaderCart />
+          <HeaderCart setHidden={setHidden} />
         </div>
       )}
     </div>

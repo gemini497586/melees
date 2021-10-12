@@ -31,6 +31,7 @@ function MemberBox() {
   const [currentPage, setCurrentPage] = useState(1)
   const perPage = 6
   const [message, setMessage] = useState('')
+  const [render, setRender] = useState('')
   // 初始化資料
   useEffect(() => {
     const getData = async () => {
@@ -59,7 +60,7 @@ function MemberBox() {
       }
     }
     getData()
-  }, [])
+  }, [render])
 
   // 排序功能
   const handleSort = (data, sortBy) => {
@@ -106,6 +107,7 @@ function MemberBox() {
                   setDisplayData={setDisplayData}
                   currentPage={currentPage}
                   perPage={perPage}
+                  setRender={setRender}
                 />
               ) : (
                 <div className="member-notice font-700L">
