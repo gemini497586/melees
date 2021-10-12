@@ -40,6 +40,7 @@ function PrivateRecipeUpload() {
       Swal.fire({
         icon: 'error',
         title: '錯誤的檔案格式!',
+        confirmButtonColor: '#fe9900',
         timer: 1500,
       })
     }
