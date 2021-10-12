@@ -134,7 +134,7 @@ function CheckoutPersonalData() {
             className="checkout-personal-data-input"
             type="text"
             placeholder="請輸入您的聯絡電話"
-            pattern="[0-9]{8,10}"
+            pattern="[0-9]{10,10}"
             required
             value={phone}
             onChange={(e) => {

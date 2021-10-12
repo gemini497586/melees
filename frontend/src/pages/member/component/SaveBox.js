@@ -5,7 +5,8 @@ import Swal from 'sweetalert2'
 import Axios from 'axios'
 
 function SaveBox(props) {
-  const { data, prepList, setDisplayData, currentPage, perPage } = props
+  const { data, prepList, setDisplayData, currentPage, perPage, setRender } =
+    props
   // 設定分頁
   const lastNumber = currentPage * perPage
   const firstNumber = lastNumber - perPage
@@ -75,6 +76,7 @@ function SaveBox(props) {
       })
       let data = res2.data.result
       setDisplayData(data)
+      setRender(1)
     } catch (e) {
       console.log(e)
     }
