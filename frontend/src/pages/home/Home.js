@@ -32,6 +32,7 @@ function Home() {
   let dialog = useRef(null)
   let svg = useRef(null)
   let hl = gsap.timeline()
+  let h2 = gsap.timeline()
   useEffect(() => {
     // Images Vars
     const food1 = bentoimg.children[1]
@@ -72,12 +73,7 @@ function Home() {
         { autoAlpha: 1, y: -600 },
         { autoAlpha: 1, y: 0, duration: 0.4 }
       )
-    hl.fromTo(
-      //   Title,
-      //   { autoAlpha: 0, y: 20 },
-      //   { autoAlpha: 1, y: 0, duration: 1 }
-      // )
-      //   .fromTo(
+    h2.fromTo(
       Dialog,
       { autoAlpha: 0 },
       { autoAlpha: 1, rotate: 720, duration: 0.5 }
@@ -92,7 +88,7 @@ function Home() {
         { autoAlpha: 0, y: -20 },
         { autoAlpha: 1, y: 0, duration: 1 }
       )
-  })
+  }, [])
 
   // 精選食譜用
   // 精選食譜資料
@@ -115,7 +111,7 @@ function Home() {
   useEffect(() => {
     Axios.get(`${API_URL}/home/feature`).then((response) => {
       setFeaturedata(response.data)
-      console.log(response.data[0])
+      // console.log(response.data[0])
       // 給預設
       setLargeimg(response.data[0].img.file_type)
       setLargetype(response.data[0].type_id)
