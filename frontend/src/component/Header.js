@@ -10,7 +10,7 @@ import axios from 'axios'
 import { API_URL } from '../utils/config'
 import { HandleCart } from '../utils/HandleCart'
 import Swal from 'sweetalert2'
-// import default_avatar from '../images/default_member_avatar.png'
+import default_avatar from '../images/default_member_avatar.png'
 
 function Header(props) {
   const { login, setLogin } = useContext(HandleCart)
@@ -74,7 +74,7 @@ function Header(props) {
   // 抓到大頭貼
   const [avatar, setAvatar] = useState('')
   useEffect(() => {
-    // setAvatar(`${API_URL}/member/${default_avatar}`)
+    setAvatar(`${default_avatar}`)
     // console.log('沒有抓到')
     axios
       .post(`${API_URL}/market/avatar`, null, { withCredentials: true })
