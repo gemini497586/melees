@@ -384,9 +384,8 @@ router.post("/recipecomment/read", async (req, res, next) => {
             "private_comment.id, private_comment.member_id, private_comment.comment, private_comment.comment_time, private_comment.star_rate AS member_star_rate, private_comment.private_id AS recipe_id, " +
             "private_recipe.picture AS recipe_img, private_recipe.star_rate AS recipe_star_rate, private_recipe.name AS recipe_name " +
             "FROM private_comment LEFT JOIN private_recipe ON private_comment.private_id = private_recipe.id " +
-            "WHERE private_comment.member_id = ?",
+            "WHERE private_comment.member_id = ? AND private_recipe.valid = 1",
         [req.session.member.id]
-        // [1] // 僅測試用
     );
 
     // 依據 食譜評論時間 由新至舊 排序

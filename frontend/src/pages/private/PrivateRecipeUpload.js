@@ -40,6 +40,7 @@ function PrivateRecipeUpload() {
       Swal.fire({
         icon: 'error',
         title: '錯誤的檔案格式!',
+        confirmButtonColor: '#fe9900',
         timer: 1500,
       })
     }
@@ -264,6 +265,48 @@ function PrivateRecipeUpload() {
             <div className="col-6">
               {/* 食譜圖片 */}
               <PrivateRecipeHeading title={title[0]} />
+              <div
+                onClick={(e) => {
+                  setRecipeName('咖哩飯')
+                  setRecipeIntro('好吃的咖哩飯')
+                  setRecipeQty(4)
+                  setIngredList([
+                    { ingred: '咖哩塊', ingred_unit: '2塊' },
+                    { ingred: '紅蘿蔔', ingred_unit: '2條' },
+                    { ingred: '雞胸肉', ingred_unit: '200g' },
+                    { ingred: '豬絞肉', ingred_unit: '350g' },
+                    { ingred: '洋蔥', ingred_unit: '2條' },
+                    { ingred: '紅蘿蔔', ingred_unit: '1顆' },
+                    { ingred: '熱水', ingred_unit: '1顆' },
+                  ])
+                  setSteps([
+                    { step: '洋蔥1顆切丁' },
+                    { step: '胡蘿蔔切小片' },
+                    { step: '馬鈴薯切大塊' },
+                    { step: '胡蘿蔔、馬鈴薯，入電鍋以1杯水蒸熟' },
+                    { step: '咖哩塊切碎' },
+                    { step: '熱鍋，洋蔥炒7~8分鐘至轉黃' },
+                    { step: '加入豬絞肉、雞胸肉拌炒至轉白' },
+                    {
+                      step: '加入米酒和咖哩粉，炒好加入熱水煮滾。如果根莖類是半熟的話，這時候就要入鍋煮至鬆軟。',
+                    },
+                    { step: '熄火，加入佛蒙特咖哩，不斷攪拌至融化' },
+                    {
+                      step: '加入蒸過的馬鈴薯、胡蘿蔔，小火煮滾，起鍋前加入爪哇咖哩，融化均勻即可',
+                    },
+                  ])
+                  setDisplayTag([
+                    '咖哩',
+                    '飯',
+                    '紅蘿蔔',
+                    '豬肉',
+                    '台灣料理',
+                    '美食',
+                  ])
+                }}
+              >
+                快速新增
+              </div>
               <div className="privateRecipeUpload">
                 <form action="" onSubmit={handleSubmit}>
                   <div className="privateRecipeUpload-img">
@@ -318,6 +361,7 @@ function PrivateRecipeUpload() {
                     type="text"
                     id="name"
                     name="name"
+                    value={recipeName}
                     placeholder="請填入食譜名稱"
                     onChange={(e) => {
                       setRecipeName(e.target.value)
@@ -334,6 +378,7 @@ function PrivateRecipeUpload() {
                     id="intro"
                     cols="30"
                     rows="10"
+                    value={recipeIntro}
                     placeholder="請填入食譜介紹"
                     onChange={(e) => {
                       setRecipeIntro(e.target.value)

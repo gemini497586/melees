@@ -5,7 +5,8 @@ import './FontawsomeIcons'
 import HeaderCartRow from './HeaderCartRow'
 import useCart from '../utils/useCart'
 
-function HeaderCart() {
+function HeaderCart(props) {
+  const { setHidden } = props
   const { carts } = useCart()
   return (
     <>
@@ -16,7 +17,12 @@ function HeaderCart() {
       </div>
       {carts.length > 0 ? (
         <Link to="/market/cart-detail">
-          <button className="font-400S btn header-checkout-btn">
+          <button
+            className="font-400S btn header-checkout-btn"
+            onClick={() => {
+              setHidden(false)
+            }}
+          >
             前往結帳
           </button>
         </Link>
